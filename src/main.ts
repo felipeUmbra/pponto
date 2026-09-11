@@ -1,3 +1,4 @@
+import './styles.css';
 import { greet } from './greet.js';
 
 const app = document.querySelector('#app');

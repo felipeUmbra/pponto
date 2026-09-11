@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ponto-dot8-v2';
+const CACHE_NAME = 'pponto-v2';
 const APP_SHELL = ['./', './index.html', './manifest.webmanifest', './clock.svg'];
 
 self.addEventListener('install', (event) => {

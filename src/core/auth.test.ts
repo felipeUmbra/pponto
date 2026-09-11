@@ -46,7 +46,7 @@ describe('auth', () => {
     cpf: '12345678900',
     pin_hash: '1234',
     name: 'Mariana',
-    email: 'm@dot8.com',
+    email: 'm@pponto.com',
     role: 'rh',
     company_id: 'comp-001',
     department_id: 'dept-001',

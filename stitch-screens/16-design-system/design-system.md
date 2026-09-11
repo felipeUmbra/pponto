@@ -1,4 +1,4 @@
-# Ponto Dot8 — Design System: "Precision Vanguard"
+# pPonto — Design System: "Precision Vanguard"
 
 > Source: Stitch project `15970012694407764966`, design system asset `assets/989ba99b17c44f758a1b2017fa2a56be`
 > Name: **Precision Vanguard** — Light mode, FIDELITY color variant

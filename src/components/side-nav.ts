@@ -41,7 +41,7 @@ export function renderSideNav(activeRoute: RouteName): HTMLElement {
         <span class="material-symbols-outlined text-white">fingerprint</span>
       </div>
       <div class="flex flex-col min-w-0">
-        <span class="text-body-sm font-semibold text-white tracking-tight truncate">Dot8 Gestão</span>
+        <span class="text-body-sm font-semibold text-white tracking-tight truncate">pPonto Gestão</span>
         <span class="text-[11px] text-outline-variant truncate">${user?.role === 'admin' ? 'Administrador' : user?.role === 'rh' ? 'Gestora RH' : 'Gestor'}</span>
       </div>
     </div>

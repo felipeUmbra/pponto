@@ -1,5 +1,5 @@
 /**
- * Greeting utility for the Ponto Dot8 PWA application.
+ * Greeting utility for the pPonto PWA application.
  */
 
 export function greet(name: string): string {

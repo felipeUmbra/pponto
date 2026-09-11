@@ -1,6 +1,6 @@
 {
-  "name": "Ponto Dot8",
-  "short_name": "Ponto Dot8",
+  "name": "pPonto",
+  "short_name": "pPonto",
   "description": "Registro de ponto dos funcionários",
   "start_url": "/",
   "display": "standalone",

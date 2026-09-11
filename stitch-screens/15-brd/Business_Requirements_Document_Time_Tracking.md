@@ -4,7 +4,7 @@
 ---
 
 ## 1. Executive Summary & Project Overview
-The objective of this Business Requirements Document (BRD) is to specify the business, functional, and technical requirements for developing a new Time and Attendance Tracking System and Mobile Application. Modeled after the operational workflows and features of the Dot8 platform, this system provides a comprehensive workforce management solution. Key priorities include fraud prevention (anti-tampering), HR process automation, strict labor law compliance, and an intuitive user experience across both Web and Mobile platforms.
+The objective of this Business Requirements Document (BRD) is to specify the business, functional, and technical requirements for developing a new Time and Attendance Tracking System and Mobile Application. Modeled after the operational workflows and features of the pPonto platform, this system provides a comprehensive workforce management solution. Key priorities include fraud prevention (anti-tampering), HR process automation, strict labor law compliance, and an intuitive user experience across both Web and Mobile platforms.
 
 ---
 

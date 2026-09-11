@@ -218,13 +218,14 @@ Created and populated in Turso `pponto` (hostname: `pponto-felipeumbra.aws-ap-no
 10. ✅ Tratamento de ponto (admin) view          ← Phase 3
 11. ✅ Homologação atestados view               ← Phase 3
 12. ✅ Aprovação ajustes view                   ← Phase 3
-13. 🔲 Relatórios analíticos + banco de horas view  ← Phase 4
-14. 🔲 Fechamento de folha + fiscal export view ← Phase 4
-15. 🔲 Cercas virtuais config view              ← Phase 4
-16. 🔲 Offline module (IndexedDB + sync status) ← Phase 1 done, UI Phase 4
+13. ✅ Relatórios analíticos + banco de horas view  ← Phase 4
+14. ✅ Fechamento de folha + fiscal export view ← Phase 4
+15. ✅ Cercas virtuais config view              ← Phase 4
+16. ✅ Offline module (IndexedDB + sync status) ← Phase 1 done, UI Phase 4
 17. ✅ Web punch view (camera + GPS)            ← Phase 3
-18. 🔲 PWA hardening (SW, icons, manifest)      ← Phase 5
-19. 🔲 Tests + CI/CD                            ← Phase 5
+18. ✅ Configurações (settings + RBAC)          ← Phase 4
+19. 🔲 PWA hardening (SW, icons, manifest)      ← Phase 5
+20. 🔲 Tests + CI/CD                            ← Phase 5
 ```
 
 ---

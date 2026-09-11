@@ -11,6 +11,14 @@ import {
   summarizeMonth,
   nextPunchForToday,
   HAS_TURSO,
+  listDepartments,
+  listAllGeofences,
+  insertGeofence,
+  updateGeofence,
+  toggleGeofence,
+  deleteGeofence,
+  getAdminReport,
+  businessDaysInMonth,
 } from './data.js';
 
 // These tests run against the built-in demo dataset (no Turso credentials
@@ -110,5 +118,58 @@ describe('summarizeMonth', () => {
     expect(stats.bankMinutes).toBeDefined();
     expect(stats.progressPercent).toBeGreaterThanOrEqual(0);
     expect(stats.progressPercent).toBeLessThanOrEqual(100);
+  });
+});
+
+describe('Phase 4 admin data layer', () => {
+  it('lists departments', async () => {
+    const depts = await listDepartments('cmp-001');
+    expect(depts.length).toBeGreaterThan(0);
+    expect(depts.some((d) => d.name === 'Tecnologia')).toBe(true);
+  });
+
+  it('lists all geofences including inactive', async () => {
+    const all = await listAllGeofences('cmp-001');
+    expect(all.length).toBeGreaterThan(0);
+  });
+
+  it('inserts, updates, toggles and deletes a geofence', async () => {
+    const id = await insertGeofence({
+      companyId: 'cmp-001',
+      name: 'Nova Unidade Teste',
+      latitude: -23.5,
+      longitude: -46.6,
+      radiusMeters: 100,
+      active: 1,
+    });
+    expect(id).toBeTruthy();
+
+    await updateGeofence(id, { name: 'Unidade Renomeada', latitude: -23.51, longitude: -46.61, radiusMeters: 120, active: 1 });
+    await toggleGeofence(id, 0);
+
+    const all = await listAllGeofences('cmp-001');
+    const created = all.find((g) => g.id === id);
+    expect(created?.name).toBe('Unidade Renomeada');
+    expect(created?.radius_meters).toBe(120);
+    expect(created?.active).toBe(0);
+
+    await deleteGeofence(id);
+    const after = await listAllGeofences('cmp-001');
+    expect(after.find((g) => g.id === id)).toBeUndefined();
+  });
+
+  it('businessDaysInMonth counts Mon-Fri only', () => {
+    // October 2024: 23 business days
+    expect(businessDaysInMonth(2024, 9)).toBe(23);
+  });
+
+  it('buildAdminReport aggregates bank hours, overtime and absences', async () => {
+    const report = await getAdminReport('cmp-001', new Date().getFullYear(), new Date().getMonth());
+    expect(report.rows.length).toBeGreaterThan(0);
+    expect(report.rows[0]!.workedMinutes).toBeGreaterThanOrEqual(0);
+    expect(report.departmentBreakdown.length).toBeGreaterThan(0);
+    expect(report.weekly.length).toBe(4);
+    expect(report.totalBankMinutes).toBeDefined();
+    expect(report.absenceRate).toBeGreaterThanOrEqual(0);
   });
 });

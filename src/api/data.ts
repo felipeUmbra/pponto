@@ -35,6 +35,24 @@ export function setDemoFallback(v: boolean): void {
 }
 export const isDemoMode = (): boolean => !HAS_TURSO || demoFallback;
 
+/**
+ * Run the Turso query and, on ANY failure (401/network/proxy), flip the
+ * demo fallback flag and return the demo equivalent. Mirrors `listUsers()`
+ * so a restored session (no login round-trip) still gets demo data when
+ * Turso is unreachable or the token is invalid.
+ */
+async function withDemo<T>(tursoFn: () => Promise<T>, demoFn: () => Promise<T> | T): Promise<T> {
+  if (isDemoMode()) return demoFn();
+  try {
+    const result = await tursoFn();
+    setDemoFallback(false);
+    return result;
+  } catch {
+    setDemoFallback(true);
+    return demoFn();
+  }
+}
+
 // ─── Local fallback seed (demo without Turso credentials) ───
 
 const hoursAgo = (h: number): string => new Date(Date.now() - h * 3_600_000).toISOString();
@@ -366,50 +384,55 @@ export async function listUsers(): Promise<{ id: string; name: string; role: str
 
 /** Current user with their active work schedule (same company, dated). */
 export async function getUserWithSchedule(userId: string): Promise<UserWithSchedule> {
-  if (isDemoMode()) {
+  const demoUser = (): UserWithSchedule => {
     const u = demo.users.find((x) => x.id === userId) ?? demo.users[0];
     const sch = demo.schedules['sch-comercial'];
     return { ...u, scheduleName: sch.name, scheduleStart: '08:00', scheduleEnd: '18:00' };
-  }
-
-  const rows = await tursoQuery<
-    PunchRow & {
-      u_name: string;
-      u_cpf: string;
-      u_email: string;
-      u_role: string;
-      u_company: string;
-      u_dept: string | null;
-      u_created: string;
-      sch_name: string | null;
-    }
-  >(
-    `SELECT p.*, u.name AS u_name, u.cpf AS u_cpf, u.email AS u_email,
-            u.role AS u_role, u.company_id AS u_company, u.department_id AS u_dept,
-            u.created_at AS u_created, ws.name AS sch_name
-     FROM users u
-     JOIN schedule_assignments sa ON sa.user_id = u.id
-     JOIN work_schedules ws ON ws.id = sa.schedule_id
-     LEFT JOIN punches p ON p.id IS NULL
-     WHERE u.id = ?
-     ORDER BY sa.start_date DESC LIMIT 1`,
-    [userId],
-  );
-  const r = rows[0];
-  if (!r) throw new Error('Usuário não encontrado.');
-  return {
-    id: r.user_id,
-    company_id: r.u_company,
-    department_id: r.u_dept,
-    cpf: r.u_cpf,
-    name: r.u_name,
-    email: r.u_email,
-    role: r.u_role as User['role'],
-    created_at: r.u_created,
-    scheduleName: r.sch_name ?? 'Jornada CLT',
-    scheduleStart: null,
-    scheduleEnd: null,
   };
+
+  return withDemo(
+    async () => {
+      const rows = await tursoQuery<
+        PunchRow & {
+          u_name: string;
+          u_cpf: string;
+          u_email: string;
+          u_role: string;
+          u_company: string;
+          u_dept: string | null;
+          u_created: string;
+          sch_name: string | null;
+        }
+      >(
+        `SELECT p.*, u.name AS u_name, u.cpf AS u_cpf, u.email AS u_email,
+                u.role AS u_role, u.company_id AS u_company, u.department_id AS u_dept,
+                u.created_at AS u_created, ws.name AS sch_name
+         FROM users u
+         JOIN schedule_assignments sa ON sa.user_id = u.id
+         JOIN work_schedules ws ON ws.id = sa.schedule_id
+         LEFT JOIN punches p ON p.id IS NULL
+         WHERE u.id = ?
+         ORDER BY sa.start_date DESC LIMIT 1`,
+        [userId],
+      );
+      const r = rows[0];
+      if (!r) throw new Error('Usuário não encontrado.');
+      return {
+        id: r.user_id,
+        company_id: r.u_company,
+        department_id: r.u_dept,
+        cpf: r.u_cpf,
+        name: r.u_name,
+        email: r.u_email,
+        role: r.u_role as User['role'],
+        created_at: r.u_created,
+        scheduleName: r.sch_name ?? 'Jornada CLT',
+        scheduleStart: null,
+        scheduleEnd: null,
+      };
+    },
+    demoUser,
+  );
 }
 
 /** Punches for a user in a given YYYY-MM date window, oldest first. */
@@ -418,21 +441,23 @@ export async function getPunchesInRange(
   startIso: string,
   endIso: string,
 ): Promise<Punch[]> {
-  if (isDemoMode()) {
-    return demo.punches
-      .filter(
-        (p) => p.user_id === userId && p.timestamp >= startIso && p.timestamp <= endIso,
-      )
-      .sort((a, b) => a.timestamp.localeCompare(b.timestamp));
-  }
-
-  const rows = await tursoQuery<PunchRow>(
-    `SELECT * FROM punches
-     WHERE user_id = ? AND timestamp >= ? AND timestamp <= ?
-     ORDER BY timestamp ASC`,
-    [userId, startIso, endIso],
+  return withDemo(
+    async () => {
+      const rows = await tursoQuery<PunchRow>(
+        `SELECT * FROM punches
+         WHERE user_id = ? AND timestamp >= ? AND timestamp <= ?
+         ORDER BY timestamp ASC`,
+        [userId, startIso, endIso],
+      );
+      return rows.map(toPunch);
+    },
+    () =>
+      demo.punches
+        .filter(
+          (p) => p.user_id === userId && p.timestamp >= startIso && p.timestamp <= endIso,
+        )
+        .sort((a, b) => a.timestamp.localeCompare(b.timestamp)),
   );
-  return rows.map(toPunch);
 }
 
 /** Today's punches for a user. */
@@ -446,60 +471,65 @@ export async function getTodayPunches(userId: string): Promise<Punch[]> {
 
 /** Medical certificates for a user, newest first. */
 export async function getCertificates(userId: string): Promise<MedicalCertificate[]> {
-  if (isDemoMode()) {
-    return demo.certificates
-      .filter((c) => c.user_id === userId)
-      .sort((a, b) => b.uploaded_at.localeCompare(a.uploaded_at));
-  }
-
-  const rows = await tursoQuery<CertRow>(
-    `SELECT * FROM medical_certificates
-     WHERE user_id = ?
-     ORDER BY uploaded_at DESC`,
-    [userId],
+  return withDemo(
+    async () => {
+      const rows = await tursoQuery<CertRow>(
+        `SELECT * FROM medical_certificates
+         WHERE user_id = ?
+         ORDER BY uploaded_at DESC`,
+        [userId],
+      );
+      return rows.map(toCert);
+    },
+    () =>
+      demo.certificates
+        .filter((c) => c.user_id === userId)
+        .sort((a, b) => b.uploaded_at.localeCompare(a.uploaded_at)),
   );
-  return rows.map(toCert);
 }
 
 /** Adjustment requests for a user, newest first. */
 export async function getAdjustments(userId: string): Promise<AdjustmentRequest[]> {
-  if (isDemoMode()) {
-    return demo.adjustments
-      .filter((a) => a.user_id === userId)
-      .sort((a, b) => b.created_at.localeCompare(a.created_at));
-  }
-
-  const rows = await tursoQuery<AdjRow>(
-    `SELECT * FROM adjustment_requests
-     WHERE user_id = ?
-     ORDER BY created_at DESC`,
-    [userId],
+  return withDemo(
+    async () => {
+      const rows = await tursoQuery<AdjRow>(
+        `SELECT * FROM adjustment_requests
+         WHERE user_id = ?
+         ORDER BY created_at DESC`,
+        [userId],
+      );
+      return rows.map(toAdj);
+    },
+    () =>
+      demo.adjustments
+        .filter((a) => a.user_id === userId)
+        .sort((a, b) => b.created_at.localeCompare(a.created_at)),
   );
-  return rows.map(toAdj);
 }
 
 /** Active geofences for the user's company. */
 export async function getGeofences(companyId: string): Promise<Geofence[]> {
-  if (isDemoMode()) {
-    return demo.geofences.filter((g) => g.company_id === companyId && g.active === 1);
-  }
-  const rows = await tursoQuery<Geofence>(
-    `SELECT * FROM geofences WHERE company_id = ? AND active = 1`,
-    [companyId],
+  return withDemo(
+    () =>
+      tursoQuery<Geofence>(`SELECT * FROM geofences WHERE company_id = ? AND active = 1`, [
+        companyId,
+      ]),
+    () => demo.geofences.filter((g) => g.company_id === companyId && g.active === 1),
   );
-  return rows;
 }
 
 /** Company settings feature flags. */
 export async function getCompanySettings(companyId: string): Promise<CompanySettings> {
-  if (isDemoMode()) {
-    return demo.settings;
-  }
-  const rows = await tursoQuery<CompanySettings>(
-    `SELECT * FROM company_settings WHERE company_id = ? LIMIT 1`,
-    [companyId],
+  return withDemo(
+    async () => {
+      const rows = await tursoQuery<CompanySettings>(
+        `SELECT * FROM company_settings WHERE company_id = ? LIMIT 1`,
+        [companyId],
+      );
+      return rows[0] ?? demo.settings;
+    },
+    () => demo.settings,
   );
-  return rows[0] ?? demo.settings;
 }
 
 // ─── Writes ─────────────────────────────────────────────────
@@ -746,7 +776,7 @@ export interface AdminUserRow {
 
 /** All users with today's punch data for the tratamento table. */
 export async function listAdminUsers(): Promise<AdminUserRow[]> {
-  if (isDemoMode()) {
+  const buildRows = (): AdminUserRow[] => {
     const rows: AdminUserRow[] = [];
     for (const u of demo.users) {
       const todayPunches = demo.punches
@@ -774,55 +804,60 @@ export async function listAdminUsers(): Promise<AdminUserRow[]> {
       });
     }
     return rows;
-  }
+  };
 
-  const userRows = await tursoQuery<User & { sch_name: string | null }>(
-    `SELECT u.*, ws.name AS sch_name
-     FROM users u
-     LEFT JOIN schedule_assignments sa ON sa.user_id = u.id
-     LEFT JOIN work_schedules ws ON ws.id = sa.schedule_id
-     ORDER BY u.name`,
+  return withDemo(
+    async () => {
+      const userRows = await tursoQuery<User & { sch_name: string | null }>(
+        `SELECT u.*, ws.name AS sch_name
+         FROM users u
+         LEFT JOIN schedule_assignments sa ON sa.user_id = u.id
+         LEFT JOIN work_schedules ws ON ws.id = sa.schedule_id
+         ORDER BY u.name`,
+      );
+
+      const todayStart = new Date();
+      todayStart.setHours(0, 0, 0, 0);
+      const todayEnd = new Date();
+      todayEnd.setHours(23, 59, 59, 999);
+
+      const punchRows = await tursoQuery<PunchRow>(
+        `SELECT * FROM punches WHERE timestamp >= ? AND timestamp <= ? ORDER BY timestamp ASC`,
+        [todayStart.toISOString(), todayEnd.toISOString()],
+      );
+
+      const punchesByUser = new Map<string, Punch[]>();
+      for (const pr of punchRows) {
+        const list = punchesByUser.get(pr.user_id) ?? [];
+        list.push(toPunch(pr));
+        punchesByUser.set(pr.user_id, list);
+      }
+
+      return userRows.map((u) => {
+        const todayPunches = punchesByUser.get(u.id) ?? [];
+        const lastType = todayPunches.length > 0 ? todayPunches[todayPunches.length - 1].type : null;
+        const slots: Record<PunchType, string | null> = { entry: null, break_start: null, break_end: null, exit: null };
+        for (const p of todayPunches) {
+          slots[p.type] = new Date(p.timestamp).toTimeString().slice(0, 5);
+        }
+        let inconsistency: AdminUserRow['inconsistency'] = 'none';
+        if (todayPunches.length === 0) {
+          inconsistency = 'missing_entry';
+        } else if (lastType !== 'exit' && slots.entry !== null) {
+          inconsistency = 'missing_exit';
+        }
+        return {
+          user: u,
+          scheduleName: u.sch_name ?? 'CLT',
+          todayPunches,
+          lastPunchType: lastType,
+          inconsistency,
+          workedMinutesToday: computeWorkedMinutes(slots),
+        };
+      });
+    },
+    buildRows,
   );
-
-  const todayStart = new Date();
-  todayStart.setHours(0, 0, 0, 0);
-  const todayEnd = new Date();
-  todayEnd.setHours(23, 59, 59, 999);
-
-  const punchRows = await tursoQuery<PunchRow>(
-    `SELECT * FROM punches WHERE timestamp >= ? AND timestamp <= ? ORDER BY timestamp ASC`,
-    [todayStart.toISOString(), todayEnd.toISOString()],
-  );
-
-  const punchesByUser = new Map<string, Punch[]>();
-  for (const pr of punchRows) {
-    const list = punchesByUser.get(pr.user_id) ?? [];
-    list.push(toPunch(pr));
-    punchesByUser.set(pr.user_id, list);
-  }
-
-  return userRows.map((u) => {
-    const todayPunches = punchesByUser.get(u.id) ?? [];
-    const lastType = todayPunches.length > 0 ? todayPunches[todayPunches.length - 1].type : null;
-    const slots: Record<PunchType, string | null> = { entry: null, break_start: null, break_end: null, exit: null };
-    for (const p of todayPunches) {
-      slots[p.type] = new Date(p.timestamp).toTimeString().slice(0, 5);
-    }
-    let inconsistency: AdminUserRow['inconsistency'] = 'none';
-    if (todayPunches.length === 0) {
-      inconsistency = 'missing_entry';
-    } else if (lastType !== 'exit' && slots.entry !== null) {
-      inconsistency = 'missing_exit';
-    }
-    return {
-      user: u,
-      scheduleName: u.sch_name ?? 'CLT',
-      todayPunches,
-      lastPunchType: lastType,
-      inconsistency,
-      workedMinutesToday: computeWorkedMinutes(slots),
-    };
-  });
 }
 
 /** Dashboard KPI stats — present today, pending adjustments, pending certificates. */
@@ -834,7 +869,14 @@ export async function getAdminStats(): Promise<{
   pendingCount: number;
   inconsistencies: number;
 }> {
-  if (isDemoMode()) {
+  const demoStats = (): {
+    presentToday: number;
+    totalUsers: number;
+    pendingAdjustments: number;
+    pendingCertificates: number;
+    pendingCount: number;
+    inconsistencies: number;
+  } => {
     const todayKeyStr = dateKey(new Date());
     const presentToday = new Set(
       demo.punches
@@ -864,61 +906,68 @@ export async function getAdminStats(): Promise<{
       pendingCount: pendingAdj + pendingCert,
       inconsistencies: inconsistencyCount,
     };
-  }
-
-  const todayStart = new Date();
-  todayStart.setHours(0, 0, 0, 0);
-  const todayEnd = new Date();
-  todayEnd.setHours(23, 59, 59, 999);
-
-  const [totalRows, presentRows, pendingAdjRows, pendingCertRows] = await Promise.all([
-    tursoQuery<{ cnt: number }>('SELECT COUNT(*) AS cnt FROM users'),
-    tursoQuery<{ cnt: number }>(
-      'SELECT COUNT(DISTINCT user_id) AS cnt FROM punches WHERE timestamp >= ? AND timestamp <= ?',
-      [todayStart.toISOString(), todayEnd.toISOString()],
-    ),
-    tursoQuery<{ cnt: number }>(
-      "SELECT COUNT(*) AS cnt FROM adjustment_requests WHERE status = 'pending'",
-    ),
-    tursoQuery<{ cnt: number }>(
-      "SELECT COUNT(*) AS cnt FROM medical_certificates WHERE status = 'pending'",
-    ),
-  ]);
-
-  return {
-    presentToday: presentRows[0]?.cnt ?? 0,
-    totalUsers: totalRows[0]?.cnt ?? 0,
-    pendingAdjustments: pendingAdjRows[0]?.cnt ?? 0,
-    pendingCertificates: pendingCertRows[0]?.cnt ?? 0,
-    pendingCount: (pendingAdjRows[0]?.cnt ?? 0) + (pendingCertRows[0]?.cnt ?? 0),
-    inconsistencies: 0,
   };
+
+  return withDemo(
+    async () => {
+      const todayStart = new Date();
+      todayStart.setHours(0, 0, 0, 0);
+      const todayEnd = new Date();
+      todayEnd.setHours(23, 59, 59, 999);
+
+      const [totalRows, presentRows, pendingAdjRows, pendingCertRows] = await Promise.all([
+        tursoQuery<{ cnt: number }>('SELECT COUNT(*) AS cnt FROM users'),
+        tursoQuery<{ cnt: number }>(
+          'SELECT COUNT(DISTINCT user_id) AS cnt FROM punches WHERE timestamp >= ? AND timestamp <= ?',
+          [todayStart.toISOString(), todayEnd.toISOString()],
+        ),
+        tursoQuery<{ cnt: number }>(
+          "SELECT COUNT(*) AS cnt FROM adjustment_requests WHERE status = 'pending'",
+        ),
+        tursoQuery<{ cnt: number }>(
+          "SELECT COUNT(*) AS cnt FROM medical_certificates WHERE status = 'pending'",
+        ),
+      ]);
+
+      return {
+        presentToday: presentRows[0]?.cnt ?? 0,
+        totalUsers: totalRows[0]?.cnt ?? 0,
+        pendingAdjustments: pendingAdjRows[0]?.cnt ?? 0,
+        pendingCertificates: pendingCertRows[0]?.cnt ?? 0,
+        pendingCount: (pendingAdjRows[0]?.cnt ?? 0) + (pendingCertRows[0]?.cnt ?? 0),
+        inconsistencies: 0,
+      };
+    },
+    demoStats,
+  );
 }
 
 /** All pending certificates (admin view). */
 export async function listPendingCertificates(): Promise<MedicalCertificate[]> {
-  if (isDemoMode()) {
-    return demo.certificates
-      .filter((c) => c.status === 'pending')
-      .sort((a, b) => a.uploaded_at.localeCompare(b.uploaded_at));
-  }
-  const rows = await tursoQuery<CertRow>(
-    `SELECT * FROM medical_certificates WHERE status = 'pending' ORDER BY uploaded_at ASC`,
+  return withDemo(
+    () =>
+      tursoQuery<CertRow>(
+        `SELECT * FROM medical_certificates WHERE status = 'pending' ORDER BY uploaded_at ASC`,
+      ).then((rows) => rows.map(toCert)),
+    () =>
+      demo.certificates
+        .filter((c) => c.status === 'pending')
+        .sort((a, b) => a.uploaded_at.localeCompare(b.uploaded_at)),
   );
-  return rows.map(toCert);
 }
 
 /** All pending adjustments (admin view). */
 export async function listPendingAdjustments(): Promise<AdjustmentRequest[]> {
-  if (isDemoMode()) {
-    return demo.adjustments
-      .filter((a) => a.status === 'pending')
-      .sort((a, b) => a.created_at.localeCompare(b.created_at));
-  }
-  const rows = await tursoQuery<AdjRow>(
-    `SELECT * FROM adjustment_requests WHERE status = 'pending' ORDER BY created_at ASC`,
+  return withDemo(
+    () =>
+      tursoQuery<AdjRow>(
+        `SELECT * FROM adjustment_requests WHERE status = 'pending' ORDER BY created_at ASC`,
+      ).then((rows) => rows.map(toAdj)),
+    () =>
+      demo.adjustments
+        .filter((a) => a.status === 'pending')
+        .sort((a, b) => a.created_at.localeCompare(b.created_at)),
   );
-  return rows.map(toAdj);
 }
 
 /** Approve or reject a medical certificate. */
@@ -971,26 +1020,26 @@ export async function reviewAdjustment(
 
 /** All departments for a company (filter dropdown + RBAC). */
 export async function listDepartments(companyId: string): Promise<Department[]> {
-  if (isDemoMode()) {
-    return demo.departments.filter((d) => d.company_id === companyId);
-  }
-  const rows = await tursoQuery<Department>(
-    'SELECT * FROM departments WHERE company_id = ? ORDER BY name',
-    [companyId],
+  return withDemo(
+    () =>
+      tursoQuery<Department>(
+        'SELECT * FROM departments WHERE company_id = ? ORDER BY name',
+        [companyId],
+      ),
+    () => demo.departments.filter((d) => d.company_id === companyId),
   );
-  return rows;
 }
 
 /** All geofences (active + inactive) for the cercas configuration view. */
 export async function listAllGeofences(companyId: string): Promise<Geofence[]> {
-  if (isDemoMode()) {
-    return demo.geofences.filter((g) => g.company_id === companyId);
-  }
-  const rows = await tursoQuery<Geofence>(
-    'SELECT * FROM geofences WHERE company_id = ? ORDER BY created_at ASC',
-    [companyId],
+  return withDemo(
+    () =>
+      tursoQuery<Geofence>(
+        'SELECT * FROM geofences WHERE company_id = ? ORDER BY created_at ASC',
+        [companyId],
+      ),
+    () => demo.geofences.filter((g) => g.company_id === companyId),
   );
-  return rows;
 }
 
 /** Create a new geofence. */
@@ -1369,46 +1418,51 @@ export async function getAdminReport(
   year: number,
   month0: number,
 ): Promise<AdminReportData> {
-  if (isDemoMode()) {
+  const demoReport = (): AdminReportData => {
     const users = demo.users.map((u) => ({
       ...u,
       scheduleName: demo.schedules['sch-comercial']?.name,
       departmentName: demo.departments.find((d) => d.id === u.department_id)?.name ?? null,
     }));
     return buildAdminReport(users, demo.punches, demo.certificates, year, month0);
-  }
+  };
 
-  const [userRows, punchRows, certRows] = await Promise.all([
-    tursoQuery<User & { sch_name: string | null; dept_name: string | null }>(
-      `SELECT u.*, ws.name AS sch_name, d.name AS dept_name
-       FROM users u
-       LEFT JOIN schedule_assignments sa ON sa.user_id = u.id
-       LEFT JOIN work_schedules ws ON ws.id = sa.schedule_id
-       LEFT JOIN departments d ON d.id = u.department_id
-       WHERE u.company_id = ?
-       ORDER BY u.name`,
-      [companyId],
-    ),
-    tursoQuery<PunchRow>(
-      `SELECT * FROM punches
-       WHERE timestamp >= ? AND timestamp < ?
-       ORDER BY timestamp ASC`,
-      [
-        new Date(year, month0, 1).toISOString(),
-        new Date(year, month0 + 1, 1).toISOString(),
-      ],
-    ),
-    tursoQuery<CertRow>(
-      `SELECT * FROM medical_certificates
-       WHERE status = 'approved'
-       ORDER BY start_date ASC`,
-    ),
-  ]);
+  return withDemo(
+    async () => {
+      const [userRows, punchRows, certRows] = await Promise.all([
+        tursoQuery<User & { sch_name: string | null; dept_name: string | null }>(
+          `SELECT u.*, ws.name AS sch_name, d.name AS dept_name
+           FROM users u
+           LEFT JOIN schedule_assignments sa ON sa.user_id = u.id
+           LEFT JOIN work_schedules ws ON ws.id = sa.schedule_id
+           LEFT JOIN departments d ON d.id = u.department_id
+           WHERE u.company_id = ?
+           ORDER BY u.name`,
+          [companyId],
+        ),
+        tursoQuery<PunchRow>(
+          `SELECT * FROM punches
+           WHERE timestamp >= ? AND timestamp < ?
+           ORDER BY timestamp ASC`,
+          [
+            new Date(year, month0, 1).toISOString(),
+            new Date(year, month0 + 1, 1).toISOString(),
+          ],
+        ),
+        tursoQuery<CertRow>(
+          `SELECT * FROM medical_certificates
+           WHERE status = 'approved'
+           ORDER BY start_date ASC`,
+        ),
+      ]);
 
-  const users = userRows.map((r) => ({
-    ...r,
-    scheduleName: r.sch_name,
-    departmentName: r.dept_name,
-  }));
-  return buildAdminReport(users, punchRows.map(toPunch), certRows.map(toCert), year, month0);
+      const users = userRows.map((r) => ({
+        ...r,
+        scheduleName: r.sch_name,
+        departmentName: r.dept_name,
+      }));
+      return buildAdminReport(users, punchRows.map(toPunch), certRows.map(toCert), year, month0);
+    },
+    demoReport,
+  );
 }

@@ -1,6 +1,10 @@
 name: Deploy
 
 # Deploys to GitHub Pages only after the Test workflow succeeds on main.
+# The deploy steps are skipped automatically when GitHub Pages is not
+# enabled on the repository (e.g. private repositories on the free plan),
+# so CI stays green while the app build itself is still validated.
+# If Pages is later enabled, the deploy will start working with no changes.
 on:
   workflow_run:
     workflows: ["Test"]
@@ -32,6 +36,22 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Check whether GitHub Pages is enabled
+        id: pages
+        run: |
+          if curl -fsS \
+            -H "Authorization: Bearer $GITHUB_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/$GITHUB_REPOSITORY/pages" >/dev/null 2>&1; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+            echo "::notice::GitHub Pages is enabled — deploy will proceed."
+          else
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::GitHub Pages is not enabled on this repository — skipping deploy (build still validated)."
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -44,12 +64,15 @@ jobs:
         run: npm run build
 
       - uses: actions/configure-pages@v5
+        if: steps.pages.outputs.enabled == 'true'
 
       - name: Upload Pages artifact
+        if: steps.pages.outputs.enabled == 'true'
         uses: actions/upload-pages-artifact@v3
         with:
           path: dist
 
       - name: Deploy to GitHub Pages
         id: deployment
+        if: steps.pages.outputs.enabled == 'true'
         uses: actions/deploy-pages@v4

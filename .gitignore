@@ -6,3 +6,10 @@ test-results/
 .env
 .env.local
 
+# Turso credentials — NEVER commit real tokens
+.env.production
+.env.*.local
+.turso-agent-token.txt
+*.token
+*.jwt
+

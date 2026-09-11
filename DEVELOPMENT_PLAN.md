@@ -82,6 +82,11 @@ src/
 
 Created and populated in Turso `pponto` (hostname: `pponto-felipeumbra.aws-ap-northeast-1.turso.io`).
 
+> **Database strategy (dev/prod separation):**
+> - `pponto` (dev/test) — current working DB with seed data. Used during development.
+> - `pponto-prod` (production) — `pponto-prod-felipeumbra.aws-ap-northeast-1.turso.io`, created with the same schema; reserved for release deploys. Use `.env.production` with `VITE_TURSO_URL`/`VITE_TURSO_TOKEN` pointing at prod.
+> - Token note: the libsql HTTP endpoint requires a **database-scoped** token (`turso db tokens create <db>`), not an Org management token.
+
 | Table | Rows | Purpose |
 |-------|------|---------|
 | `companies` | 1 | Tenant (CNPJ, address) |
@@ -159,7 +164,7 @@ Created and populated in Turso `pponto` (hostname: `pponto-felipeumbra.aws-ap-no
 
 **Delivered:** executive KPI bento (saldo geral, HE, absenteísmo, vencimentos), horas extras por departamento bar chart, previsto-vs-efetivo weekly comparison, extrato de banco de horas por colaborador with CLT §59 split (50%/100%), CSV exports; fechamento de folha workflow ribbon (4 etapas), Portaria 671 MTE export cards (AFD Art. 83, AFDT Art. 84, ACJEF Art. 85, layout folha ERP) with download, ICP-Brasil lot audit trail with SHA-256; cercas virtuais map with radial zones, CRUD + raio slider (30–500m) + active toggle; contingência offline status card with live queue count + manual/auto sync drain; configurações with company card, feature-flag toggles, reminder lead-time, RBAC matrix. All five admin views verified end-to-end; Turso queries degrade gracefully to demo dataset when the token is invalid/unreachable.
 
-### Phase 5 — PWA Hardening & CI/CD
+### Phase 5 — PWA Hardening & CI/CD (in progress)
 | Work item | Description |
 |-----------|-------------|
 | Service worker | Update `sw.js` to precache app shell + offline fallback |
@@ -167,6 +172,22 @@ Created and populated in Turso `pponto` (hostname: `pponto-felipeumbra.aws-ap-no
 | E2E tests | Playwright tests for: login → punch → espelho; admin dashboard flows |
 | Unit tests | Vitest coverage for store, auth, router, time calculations |
 | CI pipeline | GitHub Actions: typecheck + lint + test + build on push to main |
+
+### Phase 6 — UX/UI Polish & Accessibility (planned)
+**Goal:** Fix the missing icon rendering and bring the interface to production visual quality.
+
+| Work item | Description |
+|-----------|-------------|
+| Icon font | Load **Material Symbols Outlined** (Google Fonts) in `index.html` + define `.material-symbols-outlined` font class in `styles.css` — fixes the ~147 invisible icons across 23 files (sidebar: `dashboard`, `fingerprint`, `how_to_reg`, `medical_services`, `cloud_off`, `cloud_done`, `verified_user`, etc.) |
+| Icon audit | Sweep all `.material-symbols-outlined` usages; replace any outdated glyph names (e.g. `progress_activity` → `autorenew`, `pace` → `speed`) |
+| Icon fallback | Add a self-hosted fallback / ligature subset so icons render offline (PWA) |
+| Empty states | Illustrate blank states (no data screens) with branded graphics instead of bare text |
+| Focus & a11y | Keyboard focus rings, `aria-label` on icon-only buttons, contrast pass on `text-outline` captions, `prefers-reduced-motion` |
+| Loading skeletons | Replace "Carregando…" text with shimmer skeleton blocks for async admin views |
+| Responsive audit | Table overflow on small admin viewports; mobile safe-area insets; touch targets ≥ 44px |
+| Evidence screenshots | Capture before/after icons (`evidence_icon1.png` / `evidence_icon2.png` are the "before" evidence) |
+
+**Root cause (verified):** `index.html` loads no Google Fonts; `styles.css` has no `.material-symbols-outlined` font-family rule. All icon spans render as empty inline text.
 
 ---
 
@@ -226,8 +247,10 @@ Created and populated in Turso `pponto` (hostname: `pponto-felipeumbra.aws-ap-no
 16. ✅ Offline module (IndexedDB + sync status) ← Phase 1 done, UI Phase 4
 17. ✅ Web punch view (camera + GPS)            ← Phase 3
 18. ✅ Configurações (settings + RBAC)          ← Phase 4
-19. 🔲 PWA hardening (SW, icons, manifest)      ← Phase 5
-20. 🔲 Tests + CI/CD                            ← Phase 5
+19. 🔲 PWA hardening (SW, icons, manifest)      ← Phase 5 (in progress)
+20. 🔲 E2E + CI/CD                              ← Phase 5
+21. 🔲 Icon font + UX/UI polish (missing icons)  ← Phase 6
+22. 🔲 A11y + responsive + empty states          ← Phase 6
 ```
 
 ---

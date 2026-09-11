@@ -126,3 +126,40 @@
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
+/* =========================================================
+   Material Symbols Outlined — icon font class
+   Loaded via Google Fonts in index.html with variable opsz,wght,FILL,GRAD
+   ========================================================= */
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined', 'Inter', ui-sans-serif, system-ui, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* Size utilities for inline icons */
+.material-symbols-outlined.text-sm { font-size: 14px; font-variation-settings: 'opsz' 20; }
+.material-symbols-outlined.text-xs { font-size: 12px; font-variation-settings: 'opsz' 16; }
+.material-symbols-outlined.text-lg { font-size: 32px; font-variation-settings: 'opsz' 32; }
+.material-symbols-outlined.text-xl { font-size: 48px; font-variation-settings: 'opsz' 48; }
+.material-symbols-outlined.text-2xl { font-size: 64px; font-variation-settings: 'opsz' 64; }
+.material-symbols-outlined.text-3xl { font-size: 96px; font-variation-settings: 'opsz' 96; }
+.material-symbols-outlined.text-\[18px\] { font-size: 18px; font-variation-settings: 'opsz' 18; }
+.material-symbols-outlined.text-\[20px\] { font-size: 20px; font-variation-settings: 'opsz' 20; }
+.material-symbols-outlined.text-\[22px\] { font-size: 22px; font-variation-settings: 'opsz' 22; }
+.material-symbols-outlined.text-\[24px\] { font-size: 24px; font-variation-settings: 'opsz' 24; }
+.material-symbols-outlined.text-\[26px\] { font-size: 26px; font-variation-settings: 'opsz' 26; }
+.material-symbols-outlined.text-\[28px\] { font-size: 28px; font-variation-settings: 'opsz' 28; }
+.material-symbols-outlined.text-\[30px\] { font-size: 30px; font-variation-settings: 'opsz' 30; }
+.material-symbols-outlined.text-\[32px\] { font-size: 32px; font-variation-settings: 'opsz' 32; }

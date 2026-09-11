@@ -145,7 +145,7 @@ Created and populated in Turso `pponto` (hostname: `pponto-felipeumbra.aws-ap-no
 
 **Delivered:** live KPI bento grid (presentes, atestados pendentes, ajustes pendentes, divergências), per-employee treatment table with inconsistency badges (missing exit/entry), review buttons for certificates and adjustments with badge-decrement on approve/reject, full Ponto Web screen (Stitch #06) with live Brasília clock, anti-fraud camera viewport with liveness badge, geofence map + telemetry, shift slot selector with next-action ping, insert punch (source `web`), and Portaria 671 receipt preview. All five admin views verified end-to-end against live Turso data.
 
-### Phase 4 — Reports, Compliance & Settings
+### Phase 4 — Reports, Compliance & Settings ✅ (implemented)
 **Screens:** #17 (Relatórios), #12 (Fechamento), #13 (Cercas), #14 (Offline)
 
 | View | Screen ref | BRD mapping |
@@ -156,6 +156,8 @@ Created and populated in Turso `pponto` (hostname: `pponto-felipeumbra.aws-ap-no
 | Cercas virtuais | #13 | §3.1.B (Geofencing configuration) |
 | Offline contingency | #14 | §3.1.C + §4.2 (Offline mode, sync queue) |
 | Configurações | — | Company settings, RBAC, reminder config |
+
+**Delivered:** executive KPI bento (saldo geral, HE, absenteísmo, vencimentos), horas extras por departamento bar chart, previsto-vs-efetivo weekly comparison, extrato de banco de horas por colaborador with CLT §59 split (50%/100%), CSV exports; fechamento de folha workflow ribbon (4 etapas), Portaria 671 MTE export cards (AFD Art. 83, AFDT Art. 84, ACJEF Art. 85, layout folha ERP) with download, ICP-Brasil lot audit trail with SHA-256; cercas virtuais map with radial zones, CRUD + raio slider (30–500m) + active toggle; contingência offline status card with live queue count + manual/auto sync drain; configurações with company card, feature-flag toggles, reminder lead-time, RBAC matrix. All five admin views verified end-to-end; Turso queries degrade gracefully to demo dataset when the token is invalid/unreachable.
 
 ### Phase 5 — PWA Hardening & CI/CD
 | Work item | Description |
@@ -218,13 +220,14 @@ Created and populated in Turso `pponto` (hostname: `pponto-felipeumbra.aws-ap-no
 10. ✅ Tratamento de ponto (admin) view          ← Phase 3
 11. ✅ Homologação atestados view               ← Phase 3
 12. ✅ Aprovação ajustes view                   ← Phase 3
-13. 🔲 Relatórios analíticos + banco de horas view  ← Phase 4
-14. 🔲 Fechamento de folha + fiscal export view ← Phase 4
-15. 🔲 Cercas virtuais config view              ← Phase 4
-16. 🔲 Offline module (IndexedDB + sync status) ← Phase 1 done, UI Phase 4
+13. ✅ Relatórios analíticos + banco de horas view  ← Phase 4
+14. ✅ Fechamento de folha + fiscal export view ← Phase 4
+15. ✅ Cercas virtuais config view              ← Phase 4
+16. ✅ Offline module (IndexedDB + sync status) ← Phase 1 done, UI Phase 4
 17. ✅ Web punch view (camera + GPS)            ← Phase 3
-18. 🔲 PWA hardening (SW, icons, manifest)      ← Phase 5
-19. 🔲 Tests + CI/CD                            ← Phase 5
+18. ✅ Configurações (settings + RBAC)          ← Phase 4
+19. 🔲 PWA hardening (SW, icons, manifest)      ← Phase 5
+20. 🔲 Tests + CI/CD                            ← Phase 5
 ```
 
 ---

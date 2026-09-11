@@ -158,6 +158,7 @@ export type RouteName =
   | 'admin-relatorios'
   | 'admin-fechamento'
   | 'admin-cercas'
+  | 'admin-offline'
   | 'admin-configuracoes'
   | 'not-found';
 

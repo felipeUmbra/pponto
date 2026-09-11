@@ -26,6 +26,7 @@ export const ROUTES: Route[] = [
   { name: 'admin-relatorios', path: '/admin/relatorios', roles: ['admin', 'rh', 'manager'], layout: 'admin' },
   { name: 'admin-fechamento', path: '/admin/fechamento', roles: ['admin', 'rh'], layout: 'admin' },
   { name: 'admin-cercas', path: '/admin/cercas', roles: ['admin', 'rh'], layout: 'admin' },
+  { name: 'admin-offline', path: '/admin/offline', roles: ['admin', 'rh', 'manager'], layout: 'admin' },
   { name: 'admin-configuracoes', path: '/admin/configuracoes', roles: ['admin'], layout: 'admin' },
 ];
 
@@ -127,6 +128,21 @@ export function initRouter(): void {
 
   // Initial route
   handleHashChange();
+}
+
+/**
+ * Re-run route resolution and notify listeners — used after data
+ * mutations (fechamento, cercas, configurações) to re-render views.
+ */
+export function rerender(): void {
+  const hash = window.location.hash || '#/login';
+  const matched = matchRoute(hash);
+  if (!matched) {
+    navigate('/login');
+    return;
+  }
+  currentRoute = matched;
+  listeners.forEach((cb) => cb(matched));
 }
 
 /**

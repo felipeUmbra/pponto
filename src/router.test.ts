@@ -21,6 +21,7 @@ describe('router', () => {
     expect(names).toContain('admin-relatorios');
     expect(names).toContain('admin-fechamento');
     expect(names).toContain('admin-cercas');
+    expect(names).toContain('admin-offline');
     expect(names).toContain('admin-configuracoes');
   });
 

@@ -11,6 +11,7 @@ import { requireAuth } from '../../core/auth.js';
 import { queuePunch } from '../../core/offline.js';
 import type { OfflinePunch } from '../../core/offline.js';
 import { CONFIG } from '../../config.js';
+import { showToast } from '../../components/toast.js';
 import {
   getUserWithSchedule,
   getTodayPunches,
@@ -410,34 +411,19 @@ async function doPunch(
       await queuePunch(item);
     }
 
-    showToast(online);
+    showToast(
+      online ? 'Ponto Registrado com Sucesso!' : 'Ponto Registrado em Modo Offline',
+      online
+        ? 'Comprovante assinado digitalmente ICP-Brasil.'
+        : 'Na fila de sincronização — envio automático ao reconectar.',
+      online ? { tone: 'success', icon: 'verified' } : { tone: 'offline', icon: 'cloud_off' },
+    );
     await refreshPunchState(root, userId);
     btn.removeAttribute('disabled');
   } catch {
     btn.removeAttribute('disabled');
     ctaSub.textContent = 'Falha ao registrar — tente novamente';
   }
-}
-
-function showToast(online: boolean): void {
-  const toast = document.createElement('div');
-  toast.className =
-    'fixed top-5 left-1/2 -translate-x-1/2 w-11/12 max-w-[390px] bg-navy-deep text-white p-3.5 rounded-2xl shadow-2xl border border-emerald-light/40 z-50 flex items-center space-x-3 transition-all duration-300';
-  toast.innerHTML = `
-    <div class="w-10 h-10 rounded-full bg-emerald-light/20 flex items-center justify-center text-emerald-light shrink-0">
-      <span class="material-symbols-outlined text-[24px]">${online ? 'verified' : 'cloud_off'}</span>
-    </div>
-    <div class="flex-1">
-      <h4 class="text-body-md font-semibold">${online ? 'Ponto Registrado com Sucesso!' : 'Ponto Registrado em Modo Offline'}</h4>
-      <p class="text-caption text-secondary-fixed">${online ? 'Comprovante assinado digitalmente ICP-Brasil.' : 'Na fila de sincronização — envio automático ao reconectar.'}</p>
-    </div>
-  `;
-  document.body.appendChild(toast);
-  window.setTimeout(() => {
-    toast.style.opacity = '0';
-    toast.style.transform = 'translate(-50%, -16px)';
-    window.setTimeout(() => toast.remove(), 400);
-  }, 3200);
 }
 
 /**

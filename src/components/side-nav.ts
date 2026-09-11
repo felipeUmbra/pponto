@@ -5,6 +5,7 @@
 import type { RouteName } from '../types.js';
 import { navigate } from '../router.js';
 import { getCurrentUser, clearSession } from '../core/store.js';
+import { getAdminStats, listPendingCertificates, listPendingAdjustments } from '../api/data.js';
 
 interface SidebarLink {
   icon: string;
@@ -17,12 +18,14 @@ interface SidebarLink {
 const LINKS: SidebarLink[] = [
   { icon: 'dashboard', label: 'Dashboard', route: '/admin' },
   { icon: 'fingerprint', label: 'Registrar Ponto Web', route: '/admin/ponto-web' },
-  { icon: 'how_to_reg', label: 'Tratamento de Ponto', route: '/admin/tratamento', badge: 6, badgeColor: 'bg-ruby-danger' },
-  { icon: 'calendar_month', label: 'Espelho de Ponto', route: '/admin' },
-  { icon: 'medical_services', label: 'Homologação de Atestados', route: '/admin/homologacao', badge: 12, badgeColor: 'bg-amber-soft' },
-  { icon: 'rule', label: 'Aprovação de Ajustes', route: '/admin/aprovacao', badge: 8, badgeColor: 'bg-blue-vibrant' },
-  { icon: 'receipt_long', label: 'Relatórios Fiscais', route: '/admin/fechamento' },
+  { icon: 'how_to_reg', label: 'Tratamento de Ponto', route: '/admin/tratamento' },
+  { icon: 'calendar_month', label: 'Espelho de Ponto', route: '/admin/tratamento' },
+  { icon: 'medical_services', label: 'Homologação de Atestados', route: '/admin/homologacao' },
+  { icon: 'rule', label: 'Aprovação de Ajustes', route: '/admin/aprovacao' },
+  { icon: 'query_stats', label: 'Relatórios & Banco de Horas', route: '/admin/relatorios' },
+  { icon: 'receipt_long', label: 'Fechamento de Folha', route: '/admin/fechamento' },
   { icon: 'map', label: 'Cercas Virtuais', route: '/admin/cercas' },
+  { icon: 'cloud_off', label: 'Contingência Offline', route: '/admin/offline' },
   { icon: 'settings', label: 'Configurações', route: '/admin/configuracoes' },
 ];
 
@@ -72,13 +75,16 @@ export function renderSideNav(activeRoute: RouteName): HTMLElement {
     }`;
     a.innerHTML = `
       <span class="material-symbols-outlined${isActive ? ' text-blue-accent' : ''}">${link.icon}</span>
-      <span class="text-sm">${link.label}</span>
-      ${link.badge ? `<span class="ml-auto ${link.badgeColor ?? 'bg-ruby-danger'} text-white text-[11px] px-1.5 py-0.5 rounded-full font-bold">${link.badge}</span>` : ''}
+      <span class="text-sm flex-1">${link.label}</span>
+      <span class="badge-slot" data-route="${link.route}"></span>
     `;
     nav.appendChild(a);
   }
 
   top.appendChild(nav);
+
+  // Wire live badges (best-effort; no badge if data fails)
+  void wireBadges(nav);
   aside.appendChild(top);
 
   // Footer
@@ -108,4 +114,37 @@ export function renderSideNav(activeRoute: RouteName): HTMLElement {
   aside.appendChild(footer);
 
   return aside;
+}
+
+/**
+ * Fetch live pending counts and render badges on the matching nav links.
+ * Renders nothing on failure (hermetic: no crash in tests/demo mode).
+ */
+async function wireBadges(nav: HTMLElement): Promise<void> {
+  try {
+    const [stats, certificates, adjustments] = await Promise.all([
+      getAdminStats(),
+      listPendingCertificates(),
+      listPendingAdjustments(),
+    ]);
+    const counts: Record<string, number> = {
+      '/admin/tratamento': stats.inconsistencies,
+      '/admin/homologacao': certificates.length,
+      '/admin/aprovacao': adjustments.length,
+    };
+    const colors: Record<string, string> = {
+      '/admin/tratamento': 'bg-ruby-danger',
+      '/admin/homologacao': 'bg-amber-soft',
+      '/admin/aprovacao': 'bg-blue-vibrant',
+    };
+    nav.querySelectorAll<HTMLElement>('.badge-slot').forEach((slot) => {
+      const route = slot.dataset.route ?? '';
+      const value = counts[route];
+      if (value === undefined || value <= 0) return;
+      const color = colors[route] ?? 'bg-ruby-danger';
+      slot.innerHTML = `<span class="inline-flex ml-auto ${color} text-white text-[11px] px-1.5 py-0.5 rounded-full font-bold">${value}</span>`;
+    });
+  } catch {
+    // Demo/offline failure — leave badges empty
+  }
 }

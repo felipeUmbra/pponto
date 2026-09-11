@@ -98,3 +98,24 @@ export async function clearQueue(): Promise<void> {
     tx.onerror = (): void => reject(tx.error);
   });
 }
+
+/**
+ * Drain the offline queue — push every queued punch into the live DB via
+ * `insertPunch`, then remove it from IndexedDB on success. Resolves with
+ * the number of punches pushed; throws on the first failure (the queue
+ * stays intact for a later retry).
+ */
+export async function syncQueue(
+  insert: (item: OfflinePunch) => Promise<unknown>,
+): Promise<number> {
+  const queued = await getQueuedPunches();
+  if (queued.length === 0) return 0;
+
+  let synced = 0;
+  for (const item of queued) {
+    await insert(item);
+    await removePunch(item.id);
+    synced += 1;
+  }
+  return synced;
+}

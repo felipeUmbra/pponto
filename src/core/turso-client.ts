@@ -16,13 +16,26 @@ export interface TursoResult {
 }
 
 /**
+ * Normalize the Turso connection URL for the HTTP API:
+ * `libsql://db.turso.io` → `https://db.turso.io` (fetch cannot handle libsql://)
+ */
+function httpUrl(raw: string): string {
+  if (raw.startsWith('libsql://')) {
+    return `https://${raw.slice('libsql://'.length)}`;
+  }
+  return raw;
+}
+
+const BASE_URL = httpUrl(CONFIG.TURSO_URL);
+
+/**
  * Execute a read-only SQL statement against Turso.
  */
 export async function tursoQuery<T extends TursoRow = TursoRow>(
   sql: string,
   args: unknown[] = [],
 ): Promise<T[]> {
-  const res = await fetch(CONFIG.TURSO_URL, {
+  const res = await fetch(BASE_URL, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -49,7 +62,7 @@ export async function tursoExecute(
   sql: string,
   args: unknown[] = [],
 ): Promise<TursoResult> {
-  const res = await fetch(CONFIG.TURSO_URL, {
+  const res = await fetch(BASE_URL, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -74,7 +87,7 @@ export async function tursoExecute(
 export async function tursoBatch(
   stmts: { sql: string; args?: unknown[] }[],
 ): Promise<TursoResult[]> {
-  const res = await fetch(CONFIG.TURSO_URL + '/batch', {
+  const res = await fetch(BASE_URL + '/batch', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

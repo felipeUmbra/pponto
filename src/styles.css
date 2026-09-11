@@ -93,3 +93,36 @@
   --spacing-gutter: 1.5rem;
   --spacing-margin: 1.5rem;
 }
+
+/* -------------------------------------------
+   Micro-interactions (from Stitch #11/#14)
+   ------------------------------------------- */
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.15); opacity: 0.3; }
+  100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+.pulse-ring-active {
+  animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes scan-line {
+  0% { top: 12%; opacity: 0.2; }
+  50% { top: 82%; opacity: 0.9; }
+  100% { top: 12%; opacity: 0.2; }
+}
+
+.scanner-beam {
+  animation: scan-line 2.8s ease-in-out infinite;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}

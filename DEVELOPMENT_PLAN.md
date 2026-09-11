@@ -23,6 +23,12 @@ src/
 │   ├── auth.ts              # Login/logout/session management
 │   └── offline.ts           # IndexedDB offline sync queue
 │
+├── api/                     # Data access layer
+│   └── data.ts              # Typed queries + demo fallback (works w/o Turso)
+│
+├── utils/
+│   └── time.ts              # Formatting, duration math, bank-hours, haversine
+│
 ├── views/                   # Route-bound view modules (each returns HTMLElement)
 │   ├── login.ts             # /login — authentication screen
 │   ├── mobile/              # Employee mobile views (max-w 420px)
@@ -44,16 +50,18 @@ src/
 │   ├── side-nav.ts          # Admin sidebar
 │   ├── top-bar.ts           # Admin top bar
 │   ├── mobile-nav.ts        # Mobile bottom tab bar
-│   ├── stat-card.ts         # Metric KPI card
-│   ├── punch-card.ts        # Punch record row
+│   ├── stat-card.ts         # Metric KPI card (bank hours bento tiles)
+│   ├── punch-card.ts        # Punch record row (Entrada/Saída grid)
 │   ├── status-badge.ts      # Status pill (pending/approved/rejected)
 │   ├── modal.ts             # Modal dialog
 │   └── toast.ts             # Toast notification
 │
-└── test/                    # Unit tests (Vitest + jsdom)
+└── test/                    # Unit tests (Vitest + jsdom, co-located *.test.ts)
     ├── store.test.ts
     ├── auth.test.ts
     ├── router.test.ts
+    ├── time.test.ts
+    ├── data.test.ts
     └── views/punch.test.ts
 ```
 
@@ -112,7 +120,7 @@ Created and populated in Turso `pponto` (hostname: `pponto-felipeumbra.aws-ap-no
 | Offline module | IndexedDB queue for punches; sync on reconnect |
 | Layout shells | Mobile shell (bottom tabs, max 420px) + Admin shell (sidebar + topbar) |
 
-### Phase 2 — Employee Mobile Views
+### Phase 2 — Employee Mobile Views ✅ (implemented)
 **Screens:** #11 (Bate-Ponto Biométrico), #10 (Espelho de Ponto), #08 (Solicitação Ajuste), #02–#05 (Atestado flow)
 
 | View | Screen ref | BRD mapping |
@@ -122,6 +130,8 @@ Created and populated in Turso `pponto` (hostname: `pponto-felipeumbra.aws-ap-no
 | Solicitações & Atestados | #10 lower tabs | §3.2 (Leave request management) |
 | Solicitação de ajuste | #08 | §3.1.B (Manual hour adjustment request) |
 | Camera + Atestado capture | #02, #03, #04, #05 | §3.2 (In-app leave requests with photo) |
+
+**Delivered:** live clock (Brasília), `getUserMedia` camera capture → base64, geolocation + Haversine geofence check, offline IndexedDB queue fallback, punch types auto-cycle (Entrada → Intervalo → Retorno → Saída), month calendar with daily punch grids, bank-hours bento summary, filter tabs with counts, atestado + ajuste history, adjustment request form with missing-punch preselect. All four views verified end-to-end against live Turso data.
 
 ### Phase 3 — Admin Dashboard & Tratamento
 **Screens:** #01 (Dashboard), #07 (Homologação), #09 (Aprovação), #06 (Ponto Web)
@@ -199,10 +209,11 @@ Created and populated in Turso `pponto` (hostname: `pponto-felipeumbra.aws-ap-no
 2. ✅ Turso HTTP client in src/core/turso-client.ts  ← Phase 1
 3. ✅ Types + config + hash router              ← Phase 1
 4. ✅ Auth module + login view                  ← Phase 1 (static shell)
-5. ✅ Mobile shell (bottom nav) + punch view    ← Phase 1 (placeholder)
+5. ✅ Mobile shell (bottom nav) + punch view    ← Phase 1 (placeholder) / Phase 2 (biometric)
 6. ✅ Admin shell (sidebar) + dashboard view    ← Phase 1 (placeholder)
-7. 🔲 Espelho de ponto view                     ← Phase 2
-8. 🔲 Solicitação de ajuste view                ← Phase 2
+7. ✅ Espelho de ponto view                     ← Phase 2
+8. ✅ Solicitação de ajuste view                ← Phase 2
+9. ✅ Solicitações & atestados view             ← Phase 2
 9. 🔲 Tratamento de ponto (admin) view          ← Phase 3
 10. 🔲 Homologação atestados view               ← Phase 3
 11. 🔲 Aprovação ajustes view                   ← Phase 3
@@ -225,4 +236,5 @@ Created and populated in Turso `pponto` (hostname: `pponto-felipeumbra.aws-ap-no
 | `TURSO_AUTH_TOKEN` | *(to be generated via `turso db tokens create pponto`)* | Auth token for Turso API |
 
 > **Phase 1 deliverable:** All core infrastructure files below are implemented, typechecked, linted, and unit-tested.
-> Runtime DB connectivity needs `VITE_TURSO_URL` + `VITE_TURSO_TOKEN` in `.env` (see `.env.example`).
+> **Phase 2 deliverable:** All four employee mobile views (punch, espelho, solicitações, ajuste) implemented, unit-tested (44 tests), and verified end-to-end against live Turso data.
+> Runtime DB connectivity needs `VITE_TURSO_URL` + `VITE_TURSO_TOKEN` in `.env` (see `.env.example`). When absent or unreachable, the app auto-falls back to an in-memory demo dataset so every flow remains testable.

@@ -36,7 +36,7 @@ export function renderEspelho(): HTMLElement {
   el.className = 'space-y-3.5';
   el.innerHTML = `
     <div class="text-center py-6 text-outline text-body-sm">
-      <span class="material-symbols-outlined animate-spin inline-block">progress_activity</span>
+      <span class="material-symbols-outlined animate-spin inline-block">autorenew</span>
       Carregando espelho...
     </div>
   `;
@@ -212,7 +212,7 @@ async function initEspelho(root: HTMLElement): Promise<void> {
           <div class="bg-surface-container-low/70 p-3 rounded-lg border border-border-subtle flex flex-col justify-between">
             <div class="flex items-center justify-between mb-1">
               <span class="text-caption text-on-surface-variant">Jornada Efetiva</span>
-              <span class="material-symbols-outlined text-blue-accent text-[16px]">pace</span>
+              <span class="material-symbols-outlined text-blue-accent text-[16px]">speed</span>
             </div>
             <div>
               <span class="text-tabular-time font-semibold text-navy-deep block leading-tight">${formatDuration(stats.workedMinutes)}</span>

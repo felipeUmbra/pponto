@@ -20,7 +20,7 @@ export function renderAjuste(): HTMLElement {
   el.className = 'space-y-3.5';
   el.innerHTML = `
     <div class="text-center py-6 text-outline text-body-sm">
-      <span class="material-symbols-outlined animate-spin inline-block">progress_activity</span>
+      <span class="material-symbols-outlined animate-spin inline-block">autorenew</span>
       Carregando formulário...
     </div>
   `;
@@ -307,7 +307,7 @@ async function initAjuste(root: HTMLElement): Promise<void> {
     const requestedExit = isEntry ? null : time;
 
     submitBtn!.setAttribute('disabled', 'disabled');
-    submitBtn!.innerHTML = '<span class="material-symbols-outlined animate-spin">progress_activity</span> Enviando...';
+    submitBtn!.innerHTML = '<span class="material-symbols-outlined animate-spin">autorenew</span> Enviando...';
 
     try {
       await insertAdjustment({

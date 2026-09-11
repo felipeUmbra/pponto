@@ -18,7 +18,8 @@ const LINKS: SidebarLink[] = [
   { icon: 'dashboard', label: 'Dashboard', route: '/admin' },
   { icon: 'how_to_reg', label: 'Tratamento de Ponto', route: '/admin/tratamento', badge: 6, badgeColor: 'bg-ruby-danger' },
   { icon: 'calendar_month', label: 'Espelho de Ponto', route: '/admin' },
-  { icon: 'assignment', label: 'Solicitações e Atestados', route: '/admin/homologacao', badge: 12, badgeColor: 'bg-amber-soft' },
+  { icon: 'medical_services', label: 'Homologação de Atestados', route: '/admin/homologacao', badge: 12, badgeColor: 'bg-amber-soft' },
+  { icon: 'rule', label: 'Aprovação de Ajustes', route: '/admin/aprovacao', badge: 8, badgeColor: 'bg-blue-vibrant' },
   { icon: 'receipt_long', label: 'Relatórios Fiscais', route: '/admin/fechamento' },
   { icon: 'map', label: 'Cercas Virtuais', route: '/admin/cercas' },
   { icon: 'settings', label: 'Configurações', route: '/admin/configuracoes' },
@@ -41,7 +42,7 @@ export function renderSideNav(activeRoute: RouteName): HTMLElement {
         <span class="material-symbols-outlined text-white">fingerprint</span>
       </div>
       <div class="flex flex-col min-w-0">
-        <span class="text-body-sm font-semibold text-white tracking-tight truncate">Dot8 Gestão</span>
+        <span class="text-body-sm font-semibold text-white tracking-tight truncate">pPonto Gestão</span>
         <span class="text-[11px] text-outline-variant truncate">${user?.role === 'admin' ? 'Administrador' : user?.role === 'rh' ? 'Gestora RH' : 'Gestor'}</span>
       </div>
     </div>

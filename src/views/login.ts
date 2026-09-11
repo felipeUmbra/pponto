@@ -1,6 +1,6 @@
 /**
  * Login view — PIN-based authentication.
- * Matches the general Ponto Dot8 branding (navy + blue-vibrant).
+ * Matches the general pPonto branding (navy + blue-vibrant).
  */
 import { demoLogin } from '../core/auth.js';
 import { navigate } from '../router.js';
@@ -17,7 +17,7 @@ export function renderLogin(): HTMLElement {
         <div class="w-14 h-14 rounded-2xl bg-blue-vibrant flex items-center justify-center text-white shadow-lg">
           <span class="material-symbols-outlined text-3xl">fingerprint</span>
         </div>
-        <h1 class="text-headline-lg font-bold text-on-surface tracking-tight">Ponto Dot8</h1>
+        <h1 class="text-headline-lg font-bold text-on-surface tracking-tight">pPonto</h1>
         <p class="text-body-md text-on-surface-variant text-center">Acesse seu registro de ponto</p>
       </div>
 

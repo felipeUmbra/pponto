@@ -723,3 +723,237 @@ export async function nextPunchForToday(
   const types = today.map((p) => p.type);
   return { next: nextPunchType(types), today };
 }
+
+// ─── Admin queries (Phase 3) ────────────────────────────────
+
+export interface AdminUserRow {
+  user: User;
+  scheduleName: string;
+  todayPunches: Punch[];
+  lastPunchType: PunchType | null;
+  inconsistency: 'missing_exit' | 'missing_entry' | 'none';
+  workedMinutesToday: number;
+}
+
+/** All users with today's punch data for the tratamento table. */
+export async function listAdminUsers(): Promise<AdminUserRow[]> {
+  if (isDemoMode()) {
+    const rows: AdminUserRow[] = [];
+    for (const u of demo.users) {
+      const todayPunches = demo.punches
+        .filter((p) => p.user_id === u.id && dateKey(new Date(p.timestamp)) === dateKey(new Date()))
+        .sort((a, b) => a.timestamp.localeCompare(b.timestamp));
+      const lastType = todayPunches.length > 0 ? todayPunches[todayPunches.length - 1].type : null;
+      const slots: Record<PunchType, string | null> = { entry: null, break_start: null, break_end: null, exit: null };
+      for (const p of todayPunches) {
+        slots[p.type] = new Date(p.timestamp).toTimeString().slice(0, 5);
+      }
+      const workedMin = computeWorkedMinutes(slots);
+      let inconsistency: AdminUserRow['inconsistency'] = 'none';
+      if (todayPunches.length === 0) {
+        inconsistency = 'missing_entry';
+      } else if (lastType !== 'exit' && slots.entry !== null) {
+        inconsistency = 'missing_exit';
+      }
+      rows.push({
+        user: u,
+        scheduleName: demo.schedules['sch-comercial'].name,
+        todayPunches,
+        lastPunchType: lastType,
+        inconsistency,
+        workedMinutesToday: workedMin,
+      });
+    }
+    return rows;
+  }
+
+  const userRows = await tursoQuery<User & { sch_name: string | null }>(
+    `SELECT u.*, ws.name AS sch_name
+     FROM users u
+     LEFT JOIN schedule_assignments sa ON sa.user_id = u.id
+     LEFT JOIN work_schedules ws ON ws.id = sa.schedule_id
+     ORDER BY u.name`,
+  );
+
+  const todayStart = new Date();
+  todayStart.setHours(0, 0, 0, 0);
+  const todayEnd = new Date();
+  todayEnd.setHours(23, 59, 59, 999);
+
+  const punchRows = await tursoQuery<PunchRow>(
+    `SELECT * FROM punches WHERE timestamp >= ? AND timestamp <= ? ORDER BY timestamp ASC`,
+    [todayStart.toISOString(), todayEnd.toISOString()],
+  );
+
+  const punchesByUser = new Map<string, Punch[]>();
+  for (const pr of punchRows) {
+    const list = punchesByUser.get(pr.user_id) ?? [];
+    list.push(toPunch(pr));
+    punchesByUser.set(pr.user_id, list);
+  }
+
+  return userRows.map((u) => {
+    const todayPunches = punchesByUser.get(u.id) ?? [];
+    const lastType = todayPunches.length > 0 ? todayPunches[todayPunches.length - 1].type : null;
+    const slots: Record<PunchType, string | null> = { entry: null, break_start: null, break_end: null, exit: null };
+    for (const p of todayPunches) {
+      slots[p.type] = new Date(p.timestamp).toTimeString().slice(0, 5);
+    }
+    let inconsistency: AdminUserRow['inconsistency'] = 'none';
+    if (todayPunches.length === 0) {
+      inconsistency = 'missing_entry';
+    } else if (lastType !== 'exit' && slots.entry !== null) {
+      inconsistency = 'missing_exit';
+    }
+    return {
+      user: u,
+      scheduleName: u.sch_name ?? 'CLT',
+      todayPunches,
+      lastPunchType: lastType,
+      inconsistency,
+      workedMinutesToday: computeWorkedMinutes(slots),
+    };
+  });
+}
+
+/** Dashboard KPI stats — present today, pending adjustments, pending certificates. */
+export async function getAdminStats(): Promise<{
+  presentToday: number;
+  totalUsers: number;
+  pendingAdjustments: number;
+  pendingCertificates: number;
+  pendingCount: number;
+  inconsistencies: number;
+}> {
+  if (isDemoMode()) {
+    const todayKeyStr = dateKey(new Date());
+    const presentToday = new Set(
+      demo.punches
+        .filter((p) => dateKey(new Date(p.timestamp)) === todayKeyStr && p.type === 'entry')
+        .map((p) => p.user_id),
+    ).size;
+    const pendingAdj = demo.adjustments.filter((a) => a.status === 'pending').length;
+    const pendingCert = demo.certificates.filter((c) => c.status === 'pending').length;
+    // count days with missing exit (not today)
+    const inconsistencyCount = new Set(
+      demo.users
+        .filter((u) => {
+          const lastPunch = demo.punches
+            .filter((p) => p.user_id === u.id)
+            .sort((a, b) => b.timestamp.localeCompare(a.timestamp))[0];
+          if (!lastPunch) return false;
+          const pk = dateKey(new Date(lastPunch.timestamp));
+          return pk !== todayKeyStr && lastPunch.type !== 'exit';
+        })
+        .map((u) => u.id),
+    ).size;
+    return {
+      presentToday,
+      totalUsers: demo.users.length,
+      pendingAdjustments: pendingAdj,
+      pendingCertificates: pendingCert,
+      pendingCount: pendingAdj + pendingCert,
+      inconsistencies: inconsistencyCount,
+    };
+  }
+
+  const todayStart = new Date();
+  todayStart.setHours(0, 0, 0, 0);
+  const todayEnd = new Date();
+  todayEnd.setHours(23, 59, 59, 999);
+
+  const [totalRows, presentRows, pendingAdjRows, pendingCertRows] = await Promise.all([
+    tursoQuery<{ cnt: number }>('SELECT COUNT(*) AS cnt FROM users'),
+    tursoQuery<{ cnt: number }>(
+      'SELECT COUNT(DISTINCT user_id) AS cnt FROM punches WHERE timestamp >= ? AND timestamp <= ?',
+      [todayStart.toISOString(), todayEnd.toISOString()],
+    ),
+    tursoQuery<{ cnt: number }>(
+      "SELECT COUNT(*) AS cnt FROM adjustment_requests WHERE status = 'pending'",
+    ),
+    tursoQuery<{ cnt: number }>(
+      "SELECT COUNT(*) AS cnt FROM medical_certificates WHERE status = 'pending'",
+    ),
+  ]);
+
+  return {
+    presentToday: presentRows[0]?.cnt ?? 0,
+    totalUsers: totalRows[0]?.cnt ?? 0,
+    pendingAdjustments: pendingAdjRows[0]?.cnt ?? 0,
+    pendingCertificates: pendingCertRows[0]?.cnt ?? 0,
+    pendingCount: (pendingAdjRows[0]?.cnt ?? 0) + (pendingCertRows[0]?.cnt ?? 0),
+    inconsistencies: 0,
+  };
+}
+
+/** All pending certificates (admin view). */
+export async function listPendingCertificates(): Promise<MedicalCertificate[]> {
+  if (isDemoMode()) {
+    return demo.certificates
+      .filter((c) => c.status === 'pending')
+      .sort((a, b) => a.uploaded_at.localeCompare(b.uploaded_at));
+  }
+  const rows = await tursoQuery<CertRow>(
+    `SELECT * FROM medical_certificates WHERE status = 'pending' ORDER BY uploaded_at ASC`,
+  );
+  return rows.map(toCert);
+}
+
+/** All pending adjustments (admin view). */
+export async function listPendingAdjustments(): Promise<AdjustmentRequest[]> {
+  if (isDemoMode()) {
+    return demo.adjustments
+      .filter((a) => a.status === 'pending')
+      .sort((a, b) => a.created_at.localeCompare(b.created_at));
+  }
+  const rows = await tursoQuery<AdjRow>(
+    `SELECT * FROM adjustment_requests WHERE status = 'pending' ORDER BY created_at ASC`,
+  );
+  return rows.map(toAdj);
+}
+
+/** Approve or reject a medical certificate. */
+export async function reviewCertificate(
+  certId: string,
+  status: 'approved' | 'rejected',
+  reviewerId: string,
+): Promise<void> {
+  const now = new Date().toISOString();
+  if (isDemoMode()) {
+    const cert = demo.certificates.find((c) => c.id === certId);
+    if (cert) {
+      cert.status = status;
+      cert.reviewed_by = reviewerId;
+      cert.reviewed_at = now;
+    }
+    return;
+  }
+  await tursoExecute(
+    `UPDATE medical_certificates SET status = ?, reviewed_by = ?, reviewed_at = ? WHERE id = ?`,
+    [status, reviewerId, now, certId],
+  );
+}
+
+/** Approve or reject an adjustment request. */
+export async function reviewAdjustment(
+  adjId: string,
+  status: 'approved' | 'rejected',
+  reviewerId: string,
+  notes: string | null = null,
+): Promise<void> {
+  const now = new Date().toISOString();
+  if (isDemoMode()) {
+    const adj = demo.adjustments.find((a) => a.id === adjId);
+    if (adj) {
+      adj.status = status;
+      adj.reviewed_by = reviewerId;
+      adj.reviewed_at = now;
+      adj.review_notes = notes;
+    }
+    return;
+  }
+  await tursoExecute(
+    `UPDATE adjustment_requests SET status = ?, reviewed_by = ?, reviewed_at = ?, review_notes = ? WHERE id = ?`,
+    [status, reviewerId, now, notes, adjId],
+  );
+}

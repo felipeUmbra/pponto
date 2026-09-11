@@ -1,5 +1,5 @@
 /**
- * Shared TypeScript interfaces for the Ponto Dot8 PWA.
+ * Shared TypeScript interfaces for the pPonto PWA.
  * Derived from the BRD and Turso database schema.
  */
 

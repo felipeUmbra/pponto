@@ -1,5 +1,5 @@
 /**
- * Lightweight hash router for the Ponto Dot8 SPA.
+ * Lightweight hash router for the pPonto SPA.
  * Supports: hash-based routing, route params, role-based guards, layout switching.
  */
 import type { Route, MatchedRoute } from './types.js';

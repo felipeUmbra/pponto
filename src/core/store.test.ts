@@ -8,7 +8,7 @@ const user: User = {
   department_id: 'dept-001',
   cpf: '12345678900',
   name: 'Mariana Alencar',
-  email: 'mariana@dot8.com',
+  email: 'mariana@pponto.com',
   role: 'rh',
   created_at: '2024-01-01',
 };
@@ -51,7 +51,7 @@ describe('store', () => {
   });
 
   it('tolerates corrupted storage', () => {
-    localStorage.setItem('ponto-dot8:session', '{not valid json');
+    localStorage.setItem('pponto:session', '{not valid json');
     expect(getSession()).toBeNull();
   });
 });

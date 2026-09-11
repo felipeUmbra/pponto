@@ -9,10 +9,10 @@ import { renderEspelho } from './views/mobile/espelho.js';
 import { renderSolicitacoes } from './views/mobile/solicitacoes.js';
 import { renderAjuste } from './views/mobile/ajuste.js';
 import { renderDashboard } from './views/admin/dashboard.js';
+import { renderTratamento } from './views/admin/tratamento.js';
+import { renderHomologacao } from './views/admin/homologacao.js';
+import { renderAprovacao } from './views/admin/aprovacao.js';
 import {
-  renderTratamento,
-  renderHomologacao,
-  renderAprovacao,
   renderRelatorios,
   renderFechamento,
   renderCercas,
@@ -40,15 +40,39 @@ function viewForRoute(matched: MatchedRoute): HTMLElement {
     case 'ajuste':
       return renderMobileShell('ajuste', 'Solicitação de Ajuste', renderAjuste());
 
-    // Admin
-    case 'admin':
-      return renderAdminShell('admin', 'Dashboard', renderDashboard());
-    case 'admin-tratamento':
-      return renderAdminShell('admin-tratamento', 'Tratamento de Ponto', renderTratamento());
-    case 'admin-homologacao':
-      return renderAdminShell('admin-homologacao', 'Homologação de Atestados', renderHomologacao());
-    case 'admin-aprovacao':
-      return renderAdminShell('admin-aprovacao', 'Aprovação de Ajustes', renderAprovacao());
+    // Admin (async — attach to shell asynchronously)
+    case 'admin': {
+      const content = document.createElement('div');
+      content.innerHTML = '<p class="text-caption text-outline text-center py-8">Carregando…</p>';
+      void renderDashboard().then((v) => {
+        content.replaceWith(v);
+      }).catch(() => { /* view handles errors */ });
+      return renderAdminShell('admin', 'Dashboard', content);
+    }
+    case 'admin-tratamento': {
+      const content = document.createElement('div');
+      content.innerHTML = '<p class="text-caption text-outline text-center py-8">Carregando…</p>';
+      void renderTratamento().then((v) => {
+        content.replaceWith(v);
+      }).catch(() => { /* view handles errors */ });
+      return renderAdminShell('admin-tratamento', 'Tratamento de Ponto', content);
+    }
+    case 'admin-homologacao': {
+      const content = document.createElement('div');
+      content.innerHTML = '<p class="text-caption text-outline text-center py-8">Carregando…</p>';
+      void renderHomologacao().then((v) => {
+        content.replaceWith(v);
+      }).catch(() => { /* view handles errors */ });
+      return renderAdminShell('admin-homologacao', 'Homologação de Atestados', content);
+    }
+    case 'admin-aprovacao': {
+      const content = document.createElement('div');
+      content.innerHTML = '<p class="text-caption text-outline text-center py-8">Carregando…</p>';
+      void renderAprovacao().then((v) => {
+        content.replaceWith(v);
+      }).catch(() => { /* view handles errors */ });
+      return renderAdminShell('admin-aprovacao', 'Aprovação de Ajustes', content);
+    }
     case 'admin-relatorios':
       return renderAdminShell('admin-relatorios', 'Relatórios Analíticos', renderRelatorios());
     case 'admin-fechamento':

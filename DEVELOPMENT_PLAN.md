@@ -1,4 +1,4 @@
-# Ponto Dot8 — Development Plan
+# pPonto — Development Plan
 
 > **Architecture:** Vanilla TypeScript SPA + Vite + Tailwind v4 + Turso (libSQL)
 > **Design System:** "Precision Vanguard" (Inter + JetBrains Mono, navy/cobalt/emerald)

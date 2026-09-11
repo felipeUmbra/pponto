@@ -16,7 +16,7 @@ export function renderSolicitacoes(): HTMLElement {
   el.className = 'space-y-3.5';
   el.innerHTML = `
     <div class="text-center py-6 text-outline text-body-sm">
-      <span class="material-symbols-outlined animate-spin inline-block">progress_activity</span>
+      <span class="material-symbols-outlined animate-spin inline-block">autorenew</span>
       Carregando solicitações...
     </div>
   `;

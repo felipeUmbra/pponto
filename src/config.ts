@@ -9,12 +9,12 @@ export const CONFIG = {
   TURSO_TOKEN: import.meta.env.VITE_TURSO_TOKEN as string ?? '',
 
   /** localStorage key prefix */
-  LS_PREFIX: 'ponto-dot8',
+  LS_PREFIX: 'pponto',
   /** Session storage key */
-  LS_SESSION: 'ponto-dot8:session',
+  LS_SESSION: 'pponto:session',
 
   /** IndexedDB name for offline sync */
-  IDB_NAME: 'ponto-dot8-offline',
+  IDB_NAME: 'pponto-offline',
   IDB_VERSION: 1,
   IDB_STORE: 'sync-queue',
 

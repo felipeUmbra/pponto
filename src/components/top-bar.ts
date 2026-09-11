@@ -12,7 +12,7 @@ export function renderTopBar(title: string): HTMLElement {
 
   header.innerHTML = `
     <div class="flex items-center space-x-6">
-      <span class="text-headline-md font-bold tracking-tight text-on-surface">Dot8 Ponto</span>
+      <span class="text-headline-md font-bold tracking-tight text-on-surface">pPonto</span>
       <div class="relative w-80">
         <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-lg">search</span>
         <input

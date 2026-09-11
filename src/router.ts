@@ -19,6 +19,7 @@ export const ROUTES: Route[] = [
 
   // Admin desktop
   { name: 'admin', path: '/admin', roles: ['admin', 'rh', 'manager'], layout: 'admin' },
+  { name: 'admin-ponto-web', path: '/admin/ponto-web', roles: ['admin', 'rh', 'manager'], layout: 'admin' },
   { name: 'admin-tratamento', path: '/admin/tratamento', roles: ['admin', 'rh', 'manager'], layout: 'admin' },
   { name: 'admin-homologacao', path: '/admin/homologacao', roles: ['admin', 'rh'], layout: 'admin' },
   { name: 'admin-aprovacao', path: '/admin/aprovacao', roles: ['admin', 'rh', 'manager'], layout: 'admin' },

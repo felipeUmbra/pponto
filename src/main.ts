@@ -9,6 +9,7 @@ import { renderEspelho } from './views/mobile/espelho.js';
 import { renderSolicitacoes } from './views/mobile/solicitacoes.js';
 import { renderAjuste } from './views/mobile/ajuste.js';
 import { renderDashboard } from './views/admin/dashboard.js';
+import { renderPontoWeb } from './views/admin/ponto-web.js';
 import { renderTratamento } from './views/admin/tratamento.js';
 import { renderHomologacao } from './views/admin/homologacao.js';
 import { renderAprovacao } from './views/admin/aprovacao.js';
@@ -48,6 +49,14 @@ function viewForRoute(matched: MatchedRoute): HTMLElement {
         content.replaceWith(v);
       }).catch(() => { /* view handles errors */ });
       return renderAdminShell('admin', 'Dashboard', content);
+    }
+    case 'admin-ponto-web': {
+      const content = document.createElement('div');
+      content.innerHTML = '<p class="text-caption text-outline text-center py-8">Carregando…</p>';
+      void renderPontoWeb().then((v) => {
+        content.replaceWith(v);
+      }).catch(() => { /* view handles errors */ });
+      return renderAdminShell('admin-ponto-web', 'Registrar Ponto Web', content);
     }
     case 'admin-tratamento': {
       const content = document.createElement('div');

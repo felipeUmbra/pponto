@@ -38,8 +38,7 @@ src/
 │   │   └── ajuste.ts        # Request punch adjustment
 │   └── admin/               # Management desktop views (sidebar nav)
 │       ├── dashboard.ts     # /admin — HR overview dashboard
-│       ├── tratamento.ts    # Tratamento de ponto (validate punches)
-│       ├── homologacao.ts   # Homologação de atestados (RH)
+│       ├── tratamento.ts    # Tratamento de ponto (validate punches)        ├── ponto-web.ts     # /admin/ponto-web — Web clock-in (camera+GPS)│       ├── homologacao.ts   # Homologação de atestados (RH)
 │       ├── aprovacao.ts     # Aprovação de ajustes
 │       ├── relatorios.ts    # Relatórios analíticos + banco de horas
 │       ├── fechamento.ts    # Fechamento de folha + AFD/AFDT export
@@ -133,8 +132,8 @@ Created and populated in Turso `pponto` (hostname: `pponto-felipeumbra.aws-ap-no
 
 **Delivered:** live clock (Brasília), `getUserMedia` camera capture → base64, geolocation + Haversine geofence check, offline IndexedDB queue fallback, punch types auto-cycle (Entrada → Intervalo → Retorno → Saída), month calendar with daily punch grids, bank-hours bento summary, filter tabs with counts, atestado + ajuste history, adjustment request form with missing-punch preselect. All four views verified end-to-end against live Turso data.
 
-### Phase 3 — Admin Dashboard & Tratamento
-**Screens:** #01 (Dashboard), #07 (Homologação), #09 (Aprovação), #06 (Ponto Web)
+### Phase 3 — Admin Dashboard & Tratamento ✅ (implemented)
+**Screens:** #01 (Dashboard), #06 (Ponto Web), #07 (Homologação), #09 (Aprovação)
 
 | View | Screen ref | BRD mapping |
 |------|------------|-------------|
@@ -143,6 +142,8 @@ Created and populated in Turso `pponto` (hostname: `pponto-felipeumbra.aws-ap-no
 | Web punch (camera+GPS) | #06 | §3.1.A + §4.1 (Web clock-in journey) |
 | Homologação atestados | #07 | §3.2 (Medical certificate review workflow) |
 | Aprovação ajustes | #09 | §3.1.B (HR review + approve/reject) |
+
+**Delivered:** live KPI bento grid (presentes, atestados pendentes, ajustes pendentes, divergências), per-employee treatment table with inconsistency badges (missing exit/entry), review buttons for certificates and adjustments with badge-decrement on approve/reject, full Ponto Web screen (Stitch #06) with live Brasília clock, anti-fraud camera viewport with liveness badge, geofence map + telemetry, shift slot selector with next-action ping, insert punch (source `web`), and Portaria 671 receipt preview. All five admin views verified end-to-end against live Turso data.
 
 ### Phase 4 — Reports, Compliance & Settings
 **Screens:** #17 (Relatórios), #12 (Fechamento), #13 (Cercas), #14 (Offline)
@@ -214,16 +215,16 @@ Created and populated in Turso `pponto` (hostname: `pponto-felipeumbra.aws-ap-no
 7. ✅ Espelho de ponto view                     ← Phase 2
 8. ✅ Solicitação de ajuste view                ← Phase 2
 9. ✅ Solicitações & atestados view             ← Phase 2
-9. 🔲 Tratamento de ponto (admin) view          ← Phase 3
-10. 🔲 Homologação atestados view               ← Phase 3
-11. 🔲 Aprovação ajustes view                   ← Phase 3
-12. 🔲 Relatórios analíticos + banco de horas view  ← Phase 4
-13. 🔲 Fechamento de folha + fiscal export view ← Phase 4
-14. 🔲 Cercas virtuais config view              ← Phase 4
-15. 🔲 Offline module (IndexedDB + sync status) ← Phase 1 done, UI Phase 4
-16. 🔲 Web punch view (camera + GPS)            ← Phase 3
-17. 🔲 PWA hardening (SW, icons, manifest)      ← Phase 5
-18. 🔲 Tests + CI/CD                            ← Phase 5
+10. ✅ Tratamento de ponto (admin) view          ← Phase 3
+11. ✅ Homologação atestados view               ← Phase 3
+12. ✅ Aprovação ajustes view                   ← Phase 3
+13. 🔲 Relatórios analíticos + banco de horas view  ← Phase 4
+14. 🔲 Fechamento de folha + fiscal export view ← Phase 4
+15. 🔲 Cercas virtuais config view              ← Phase 4
+16. 🔲 Offline module (IndexedDB + sync status) ← Phase 1 done, UI Phase 4
+17. ✅ Web punch view (camera + GPS)            ← Phase 3
+18. 🔲 PWA hardening (SW, icons, manifest)      ← Phase 5
+19. 🔲 Tests + CI/CD                            ← Phase 5
 ```
 
 ---
@@ -237,4 +238,5 @@ Created and populated in Turso `pponto` (hostname: `pponto-felipeumbra.aws-ap-no
 
 > **Phase 1 deliverable:** All core infrastructure files below are implemented, typechecked, linted, and unit-tested.
 > **Phase 2 deliverable:** All four employee mobile views (punch, espelho, solicitações, ajuste) implemented, unit-tested (44 tests), and verified end-to-end against live Turso data.
+> **Phase 3 deliverable:** All five admin views (dashboard KPIs, tratamento, ponto-web, homologação, aprovação) implemented, typechecked (tsc), linted (ESLint 0 warnings), 44/44 tests passing, production build green.
 > Runtime DB connectivity needs `VITE_TURSO_URL` + `VITE_TURSO_TOKEN` in `.env` (see `.env.example`). When absent or unreachable, the app auto-falls back to an in-memory demo dataset so every flow remains testable.

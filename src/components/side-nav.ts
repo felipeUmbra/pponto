@@ -16,6 +16,7 @@ interface SidebarLink {
 
 const LINKS: SidebarLink[] = [
   { icon: 'dashboard', label: 'Dashboard', route: '/admin' },
+  { icon: 'fingerprint', label: 'Registrar Ponto Web', route: '/admin/ponto-web' },
   { icon: 'how_to_reg', label: 'Tratamento de Ponto', route: '/admin/tratamento', badge: 6, badgeColor: 'bg-ruby-danger' },
   { icon: 'calendar_month', label: 'Espelho de Ponto', route: '/admin' },
   { icon: 'medical_services', label: 'Homologação de Atestados', route: '/admin/homologacao', badge: 12, badgeColor: 'bg-amber-soft' },
@@ -53,7 +54,7 @@ export function renderSideNav(activeRoute: RouteName): HTMLElement {
   ctaBtn.className =
     'w-full py-2.5 px-3 bg-blue-vibrant hover:bg-secondary text-white rounded-lg flex items-center justify-center space-x-2 transition-colors shadow-sm';
   ctaBtn.innerHTML = '<span class="material-symbols-outlined">schedule</span><span class="text-sm font-medium">Registrar Ponto Web</span>';
-  ctaBtn.addEventListener('click', () => navigate('/admin/tratamento'));
+  ctaBtn.addEventListener('click', () => navigate('/admin/ponto-web'));
   top.appendChild(ctaBtn);
 
   // Nav links

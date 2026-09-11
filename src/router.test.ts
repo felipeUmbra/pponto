@@ -14,6 +14,7 @@ describe('router', () => {
     expect(names).toContain('solicitacoes');
     expect(names).toContain('ajuste');
     expect(names).toContain('admin');
+    expect(names).toContain('admin-ponto-web');
     expect(names).toContain('admin-tratamento');
     expect(names).toContain('admin-homologacao');
     expect(names).toContain('admin-aprovacao');

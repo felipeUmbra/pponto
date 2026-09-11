@@ -151,6 +151,7 @@ export type RouteName =
   | 'solicitacoes'
   | 'ajuste'
   | 'admin'
+  | 'admin-ponto-web'
   | 'admin-tratamento'
   | 'admin-homologacao'
   | 'admin-aprovacao'

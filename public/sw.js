@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ponto-dot8-v1';
+const CACHE_NAME = 'ponto-dot8-v2';
 const APP_SHELL = ['./', './index.html', './manifest.webmanifest', './clock.svg'];
 
 self.addEventListener('install', (event) => {
@@ -17,6 +17,15 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
+  // Only handle GET same-origin requests in production; skip during dev
+  if (event.request.method !== 'GET') return;
+  const url = new URL(event.request.url);
+  if (self.location.origin !== url.origin) return;
+
+  // Never intercept Vite dev server HMR / module requests
+  if (url.port === '5199' || url.pathname.startsWith('/@')) return;
+  if (url.pathname.startsWith('/src/')) return;
+
   event.respondWith(
     caches.match(event.request).then((cached) => {
       if (cached) {

@@ -4,14 +4,8 @@
  */
 import { demoLogin } from '../core/auth.js';
 import { navigate } from '../router.js';
-import { tursoQuery } from '../core/turso-client.js';
+import { listUsers } from '../api/data.js';
 import { getCurrentUser } from '../core/store.js';
-
-interface UserOption {
-  id: string;
-  name: string;
-  role: string;
-}
 
 export function renderLogin(): HTMLElement {
   const container = document.createElement('div');
@@ -70,10 +64,11 @@ export function renderLogin(): HTMLElement {
     const select = container.querySelector<HTMLSelectElement>('#login-user');
     if (!select) return;
     try {
-      const users = await tursoQuery<UserOption>(
-        "SELECT id, name, role FROM users ORDER BY role, name",
-      );
+      const users = await listUsers();
       select.innerHTML = '<option value="">Selecione...</option>';
+      if (users.length === 0) {
+        select.innerHTML = '<option value="">Nenhum usuário disponível</option>';
+      }
       for (const u of users) {
         const opt = document.createElement('option');
         opt.value = u.id;

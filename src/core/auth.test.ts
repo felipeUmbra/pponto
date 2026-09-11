@@ -16,6 +16,16 @@ vi.mock('./store.js', () => ({
   clearSession: mocks.clearSession,
   getCurrentUser: mocks.getCurrentUser,
 }));
+// Force Turso mode on (otherwise auth would use the demo dataset)
+vi.mock('../api/data.js', async (importOriginal): Promise<typeof import('../api/data.js')> => {
+  const actual = await importOriginal<typeof import('../api/data.js')>();
+  return {
+    ...actual,
+    HAS_TURSO: true,
+    isDemoMode: (): boolean => false,
+    setDemoFallback: (): void => {},
+  };
+});
 
 import { login, demoLogin, logout, isLoggedIn, requireAuth } from './auth.js';
 
@@ -54,7 +64,7 @@ describe('auth', () => {
 
   it('throws on unknown CPF', async () => {
     mocks.tursoQuery.mockResolvedValue([]);
-    await expect(login('000.000.000-00', '1234')).rejects.toThrow('CPF não encontrado');
+    await expect(login('000.000.000-00', '1234')).rejects.toThrow('Usuário não encontrado');
   });
 
   it('throws on wrong PIN', async () => {

@@ -1,0 +1,13 @@
+# Netlify configuration for production deployment
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Single Page Application fallback
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

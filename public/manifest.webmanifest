@@ -1,0 +1,18 @@
+{
+  "name": "Ponto Dot8",
+  "short_name": "Ponto Dot8",
+  "description": "Registro de ponto dos funcionários",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8f9ff",
+  "theme_color": "#0f172a",
+  "lang": "pt-BR",
+  "icons": [
+    {
+      "src": "/clock.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>pPonto - Registro em Contingência Offline</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Inter & JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "inverse-primary": "#bec6e0",
+            "error-container": "#ffdad6",
+            "on-tertiary-fixed": "#002114",
+            "on-primary-fixed": "#131b2e",
+            "blue-vibrant": "#2563EB",
+            "teal-success": "#059669",
+            "outline": "#76777d",
+            "inverse-on-surface": "#eaf1ff",
+            "on-error-container": "#93000a",
+            "primary": "#000000",
+            "on-background": "#0b1c30",
+            "outline-variant": "#c6c6cd",
+            "secondary-container": "#316bf3",
+            "on-tertiary-fixed-variant": "#005137",
+            "emerald-light": "#10B981",
+            "inverse-surface": "#213145",
+            "background": "#f8f9ff",
+            "secondary": "#0051d5",
+            "surface-variant": "#d3e4fe",
+            "amber-soft": "#F59E0B",
+            "on-secondary-container": "#fefcff",
+            "on-tertiary": "#ffffff",
+            "surface-tint": "#565e74",
+            "surface-container-highest": "#d3e4fe",
+            "primary-container": "#131b2e",
+            "surface-container-low": "#eff4ff",
+            "tertiary": "#000000",
+            "error": "#ba1a1a",
+            "tertiary-fixed-dim": "#68dba9",
+            "surface-container-high": "#dce9ff",
+            "ruby-danger": "#DC2626",
+            "navy-surface": "#1E293B",
+            "on-surface": "#0b1c30",
+            "purple-bank": "#7C3AED",
+            "on-secondary": "#ffffff",
+            "tertiary-fixed": "#85f8c4",
+            "surface-bright": "#f8f9ff",
+            "surface-container-lowest": "#ffffff",
+            "purple-subtle": "#F5F3FF",
+            "surface-container": "#e5eeff",
+            "on-secondary-fixed-variant": "#003ea8",
+            "on-primary-fixed-variant": "#3f465c",
+            "on-primary-container": "#7c839b",
+            "amber-warning": "#D97706",
+            "secondary-fixed": "#dbe1ff",
+            "neutral-card": "#FFFFFF",
+            "tertiary-container": "#002114",
+            "on-secondary-fixed": "#00174b",
+            "blue-accent": "#3B82F6",
+            "on-surface-variant": "#45464d",
+            "surface": "#f8f9ff",
+            "neutral-canvas": "#F8FAFC",
+            "surface-dim": "#cbdbf5",
+            "on-error": "#ffffff",
+            "navy-deep": "#0F172A",
+            "on-tertiary-container": "#069669",
+            "primary-fixed": "#dae2fd",
+            "secondary-fixed-dim": "#b4c5ff",
+            "primary-fixed-dim": "#bec6e0",
+            "on-primary": "#ffffff",
+            "border-subtle": "#E2E8F0"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-lg": "1.5rem",
+            "margin": "1.5rem",
+            "space-md": "1rem",
+            "space-xs": "0.25rem",
+            "gutter": "1.5rem",
+            "space-xl": "2.5rem",
+            "space-sm": "0.5rem"
+          },
+          "fontFamily": {
+            "clock-large-mobile": ["JetBrains Mono"],
+            "headline-sm": ["Inter"],
+            "badge-label": ["Inter"],
+            "clock-large": ["JetBrains Mono"],
+            "caption": ["Inter"],
+            "headline-md": ["Inter"],
+            "headline-lg": ["Inter"],
+            "display-hero": ["Inter"],
+            "body-lg": ["Inter"],
+            "display-hero-mobile": ["Inter"],
+            "body-sm": ["Inter"],
+            "body-md": ["Inter"],
+            "tabular-time": ["JetBrains Mono"],
+            "headline-lg-mobile": ["Inter"]
+          },
+          "fontSize": {
+            "clock-large-mobile": ["2.25rem", { lineHeight: "2.5rem", letterSpacing: "-0.02em", fontWeight: "600" }],
+            "headline-sm": ["1.125rem", { lineHeight: "1.5rem", fontWeight: "600" }],
+            "badge-label": ["0.6875rem", { lineHeight: "0.875rem", letterSpacing: "0.04em", fontWeight: "600" }],
+            "clock-large": ["3rem", { lineHeight: "3.25rem", letterSpacing: "-0.02em", fontWeight: "600" }],
+            "caption": ["0.6875rem", { lineHeight: "0.875rem", letterSpacing: "0.02em", fontWeight: "500" }],
+            "headline-md": ["1.25rem", { lineHeight: "1.75rem", letterSpacing: "-0.01em", fontWeight: "600" }],
+            "headline-lg": ["2rem", { lineHeight: "2.5rem", letterSpacing: "-0.02em", fontWeight: "700" }],
+            "display-hero": ["3.5rem", { lineHeight: "4rem", letterSpacing: "-0.03em", fontWeight: "700" }],
+            "body-lg": ["1rem", { lineHeight: "1.5rem", fontWeight: "400" }],
+            "display-hero-mobile": ["2.25rem", { lineHeight: "2.75rem", letterSpacing: "-0.02em", fontWeight: "700" }],
+            "body-sm": ["0.75rem", { lineHeight: "1.125rem", fontWeight: "400" }],
+            "body-md": ["0.875rem", { lineHeight: "1.375rem", fontWeight: "400" }],
+            "tabular-time": ["0.875rem", { lineHeight: "1.25rem", letterSpacing: "0em", fontWeight: "500" }],
+            "headline-lg-mobile": ["1.5rem", { lineHeight: "2rem", letterSpacing: "-0.01em", fontWeight: "700" }]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .pb-safe {
+      padding-bottom: env(safe-area-inset-bottom, 16px);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-neutral-canvas text-on-surface antialiased font-body-md text-body-md flex justify-center min-h-screen">
+<!-- Mobile PWA Container Emulation -->
+<div class="w-full max-w-md bg-neutral-canvas min-h-screen flex flex-col justify-between shadow-2xl relative border-x border-border-subtle">
+<!-- Top PWA Header (Deep Slate Navy) -->
+<header class="bg-navy-deep text-neutral-card px-4 pt-3 pb-3 flex flex-col gap-2.5 shadow-sm sticky top-0 z-30">
+<!-- Status Bar Row -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg bg-blue-vibrant flex items-center justify-center text-neutral-card shadow-sm">
+<span class="material-symbols-outlined text-[20px]" data-icon="fingerprint">fingerprint</span>
+</div>
+<div>
+<h1 class="font-headline-sm text-headline-sm font-bold tracking-tight text-neutral-card flex items-center gap-1.5 leading-none">
+              pPonto
+              <span class="text-[9px] font-semibold uppercase px-1.5 py-0.5 rounded bg-navy-surface text-secondary-fixed border border-border-subtle/20 tracking-wider">PWA</span>
+</h1>
+<p class="font-caption text-caption text-outline-variant leading-none mt-1">Portaria 671 MTE Compliance</p>
+</div>
+</div>
+<!-- Offline Badge Pill -->
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-soft/20 border border-amber-warning/40 text-amber-soft animate-pulse">
+<span class="material-symbols-outlined text-[15px]" data-icon="wifi_off">wifi_off</span>
+<span class="font-badge-label text-badge-label uppercase tracking-wider font-bold">Offline</span>
+</div>
+</div>
+<!-- Network Warning Sub-banner -->
+<div class="flex items-center justify-between bg-navy-surface px-3 py-1.5 rounded-lg border border-navy-surface text-outline-variant">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-amber-warning animate-ping"></span>
+<span class="font-caption text-caption text-neutral-card font-medium">Sem conexão à internet</span>
+</div>
+<span class="font-caption text-caption text-amber-soft">Contingência Ativa</span>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 px-4 py-4 space-y-4 pb-24 overflow-y-auto">
+<!-- Alert Card: Modo Offline Ativo -->
+<section class="bg-neutral-card rounded-xl p-4 border-l-4 border-amber-warning border-y border-r border-border-subtle shadow-sm">
+<div class="flex items-start gap-3">
+<div class="w-9 h-9 rounded-lg bg-amber-soft/15 text-amber-warning flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[22px]" data-icon="cloud_off">cloud_off</span>
+</div>
+<div class="flex-1">
+<div class="flex items-center justify-between">
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Modo Offline Ativo</h2>
+<span class="font-badge-label text-badge-label bg-amber-soft/10 text-amber-warning px-2 py-0.5 rounded-full border border-amber-soft/30 font-medium">
+                Salvo Localmente
+              </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1.5 leading-relaxed">
+              Sua marcação foi registrada com carimbo de tempo inviolável criptografado no dispositivo, sob parâmetros legais da <strong>Portaria 671 MTE</strong>. Os dados serão transmitidos de forma automática assim que a rede for detectada.
+            </p>
+</div>
+</div>
+</section>
+<!-- Timestamp Hero Showcase (Punch Confirmation) -->
+<section class="bg-neutral-card rounded-xl p-4 border border-border-subtle shadow-sm relative overflow-hidden">
+<!-- Watermark Icon Decor -->
+<span class="material-symbols-outlined absolute -right-4 -bottom-6 text-border-subtle/50 text-[110px] pointer-events-none select-none" data-icon="lock_clock">lock_clock</span>
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-teal-success"></span>
+<span class="font-caption text-caption text-teal-success font-semibold tracking-wide uppercase">Ponto Registrado com Sucesso</span>
+</div>
+<span class="font-caption text-caption text-on-surface-variant">RECIBO FISCAL PROVISÓRIO</span>
+</div>
+<div class="text-center py-2 border-y border-dashed border-border-subtle my-2 bg-neutral-canvas/60 rounded-lg">
+<span class="font-caption text-caption text-on-surface-variant font-medium block">Horário Registrado (Carimbo Local)</span>
+<div class="font-clock-large-mobile text-clock-large-mobile font-semibold text-navy-deep tracking-tight my-0.5 font-mono">
+            08:04:12
+          </div>
+<div class="flex items-center justify-center gap-1 text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[16px] text-blue-accent" data-icon="calendar_today">calendar_today</span>
+<span>24 de Outubro de 2024 (Quinta-feira)</span>
+</div>
+</div>
+<!-- Punch Details List -->
+<div class="space-y-2.5 pt-2">
+<div class="flex items-center justify-between text-body-sm font-body-sm">
+<span class="text-on-surface-variant flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[17px] text-secondary" data-icon="login">login</span>
+              Tipo de Evento:
+            </span>
+<span class="font-semibold text-on-surface bg-surface-container-low px-2 py-0.5 rounded text-secondary border border-border-subtle">
+              1ª Entrada (Início de Jornada)
+            </span>
+</div>
+<div class="flex items-start justify-between text-body-sm font-body-sm">
+<span class="text-on-surface-variant flex items-center gap-1.5 mt-0.5">
+<span class="material-symbols-outlined text-[17px] text-teal-success" data-icon="location_on">location_on</span>
+              Localização GPS:
+            </span>
+<div class="text-right">
+<span class="font-tabular-time text-tabular-time text-on-surface block font-mono text-[11px]">
+                Lat: -23.550520, Long: -46.633308
+              </span>
+<span class="font-caption text-caption text-teal-success font-medium">
+                Precisão: ±8m • Coordenada Preservada
+              </span>
+</div>
+</div>
+<!-- Biometrics and Security Hash Section -->
+<div class="p-2.5 rounded-lg bg-surface-container-low border border-border-subtle flex items-center gap-3">
+<div class="relative w-12 h-12 rounded-lg overflow-hidden shrink-0 border border-teal-success shadow-xs">
+<img class="w-full h-full object-cover" data-alt="Close-up portrait of a professional employee captured on an ultra-modern biometric clock-in verification screen with high-key neutral lighting and subtle turquoise framing lines, ensuring cryptographic data security." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSYNhGZ_y1F6nyLboDQJUQMubdGTzF5ItNFDK3I-d-6UyKYvzK-4viNCCBLAMFklU3D7V_aDHvlSKCapO8WOoMAn_E3PGTTyI1ryv3AEJr17R-lHdXf3V4vPS6CHcA98hRz7fq0EE4UHNb50iqSi3uOCv1ApWmE0p8g299OzaN8DmGp6RXescy3GNtFwyuzXc_4JjUqO4nSp8-m6elBT0VpeZPoZswwOsHjkw2CPciApcpjckfqX9-Jg"/>
+<div class="absolute bottom-0 inset-x-0 bg-teal-success text-neutral-card flex items-center justify-center text-[9px] py-0.5 font-bold">
+<span class="material-symbols-outlined text-[10px]" data-icon="verified_user">verified_user</span>
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-1 text-teal-success font-caption text-caption font-semibold">
+<span class="material-symbols-outlined text-[14px]" data-icon="check_circle">check_circle</span>
+<span>Biometria Facial em Cache Local</span>
+</div>
+<p class="font-caption text-caption text-on-surface-variant truncate font-mono text-[10px] mt-0.5" title="SHA-256: 7f83b1657ff1fc53b92dc18148a1d65dfc2d4b1fa3d677284addd200126d9e4a9">
+                SHA-256: 7f83b...e4a9
+              </p>
+<span class="font-caption text-caption text-outline text-[10px] block">Criptografia RSA-2048 em Sandbox seguro</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Sync Queue Card (Fila de Sincronização Local) -->
+<section class="bg-neutral-card rounded-xl p-4 border border-border-subtle shadow-sm space-y-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-2.5 h-2.5 rounded-full bg-amber-warning"></div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold text-[15px]">Fila de Sincronização Pendente</h3>
+</div>
+<span class="font-badge-label text-badge-label bg-amber-soft/10 text-amber-warning font-bold px-2 py-0.5 rounded-full border border-amber-soft/30">
+            1 registro
+          </span>
+</div>
+<!-- Pending Record Summary Row -->
+<div class="p-3 bg-neutral-canvas rounded-lg border border-border-subtle flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-amber-warning text-[20px]" data-icon="pending">pending</span>
+<div>
+<div class="font-body-sm font-body-sm font-semibold text-on-surface">Ponto de Entrada • 08:04:12</div>
+<div class="font-caption text-caption text-on-surface-variant">Aguardando restabelecimento de Wi-Fi/4G</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline text-[18px]" data-icon="cloud_sync">cloud_sync</span>
+</div>
+<!-- Sync Action Button -->
+<button class="w-full py-2.5 px-4 rounded-lg border border-border-subtle bg-neutral-card hover:bg-surface-container-low text-navy-deep font-semibold flex items-center justify-center gap-2 text-body-sm font-body-sm transition-all duration-150 active:scale-[0.99] shadow-xs" id="btn-sync" type="button">
+<span class="material-symbols-outlined text-[18px] text-blue-vibrant" data-icon="sync" id="sync-icon">sync</span>
+<span id="sync-text">Tentar Sincronizar Agora</span>
+</button>
+<div class="flex items-start gap-2 pt-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px] text-teal-success shrink-0 mt-0.5" data-icon="security">security</span>
+<p class="font-caption text-caption leading-tight">
+<strong>Fique tranquilo:</strong> Seu registro possui validade jurídica imediata. O envio para o servidor do RH ocorre em segundo plano (background sync).
+          </p>
+</div>
+</section>
+<!-- Primary Action Buttons -->
+<div class="space-y-2 pt-1">
+<button class="w-full h-12 rounded-lg bg-blue-vibrant text-neutral-card font-semibold flex items-center justify-center gap-2 text-body-md font-body-md shadow-sm hover:bg-secondary transition-all active:scale-[0.98]" type="button">
+<span class="material-symbols-outlined text-[20px]" data-icon="receipt_long">receipt_long</span>
+          Ver Comprovante Provisório
+        </button>
+<button class="w-full h-11 rounded-lg border border-border-subtle bg-neutral-card text-on-surface font-medium flex items-center justify-center gap-1 text-body-sm font-body-sm hover:bg-surface-container-low transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]" data-icon="arrow_back">arrow_back</span>
+          Voltar ao Início
+        </button>
+</div>
+</main>
+<!-- Bottom Navigation Bar (Conforme Shared Components JSON) -->
+<nav aria-label="Navegação Inferior" class="fixed bottom-0 left-0 w-full h-16 z-50 flex justify-around items-center px-4 pb-safe bg-neutral-card border-t border-border-subtle shadow-md">
+<!-- Tab 1: Ponto (Ativa) -->
+<a aria-current="page" class="flex flex-col items-center justify-center text-secondary font-semibold p-1 transition-transform duration-100 ease-out active:scale-95" href="#ponto">
+<span class="material-symbols-outlined text-[22px]" data-icon="fingerprint">fingerprint</span>
+<span class="font-caption text-caption mt-0.5">Ponto</span>
+</a>
+<!-- Tab 2: Histórico (Inativa) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant font-normal p-1 transition-transform duration-100 ease-out active:scale-95 hover:text-on-surface" href="#historico">
+<span class="material-symbols-outlined text-[22px]" data-icon="history">history</span>
+<span class="font-caption text-caption mt-0.5">Histórico</span>
+</a>
+<!-- Tab 3: Justificativas (Inativa) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant font-normal p-1 transition-transform duration-100 ease-out active:scale-95 hover:text-on-surface" href="#justificativas">
+<span class="material-symbols-outlined text-[22px]" data-icon="assignment_late">assignment_late</span>
+<span class="font-caption text-caption mt-0.5">Justificativas</span>
+</a>
+<!-- Tab 4: Perfil (Inativa) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant font-normal p-1 transition-transform duration-100 ease-out active:scale-95 hover:text-on-surface" href="#perfil">
+<span class="material-symbols-outlined text-[22px]" data-icon="person">person</span>
+<span class="font-caption text-caption mt-0.5">Perfil</span>
+</a>
+</nav>
+</div>
+<!-- Interactive Sync Simulation Script -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const syncBtn = document.getElementById('btn-sync');
+      const syncIcon = document.getElementById('sync-icon');
+      const syncText = document.getElementById('sync-text');
+
+      if (syncBtn) {
+        syncBtn.addEventListener('click', () => {
+          syncIcon.classList.add('animate-spin');
+          syncText.textContent = 'Verificando conectividade...';
+          syncBtn.disabled = true;
+
+          setTimeout(() => {
+            syncIcon.classList.remove('animate-spin');
+            syncText.textContent = 'Sem rede. Mantido no cache seguro';
+            syncBtn.classList.add('border-amber-warning', 'text-amber-warning');
+            
+            setTimeout(() => {
+              syncText.textContent = 'Tentar Sincronizar Agora';
+              syncBtn.classList.remove('border-amber-warning', 'text-amber-warning');
+              syncBtn.disabled = false;
+            }, 3000);
+          }, 1800);
+        });
+      }
+    });
+  </script>
+</body></html>

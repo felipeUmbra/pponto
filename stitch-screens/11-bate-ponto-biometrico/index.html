@@ -1,0 +1,467 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<title>pPonto Mobile - Registro Biométrico</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Fonts Inter and JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "blue-accent": "#3B82F6",
+            "error-container": "#ffdad6",
+            "on-background": "#0b1c30",
+            "purple-bank": "#7C3AED",
+            "tertiary-fixed": "#85f8c4",
+            "secondary-fixed": "#dbe1ff",
+            "inverse-primary": "#bec6e0",
+            "on-primary-fixed-variant": "#3f465c",
+            "ruby-danger": "#DC2626",
+            "surface-container-highest": "#d3e4fe",
+            "surface-variant": "#d3e4fe",
+            "purple-subtle": "#F5F3FF",
+            "surface-dim": "#cbdbf5",
+            "inverse-surface": "#213145",
+            "surface-container-high": "#dce9ff",
+            "border-subtle": "#E2E8F0",
+            "neutral-card": "#FFFFFF",
+            "on-secondary-container": "#fefcff",
+            "on-tertiary-container": "#069669",
+            "on-secondary-fixed-variant": "#003ea8",
+            "tertiary": "#000000",
+            "teal-success": "#059669",
+            "on-error-container": "#93000a",
+            "on-primary-fixed": "#131b2e",
+            "primary": "#000000",
+            "surface": "#f8f9ff",
+            "on-secondary-fixed": "#00174b",
+            "on-surface": "#0b1c30",
+            "surface-container": "#e5eeff",
+            "on-tertiary": "#ffffff",
+            "on-primary": "#ffffff",
+            "outline": "#76777d",
+            "amber-warning": "#D97706",
+            "primary-fixed-dim": "#bec6e0",
+            "error": "#ba1a1a",
+            "blue-vibrant": "#2563EB",
+            "primary-fixed": "#dae2fd",
+            "background": "#f8f9ff",
+            "navy-surface": "#1E293B",
+            "surface-tint": "#565e74",
+            "on-tertiary-fixed": "#002114",
+            "surface-bright": "#f8f9ff",
+            "on-tertiary-fixed-variant": "#005137",
+            "inverse-on-surface": "#eaf1ff",
+            "secondary": "#0051d5",
+            "amber-soft": "#F59E0B",
+            "emerald-light": "#10B981",
+            "on-surface-variant": "#45464d",
+            "secondary-fixed-dim": "#b4c5ff",
+            "neutral-canvas": "#F8FAFC",
+            "primary-container": "#131b2e",
+            "on-secondary": "#ffffff",
+            "surface-container-lowest": "#ffffff",
+            "tertiary-fixed-dim": "#68dba9",
+            "navy-deep": "#0F172A",
+            "on-primary-container": "#7c839b",
+            "secondary-container": "#316bf3",
+            "surface-container-low": "#eff4ff",
+            "tertiary-container": "#002114",
+            "on-error": "#ffffff",
+            "outline-variant": "#c6c6cd"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-lg": "1.5rem",
+            "space-xl": "2.5rem",
+            "space-sm": "0.5rem",
+            "margin": "1.5rem",
+            "space-md": "1rem",
+            "gutter": "1.5rem",
+            "space-xs": "0.25rem"
+          },
+          "fontFamily": {
+            "headline-lg": ["Inter"],
+            "tabular-time": ["JetBrains Mono"],
+            "body-sm": ["Inter"],
+            "headline-sm": ["Inter"],
+            "headline-lg-mobile": ["Inter"],
+            "caption": ["Inter"],
+            "headline-md": ["Inter"],
+            "clock-large-mobile": ["JetBrains Mono"],
+            "display-hero": ["Inter"],
+            "badge-label": ["Inter"],
+            "body-md": ["Inter"],
+            "clock-large": ["JetBrains Mono"],
+            "display-hero-mobile": ["Inter"],
+            "body-lg": ["Inter"]
+          },
+          "fontSize": {
+            "headline-lg": ["2rem", { "lineHeight": "2.5rem", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "tabular-time": ["0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "0em", "fontWeight": "500" }],
+            "body-sm": ["0.75rem", { "lineHeight": "1.125rem", "fontWeight": "400" }],
+            "headline-sm": ["1.125rem", { "lineHeight": "1.5rem", "fontWeight": "600" }],
+            "headline-lg-mobile": ["1.5rem", { "lineHeight": "2rem", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "caption": ["0.6875rem", { "lineHeight": "0.875rem", "letterSpacing": "0.02em", "fontWeight": "500" }],
+            "headline-md": ["1.25rem", { "lineHeight": "1.75rem", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "clock-large-mobile": ["2.25rem", { "lineHeight": "2.5rem", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "display-hero": ["3.5rem", { "lineHeight": "4rem", "letterSpacing": "-0.03em", "fontWeight": "700" }],
+            "badge-label": ["0.6875rem", { "lineHeight": "0.875rem", "letterSpacing": "0.04em", "fontWeight": "600" }],
+            "body-md": ["0.875rem", { "lineHeight": "1.375rem", "fontWeight": "400" }],
+            "clock-large": ["3rem", { "lineHeight": "3.25rem", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "display-hero-mobile": ["2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "body-lg": ["1rem", { "lineHeight": "1.5rem", "fontWeight": "400" }]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    @keyframes pulse-ring {
+      0% { transform: scale(0.95); opacity: 0.8; }
+      50% { transform: scale(1.15); opacity: 0.3; }
+      100% { transform: scale(0.95); opacity: 0.8; }
+    }
+    .pulse-ring-active {
+      animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    @keyframes scan-line {
+      0% { top: 12%; opacity: 0.2; }
+      50% { top: 82%; opacity: 0.9; }
+      100% { top: 12%; opacity: 0.2; }
+    }
+    .scanner-beam {
+      animation: scan-line 2.8s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="bg-neutral-canvas text-on-surface antialiased selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+<!-- Mobile Device Simulation Frame (Max 420px for high-density app experience) -->
+<div class="min-h-screen max-w-[420px] mx-auto bg-neutral-canvas flex flex-col relative pb-24 shadow-2xl">
+<!-- Top App Bar (Header PWA) -->
+<header class="sticky top-0 z-40 bg-navy-deep text-surface-container-lowest px-4 py-3 shadow-md flex items-center justify-between border-none">
+<div class="flex items-center space-x-2">
+<div class="w-8 h-8 rounded-lg bg-blue-vibrant flex items-center justify-center text-surface-container-lowest font-headline-sm-mobile font-bold tracking-tight">pP</div>
+<div>
+<div class="flex items-center space-x-1.5">
+<span class="text-headline-sm-mobile font-headline-sm-mobile text-surface-container-lowest tracking-tight font-bold">pPonto</span>
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-light"></span>
+</div>
+<p class="text-caption font-caption text-secondary-fixed">Portaria 671 MTE Homologado</p>
+</div>
+</div>
+<div class="flex items-center space-x-2">
+<!-- Online/Sync Status Indicator -->
+<div class="flex items-center space-x-1 bg-navy-surface px-2.5 py-1 rounded-full border border-border-subtle/20">
+<span class="w-2 h-2 rounded-full bg-emerald-light animate-pulse"></span>
+<span class="text-caption font-caption text-surface-container-lowest font-medium">Online</span>
+</div>
+<!-- Help Support Button -->
+<button class="w-8 h-8 rounded-full bg-navy-surface flex items-center justify-center text-surface-container-lowest hover:bg-blue-accent/20 transition-colors" title="Suporte Técnico">
+<span class="material-symbols-outlined text-[18px]">help_outline</span>
+</button>
+</div>
+</header>
+<!-- Contingency Sync Notice Banner (Tonal Layer 4) -->
+<div class="bg-surface-container-low px-4 py-1.5 border-b border-border-subtle flex items-center justify-between">
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-amber-warning text-[16px]">cloud_done</span>
+<span class="text-caption font-caption text-on-surface font-medium">Cache criptografado ativo • 0 pendentes</span>
+</div>
+<span class="text-caption font-caption text-outline font-tabular-time">REP-P v3.12</span>
+</div>
+<!-- Main Mobile Content Canvas -->
+<main class="flex-1 px-4 pt-3.5 space-y-3.5">
+<!-- User Identification & Shift Profile Card -->
+<section class="bg-neutral-card rounded-xl p-3.5 border border-border-subtle shadow-sm flex items-center justify-between">
+<div class="flex items-center space-x-3">
+<div class="relative">
+<img class="w-12 h-12 rounded-full object-cover border-2 border-surface-container-low" data-alt="Close-up professional portrait of Mariana Costa, a 30-year-old Brazilian female Design Lead with dark wavy hair and friendly corporate demeanor, softly lit against a clean neutral architectural studio background in high-key light mode." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeTeBVrAhvY5WoZTDaI4e6Znk1hnXWthQF0RTru3e2snuBMaP2sdbqCv97guPtVrSWkGOlsIqeQfXodilTuwJ2OWCosbQLaEbLX7BGTMaHJNTRc_9U2xtgFRkBIh4weo8hxBED6Zog3XLeq9EsKpmMmmlFQ1ffKoYhHynkXC0cLJHssHCKmvut33uMYnr4aD-MaMaxgimPQApyWTtmy7dpAtNsWxiACtxmjEq9QMeGEeGCxgBRMb7uuw">
+<span class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-emerald-light border-2 border-neutral-card rounded-full"></span>
+</div>
+<div>
+<div class="flex items-center space-x-1.5">
+<h1 class="text-headline-sm font-headline-sm text-on-surface">Olá, Mariana Costa</h1>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Design Lead • Matrícula <span class="font-tabular-time text-on-surface font-medium">#1042</span></p>
+</div>
+</div>
+<div class="bg-surface-container-low px-2.5 py-1.5 rounded-lg text-right border border-border-subtle">
+<span class="text-caption font-caption text-outline block">Jornada CLT</span>
+<span class="text-tabular-time font-tabular-time text-secondary font-semibold">09:00 - 18:00</span>
+</div>
+</section>
+<!-- Official Digital Clock Panel -->
+<section class="bg-neutral-card rounded-xl p-3.5 border border-border-subtle text-center shadow-sm">
+<div class="flex items-center justify-center space-x-1 text-on-surface-variant mb-0.5">
+<span class="material-symbols-outlined text-[16px] text-blue-vibrant">schedule</span>
+<span class="text-caption font-caption uppercase tracking-wider font-semibold">Horário de Brasília (NTP.br)</span>
+</div>
+<div class="text-clock-large-mobile font-clock-large-mobile text-navy-deep tracking-tight my-0.5" id="live-clock">23:17:57</div>
+<div class="inline-flex items-center space-x-2 text-body-sm font-body-sm text-on-surface-variant">
+<span class="font-medium text-on-surface">Quinta-feira, 24 de Outubro de 2024</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="text-emerald-light font-medium flex items-center">
+<span class="material-symbols-outlined text-[14px] mr-0.5">verified</span> NTP Sincronizado
+          </span>
+</div>
+</section>
+<!-- Biometric Facial Recognition Viewport (Anti-Spoofing / Anti-Proxy) -->
+<section class="bg-neutral-card rounded-xl p-3.5 border border-border-subtle shadow-sm flex flex-col items-center">
+<div class="w-full flex items-center justify-between mb-2.5">
+<div class="flex items-center space-x-1.5">
+<span class="material-symbols-outlined text-blue-vibrant text-[18px]">face</span>
+<span class="text-body-sm font-body-sm font-semibold text-on-surface">Validação Facial Ativa</span>
+</div>
+<span class="bg-surface-container-low text-emerald-light text-badge-label font-badge-label px-2 py-0.5 rounded-full border border-emerald-light/30 flex items-center space-x-1">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-light"></span>
+<span class="">Liveness Test OK</span>
+</span>
+</div>
+<!-- Camera Viewport Mask Container (1:1 Rounded Viewport) -->
+<div class="relative w-64 h-64 rounded-2xl bg-navy-deep overflow-hidden flex items-center justify-center border-2 border-emerald-light/60 shadow-inner">
+<!-- Background Simulated Camera Video Feed -->
+<img class="absolute inset-0 w-full h-full object-cover opacity-85" data-alt="A user POV perspective view from an intelligent biometric workplace attendance scanner showing a focused, centered woman positioning her head within the alignment guides in bright crisp indoor office lighting, framed by high-tech corporate blue and emerald graphics overlay." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDy6JNByAk34sxDrRjRKymhm6fHpaZbEnV58CanEP8hWrNaw64CevX7OUcWGrDGMMufBrQK6iSVKPpvp6rHL2kNw9nHuBpnRZnSXDCSpm8EtKu0jSSEHjJr2BShSrkZbwe-c3P4Fc9IixkrF_j6kuRlZ1fGiUUPfnMpWVxkgTf0hWltVPk4fY9zzugKA1OZkg3S7mJ6-ZpfwPz0OSIUrjseW4CwmfqO82X8b4kLLXQQujRmzXIuhr8OXQ">
+<!-- Laser Biometric Scanning Beam Overlay -->
+<div class="scanner-beam absolute left-4 right-4 h-0.5 bg-gradient-to-r from-transparent via-emerald-light to-transparent z-20 shadow-[0_0_8px_#10B981]"></div>
+<!-- Biometric Face Target Oval Guides (Anti-Proxy) -->
+<div class="relative z-10 w-44 h-56 rounded-[50%] border-2 border-dashed border-emerald-light/90 flex items-center justify-center">
+<!-- Corner Brackets of High-Precision Hardware -->
+<div class="absolute -top-1.5 -left-1.5 w-4 h-4 border-t-2 border-l-2 border-emerald-light"></div>
+<div class="absolute -top-1.5 -right-1.5 w-4 h-4 border-t-2 border-r-2 border-emerald-light"></div>
+<div class="absolute -bottom-1.5 -left-1.5 w-4 h-4 border-b-2 border-l-2 border-emerald-light"></div>
+<div class="absolute -bottom-1.5 -right-1.5 w-4 h-4 border-b-2 border-r-2 border-emerald-light"></div>
+<!-- Focus Crosshairs Center -->
+<div class="w-3 h-3 border border-emerald-light/40 rounded-full flex items-center justify-center">
+<div class="w-1 h-1 bg-emerald-light rounded-full"></div>
+</div>
+</div>
+<!-- Real-Time Camera Prompt Overlay Pill -->
+<div class="absolute bottom-2.5 z-20 px-3 py-1 bg-navy-deep/85 backdrop-blur-sm rounded-full border border-emerald-light/40 flex items-center space-x-1.5">
+<span class="material-symbols-outlined text-emerald-light text-[15px]">check_circle</span>
+<span class="text-caption font-caption text-surface-container-lowest font-medium">Biometria Facial Validada (99.8%)</span>
+</div>
+</div>
+<p class="text-caption font-caption text-on-surface-variant text-center mt-2.5">
+          Posicione a face no centro. Não use óculos escuros, bonés ou adereços faciais.
+        </p>
+</section>
+<!-- Geofencing & Location Verification Card -->
+<section class="bg-neutral-card rounded-xl p-3.5 border border-border-subtle shadow-sm">
+<div class="flex items-start justify-between">
+<div class="flex items-start space-x-2.5">
+<div class="w-8 h-8 rounded-lg bg-surface-container-low flex items-center justify-center text-blue-vibrant shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[20px]">location_on</span>
+</div>
+<div>
+<div class="flex items-center space-x-2">
+<h2 class="text-headline-sm font-headline-sm text-on-surface">Escritório Matriz</h2>
+<span class="bg-surface-container-low text-secondary text-caption font-caption px-1.5 py-0.5 rounded font-medium">Sede SP</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Av. Brig. Faria Lima, 2200 - Pinheiros</p>
+</div>
+</div>
+<!-- Geofence Pulse Radar Indicator -->
+<div class="relative flex items-center justify-center w-7 h-7">
+<div class="pulse-ring-active absolute w-6 h-6 rounded-full bg-emerald-light/30"></div>
+<span class="w-3 h-3 rounded-full bg-emerald-light border-2 border-neutral-card z-10"></span>
+</div>
+</div>
+<!-- Precise Boundary Distance Strip -->
+<div class="mt-3 pt-2.5 border-t border-border-subtle flex items-center justify-between text-caption font-caption">
+<div class="flex items-center space-x-1.5 text-teal-success font-medium">
+<span class="material-symbols-outlined text-[16px]">verified_user</span>
+<span class="">Dentro do perímetro (Cerca 70m)</span>
+</div>
+<div class="font-tabular-time text-on-surface-variant">
+            Distância: <strong class="text-on-surface font-semibold">18m do REP</strong> • Precisão ±3m
+          </div>
+</div>
+</section>
+<!-- Primary Action: Huge Punch Button (BATER PONTO) -->
+<section class="pt-1">
+<button class="w-full h-16 bg-blue-vibrant active:scale-[0.98] transition-all duration-150 rounded-2xl shadow-lg hover:bg-secondary text-surface-container-lowest font-headline-md font-headline-md flex items-center justify-center space-x-3 px-4 border border-blue-accent/30 focus:outline-none focus:ring-4 focus:ring-blue-accent/25" id="btn-punch">
+<div class="w-9 h-9 rounded-xl bg-surface-container-lowest/20 flex items-center justify-center backdrop-blur-sm">
+<span class="material-symbols-outlined text-[24px]">fingerprint</span>
+</div>
+<div class="text-left leading-tight">
+<span class="block text-headline-sm font-headline-sm tracking-wide">BATER PONTO</span>
+<span class="block text-caption font-caption text-secondary-fixed opacity-90">Retorno Intervalo de Almoço</span>
+</div>
+<span class="material-symbols-outlined text-[20px] ml-auto">arrow_forward</span>
+</button>
+</section>
+<!-- Daily Shifts Timeline Summary (4 Slots do Dia) -->
+<section class="bg-neutral-card rounded-xl p-3.5 border border-border-subtle shadow-sm">
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center space-x-1.5">
+<span class="material-symbols-outlined text-outline text-[18px]">history_toggle_off</span>
+<h3 class="text-headline-sm font-headline-sm text-on-surface">Registros de Hoje</h3>
+</div>
+<span class="text-caption font-caption text-on-surface-variant font-tabular-time">2 de 4 batidas</span>
+</div>
+<!-- 4 Grid Slots -->
+<div class="grid grid-cols-2 gap-2.5">
+<!-- 1. Entrada Manhã (Confirmado) -->
+<div class="p-2.5 rounded-lg bg-surface-container-low border border-border-subtle flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-caption font-caption text-on-surface-variant uppercase font-medium">1ª Entrada</span>
+<span class="bg-emerald-light/10 text-teal-success text-badge-label font-badge-label px-1.5 py-0.2 rounded flex items-center">
+<span class="material-symbols-outlined text-[12px] mr-0.5">check</span> OK
+              </span>
+</div>
+<div class="flex items-baseline justify-between mt-1">
+<span class="text-tabular-time font-tabular-time text-navy-deep font-semibold">08:58</span>
+<div class="flex items-center text-outline text-caption" title="Comprovante e foto biométrica anexados">
+<span class="material-symbols-outlined text-[14px]">photo_camera</span>
+<span class="material-symbols-outlined text-[14px] ml-0.5">pin_drop</span>
+</div>
+</div>
+</div>
+<!-- 2. Saída Intervalo (Confirmado) -->
+<div class="p-2.5 rounded-lg bg-surface-container-low border border-border-subtle flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-caption font-caption text-on-surface-variant uppercase font-medium">1ª Saída</span>
+<span class="bg-emerald-light/10 text-teal-success text-badge-label font-badge-label px-1.5 py-0.2 rounded flex items-center">
+<span class="material-symbols-outlined text-[12px] mr-0.5">check</span> OK
+              </span>
+</div>
+<div class="flex items-baseline justify-between mt-1">
+<span class="text-tabular-time font-tabular-time text-navy-deep font-semibold">12:01</span>
+<div class="flex items-center text-outline text-caption" title="Comprovante e foto biométrica anexados">
+<span class="material-symbols-outlined text-[14px]">photo_camera</span>
+<span class="material-symbols-outlined text-[14px] ml-0.5">pin_drop</span>
+</div>
+</div>
+</div>
+<!-- 3. Retorno Intervalo (Atual / Próximo) -->
+<div class="p-2.5 rounded-lg bg-secondary-fixed/30 border-2 border-blue-accent/60 flex flex-col justify-between relative overflow-hidden">
+<div class="flex items-center justify-between">
+<span class="text-caption font-caption text-secondary font-semibold uppercase">2ª Entrada</span>
+<span class="bg-blue-vibrant text-surface-container-lowest text-badge-label font-badge-label px-1.5 py-0.2 rounded animate-pulse">
+                Agora
+              </span>
+</div>
+<div class="flex items-baseline justify-between mt-1">
+<span class="text-tabular-time font-tabular-time text-blue-vibrant font-bold text-[1rem]">--:--</span>
+<span class="text-caption font-caption text-secondary font-medium">Aguardando</span>
+</div>
+</div>
+<!-- 4. Saída Fim de Turno (Pendente) -->
+<div class="p-2.5 rounded-lg bg-neutral-card border border-dashed border-border-subtle flex flex-col justify-between opacity-60">
+<div class="flex items-center justify-between">
+<span class="text-caption font-caption text-outline uppercase font-medium">2ª Saída</span>
+<span class="text-caption font-caption text-outline">Prev. 18:00</span>
+</div>
+<div class="flex items-baseline justify-between mt-1">
+<span class="text-tabular-time font-tabular-time text-outline font-medium">--:--</span>
+<span class="material-symbols-outlined text-outline text-[14px]">lock_clock</span>
+</div>
+</div>
+</div>
+<!-- NSR & Legal Ticket Footer -->
+<div class="mt-3 pt-2.5 border-t border-border-subtle flex items-center justify-between text-caption font-caption text-outline">
+<span class="">Último Comprovante: #892.411</span>
+<a class="text-secondary hover:underline flex items-center font-medium" href="#">
+            Ver Comprovantes (PDF) <span class="material-symbols-outlined text-[14px] ml-0.5">open_in_new</span>
+</a>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Shared Component from JSON: label_icon type, docked full-width bottom-0) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 bg-surface-container-lowest dark:bg-navy-surface border-t border-border-subtle dark:border-navy-deep shadow-lg dark:shadow-none max-w-[420px] left-1/2 -translate-x-1/2">
+<!-- Tab 1: Ponto (ACTIVE MAPPING according to Shared Components JSON) -->
+<button class="flex flex-col items-center justify-center bg-secondary-fixed dark:bg-primary-container text-on-secondary-fixed dark:text-secondary-fixed rounded-xl px-3 py-1 font-medium transition-transform duration-150 active:scale-95">
+<span class="material-symbols-outlined text-[22px]" style="font-variation-settings: 'FILL' 1;">fingerprint</span>
+<span class="text-caption font-caption mt-0.5">Ponto</span>
+</button>
+<!-- Tab 2: Histórico -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-3 py-1 hover:text-secondary dark:hover:text-blue-accent transition-transform duration-150 active:scale-95">
+<span class="material-symbols-outlined text-[22px]">calendar_today</span>
+<span class="text-caption font-caption mt-0.5">Histórico</span>
+</button>
+<!-- Tab 3: Solicitações (with Badge) -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-3 py-1 hover:text-secondary dark:hover:text-blue-accent transition-transform duration-150 active:scale-95 relative">
+<div class="relative">
+<span class="material-symbols-outlined text-[22px]">pending_actions</span>
+<span class="absolute -top-1 -right-1.5 w-4 h-4 bg-ruby-danger text-surface-container-lowest text-[9px] font-bold rounded-full flex items-center justify-center border-2 border-neutral-card">1</span>
+</div>
+<span class="text-caption font-caption mt-0.5">Solicitações</span>
+</button>
+<!-- Tab 4: Perfil -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-3 py-1 hover:text-secondary dark:hover:text-blue-accent transition-transform duration-150 active:scale-95">
+<span class="material-symbols-outlined text-[22px]">person</span>
+<span class="text-caption font-caption mt-0.5">Perfil</span>
+</button>
+</nav>
+<!-- Success Feedback Overlay Modal (Simulated micro-interaction) -->
+<div class="fixed top-5 left-1/2 -translate-x-1/2 w-11/12 max-w-[390px] bg-navy-deep text-surface-container-lowest p-3.5 rounded-2xl shadow-2xl border border-emerald-light/40 z-50 flex items-center space-x-3 transition-all duration-300 opacity-0 pointer-events-none -translate-y-4" id="punch-toast">
+<div class="w-10 h-10 rounded-full bg-emerald-light/20 flex items-center justify-center text-emerald-light shrink-0">
+<span class="material-symbols-outlined text-[24px]">verified</span>
+</div>
+<div class="flex-1">
+<h4 class="text-headline-sm font-headline-sm text-surface-container-lowest">Ponto Registrado com Sucesso!</h4>
+<p class="text-caption font-caption text-secondary-fixed">NSR #892.412 • Comprovante assinado digitalmente ICP-Brasil.</p>
+</div>
+</div>
+</div>
+<!-- Real-Time Clock & Micro-Interaction Scripts -->
+<script>
+    // Live ticking clock (Brasília Time simulation)
+    function updateClock() {
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+      const clockElement = document.getElementById('live-clock');
+      if (clockElement) {
+        clockElement.textContent = `${hours}:${minutes}:${seconds}`;
+      }
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // Haptic feedback & Toast trigger on primary punch action
+    const btnPunch = document.getElementById('btn-punch');
+    const toast = document.getElementById('punch-toast');
+
+    if (btnPunch && toast) {
+      btnPunch.addEventListener('click', () => {
+        // Trigger simulated haptic vibration if supported on phone
+        if (navigator.vibrate) {
+          navigator.vibrate([40, 60, 100]);
+        }
+
+        // Show animated confirmation toast
+        toast.classList.remove('opacity-0', 'pointer-events-none', '-translate-y-4');
+        toast.classList.add('opacity-100', 'translate-y-0');
+
+        setTimeout(() => {
+          toast.classList.remove('opacity-100', 'translate-y-0');
+          toast.classList.add('opacity-0', 'pointer-events-none', '-translate-y-4');
+        }, 4000);
+      });
+    }
+  </script>
+
+
+</body></html>

@@ -1,0 +1,485 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>pPonto - Espelho de Ponto</title>
+<!-- Google Fonts: Inter & JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;600&amp;display=swap" rel="stylesheet">
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "blue-accent": "#3B82F6",
+            "error-container": "#ffdad6",
+            "on-background": "#0b1c30",
+            "purple-bank": "#7C3AED",
+            "tertiary-fixed": "#85f8c4",
+            "secondary-fixed": "#dbe1ff",
+            "inverse-primary": "#bec6e0",
+            "on-primary-fixed-variant": "#3f465c",
+            "ruby-danger": "#DC2626",
+            "surface-container-highest": "#d3e4fe",
+            "surface-variant": "#d3e4fe",
+            "purple-subtle": "#F5F3FF",
+            "surface-dim": "#cbdbf5",
+            "inverse-surface": "#213145",
+            "surface-container-high": "#dce9ff",
+            "border-subtle": "#E2E8F0",
+            "neutral-card": "#FFFFFF",
+            "on-secondary-container": "#fefcff",
+            "on-tertiary-container": "#069669",
+            "on-secondary-fixed-variant": "#003ea8",
+            "tertiary": "#000000",
+            "teal-success": "#059669",
+            "on-error-container": "#93000a",
+            "on-primary-fixed": "#131b2e",
+            "primary": "#000000",
+            "surface": "#f8f9ff",
+            "on-secondary-fixed": "#00174b",
+            "on-surface": "#0b1c30",
+            "surface-container": "#e5eeff",
+            "on-tertiary": "#ffffff",
+            "on-primary": "#ffffff",
+            "outline": "#76777d",
+            "amber-warning": "#D97706",
+            "primary-fixed-dim": "#bec6e0",
+            "error": "#ba1a1a",
+            "blue-vibrant": "#2563EB",
+            "primary-fixed": "#dae2fd",
+            "background": "#f8f9ff",
+            "navy-surface": "#1E293B",
+            "surface-tint": "#565e74",
+            "on-tertiary-fixed": "#002114",
+            "surface-bright": "#f8f9ff",
+            "on-tertiary-fixed-variant": "#005137",
+            "inverse-on-surface": "#eaf1ff",
+            "secondary": "#0051d5",
+            "amber-soft": "#F59E0B",
+            "emerald-light": "#10B981",
+            "on-surface-variant": "#45464d",
+            "secondary-fixed-dim": "#b4c5ff",
+            "neutral-canvas": "#F8FAFC",
+            "primary-container": "#131b2e",
+            "on-secondary": "#ffffff",
+            "surface-container-lowest": "#ffffff",
+            "tertiary-fixed-dim": "#68dba9",
+            "navy-deep": "#0F172A",
+            "on-primary-container": "#7c839b",
+            "secondary-container": "#316bf3",
+            "surface-container-low": "#eff4ff",
+            "tertiary-container": "#002114",
+            "on-error": "#ffffff",
+            "outline-variant": "#c6c6cd"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-lg": "1.5rem",
+            "space-xl": "2.5rem",
+            "space-sm": "0.5rem",
+            "margin": "1.5rem",
+            "space-md": "1rem",
+            "gutter": "1.5rem",
+            "space-xs": "0.25rem"
+          },
+          "fontFamily": {
+            "headline-lg": ["Inter"],
+            "tabular-time": ["JetBrains Mono"],
+            "body-sm": ["Inter"],
+            "headline-sm": ["Inter"],
+            "headline-lg-mobile": ["Inter"],
+            "caption": ["Inter"],
+            "headline-md": ["Inter"],
+            "clock-large-mobile": ["JetBrains Mono"],
+            "display-hero": ["Inter"],
+            "badge-label": ["Inter"],
+            "body-md": ["Inter"],
+            "clock-large": ["JetBrains Mono"],
+            "display-hero-mobile": ["Inter"],
+            "body-lg": ["Inter"]
+          },
+          "fontSize": {
+            "headline-lg": ["2rem", { "lineHeight": "2.5rem", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "tabular-time": ["0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "0em", "fontWeight": "500" }],
+            "body-sm": ["0.75rem", { "lineHeight": "1.125rem", "fontWeight": "400" }],
+            "headline-sm": ["1.125rem", { "lineHeight": "1.5rem", "fontWeight": "600" }],
+            "headline-lg-mobile": ["1.5rem", { "lineHeight": "2rem", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "caption": ["0.6875rem", { "lineHeight": "0.875rem", "letterSpacing": "0.02em", "fontWeight": "500" }],
+            "headline-md": ["1.25rem", { "lineHeight": "1.75rem", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "clock-large-mobile": ["2.25rem", { "lineHeight": "2.5rem", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "display-hero": ["3.5rem", { "lineHeight": "4rem", "letterSpacing": "-0.03em", "fontWeight": "700" }],
+            "badge-label": ["0.6875rem", { "lineHeight": "0.875rem", "letterSpacing": "0.04em", "fontWeight": "600" }],
+            "body-md": ["0.875rem", { "lineHeight": "1.375rem", "fontWeight": "400" }],
+            "clock-large": ["3rem", { "lineHeight": "3.25rem", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "display-hero-mobile": ["2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "body-lg": ["1rem", { "lineHeight": "1.5rem", "fontWeight": "400" }]
+          }
+        },
+      },
+    }
+  </script>
+</head>
+<body class="bg-neutral-canvas text-on-surface font-body-md text-body-md antialiased min-h-screen flex justify-center selection:bg-secondary selection:text-surface-container-lowest">
+<!-- Mobile Screen Container (390px simulated PWA Canvas) -->
+<main class="w-full max-w-[420px] bg-neutral-canvas min-h-screen relative flex flex-col pb-36 border-x border-border-subtle shadow-xl">
+<!-- Top Bar Mobile PWA Header -->
+<header class="sticky top-0 z-40 bg-navy-deep text-surface-container-lowest px-4 py-3 shadow-md flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-lg bg-blue-vibrant flex items-center justify-center text-surface-container-lowest font-bold font-headline-sm text-headline-sm">p</div>
+<div>
+<h1 class="font-headline-sm-mobile text-headline-sm-mobile font-bold tracking-tight text-surface-container-lowest leading-tight">
+            Espelho de Ponto
+          </h1>
+<p class="font-caption text-caption text-outline-variant flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-light inline-block"></span>
+            REP-P Homologado • Portaria 671
+          </p>
+</div>
+</div>
+<!-- Quick Action: Baixar Relatório Assinado (PDF) -->
+<button aria-label="Baixar Relatório Assinado em PDF" class="flex items-center gap-1.5 bg-navy-surface hover:bg-primary-container text-surface-container-lowest px-3 py-1.5 rounded-lg text-body-sm font-body-sm font-medium border border-border-subtle/20 transition-all duration-150 active:scale-95" type="button">
+<span class="material-symbols-outlined text-blue-accent text-[18px]" data-icon="picture_as_pdf">picture_as_pdf</span>
+<span class="">PDF</span>
+</button>
+</header>
+<div class="p-4 space-y-4">
+<!-- Seletor de Período / Mês -->
+<section aria-label="Seletor de Período Mensal" class="bg-surface-container-lowest p-3 rounded-xl border border-border-subtle shadow-sm flex items-center justify-between">
+<div class="flex items-center gap-1">
+<button aria-label="Mês Anterior" class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-colors active:scale-90" type="button">
+<span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
+</button>
+<div class="px-1">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-secondary text-[18px]" data-icon="calendar_month">calendar_month</span>
+<span class="font-headline-sm-mobile text-headline-sm-mobile font-bold text-navy-deep">
+                Outubro de 2024
+              </span>
+</div>
+<span class="font-caption text-caption text-on-surface-variant block">01/10/2024 a 31/10/2024</span>
+</div>
+<button aria-label="Próximo Mês" class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-colors active:scale-90" type="button">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+<div class="bg-emerald-light/10 text-teal-success border border-emerald-light/30 px-2 py-0.5 rounded-full flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-light animate-pulse"></span>
+<span class="font-badge-label text-badge-label font-semibold uppercase tracking-wider">Período Aberto</span>
+</div>
+</section>
+<!-- Card Resumo de Banco de Horas & Métricas do Mês (Bento Grid) -->
+<section aria-label="Resumo Consolidado do Mês" class="bg-surface-container-lowest rounded-xl border border-border-subtle p-4 shadow-sm space-y-3.5">
+<div class="flex items-center justify-between pb-2.5 border-b border-border-subtle">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-lg bg-blue-vibrant/10 text-blue-vibrant flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]" data-icon="query_builder">query_builder</span>
+</div>
+<div>
+<p class="font-caption text-caption uppercase tracking-wider font-semibold text-outline">Balanço do Período</p>
+<h2 class="font-headline-sm text-headline-sm text-navy-deep">Métricas e Banco</h2>
+</div>
+</div>
+<span class="font-caption text-caption text-outline bg-surface-container-low px-2 py-0.5 rounded">Atualizado 13:02</span>
+</div>
+<div class="grid grid-cols-2 gap-2.5">
+<!-- Saldo Banco de Horas -->
+<div class="col-span-1 bg-surface-container-low/70 p-3 rounded-lg border border-border-subtle flex flex-col justify-between">
+<div class="flex items-center justify-between mb-1">
+<span class="font-caption text-caption text-on-surface-variant">Banco Acumulado</span>
+<span class="material-symbols-outlined text-teal-success text-[16px]" data-icon="trending_up">trending_up</span>
+</div>
+<div>
+<span class="font-clock-large-mobile text-clock-large-mobile font-semibold text-teal-success leading-tight block">
+                +06h 45m
+              </span>
+<span class="font-badge-label text-badge-label text-teal-success font-medium bg-emerald-light/15 px-1.5 py-0.5 rounded-full inline-block mt-0.5">Crédito a Favor</span>
+</div>
+</div>
+<!-- Horas Trabalhadas vs Esperadas -->
+<div class="col-span-1 bg-surface-container-low/70 p-3 rounded-lg border border-border-subtle flex flex-col justify-between">
+<div class="flex items-center justify-between mb-1">
+<span class="font-caption text-caption text-on-surface-variant">Jornada Efetiva</span>
+<span class="material-symbols-outlined text-blue-accent text-[16px]" data-icon="pace">pace</span>
+</div>
+<div>
+<span class="font-tabular-time text-tabular-time font-semibold text-navy-deep block leading-tight">
+                138h 20m
+              </span>
+<span class="font-caption text-caption text-on-surface-variant block mt-0.5">de 168h 00m esperadas</span>
+</div>
+<!-- Mini progress bar -->
+<div class="w-full bg-border-subtle h-1.5 rounded-full mt-2 overflow-hidden">
+<div class="bg-blue-vibrant h-full rounded-full" style="width: 82%;"></div>
+</div>
+</div>
+</div>
+<!-- Mini Grid de Status e Contadores -->
+<div class="grid grid-cols-3 gap-2 pt-1">
+<div class="bg-surface p-2 rounded-lg text-center border border-border-subtle">
+<span class="font-caption text-caption text-outline block">Dias Trab.</span>
+<span class="font-headline-sm text-headline-sm font-bold text-navy-deep">18</span>
+</div>
+<div class="bg-surface p-2 rounded-lg text-center border border-border-subtle">
+<span class="font-caption text-caption text-outline block">Faltas Indev.</span>
+<span class="font-headline-sm text-headline-sm font-bold text-teal-success">0</span>
+</div>
+<div class="bg-surface p-2 rounded-lg text-center border border-border-subtle">
+<span class="font-caption text-caption text-outline block">Atestados</span>
+<span class="font-headline-sm text-headline-sm font-bold text-purple-bank">1 def.</span>
+</div>
+</div>
+</section>
+<!-- Seletor de visualização rápida em abas pílula -->
+<section aria-label="Filtro de Visualização de Registros">
+<div class="flex items-center gap-1.5 overflow-x-auto pb-1 no-scrollbar">
+<button class="bg-navy-deep text-surface-container-lowest font-body-sm text-body-sm font-medium px-3.5 py-1.5 rounded-full whitespace-nowrap shadow-sm" type="button">
+            Todos os Dias (24)
+          </button>
+<button class="bg-surface-container-lowest text-amber-warning border border-amber-soft/40 hover:bg-amber-soft/10 font-body-sm text-body-sm font-medium px-3.5 py-1.5 rounded-full whitespace-nowrap flex items-center gap-1.5 transition-colors" type="button">
+<span class="w-2 h-2 rounded-full bg-amber-soft"></span>
+            Inconsistências (2)
+          </button>
+<button class="bg-surface-container-lowest text-on-surface-variant border border-border-subtle hover:bg-surface-container-low font-body-sm text-body-sm font-medium px-3.5 py-1.5 rounded-full whitespace-nowrap flex items-center gap-1.5 transition-colors" type="button">
+<span class="w-2 h-2 rounded-full bg-blue-accent"></span>
+            Solicitações (1)
+          </button>
+</div>
+</section>
+<!-- Lista de Dias / Cartão de Ponto Mensal -->
+<section aria-label="Registros Diários do Espelho" class="space-y-3">
+<!-- CARD 1: Dia 24/10 (Hoje) - Trabalho em andamento -->
+<article class="bg-surface-container-lowest rounded-xl border border-blue-accent/30 p-3.5 shadow-sm relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-blue-vibrant"></div>
+<div class="flex items-center justify-between mb-2.5">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm font-bold text-navy-deep">24/10</span>
+<span class="font-caption text-caption text-on-surface-variant font-medium">Quinta-feira</span>
+<span class="bg-blue-accent/15 text-blue-vibrant font-badge-label text-badge-label px-2 py-0.5 rounded-full font-semibold">Hoje</span>
+</div>
+<div class="bg-surface-container-low text-blue-vibrant px-2.5 py-0.5 rounded-full flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-blue-vibrant animate-ping"></span>
+<span class="font-badge-label text-badge-label font-medium uppercase">Trabalho em andamento</span>
+</div>
+</div>
+<!-- Ponto Batidas Row -->
+<div class="grid grid-cols-4 gap-1.5 bg-neutral-canvas p-2.5 rounded-lg border border-border-subtle text-center">
+<div>
+<span class="font-caption text-caption text-outline block mb-0.5">Entrada</span>
+<span class="font-tabular-time text-tabular-time font-semibold text-navy-deep">08:58</span>
+</div>
+<div>
+<span class="font-caption text-caption text-outline block mb-0.5">Int. Saída</span>
+<span class="font-tabular-time text-tabular-time font-semibold text-navy-deep">12:01</span>
+</div>
+<div>
+<span class="font-caption text-caption text-outline block mb-0.5">Int. Retorno</span>
+<span class="font-tabular-time text-tabular-time font-semibold text-navy-deep">13:02</span>
+</div>
+<div class="bg-blue-accent/5 rounded border border-dashed border-blue-accent/40">
+<span class="font-caption text-caption text-blue-accent block mb-0.5">Saída Final</span>
+<span class="font-tabular-time text-tabular-time font-semibold text-blue-vibrant">--:--</span>
+</div>
+</div>
+<div class="mt-2.5 flex items-center justify-between text-body-sm font-body-sm text-on-surface-variant">
+<div class="flex items-center gap-2 font-caption text-caption text-teal-success">
+<span class="flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[14px]" data-icon="photo_camera">photo_camera</span>
+                Biometria OK
+              </span>
+<span class="">•</span>
+<span class="flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[14px]" data-icon="location_on">location_on</span>
+                Sede Principal
+              </span>
+</div>
+<span class="font-caption text-caption text-outline font-medium">Jornada 08:48 esperada</span>
+</div>
+</article>
+<!-- CARD 2: Dia 23/10 (Ontem) - Completo com saldo positivo -->
+<article class="bg-surface-container-lowest rounded-xl border border-border-subtle p-3.5 shadow-sm relative overflow-hidden">
+<div class="flex items-center justify-between mb-2.5">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm font-bold text-navy-deep">23/10</span>
+<span class="font-caption text-caption text-on-surface-variant font-medium">Quarta-feira</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="font-tabular-time text-tabular-time font-semibold text-navy-deep">Total: 08h 15m</span>
+<span class="font-badge-label text-badge-label bg-emerald-light/15 text-teal-success px-1.5 py-0.5 rounded font-semibold">+00h 15m</span>
+</div>
+</div>
+<!-- Ponto Batidas Row -->
+<div class="grid grid-cols-4 gap-1.5 bg-neutral-canvas p-2.5 rounded-lg border border-border-subtle text-center">
+<div>
+<span class="font-caption text-caption text-outline block mb-0.5">Entrada</span>
+<span class="font-tabular-time text-tabular-time font-semibold text-navy-deep">09:00</span>
+</div>
+<div>
+<span class="font-caption text-caption text-outline block mb-0.5">Int. Saída</span>
+<span class="font-tabular-time text-tabular-time font-semibold text-navy-deep">12:00</span>
+</div>
+<div>
+<span class="font-caption text-caption text-outline block mb-0.5">Int. Retorno</span>
+<span class="font-tabular-time text-tabular-time font-semibold text-navy-deep">13:00</span>
+</div>
+<div>
+<span class="font-caption text-caption text-outline block mb-0.5">Saída Final</span>
+<span class="font-tabular-time text-tabular-time font-semibold text-navy-deep">18:15</span>
+</div>
+</div>
+<!-- Rodapé com Verificação de Segurança (Biometria Facial e Geofence) -->
+<div class="mt-2.5 pt-2 border-t border-border-subtle flex items-center justify-between">
+<div class="flex items-center gap-2 text-teal-success font-caption text-caption">
+<span class="inline-flex items-center gap-1 bg-emerald-light/10 px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-[13px]" data-icon="verified_user">verified_user</span>
+                Facial 99.4%
+              </span>
+<span class="inline-flex items-center gap-1 bg-emerald-light/10 px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-[13px]" data-icon="fmd_good">fmd_good</span>
+                Cerca 70m OK
+              </span>
+</div>
+<span class="font-badge-label text-badge-label text-teal-success uppercase font-semibold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-teal-success"></span>
+              Aprovado
+            </span>
+</div>
+</article>
+<!-- CARD 3: Dia 22/10 - Ajuste Solicitado / Inconsistência Pendente -->
+<article class="bg-surface-container-lowest rounded-xl border border-amber-soft/40 p-3.5 shadow-sm relative overflow-hidden bg-gradient-to-r from-amber-soft/5 to-transparent">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-amber-soft"></div>
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm font-bold text-navy-deep">22/10</span>
+<span class="font-caption text-caption text-on-surface-variant font-medium">Terça-feira</span>
+</div>
+<div class="bg-amber-soft/15 text-amber-warning border border-amber-soft/30 px-2 py-0.5 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="hourglass_top">hourglass_top</span>
+<span class="font-badge-label text-badge-label font-semibold">Em Análise pelo Gestor</span>
+</div>
+</div>
+<!-- Ponto Batidas com Saída Esquecida -->
+<div class="grid grid-cols-4 gap-1.5 bg-neutral-canvas p-2.5 rounded-lg border border-border-subtle text-center">
+<div>
+<span class="font-caption text-caption text-outline block mb-0.5">Entrada</span>
+<span class="font-tabular-time text-tabular-time font-semibold text-navy-deep">09:05</span>
+</div>
+<div>
+<span class="font-caption text-caption text-outline block mb-0.5">Int. Saída</span>
+<span class="font-tabular-time text-tabular-time font-semibold text-navy-deep">12:00</span>
+</div>
+<div>
+<span class="font-caption text-caption text-outline block mb-0.5">Int. Retorno</span>
+<span class="font-tabular-time text-tabular-time font-semibold text-navy-deep">13:00</span>
+</div>
+<div class="bg-ruby-danger/10 rounded border border-dashed border-ruby-danger/40">
+<span class="font-caption text-caption text-ruby-danger block mb-0.5">Falta Batida</span>
+<span class="font-tabular-time text-tabular-time font-bold text-ruby-danger flex items-center justify-center gap-0.5">
+<span class="material-symbols-outlined text-[13px]" data-icon="error">error</span>
+                --:--
+              </span>
+</div>
+</div>
+<!-- Detalhes do Ajuste Solicitado -->
+<div class="mt-2.5 bg-amber-soft/10 p-2.5 rounded-lg border border-amber-soft/20 text-body-sm font-body-sm space-y-1">
+<div class="flex items-center justify-between">
+<span class="font-caption text-caption font-semibold text-navy-deep flex items-center gap-1">
+<span class="material-symbols-outlined text-amber-warning text-[15px]" data-icon="edit_calendar">edit_calendar</span>
+                Ajuste Solicitado: Saída às 18:00
+              </span>
+<span class="font-caption text-caption text-outline">Prot: #90412</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant italic">
+              "Esquecimento de registro ao sair em reunião externa com cliente às 18h."
+            </p>
+</div>
+</article>
+<!-- CARD 4: Dia 18/10 - Atestado Médico Aprovado -->
+<article class="bg-surface-container-lowest rounded-xl border border-purple-bank/30 p-3.5 shadow-sm relative overflow-hidden bg-gradient-to-r from-purple-subtle to-transparent">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-purple-bank"></div>
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm font-bold text-navy-deep">18/10</span>
+<span class="font-caption text-caption text-on-surface-variant font-medium">Sexta-feira</span>
+</div>
+<div class="bg-purple-subtle text-purple-bank border border-purple-bank/30 px-2 py-0.5 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="task_alt">task_alt</span>
+<span class="font-badge-label text-badge-label font-semibold">Atestado Aprovado</span>
+</div>
+</div>
+<!-- Informações do Atestado Deferido -->
+<div class="bg-surface-container-lowest p-2.5 rounded-lg border border-border-subtle flex items-start justify-between">
+<div class="flex items-start gap-2.5">
+<div class="w-8 h-8 rounded-lg bg-purple-subtle text-purple-bank flex items-center justify-center mt-0.5">
+<span class="material-symbols-outlined text-[20px]" data-icon="medical_information">medical_information</span>
+</div>
+<div>
+<h4 class="font-body-md text-body-md font-semibold text-navy-deep">Declaração de Comparecimento Médico</h4>
+<p class="font-caption text-caption text-on-surface-variant">Consulta Oftalmológica • CRM/SP 148920</p>
+<div class="mt-1.5 flex items-center gap-2">
+<span class="font-badge-label text-badge-label bg-purple-bank/10 text-purple-bank px-2 py-0.5 rounded font-medium">
+                    2h 00m abonadas
+                  </span>
+<span class="font-caption text-caption text-outline">Anexo: atestado_1810.pdf</span>
+</div>
+</div>
+</div>
+<button aria-label="Visualizar Anexo" class="text-on-surface-variant hover:text-navy-deep p-1 rounded hover:bg-surface-container-low transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]" data-icon="visibility">visibility</span>
+</button>
+</div>
+</article>
+</section>
+</div>
+<!-- Botão de Ação Flutuante / Fixo na Base (Acima da BottomNav) -->
+<div class="fixed bottom-16 left-0 w-full z-40 flex justify-center px-4 pointer-events-none">
+<div class="w-full max-w-[420px] flex justify-end pointer-events-auto">
+<button class="w-full bg-blue-vibrant hover:bg-secondary text-surface-container-lowest font-headline-sm text-headline-sm font-semibold py-3.5 px-5 rounded-xl shadow-lg flex items-center justify-center gap-2.5 active:scale-98 transition-all duration-150 border border-blue-accent/40" type="button">
+<span class="material-symbols-outlined text-[22px]" data-icon="add_circle">add_circle</span>
+<span class="">Solicitar Ajuste ou Anexar Atestado</span>
+</button>
+</div>
+</div>
+<!-- BottomNavBar do PWA (Fiel ao Shared Component JSON) -->
+<!-- JSON: style_shell_layout: "fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2" -->
+<!-- Active Tab: "Espelho" / Histórico de marcações mapeado diretamente -->
+<nav aria-label="Navegação Principal PWA" class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 bg-surface-container-lowest dark:bg-navy-surface shadow-lg dark:shadow-none border-t border-border-subtle dark:border-navy-deep">
+<!-- Aba 1: Ponto (Inativo) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-3 py-1 hover:text-secondary dark:hover:text-blue-accent transition-colors duration-150 active:scale-95" href="#">
+<span class="material-symbols-outlined text-[22px]" data-icon="fingerprint">fingerprint</span>
+<span class="font-caption text-caption mt-0.5">Ponto</span>
+</a>
+<!-- Aba 2: Histórico / Espelho (Ativo) -->
+<a aria-current="page" class="flex flex-col items-center justify-center bg-secondary-fixed dark:bg-primary-container text-on-secondary-fixed dark:text-secondary-fixed rounded-xl px-3 py-1 font-medium transition-transform duration-150 active:scale-95" href="#">
+<span class="material-symbols-outlined text-[22px]" data-icon="calendar_today">calendar_today</span>
+<span class="font-caption text-caption mt-0.5">Espelho</span>
+</a>
+<!-- Aba 3: Solicitações (Inativo) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-3 py-1 hover:text-secondary dark:hover:text-blue-accent transition-colors duration-150 active:scale-95" href="#">
+<div class="relative">
+<span class="material-symbols-outlined text-[22px]" data-icon="pending_actions">pending_actions</span>
+<span class="absolute -top-1 -right-1 w-2 h-2 bg-amber-soft rounded-full"></span>
+</div>
+<span class="font-caption text-caption mt-0.5">Solicitações</span>
+</a>
+<!-- Aba 4: Perfil (Inativo) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-3 py-1 hover:text-secondary dark:hover:text-blue-accent transition-colors duration-150 active:scale-95" href="#">
+<span class="material-symbols-outlined text-[22px]" data-icon="person">person</span>
+<span class="font-caption text-caption mt-0.5">Perfil</span>
+</a>
+</nav>
+</main>
+
+
+</body></html>

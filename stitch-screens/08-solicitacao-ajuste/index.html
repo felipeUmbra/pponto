@@ -1,0 +1,462 @@
+<!DOCTYPE html><html class="light" lang="pt-BR"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport">
+<title>pPonto Mobile - Solicitação de Ajuste de Ponto</title>
+<!-- Fonts: Inter & JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;600&amp;display=swap" rel="stylesheet">
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS v3 -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "inverse-surface": "#213145",
+            "purple-bank": "#7C3AED",
+            "amber-soft": "#F59E0B",
+            "on-surface": "#0b1c30",
+            "on-primary-container": "#7c839b",
+            "primary-fixed": "#dae2fd",
+            "outline": "#76777d",
+            "on-error": "#ffffff",
+            "ruby-danger": "#DC2626",
+            "blue-vibrant": "#2563EB",
+            "blue-accent": "#3B82F6",
+            "on-surface-variant": "#45464d",
+            "purple-subtle": "#F5F3FF",
+            "error": "#ba1a1a",
+            "surface": "#f8f9ff",
+            "neutral-card": "#FFFFFF",
+            "background": "#f8f9ff",
+            "surface-tint": "#565e74",
+            "on-tertiary-fixed": "#002114",
+            "primary-container": "#131b2e",
+            "surface-container-lowest": "#ffffff",
+            "surface-bright": "#f8f9ff",
+            "tertiary-fixed-dim": "#68dba9",
+            "inverse-on-surface": "#eaf1ff",
+            "outline-variant": "#c6c6cd",
+            "surface-container-low": "#eff4ff",
+            "on-secondary": "#ffffff",
+            "emerald-light": "#10B981",
+            "on-background": "#0b1c30",
+            "secondary-fixed": "#dbe1ff",
+            "navy-deep": "#0F172A",
+            "surface-container-high": "#dce9ff",
+            "border-subtle": "#E2E8F0",
+            "surface-variant": "#d3e4fe",
+            "on-secondary-fixed": "#00174b",
+            "surface-container": "#e5eeff",
+            "surface-dim": "#cbdbf5",
+            "navy-surface": "#1E293B",
+            "on-tertiary-fixed-variant": "#005137",
+            "secondary-container": "#316bf3",
+            "on-tertiary": "#ffffff",
+            "on-secondary-fixed-variant": "#003ea8",
+            "on-primary-fixed-variant": "#3f465c",
+            "on-primary": "#ffffff",
+            "inverse-primary": "#bec6e0",
+            "on-tertiary-container": "#069669",
+            "teal-success": "#059669",
+            "primary-fixed-dim": "#bec6e0",
+            "neutral-canvas": "#F8FAFC",
+            "primary": "#000000",
+            "secondary": "#0051d5",
+            "tertiary": "#000000",
+            "tertiary-container": "#002114",
+            "on-secondary-container": "#fefcff",
+            "on-error-container": "#93000a",
+            "amber-warning": "#D97706",
+            "secondary-fixed-dim": "#b4c5ff",
+            "on-primary-fixed": "#131b2e",
+            "error-container": "#ffdad6",
+            "tertiary-fixed": "#85f8c4",
+            "surface-container-highest": "#d3e4fe"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-md": "1rem",
+            "space-xs": "0.25rem",
+            "space-sm": "0.5rem",
+            "gutter": "1.5rem",
+            "margin": "1.5rem",
+            "space-xl": "2.5rem",
+            "space-lg": "1.5rem"
+          },
+          "fontFamily": {
+            "headline-lg": ["Inter"],
+            "caption": ["Inter"],
+            "clock-large": ["JetBrains Mono"],
+            "body-sm": ["Inter"],
+            "body-md": ["Inter"],
+            "headline-lg-mobile": ["Inter"],
+            "badge-label": ["Inter"],
+            "body-lg": ["Inter"],
+            "tabular-time": ["JetBrains Mono"],
+            "display-hero": ["Inter"],
+            "headline-sm": ["Inter"],
+            "clock-large-mobile": ["JetBrains Mono"],
+            "headline-md": ["Inter"],
+            "display-hero-mobile": ["Inter"]
+          },
+          "fontSize": {
+            "headline-lg": ["2rem", { "lineHeight": "2.5rem", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "caption": ["0.6875rem", { "lineHeight": "0.875rem", "letterSpacing": "0.02em", "fontWeight": "500" }],
+            "clock-large": ["3rem", { "lineHeight": "3.25rem", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "body-sm": ["0.75rem", { "lineHeight": "1.125rem", "fontWeight": "400" }],
+            "body-md": ["0.875rem", { "lineHeight": "1.375rem", "fontWeight": "400" }],
+            "headline-lg-mobile": ["1.5rem", { "lineHeight": "2rem", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "badge-label": ["0.6875rem", { "lineHeight": "0.875rem", "letterSpacing": "0.04em", "fontWeight": "600" }],
+            "body-lg": ["1rem", { "lineHeight": "1.5rem", "fontWeight": "400" }],
+            "tabular-time": ["0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "0em", "fontWeight": "500" }],
+            "display-hero": ["3.5rem", { "lineHeight": "4rem", "letterSpacing": "-0.03em", "fontWeight": "700" }],
+            "headline-sm": ["1.125rem", { "lineHeight": "1.5rem", "fontWeight": "600" }],
+            "clock-large-mobile": ["2.25rem", { "lineHeight": "2.5rem", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "headline-md": ["1.25rem", { "lineHeight": "1.75rem", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "display-hero-mobile": ["2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 20px;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -webkit-font-feature-settings: 'liga';
+      -webkit-font-smoothing: antialiased;
+    }
+    body {
+      -webkit-tap-highlight-color: transparent;
+    }
+  </style>
+</head>
+<body class="bg-neutral-canvas text-on-surface antialiased flex justify-center min-h-screen">
+<!-- Mobile PWA Container -->
+<div class="w-full max-w-md bg-neutral-canvas flex flex-col min-h-screen shadow-2xl relative pb-28">
+<!-- Top Mobile App Bar (Fixed Header) -->
+<header class="sticky top-0 z-30 bg-navy-deep text-neutral-card px-4 pt-3 pb-3 shadow-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<button aria-label="Voltar" class="w-9 h-9 rounded-lg flex items-center justify-center text-neutral-card bg-navy-surface hover:bg-slate-700 transition-colors" type="button">
+<span class="material-symbols-outlined text-neutral-card">arrow_back</span>
+</button>
+<div>
+<h1 class="font-headline-sm text-headline-sm font-semibold tracking-tight text-neutral-card leading-tight">Ajuste de Ponto</h1>
+<p class="font-caption text-caption text-outline-variant">Inclusão de marcação esquecida</p>
+</div>
+</div>
+<div class="flex items-center gap-1.5 px-2 py-1 rounded bg-navy-surface border border-slate-700">
+<span class="material-symbols-outlined text-emerald-light text-sm" style="font-size: 14px;">verified_user</span>
+<span class="font-caption text-caption font-bold text-slate-300">Portaria 671</span>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 px-4 pt-3.5 space-y-4">
+<!-- Employee Banner Indicator -->
+<section class="bg-neutral-card border border-border-subtle rounded-xl p-3.5 shadow-sm">
+<div class="flex items-start gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-low border border-border-subtle flex items-center justify-center flex-shrink-0 text-secondary font-bold font-headline-sm">
+            CS
+          </div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between gap-1">
+<h2 class="font-body-md text-body-md font-semibold text-navy-deep truncate">Carlos Eduardo Silveira</h2>
+<span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-caption font-semibold bg-surface-container-low text-secondary border border-border-subtle">CLT</span>
+</div>
+<p class="font-caption text-caption text-on-surface-variant mt-0.5">
+              Matrícula: <span class="font-tabular-time text-tabular-time font-medium text-navy-deep">04981</span> • Depto: Logística
+            </p>
+<div class="mt-1.5 flex items-center gap-1.5 text-on-surface-variant font-caption text-caption bg-surface-container-low px-2 py-1 rounded">
+<span class="material-symbols-outlined text-secondary" style="font-size: 14px;">schedule</span>
+<span class="">Turno: Administrativo (<span class="font-tabular-time text-tabular-time">08:00</span> - <span class="font-tabular-time text-tabular-time">17:48</span>)</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Date Selector & Exception Alert -->
+<section class="bg-neutral-card border border-border-subtle rounded-xl p-3.5 shadow-sm space-y-2.5">
+<div class="flex items-center justify-between">
+<span class="font-caption text-caption font-bold text-on-surface-variant uppercase tracking-wider">Data do Registro</span>
+<button class="flex items-center gap-1 font-caption text-caption text-secondary font-semibold hover:underline" type="button">
+<span class="material-symbols-outlined" style="font-size: 14px;">calendar_month</span>
+            Alterar Data
+          </button>
+</div>
+<div class="flex items-center justify-between bg-surface-container-low px-3 py-2 rounded-lg border border-border-subtle">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">event</span>
+<span class="font-body-md text-body-md font-semibold text-navy-deep">Ontem, 23 de Outubro de 2024</span>
+</div>
+<span class="font-caption text-caption text-on-surface-variant">Quarta-feira</span>
+</div>
+<!-- Compliance Exception Alert Badge -->
+<div class="flex items-start gap-2.5 p-2.5 bg-amber-50 border border-amber-200 rounded-lg">
+<span class="material-symbols-outlined text-amber-warning flex-shrink-0 mt-0.5" style="font-size: 18px;">warning</span>
+<div>
+<p class="font-badge-label text-badge-label font-bold text-amber-warning uppercase">Marcação Incompleta</p>
+<p class="font-caption text-caption text-amber-900 mt-0.5 leading-snug">
+              Falta batida de <span class="font-semibold">Saída Final</span>. Requer tratamento conforme exigências do Art. 74 § 2º da CLT.
+            </p>
+</div>
+</div>
+</section>
+<!-- Daily Timeline Preview -->
+<section class="bg-neutral-card border border-border-subtle rounded-xl p-3.5 shadow-sm">
+<div class="flex items-center justify-between pb-2.5 mb-2.5 border-b border-border-subtle">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-navy-deep" style="font-size: 18px;">timeline</span>
+<h3 class="font-body-md text-body-md font-semibold text-navy-deep">Espelho do Dia • Registro Oficial</h3>
+</div>
+<span class="font-caption text-caption px-2 py-0.5 rounded-full bg-emerald-50 text-teal-success font-semibold border border-emerald-200">
+            3 Registros Válidos
+          </span>
+</div>
+<div class="space-y-2 relative before:absolute before:left-3.5 before:top-2 before:bottom-2 before:w-0.5 before:bg-border-subtle">
+<!-- Punch 1 -->
+<div class="flex items-center justify-between pl-7 relative">
+<div class="absolute left-2 w-3 h-3 rounded-full bg-emerald-light border-2 border-white ring-2 ring-emerald-100"></div>
+<div>
+<span class="font-caption text-caption text-on-surface-variant font-medium">1ª Entrada</span>
+<p class="font-tabular-time text-tabular-time font-bold text-navy-deep">08:02</p>
+</div>
+<div class="text-right">
+<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-caption text-caption text-teal-success bg-emerald-50">
+<span class="material-symbols-outlined" style="font-size: 12px;">check_circle</span>
+                REP-P Oficial
+              </span>
+<p class="font-caption text-[10px] text-outline mt-0.5">NSR: 000184920</p>
+</div>
+</div>
+<!-- Punch 2 -->
+<div class="flex items-center justify-between pl-7 relative">
+<div class="absolute left-2 w-3 h-3 rounded-full bg-emerald-light border-2 border-white ring-2 ring-emerald-100"></div>
+<div>
+<span class="font-caption text-caption text-on-surface-variant font-medium">Saída Intervalo</span>
+<p class="font-tabular-time text-tabular-time font-bold text-navy-deep">12:05</p>
+</div>
+<div class="text-right">
+<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-caption text-caption text-teal-success bg-emerald-50">
+<span class="material-symbols-outlined" style="font-size: 12px;">check_circle</span>
+                REP-P Oficial
+              </span>
+<p class="font-caption text-[10px] text-outline mt-0.5">NSR: 000184992</p>
+</div>
+</div>
+<!-- Punch 3 -->
+<div class="flex items-center justify-between pl-7 relative">
+<div class="absolute left-2 w-3 h-3 rounded-full bg-emerald-light border-2 border-white ring-2 ring-emerald-100"></div>
+<div>
+<span class="font-caption text-caption text-on-surface-variant font-medium">Retorno Intervalo</span>
+<p class="font-tabular-time text-tabular-time font-bold text-navy-deep">13:06</p>
+</div>
+<div class="text-right">
+<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-caption text-caption text-teal-success bg-emerald-50">
+<span class="material-symbols-outlined" style="font-size: 12px;">check_circle</span>
+                REP-P Oficial
+              </span>
+<p class="font-caption text-[10px] text-outline mt-0.5">NSR: 000185011</p>
+</div>
+</div>
+<!-- Punch 4: Missing / Amber Highlight -->
+<div class="flex items-center justify-between pl-7 relative bg-amber-50/60 p-2 rounded-lg border border-amber-200">
+<div class="absolute left-2 w-3 h-3 rounded-full bg-amber-soft border-2 border-white ring-2 ring-amber-200 animate-pulse"></div>
+<div>
+<span class="font-caption text-caption text-amber-warning font-bold">Saída Final</span>
+<p class="font-tabular-time text-tabular-time font-bold text-amber-warning">[Marcação Ausente]</p>
+</div>
+<div class="text-right">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded font-caption text-caption font-bold text-amber-warning bg-amber-100/70 border border-amber-300">
+<span class="material-symbols-outlined" style="font-size: 12px;">pending</span>
+                Pendente Ajuste
+              </span>
+<p class="font-caption text-[10px] text-amber-800 mt-0.5">Previsto: 17:48</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Adjustment Form Request Fields -->
+<form class="space-y-3.5" onsubmit="event.preventDefault();">
+<!-- Tipo de Ajuste (Segmented Control) -->
+<div class="bg-neutral-card border border-border-subtle rounded-xl p-3.5 shadow-sm space-y-2">
+<label class="block font-caption text-caption font-bold text-navy-deep uppercase tracking-wider">
+            Tipo de Solicitação <span class="text-ruby-danger">*</span>
+</label>
+<div class="grid grid-cols-3 gap-1.5 p-1 bg-surface-container-low rounded-lg border border-border-subtle">
+<button class="py-2 px-1 rounded-md text-center font-caption text-caption font-bold transition-all bg-secondary text-on-secondary shadow-sm" type="button">
+              Inclusão
+            </button>
+<button class="py-2 px-1 rounded-md text-center font-caption text-caption font-medium text-on-surface-variant hover:text-navy-deep transition-all" type="button">
+              Alteração
+            </button>
+<button class="py-2 px-1 rounded-md text-center font-caption text-caption font-medium text-on-surface-variant hover:text-navy-deep transition-all" type="button">
+              Abono
+            </button>
+</div>
+<p class="font-caption text-[11px] text-on-surface-variant">
+            Selecionado: <span class="font-semibold text-navy-deep">Inclusão de Batida Esquecida</span> (Portaria 671/2021).
+          </p>
+</div>
+<!-- Ponto a Ajustar & Horário Grid -->
+<div class="bg-neutral-card border border-border-subtle rounded-xl p-3.5 shadow-sm space-y-3">
+<div>
+<label class="block font-caption text-caption font-bold text-navy-deep uppercase tracking-wider mb-1" for="ponto-select">
+              Ponto a Ajustar <span class="text-ruby-danger">*</span>
+</label>
+<div class="relative">
+<select class="w-full h-11 bg-surface-container-low border border-border-subtle rounded-lg px-3 pr-8 font-body-md text-body-md text-navy-deep focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary" id="ponto-select">
+<option selected="">Saída Final (4ª Batida)</option>
+<option>Entrada 1</option>
+<option>Saída Intervalo</option>
+<option>Retorno Intervalo</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-3 pointer-events-none text-on-surface-variant">expand_more</span>
+</div>
+</div>
+<!-- Horário Realizado Input with Time Badge -->
+<div>
+<label class="block font-caption text-caption font-bold text-navy-deep uppercase tracking-wider mb-1" for="horario-input">
+              Horário Efetivamente Realizado <span class="text-ruby-danger">*</span>
+</label>
+<div class="relative flex items-center">
+<input class="w-full h-11 pl-11 pr-24 bg-surface-container-low border border-border-subtle rounded-lg font-tabular-time text-headline-sm font-semibold text-navy-deep focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary" id="horario-input" type="text" value="17:50">
+<span class="material-symbols-outlined absolute left-3 text-secondary">schedule</span>
+<div class="absolute right-2.5 flex items-center gap-1 bg-neutral-card px-2 py-1 rounded border border-border-subtle">
+<span class="material-symbols-outlined text-teal-success" style="font-size: 14px;">check</span>
+<span class="font-caption text-caption text-teal-success font-semibold">+00:02 extra</span>
+</div>
+</div>
+<p class="font-caption text-[11px] text-outline mt-1">Horário contratual de término: 17:48</p>
+</div>
+</div>
+<!-- Motivo / Justificativa Legal CLT -->
+<div class="bg-neutral-card border border-border-subtle rounded-xl p-3.5 shadow-sm space-y-3">
+<div>
+<label class="block font-caption text-caption font-bold text-navy-deep uppercase tracking-wider mb-1" for="motivo-select">
+              Motivo Legal (CLT / Acordo Coletivo) <span class="text-ruby-danger">*</span>
+</label>
+<div class="relative">
+<select class="w-full h-11 bg-surface-container-low border border-border-subtle rounded-lg px-3 pr-8 font-body-md text-body-md text-navy-deep focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary" id="motivo-select"><option selected="">Esquecimento de registro</option>
+<option>Instabilidade no aplicativo REP-P</option>
+<option>Serviço externo / Reunião fora</option>
+<option>Atividade extraordinária autorizada</option></select>
+<span class="material-symbols-outlined absolute right-3 top-3 pointer-events-none text-on-surface-variant">expand_more</span>
+</div>
+</div>
+<!-- Observações Detalhadas -->
+<div>
+<label class="block font-caption text-caption font-bold text-navy-deep uppercase tracking-wider mb-1" for="obs-textarea">
+              Observações / Justificativa Detalhada <span class="text-ruby-danger">*</span>
+</label>
+<textarea class="w-full bg-surface-container-low border border-border-subtle rounded-lg p-3 font-body-md text-body-md text-navy-deep focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary leading-relaxed resize-none" id="obs-textarea" rows="3">Finalização de relatório de expedição com a gerência, esqueci de registrar no aplicativo ao sair.</textarea>
+<div class="flex justify-between items-center mt-1 text-outline font-caption text-[11px]">
+<span class="">Mínimo 15 caracteres exigidos</span>
+<span class="">85 / 300</span>
+</div>
+</div>
+</div>
+<!-- Anexo Comprovante Opcional -->
+<div class="bg-neutral-card border border-border-subtle rounded-xl p-3.5 shadow-sm space-y-2.5">
+<div class="flex items-center justify-between">
+<label class="font-caption text-caption font-bold text-navy-deep uppercase tracking-wider">
+              Anexo Comprovante <span class="text-outline-variant font-normal">(Opcional)</span>
+</label>
+<span class="font-caption text-[11px] text-outline">PDF, JPG, PNG até 5MB</span>
+</div>
+<!-- Attached File Card Preview -->
+<div class="flex items-center justify-between p-2.5 bg-surface-container-low border border-border-subtle rounded-lg">
+<div class="flex items-center gap-2.5 min-w-0">
+<div class="w-9 h-9 rounded bg-rose-50 border border-rose-200 flex items-center justify-center flex-shrink-0 text-ruby-danger">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+</div>
+<div class="min-w-0">
+<p class="font-body-md text-body-md font-medium text-navy-deep truncate">email_autorizacao_gerencia.pdf</p>
+<p class="font-caption text-caption text-outline">180 KB • Validação SHA-256 ok</p>
+</div>
+</div>
+<button aria-label="Remover anexo" class="text-outline hover:text-ruby-danger p-1 rounded transition-colors" type="button">
+<span class="material-symbols-outlined" style="font-size: 18px;">close</span>
+</button>
+</div>
+<button class="w-full py-2 border border-dashed border-border-subtle hover:border-secondary rounded-lg flex items-center justify-center gap-1.5 font-caption text-caption text-secondary font-semibold bg-neutral-card transition-colors" type="button">
+<span class="material-symbols-outlined" style="font-size: 16px;">attach_file</span>
+            Substituir ou Adicionar Outro Documento
+          </button>
+</div>
+<!-- Checkbox de Veracidade Conforme Portaria 671 -->
+<div class="bg-surface-container-low border border-border-subtle rounded-xl p-3.5">
+<label class="flex items-start gap-3 cursor-pointer">
+<input checked="" class="mt-0.5 rounded border-border-subtle text-secondary focus:ring-secondary w-4 h-4" type="checkbox">
+<span class="font-caption text-caption text-on-surface-variant leading-tight">
+              Declaro a veracidade das informações sob as penas da lei e termos do <strong class="text-navy-deep">Art. 74 da CLT</strong> e <strong class="text-navy-deep">Portaria 671 MTE</strong>. Estou ciente de que esta solicitação será auditada eletronicamente pelo fiscalizador interno.
+            </span>
+</label>
+</div>
+<!-- Action CTAs -->
+<div class="space-y-2 pt-2">
+<button class="w-full h-12 rounded-xl bg-secondary hover:bg-blue-vibrant text-on-secondary font-body-md text-body-md font-bold flex items-center justify-center gap-2 shadow-md shadow-blue-900/10 active:scale-[0.99] transition-all" type="submit">
+<span class="material-symbols-outlined" style="font-size: 20px;">send</span>
+            Enviar Solicitação de Ajuste
+          </button>
+<button class="w-full h-10 rounded-xl bg-transparent hover:bg-slate-100 text-on-surface-variant font-body-md text-body-md font-medium flex items-center justify-center transition-colors" type="button">
+            Cancelar
+          </button>
+</div>
+</form>
+<!-- Portaria 671 Security Footer Info -->
+<div class="py-2 text-center">
+<p class="font-caption text-[11px] text-outline flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-outline" style="font-size: 14px;">lock</span>
+          pPonto Mobile • Registro Eletrônico de Ponto REP-P Seguro
+        </p>
+</div>
+</main>
+<!-- Bottom Navigation Bar (Mandatory Shell - Mobile PWA) -->
+<!-- Mapped Tab: Solicitações (Justificativas) Active -->
+<nav class="fixed bottom-0 left-0 right-0 max-w-md mx-auto h-16 z-50 flex justify-around items-center px-4 bg-neutral-card border-t border-border-subtle shadow-lg">
+<!-- Tab 1: Ponto (Clock) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-secondary font-normal p-1 transition-transform duration-100 ease-out active:scale-95" href="#ponto">
+<span class="material-symbols-outlined">fingerprint</span>
+<span class="font-caption text-caption mt-0.5">Ponto</span>
+</a>
+<!-- Tab 2: Histórico -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-secondary font-normal p-1 transition-transform duration-100 ease-out active:scale-95" href="#historico">
+<span class="material-symbols-outlined">history</span>
+<span class="font-caption text-caption mt-0.5">Histórico</span>
+</a>
+<!-- Tab 3: Justificativas / Solicitações (ACTIVE MATCH) -->
+<a class="flex flex-col items-center justify-center text-secondary font-semibold p-1 transition-transform duration-100 ease-out active:scale-95" href="#justificativas">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">assignment_late</span>
+<span class="font-caption text-caption text-secondary font-bold mt-0.5">Justificativas</span>
+</a>
+<!-- Tab 4: Perfil -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-secondary font-normal p-1 transition-transform duration-100 ease-out active:scale-95" href="#perfil">
+<span class="material-symbols-outlined">person</span>
+<span class="font-caption text-caption mt-0.5">Perfil</span>
+</a>
+</nav>
+</div>
+
+
+</body></html>

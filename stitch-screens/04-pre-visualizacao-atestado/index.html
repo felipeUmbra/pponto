@@ -1,0 +1,441 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<title>pPonto - Ajustar e Recortar Documento</title>
+<!-- Google Fonts: Inter & JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Theme Configuration -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "background": "#f8f9ff",
+            "on-tertiary-container": "#069669",
+            "tertiary-container": "#002114",
+            "emerald-light": "#10B981",
+            "border-subtle": "#E2E8F0",
+            "purple-bank": "#7C3AED",
+            "primary-fixed": "#dae2fd",
+            "primary": "#000000",
+            "on-primary-fixed-variant": "#3f465c",
+            "surface-dim": "#cbdbf5",
+            "on-background": "#0b1c30",
+            "on-secondary-container": "#fefcff",
+            "inverse-primary": "#bec6e0",
+            "on-surface-variant": "#45464d",
+            "on-secondary-fixed": "#00174b",
+            "tertiary": "#000000",
+            "outline": "#76777d",
+            "secondary": "#0051d5",
+            "teal-success": "#059669",
+            "on-tertiary": "#ffffff",
+            "on-error": "#ffffff",
+            "secondary-fixed": "#dbe1ff",
+            "surface-variant": "#d3e4fe",
+            "primary-fixed-dim": "#bec6e0",
+            "inverse-surface": "#213145",
+            "surface-container": "#e5eeff",
+            "blue-vibrant": "#2563EB",
+            "tertiary-fixed-dim": "#68dba9",
+            "surface": "#f8f9ff",
+            "navy-surface": "#1E293B",
+            "surface-container-low": "#eff4ff",
+            "secondary-fixed-dim": "#b4c5ff",
+            "purple-subtle": "#F5F3FF",
+            "error": "#ba1a1a",
+            "on-tertiary-fixed-variant": "#005137",
+            "on-secondary": "#ffffff",
+            "tertiary-fixed": "#85f8c4",
+            "secondary-container": "#316bf3",
+            "navy-deep": "#0F172A",
+            "neutral-card": "#FFFFFF",
+            "on-secondary-fixed-variant": "#003ea8",
+            "outline-variant": "#c6c6cd",
+            "on-error-container": "#93000a",
+            "amber-soft": "#F59E0B",
+            "on-surface": "#0b1c30",
+            "blue-accent": "#3B82F6",
+            "surface-container-lowest": "#ffffff",
+            "neutral-canvas": "#F8FAFC",
+            "surface-bright": "#f8f9ff",
+            "on-tertiary-fixed": "#002114",
+            "on-primary": "#ffffff",
+            "surface-tint": "#565e74",
+            "on-primary-container": "#7c839b",
+            "on-primary-fixed": "#131b2e",
+            "primary-container": "#131b2e",
+            "error-container": "#ffdad6",
+            "inverse-on-surface": "#eaf1ff",
+            "surface-container-high": "#dce9ff",
+            "ruby-danger": "#DC2626",
+            "amber-warning": "#D97706",
+            "surface-container-highest": "#d3e4fe"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "gutter": "1.5rem",
+            "space-sm": "0.5rem",
+            "space-xs": "0.25rem",
+            "space-md": "1rem",
+            "space-lg": "1.5rem",
+            "space-xl": "2.5rem",
+            "margin": "1.5rem"
+          },
+          "fontFamily": {
+            "caption": ["Inter"],
+            "body-sm": ["Inter"],
+            "body-md": ["Inter"],
+            "headline-lg-mobile": ["Inter"],
+            "display-hero-mobile": ["Inter"],
+            "body-lg": ["Inter"],
+            "clock-large": ["JetBrains Mono"],
+            "headline-lg": ["Inter"],
+            "clock-large-mobile": ["JetBrains Mono"],
+            "headline-sm": ["Inter"],
+            "display-hero": ["Inter"],
+            "tabular-time": ["JetBrains Mono"],
+            "headline-md": ["Inter"],
+            "badge-label": ["Inter"]
+          },
+          "fontSize": {
+            "caption": ["0.6875rem", { "lineHeight": "0.875rem", "letterSpacing": "0.02em", "fontWeight": "500" }],
+            "body-sm": ["0.75rem", { "lineHeight": "1.125rem", "fontWeight": "400" }],
+            "body-md": ["0.875rem", { "lineHeight": "1.375rem", "fontWeight": "400" }],
+            "headline-lg-mobile": ["1.5rem", { "lineHeight": "2rem", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "display-hero-mobile": ["2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "body-lg": ["1rem", { "lineHeight": "1.5rem", "fontWeight": "400" }],
+            "clock-large": ["3rem", { "lineHeight": "3.25rem", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "headline-lg": ["2rem", { "lineHeight": "2.5rem", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "clock-large-mobile": ["2.25rem", { "lineHeight": "2.5rem", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "headline-sm": ["1.125rem", { "lineHeight": "1.5rem", "fontWeight": "600" }],
+            "display-hero": ["3.5rem", { "lineHeight": "4rem", "letterSpacing": "-0.03em", "fontWeight": "700" }],
+            "tabular-time": ["0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "0em", "fontWeight": "500" }],
+            "headline-md": ["1.25rem", { "lineHeight": "1.75rem", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "badge-label": ["0.6875rem", { "lineHeight": "0.875rem", "letterSpacing": "0.04em", "fontWeight": "600" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .material-symbols-outlined.fill-icon {
+      font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    /* Perspective quad guide subtle shadow */
+    .quad-shadow {
+      box-shadow: 0 0 0 9999px rgba(15, 23, 42, 0.58);
+    }
+    /* Hide scrollbars on pill rail */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="bg-navy-deep text-on-surface font-body-md antialiased min-h-screen flex justify-center selection:bg-blue-vibrant selection:text-surface-container-lowest">
+<!-- Mobile Container / Max-Width Wrapper for PWA Precision Experience -->
+<div class="w-full max-w-md bg-neutral-canvas flex flex-col min-h-screen relative shadow-2xl overflow-x-hidden">
+<!-- TOP BAR (Sem shell border, background tonal e autoridade executiva) -->
+<header class="sticky top-0 z-40 bg-navy-deep text-surface-container-lowest px-4 py-3 shadow-md flex items-center justify-between">
+<!-- Botão Voltar / Descartar -->
+<button aria-label="Descartar ou tirar novamente" class="w-10 h-10 rounded-full flex items-center justify-center text-outline-variant hover:text-surface-container-lowest hover:bg-navy-surface transition-colors" type="button">
+<span class="material-symbols-outlined text-[24px]">arrow_back</span>
+</button>
+<!-- Título Centralizado -->
+<div class="flex flex-col items-center text-center">
+<h1 class="font-headline-sm text-headline-sm text-surface-container-lowest leading-tight font-bold tracking-tight">
+          Ajustar e Recortar
+        </h1>
+<p class="font-caption text-caption text-outline-variant tracking-wide">
+          Verifique as bordas e a legibilidade
+        </p>
+</div>
+<!-- Ação Girar 90 Graus -->
+<button aria-label="Girar 90 graus" class="w-10 h-10 rounded-full flex items-center justify-center text-outline-variant hover:text-surface-container-lowest hover:bg-navy-surface transition-colors active:scale-95 duration-150" id="rotate-btn" type="button">
+<span class="material-symbols-outlined text-[22px]">rotate_right</span>
+</button>
+</header>
+<!-- BANNER FEEDBACK INTELIGENTE (OCR & Nitidez Portaria 671) -->
+<div class="bg-navy-surface px-4 py-2 flex items-center justify-between border-b border-navy-deep/60">
+<div class="flex items-center space-x-2">
+<span class="flex h-2 w-2 relative">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-light opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-light"></span>
+</span>
+<span class="font-badge-label text-badge-label text-emerald-light font-semibold uppercase tracking-wider">
+          OCR &amp; Nitidez: Excelente (96%)
+        </span>
+</div>
+<div class="flex items-center space-x-1 text-surface-container-high font-caption text-caption">
+<span class="material-symbols-outlined text-[16px] text-emerald-light" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="">CRM e Carimbo OK</span>
+</div>
+</div>
+<!-- ÁREA CENTRAL DE EDIÇÃO & PREVIEW (DOCUMENT CANVAS COM GUIA DE PERSPECTIVA) -->
+<main class="flex-1 flex flex-col p-4 bg-navy-deep relative overflow-hidden">
+<!-- Container do Documento com Overlay Escuro e Quatro Vértices Interativos -->
+<div class="relative w-full aspect-[3/4] max-h-[380px] mx-auto rounded-lg overflow-hidden flex items-center justify-center bg-[#070B14]">
+<!-- Documento Médico Capturado (Simulação Realista de Atestado Conforme Portaria 671 MTE) -->
+<div class="relative w-[90%] h-[92%] bg-surface-container-lowest rounded shadow-lg p-3 text-on-surface transform transition-transform duration-300 flex flex-col justify-between select-none border border-border-subtle filter contrast-125 brightness-105" id="document-preview-target">
+<!-- Cabeçalho Clínico Oficial -->
+<div class="border-b border-border-subtle pb-1.5 flex items-center justify-between">
+<div class="flex items-center space-x-1.5">
+<div class="w-6 h-6 rounded bg-blue-vibrant text-surface-container-lowest flex items-center justify-center font-bold text-[10px]">
+<span class="material-symbols-outlined text-[14px]">local_hospital</span>
+</div>
+<div>
+<p class="font-badge-label text-[9px] font-bold text-navy-deep leading-none">POLICLÍNICA SÃO PAULO</p>
+<p class="font-caption text-[7px] text-outline leading-none mt-0.5">CNPJ: 45.120.890/0001-44 • CRM Jurídico 9012-SP</p>
+</div>
+</div>
+<span class="font-tabular-time text-[8px] text-outline">16/OUT/2024</span>
+</div>
+<!-- Título Centralizado do Atestado -->
+<div class="text-center my-1">
+<span class="font-headline-sm text-[12px] font-bold tracking-wider text-navy-deep uppercase border-b-2 border-secondary pb-0.5 inline-block">
+              ATESTADO MÉDICO
+            </span>
+</div>
+<!-- Corpo do Texto e Declaração -->
+<div class="space-y-1.5 text-[9.5px] leading-relaxed text-on-surface font-body-sm">
+<p class="">
+              Atesto para os devidos fins de comprovação trabalhista (Art. 6º da Lei nº 605/49 e Portaria 671 MTE) que o(a) colaborador(a)
+              <span class="font-semibold underline decoration-secondary">Carlos Eduardo Silveira</span>, portador do CPF nº <strong>***.428.910-**</strong>, esteve sob cuidados médicos nesta unidade de saúde.
+            </p>
+<p class="bg-surface-container-low p-1.5 rounded border-l-2 border-secondary font-medium text-[9px]">
+              Necessita de repouso pelo período de <strong class="text-secondary font-bold">2 (dois) dias</strong> a contar desta data, para recuperação clínica integral.
+            </p>
+<p class="text-[8px] text-outline">
+              CID-10: <span class="font-tabular-time text-on-surface font-semibold">J06.9</span> (Informado com expressa autorização do paciente).
+            </p>
+</div>
+<!-- Rodapé com Carimbo e Assinatura Médica (Elemento crítico fiscal MTE) -->
+<div class="pt-2 border-t border-border-subtle flex items-end justify-between">
+<div class="flex flex-col">
+<span class="font-tabular-time text-[8px] text-outline">Autenticação: #AT-2024-889104</span>
+<span class="font-caption text-[7px] text-teal-success font-medium">Conferência biométrica validada</span>
+</div>
+<!-- Carimbo Físico Reconhecido -->
+<div class="border border-blue-accent/60 bg-blue-accent/5 p-1 rounded text-right min-w-[110px] relative">
+<div class="w-full border-b border-dashed border-navy-deep/40 h-3 mb-0.5 flex items-end justify-center">
+<!-- Assinatura gráfica ilustrativa -->
+<svg class="h-3 text-navy-deep w-20 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 100 20">
+<path d="M5 15 C 20 2, 35 18, 50 8 C 65 -2, 80 16, 95 12" stroke-linecap="round" stroke-width="1.5"></path>
+</svg>
+</div>
+<p class="font-badge-label text-[8px] font-bold text-navy-deep leading-none">DR. MARCELO NOGUEIRA</p>
+<p class="font-tabular-time text-[7.5px] font-semibold text-secondary leading-none mt-0.5">CRM/SP 148920</p>
+<p class="text-[6.5px] text-outline leading-none">Clínica Médica • RQE 42901</p>
+</div>
+</div>
+</div>
+<!-- QUADRILÁTERO DE RECORTE COM GUIA E PINOS INTERATIVOS -->
+<div class="absolute inset-x-3 inset-y-3 pointer-events-none z-20 flex flex-col justify-between">
+<!-- Linhas de contorno com efeito de mira e foco ativo -->
+<div class="absolute inset-0 border-2 border-dashed border-emerald-light rounded pointer-events-none opacity-90"></div>
+<!-- Lupa Magnifier no Canto Superior Esquerdo indicando Precisão de Borda -->
+<div class="absolute -top-3 -left-3 z-30 pointer-events-auto flex items-center justify-center">
+<div class="w-8 h-8 rounded-full bg-emerald-light text-navy-deep flex items-center justify-center shadow-lg cursor-grab active:cursor-grabbing border-2 border-surface-container-lowest">
+<span class="material-symbols-outlined text-[18px] font-bold">crop_free</span>
+</div>
+<!-- Pin highlight ring -->
+<div class="absolute -inset-1 rounded-full border border-emerald-light/50 animate-ping pointer-events-none"></div>
+</div>
+<!-- Canto Superior Direito -->
+<div class="absolute -top-3 -right-3 z-30 pointer-events-auto">
+<div class="w-8 h-8 rounded-full bg-emerald-light text-navy-deep flex items-center justify-center shadow-lg cursor-grab active:cursor-grabbing border-2 border-surface-container-lowest">
+<span class="material-symbols-outlined text-[18px] font-bold">crop_free</span>
+</div>
+</div>
+<!-- Canto Inferior Esquerdo -->
+<div class="absolute -bottom-3 -left-3 z-30 pointer-events-auto">
+<div class="w-8 h-8 rounded-full bg-emerald-light text-navy-deep flex items-center justify-center shadow-lg cursor-grab active:cursor-grabbing border-2 border-surface-container-lowest">
+<span class="material-symbols-outlined text-[18px] font-bold">crop_free</span>
+</div>
+</div>
+<!-- Canto Inferior Direito (Destacando Carimbo e CRM) -->
+<div class="absolute -bottom-3 -right-3 z-30 pointer-events-auto flex items-center justify-center">
+<div class="w-8 h-8 rounded-full bg-emerald-light text-navy-deep flex items-center justify-center shadow-lg cursor-grab active:cursor-grabbing border-2 border-surface-container-lowest">
+<span class="material-symbols-outlined text-[18px] font-bold">crop_free</span>
+</div>
+</div>
+<!-- Grade de Proporção Áurea 3x3 para Alinhamento Perpendicular -->
+<div class="absolute inset-0 grid grid-cols-3 grid-rows-3 pointer-events-none opacity-20">
+<div class="border-r border-b border-surface-container-lowest"></div>
+<div class="border-r border-b border-surface-container-lowest"></div>
+<div class="border-b border-surface-container-lowest"></div>
+<div class="border-r border-b border-surface-container-lowest"></div>
+<div class="border-r border-b border-surface-container-lowest"></div>
+<div class="border-b border-surface-container-lowest"></div>
+<div class="border-r border-surface-container-lowest"></div>
+<div class="border-r border-surface-container-lowest"></div>
+<div></div>
+</div>
+</div>
+</div>
+<!-- DICA DE INTERAÇÃO FLUTUANTE -->
+<div class="mt-2 text-center">
+<span class="inline-flex items-center space-x-1 font-caption text-caption text-outline-variant bg-navy-surface/80 px-2.5 py-1 rounded-full border border-navy-surface">
+<span class="material-symbols-outlined text-[14px]">touch_app</span>
+<span class="">Arraste os pinos verdes para enquadrar perfeitamente o atestado</span>
+</span>
+</div>
+</main>
+<!-- SELETOR DE FILTROS & REALCE DOCUMENTAL (DOCUMENT ENHANCER RAIL) -->
+<section class="bg-surface-container-lowest border-t border-border-subtle pt-3 pb-2 px-4 shadow-sm">
+<div class="flex items-center justify-between mb-2">
+<span class="font-badge-label text-badge-label font-bold text-navy-deep uppercase tracking-wider flex items-center space-x-1">
+<span class="material-symbols-outlined text-[16px] text-blue-vibrant">auto_fix_high</span>
+<span class="">Filtro de Nitidez &amp; OCR</span>
+</span>
+<span class="font-caption text-caption text-secondary font-semibold">
+          Recomendado para RH
+        </span>
+</div>
+<!-- Rail Horizontal de Filtros -->
+<div class="flex space-x-2 overflow-x-auto no-scrollbar py-1">
+<!-- Filtro 1: Doc Nítido (Ativo / Selecionado) -->
+<button class="filter-option flex-shrink-0 flex items-center space-x-1.5 px-3 py-2 rounded-xl bg-blue-vibrant text-surface-container-lowest font-body-sm text-body-sm font-semibold shadow-sm border border-blue-vibrant transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">document_scanner</span>
+<span class="">Doc Nítido</span>
+</button>
+<!-- Filtro 2: P&B Limpo -->
+<button class="filter-option flex-shrink-0 flex items-center space-x-1.5 px-3 py-2 rounded-xl bg-neutral-canvas text-on-surface-variant hover:text-navy-deep font-body-sm text-body-sm font-medium border border-border-subtle transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">filter_b_and_w</span>
+<span class="">Preto &amp; Branco</span>
+</button>
+<!-- Filtro 3: Cores Reais (Original) -->
+<button class="filter-option flex-shrink-0 flex items-center space-x-1.5 px-3 py-2 rounded-xl bg-neutral-canvas text-on-surface-variant hover:text-navy-deep font-body-sm text-body-sm font-medium border border-border-subtle transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">palette</span>
+<span class="">Cores Reais</span>
+</button>
+<!-- Filtro 4: Auto-Ajuste -->
+<button class="filter-option flex-shrink-0 flex items-center space-x-1.5 px-3 py-2 rounded-xl bg-neutral-canvas text-on-surface-variant hover:text-navy-deep font-body-sm text-body-sm font-medium border border-border-subtle transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">hdr_auto</span>
+<span class="">Auto-Ajuste</span>
+</button>
+</div>
+</section>
+<!-- CARD CHECKLIST DE VALIDAÇÃO FISCAL (PORTARIA 671 MTE / AUDITORIA RH) -->
+<section class="bg-surface-container-low px-4 py-3 border-y border-border-subtle">
+<div class="bg-surface-container-lowest rounded-xl p-3 border border-border-subtle shadow-sm">
+<div class="flex items-center justify-between mb-2">
+<h2 class="font-badge-label text-badge-label text-on-surface-variant font-bold uppercase tracking-wider flex items-center space-x-1">
+<span class="material-symbols-outlined text-[16px] text-teal-success">task_alt</span>
+<span class="">Checklist de Conformidade (Portaria 671)</span>
+</h2>
+<span class="px-2 py-0.5 bg-emerald-light/10 text-teal-success rounded text-[10px] font-bold font-tabular-time">3/3 Válidos</span>
+</div>
+<div class="grid grid-cols-1 gap-1.5">
+<!-- Item 1 -->
+<div class="flex items-center justify-between bg-neutral-canvas/80 px-2.5 py-1.5 rounded-lg border border-border-subtle/70">
+<div class="flex items-center space-x-2">
+<div class="w-4 h-4 rounded-full bg-teal-success text-surface-container-lowest flex items-center justify-center">
+<span class="material-symbols-outlined text-[12px] font-bold">check</span>
+</div>
+<span class="font-body-sm text-body-sm font-medium text-navy-deep">Assinatura e carimbo visíveis</span>
+</div>
+<span class="font-caption text-caption text-teal-success font-semibold">Identificado</span>
+</div>
+<!-- Item 2 -->
+<div class="flex items-center justify-between bg-neutral-canvas/80 px-2.5 py-1.5 rounded-lg border border-border-subtle/70">
+<div class="flex items-center space-x-2">
+<div class="w-4 h-4 rounded-full bg-teal-success text-surface-container-lowest flex items-center justify-center">
+<span class="material-symbols-outlined text-[12px] font-bold">check</span>
+</div>
+<span class="font-body-sm text-body-sm font-medium text-navy-deep">CRM/UF legível</span>
+</div>
+<span class="font-tabular-time text-[11px] text-navy-deep font-semibold bg-surface-container px-1.5 py-0.5 rounded">148920/SP</span>
+</div>
+<!-- Item 3 -->
+<div class="flex items-center justify-between bg-neutral-canvas/80 px-2.5 py-1.5 rounded-lg border border-border-subtle/70">
+<div class="flex items-center space-x-2">
+<div class="w-4 h-4 rounded-full bg-teal-success text-surface-container-lowest flex items-center justify-center">
+<span class="material-symbols-outlined text-[12px] font-bold">check</span>
+</div>
+<span class="font-body-sm text-body-sm font-medium text-navy-deep">Período de afastamento</span>
+</div>
+<span class="font-caption text-caption text-secondary font-bold">2 dias corridos</span>
+</div>
+</div>
+</div>
+</section>
+<!-- BARRA DE AÇÕES INFERIOR (FIXED TASKBAR MOBILE PWA) -->
+<footer class="sticky bottom-0 z-40 bg-surface-container-lowest px-4 py-3 border-t border-border-subtle shadow-lg">
+<div class="flex items-center space-x-3">
+<!-- Botão Secundário: Tirar Outra Foto / Descartar -->
+<button class="w-1/3 min-h-[48px] px-3 py-2.5 rounded-xl border border-border-subtle bg-surface-container-lowest text-navy-deep font-body-md text-body-md font-semibold hover:bg-neutral-canvas active:scale-95 transition-all flex items-center justify-center space-x-1.5 focus:outline-none focus:ring-2 focus:ring-navy-deep/20" type="button">
+<span class="material-symbols-outlined text-[20px] text-on-surface-variant">photo_camera</span>
+<span class="whitespace-nowrap">Recapturar</span>
+</button>
+<!-- Botão Primário: Confirmar e Usar Documento -->
+<button class="w-2/3 min-h-[48px] px-4 py-2.5 rounded-xl bg-blue-vibrant hover:bg-secondary text-surface-container-lowest font-body-md text-body-md font-semibold active:scale-98 transition-all flex items-center justify-center space-x-2 shadow-md shadow-blue-vibrant/25 focus:outline-none focus:ring-2 focus:ring-blue-accent" type="button">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="whitespace-nowrap">Confirmar e Avançar</span>
+</button>
+</div>
+</footer>
+</div>
+<!-- Micro-interações nativas para Giro de 90° e Troca de Filtros -->
+<script>
+    let currentRotation = 0;
+    const rotateBtn = document.getElementById('rotate-btn');
+    const docTarget = document.getElementById('document-preview-target');
+
+    if (rotateBtn && docTarget) {
+      rotateBtn.addEventListener('click', () => {
+        currentRotation = (currentRotation + 90) % 360;
+        docTarget.style.transform = `rotate(${currentRotation}deg)`;
+      });
+    }
+
+    // Toggle simples e visual dos botões de filtro
+    const filterButtons = document.querySelectorAll('.filter-option');
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', function() {
+        filterButtons.forEach(b => {
+          b.className = 'filter-option flex-shrink-0 flex items-center space-x-1.5 px-3 py-2 rounded-xl bg-neutral-canvas text-on-surface-variant hover:text-navy-deep font-body-sm text-body-sm font-medium border border-border-subtle transition-all';
+        });
+        this.className = 'filter-option flex-shrink-0 flex items-center space-x-1.5 px-3 py-2 rounded-xl bg-blue-vibrant text-surface-container-lowest font-body-sm text-body-sm font-semibold shadow-sm border border-blue-vibrant transition-all';
+        
+        // Aplica pequenas alterações visuais ao documento conforme filtro escolhido
+        const label = this.innerText.trim();
+        if (label.includes('Preto & Branco')) {
+          docTarget.style.filter = 'grayscale(100%) contrast(150%) brightness(105%)';
+        } else if (label.includes('Cores Reais')) {
+          docTarget.style.filter = 'none';
+        } else if (label.includes('Auto-Ajuste')) {
+          docTarget.style.filter = 'contrast(115%) saturate(120%)';
+        } else {
+          // Doc Nítido padrão
+          docTarget.style.filter = 'contrast(125%) brightness(105%)';
+        }
+      });
+    });
+  </script>
+
+
+</body></html>

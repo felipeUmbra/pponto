@@ -1,0 +1,374 @@
+<!DOCTYPE html><html lang="pt-BR" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<title>Dot8 Gestão - Confirmação de Atestado</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;600&amp;display=swap" rel="stylesheet">
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS with custom plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "purple-bank": "#7C3AED",
+            "surface-tint": "#565e74",
+            "primary-container": "#131b2e",
+            "on-background": "#0b1c30",
+            "on-primary": "#ffffff",
+            "outline-variant": "#c6c6cd",
+            "on-secondary": "#ffffff",
+            "on-secondary-fixed": "#00174b",
+            "on-primary-container": "#7c839b",
+            "border-subtle": "#E2E8F0",
+            "secondary-container": "#316bf3",
+            "on-primary-fixed-variant": "#3f465c",
+            "surface": "#f8f9ff",
+            "on-tertiary-fixed-variant": "#005137",
+            "on-tertiary": "#ffffff",
+            "on-tertiary-fixed": "#002114",
+            "blue-accent": "#3B82F6",
+            "secondary-fixed": "#dbe1ff",
+            "secondary-fixed-dim": "#b4c5ff",
+            "inverse-on-surface": "#eaf1ff",
+            "tertiary-fixed-dim": "#68dba9",
+            "on-secondary-fixed-variant": "#003ea8",
+            "purple-subtle": "#F5F3FF",
+            "on-error": "#ffffff",
+            "neutral-canvas": "#F8FAFC",
+            "surface-container": "#e5eeff",
+            "surface-dim": "#cbdbf5",
+            "navy-surface": "#1E293B",
+            "outline": "#76777d",
+            "surface-container-lowest": "#ffffff",
+            "primary-fixed": "#dae2fd",
+            "on-secondary-container": "#fefcff",
+            "primary": "#000000",
+            "tertiary": "#000000",
+            "primary-fixed-dim": "#bec6e0",
+            "teal-success": "#059669",
+            "background": "#f8f9ff",
+            "on-error-container": "#93000a",
+            "neutral-card": "#FFFFFF",
+            "ruby-danger": "#DC2626",
+            "inverse-surface": "#213145",
+            "surface-variant": "#d3e4fe",
+            "surface-bright": "#f8f9ff",
+            "on-surface-variant": "#45464d",
+            "on-primary-fixed": "#131b2e",
+            "tertiary-fixed": "#85f8c4",
+            "inverse-primary": "#bec6e0",
+            "surface-container-low": "#eff4ff",
+            "blue-vibrant": "#2563EB",
+            "tertiary-container": "#002114",
+            "navy-deep": "#0F172A",
+            "emerald-light": "#10B981",
+            "amber-warning": "#D97706",
+            "surface-container-high": "#dce9ff",
+            "on-surface": "#0b1c30",
+            "secondary": "#0051d5",
+            "on-tertiary-container": "#069669",
+            "surface-container-highest": "#d3e4fe",
+            "error-container": "#ffdad6",
+            "amber-soft": "#F59E0B",
+            "error": "#ba1a1a"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-xl": "2.5rem",
+            "gutter": "1.5rem",
+            "space-lg": "1.5rem",
+            "space-xs": "0.25rem",
+            "space-sm": "0.5rem",
+            "space-md": "1rem",
+            "margin": "1.5rem"
+          },
+          "fontFamily": {
+            "headline-sm": ["Inter"],
+            "tabular-time": ["JetBrains Mono"],
+            "display-hero-mobile": ["Inter"],
+            "display-hero": ["Inter"],
+            "body-sm": ["Inter"],
+            "caption": ["Inter"],
+            "headline-md": ["Inter"],
+            "body-md": ["Inter"],
+            "body-lg": ["Inter"],
+            "headline-lg": ["Inter"],
+            "headline-lg-mobile": ["Inter"],
+            "badge-label": ["Inter"],
+            "clock-large": ["JetBrains Mono"],
+            "clock-large-mobile": ["JetBrains Mono"]
+          },
+          "fontSize": {
+            "headline-sm": ["1.125rem", { "lineHeight": "1.5rem", "fontWeight": "600" }],
+            "tabular-time": ["0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "0em", "fontWeight": "500" }],
+            "display-hero-mobile": ["2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "display-hero": ["3.5rem", { "lineHeight": "4rem", "letterSpacing": "-0.03em", "fontWeight": "700" }],
+            "body-sm": ["0.75rem", { "lineHeight": "1.125rem", "fontWeight": "400" }],
+            "caption": ["0.6875rem", { "lineHeight": "0.875rem", "letterSpacing": "0.02em", "fontWeight": "500" }],
+            "headline-md": ["1.25rem", { "lineHeight": "1.75rem", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "body-md": ["0.875rem", { "lineHeight": "1.375rem", "fontWeight": "400" }],
+            "body-lg": ["1rem", { "lineHeight": "1.5rem", "fontWeight": "400" }],
+            "headline-lg": ["2rem", { "lineHeight": "2.5rem", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "headline-lg-mobile": ["1.5rem", { "lineHeight": "2rem", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "badge-label": ["0.6875rem", { "lineHeight": "0.875rem", "letterSpacing": "0.04em", "fontWeight": "600" }],
+            "clock-large": ["3rem", { "lineHeight": "3.25rem", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "clock-large-mobile": ["2.25rem", { "lineHeight": "2.5rem", "letterSpacing": "-0.02em", "fontWeight": "600" }]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .ticket-sawtooth {
+      background-image: radial-gradient(circle at 10px -5px, transparent 12px, #ffffff 13px);
+      background-size: 20px 20px;
+    }
+    /* Smooth bounce for biometric success badge */
+    @keyframes badgeScale {
+      0% { transform: scale(0.6); opacity: 0; }
+      70% { transform: scale(1.08); opacity: 1; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .animate-badge-pop {
+      animation: badgeScale 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+  </style>
+</head>
+<body class="bg-neutral-canvas text-on-surface antialiased min-h-screen relative flex flex-col font-body-md overflow-x-hidden">
+<!-- BACKGROUND AMBIENT LAYER (Simulated App Canvas in background behind modal) -->
+<div aria-hidden="true" class="fixed inset-0 pointer-events-none opacity-35 filter blur-sm select-none z-0">
+<!-- Top PWA Header -->
+<header class="bg-navy-deep text-surface-container-lowest px-4 py-3 flex items-center justify-between">
+<div class="flex items-center space-x-2">
+<span class="font-headline-sm text-headline-sm font-bold tracking-tight text-surface-container-lowest">pPonto</span>
+<span class="text-caption font-caption bg-secondary px-2 py-0.5 rounded text-white font-medium">PWA</span>
+</div>
+<div class="flex items-center space-x-3">
+<span class="material-symbols-outlined text-outline-variant">wifi</span>
+<div class="w-7 h-7 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed font-bold text-caption">MC</div>
+</div>
+</header>
+<!-- Subpage Background Mockup -->
+<main class="p-4 space-y-4">
+<div class="bg-neutral-card p-4 rounded-xl border border-border-subtle">
+<div class="h-4 w-32 bg-slate-200 rounded mb-2"></div>
+<div class="h-8 w-48 bg-slate-100 rounded"></div>
+</div>
+<div class="bg-neutral-card p-4 rounded-xl border border-border-subtle space-y-2">
+<div class="h-4 w-full bg-slate-100 rounded"></div>
+<div class="h-4 w-2/3 bg-slate-100 rounded"></div>
+</div>
+</main>
+</div>
+<!-- MODAL BACKDROP DIM (Level 3 Elevation) -->
+<div class="fixed inset-0 bg-navy-deep/75 backdrop-blur-[3px] z-10 transition-opacity"></div>
+<!-- MAIN MODAL SHEET WRAPPER (Mobile PWA Centered / Bottom-Sheet Optimized) -->
+<div class="relative z-20 flex-1 flex flex-col justify-end sm:justify-center items-center pb-20 sm:pb-6 px-0 sm:px-4 pt-4">
+<!-- Modal Card Container -->
+<div class="w-full max-w-lg bg-surface-container-lowest rounded-t-3xl sm:rounded-2xl shadow-2xl border-t sm:border border-border-subtle overflow-hidden flex flex-col max-h-[90vh]">
+<!-- Top Handle (Mobile Bottom Sheet indicator) -->
+<div class="w-full flex items-center justify-center pt-3 pb-1 sm:hidden">
+<div class="w-10 h-1 bg-outline-variant/60 rounded-full"></div>
+</div>
+<!-- Scrollable Content Area -->
+<div class="overflow-y-auto px-4 sm:px-6 py-4 space-y-5">
+<!-- 1. Header & Success Icon Feedback -->
+<div class="text-center pt-1">
+<div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-emerald-50 border-4 border-emerald-100 shadow-sm animate-badge-pop mb-3 text-emerald-light">
+<span class="material-symbols-outlined text-[36px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-navy-deep tracking-tight">
+            Atestado Enviado com Sucesso!
+          </h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1.5 px-2">
+            Sua justificativa foi registrada com fé pública e encaminhada para validação do RH e Medicina do Trabalho.
+          </p>
+</div>
+<!-- 2. Official Protocol Box (Destaque do Protocolo) -->
+<div class="bg-surface-container-low border border-secondary/20 rounded-xl p-3.5 relative overflow-hidden">
+<div class="flex items-center justify-between mb-1">
+<span class="font-caption text-caption text-secondary font-semibold uppercase tracking-wider flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">verified</span>
+              Protocolo Oficial de Envio
+            </span>
+<span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold bg-emerald-100 text-teal-success border border-emerald-200">
+              Registrado
+            </span>
+</div>
+<div class="flex items-center justify-between mt-1">
+<div class="flex flex-col">
+<span class="font-tabular-time text-base sm:text-lg font-bold text-navy-deep tracking-wide select-all" id="protocolNumber">
+                ATT-2024-889104
+              </span>
+<div class="flex items-center gap-1.5 text-on-surface-variant text-[11px] mt-0.5">
+<span class="material-symbols-outlined text-[13px] text-blue-vibrant">schedule</span>
+<span class="font-tabular-time">24/10/2024 às 18:48:12 (Brasília • NTP.br)</span>
+</div>
+</div>
+<!-- Copiar Código Button -->
+<button class="flex items-center gap-1 text-xs font-semibold px-2.5 py-1.5 rounded-lg bg-surface-container-lowest hover:bg-white text-secondary border border-border-subtle shadow-sm active:scale-95 transition-all" id="btnCopyProtocol" onclick="copyProtocol()" type="button">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+<span class="">Copiar</span>
+</button>
+</div>
+</div>
+<!-- 3. Digital Receipt & Compliance Card (Portaria 671 / LGPD Ticket) -->
+<div class="bg-surface-container-low/80 border border-border-subtle rounded-xl p-4 space-y-3.5 shadow-2xs"><div class="flex items-center justify-between pb-2 border-b border-border-subtle"><div class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[18px] text-blue-vibrant">timeline</span><h2 class="font-headline-sm text-xs uppercase tracking-wider font-semibold text-navy-deep">Próximos Passos de Aprovação</h2></div><span class="text-[10px] font-medium text-on-surface-variant font-mono bg-white px-2 py-0.5 rounded border border-border-subtle">SLA: 48h úteis</span></div><div class="space-y-3 relative before:absolute before:inset-0 before:left-3 before:top-2.5 before:bottom-2.5 before:w-[2px] before:bg-slate-200"><div class="relative flex items-start gap-3"><div class="w-6 h-6 rounded-full bg-teal-success text-white flex items-center justify-center shrink-0 z-10 shadow-xs ring-2 ring-white"><span class="material-symbols-outlined text-[14px]">check</span></div><div class="flex-1 -mt-0.5"><div class="flex items-center justify-between"><p class="text-xs font-semibold text-navy-deep">1. Envio e Registro Oficial</p><span class="text-[10px] text-teal-success font-semibold bg-emerald-100 px-1.5 py-0.2 rounded">Concluído</span></div><p class="text-[11px] text-on-surface-variant mt-0.5">Realizado hoje às 18:48 via NTP.br com recibo SHA-256 emitido.</p></div></div><div class="relative flex items-start gap-3"><div class="w-6 h-6 rounded-full bg-blue-vibrant text-white flex items-center justify-center shrink-0 z-10 shadow-xs ring-2 ring-white animate-pulse"><span class="material-symbols-outlined text-[14px]">hourglass_top</span></div><div class="flex-1 -mt-0.5"><div class="flex items-center justify-between"><p class="text-xs font-semibold text-navy-deep">2. Triagem e Conferência pelo RH</p><span class="text-[10px] text-blue-vibrant font-medium bg-blue-50 px-1.5 py-0.2 rounded border border-blue-100">Em andamento</span></div><p class="text-[11px] text-on-surface-variant mt-0.5">Prazo estimado: até 24h úteis (previsão: amanhã até 18:00). Conferência dos dados do CRM e jornada.</p></div></div><div class="relative flex items-start gap-3"><div class="w-6 h-6 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center shrink-0 z-10 ring-2 ring-white border border-slate-200"><span class="material-symbols-outlined text-[14px]">medical_services</span></div><div class="flex-1 -mt-0.5"><div class="flex items-center justify-between"><p class="text-xs font-medium text-slate-500">3. Homologação Medicina do Trabalho</p><span class="text-[10px] text-slate-400">Aguardando</span></div><p class="text-[11px] text-slate-400 mt-0.5">Validação do CID-10 e emissão do parecer médico ocupacional.</p></div></div><div class="relative flex items-start gap-3"><div class="w-6 h-6 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center shrink-0 z-10 ring-2 ring-white border border-slate-200"><span class="material-symbols-outlined text-[14px]">fact_check</span></div><div class="flex-1 -mt-0.5"><div class="flex items-center justify-between"><p class="text-xs font-medium text-slate-500">4. Abono no Espelho de Ponto</p><span class="text-[10px] text-slate-400">Aguardando</span></div><p class="text-[11px] text-slate-400 mt-0.5">Crédito automático de 16h abonadas no banco de horas/espelho.</p></div></div></div><div class="bg-white rounded-lg p-2.5 border border-border-subtle flex items-center justify-between gap-2 text-xs"><div class="flex items-center gap-2"><span class="material-symbols-outlined text-blue-vibrant text-[18px]">info</span><span class="text-[11px] text-navy-deep leading-tight"><strong class="font-semibold">Prazo limite legal de resposta:</strong> 48h úteis</span></div><a class="shrink-0 inline-flex items-center gap-1 text-[11px] font-semibold text-secondary hover:underline px-2 py-1 rounded bg-surface-container-low" href="#"><span class="material-symbols-outlined text-[14px]">open_in_new</span>Acompanhar em Solicitações</a></div></div><div class="relative bg-white border border-border-subtle rounded-xl shadow-sm overflow-hidden">
+<!-- Receipt Header Bar -->
+<div class="bg-navy-deep text-white px-4 py-2.5 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-tertiary-fixed">receipt_long</span>
+<span class="font-body-md text-xs font-semibold tracking-wide uppercase">Recibo Digital de Conformidade</span>
+</div>
+<span class="text-[10px] text-outline-variant font-mono">Portaria 671 MTE</span>
+</div>
+<!-- Receipt Details Body -->
+<div class="p-4 space-y-3 font-body-sm text-body-sm text-navy-deep">
+<!-- Employee Row -->
+<div class="flex justify-between items-center pb-2 border-b border-border-subtle/80">
+<span class="text-on-surface-variant text-xs">Colaborador:</span>
+<span class="font-semibold text-right">Mariana Costa <span class="font-normal text-on-surface-variant">(Matrícula #1042)</span></span>
+</div>
+<!-- Justification Type -->
+<div class="flex justify-between items-start pb-2 border-b border-border-subtle/80">
+<span class="text-on-surface-variant text-xs">Tipo de Ausência:</span>
+<div class="text-right">
+<span class="font-semibold block">Atestado Médico (2 dias)</span>
+<span class="text-[11px] text-on-surface-variant">Período: 24/10/2024 a 25/10/2024</span>
+</div>
+</div>
+<!-- Professional / Issuer -->
+<div class="flex justify-between items-center pb-2 border-b border-border-subtle/80">
+<span class="text-on-surface-variant text-xs">Profissional Emissor:</span>
+<span class="font-medium">Dr. Roberto Silveira <span class="text-xs text-on-surface-variant font-mono">(CRM/SP 148920)</span></span>
+</div>
+<!-- Attachment & SHA-256 Hash -->
+<div class="bg-surface-container-low rounded-lg p-2.5 flex items-center justify-between border border-slate-200">
+<div class="flex items-center gap-2 overflow-hidden">
+<span class="material-symbols-outlined text-ruby-danger text-[22px]">picture_as_pdf</span>
+<div class="truncate">
+<p class="font-medium text-xs truncate text-navy-deep">atestado_recortado_otimizado.pdf</p>
+<p class="text-[10px] text-on-surface-variant font-mono truncate">SHA256: e9b7a421f6c4083df...9a3b</p>
+</div>
+</div>
+<span class="inline-flex items-center text-[11px] font-semibold text-teal-success gap-0.5">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+                Íntegro
+              </span>
+</div>
+<!-- Digital Seal & QR Code Validation -->
+<div class="pt-1 flex items-center justify-between">
+<div class="space-y-1 pr-2">
+<div class="flex items-center gap-1 text-[11px] font-semibold text-teal-success">
+<span class="material-symbols-outlined text-[15px]" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+<span class="">Assinado via ICP-Brasil</span>
+</div>
+<p class="text-[10px] leading-tight text-on-surface-variant">
+                  Certificado digital de inviolabilidade conforme os requisitos do art. 83 da Portaria 671 do Ministério do Trabalho.
+                </p>
+</div>
+<!-- Compact QR Code placeholder -->
+<div class="shrink-0 flex flex-col items-center bg-white p-1.5 border border-border-subtle rounded-lg shadow-2xs">
+<div class="w-14 h-14 bg-slate-900 flex items-center justify-center p-1 rounded">
+<!-- Geometric QR representation -->
+<div class="w-full h-full grid grid-cols-4 gap-0.5 bg-white p-0.5">
+<div class="bg-slate-900"></div><div class="bg-white"></div><div class="bg-slate-900"></div><div class="bg-slate-900"></div>
+<div class="bg-slate-900"></div><div class="bg-slate-900"></div><div class="bg-white"></div><div class="bg-slate-900"></div>
+<div class="bg-white"></div><div class="bg-slate-900"></div><div class="bg-slate-900"></div><div class="bg-white"></div>
+<div class="bg-slate-900"></div><div class="bg-white"></div><div class="bg-slate-900"></div><div class="bg-slate-900"></div>
+</div>
+</div>
+<span class="text-[8px] text-slate-500 font-mono mt-0.5">Autenticidade</span>
+</div>
+</div>
+</div>
+</div>
+<!-- 4. Workflow Timeline / Próximos Passos -->
+
+<!-- 5. Delivery Confirmation Banner (Email notification) -->
+<div class="flex items-center gap-2.5 p-3 rounded-lg bg-emerald-50/80 border border-emerald-200/70 text-teal-success">
+<span class="material-symbols-outlined text-[20px] shrink-0" style="font-variation-settings: 'FILL' 1;">mark_email_read</span>
+<p class="text-xs leading-snug text-navy-deep font-body-sm">
+            Uma cópia fiel com o carimbo deste recibo foi enviada para <span class="font-semibold text-teal-success">mariana.costa@empresa.com.br</span>
+</p>
+</div>
+<!-- 6. Action Buttons -->
+<div class="space-y-2.5 pt-1">
+<!-- Primary Action: Baixar Recibo em PDF -->
+<button class="w-full flex items-center justify-center gap-2 bg-blue-vibrant hover:bg-secondary text-white font-headline-sm text-headline-sm py-3 px-4 rounded-xl shadow-md active:scale-[0.98] transition-all" type="button">
+<span class="material-symbols-outlined text-[20px]">download</span>
+<span class="">Baixar Recibo em PDF</span>
+</button>
+<!-- Secondary Action: Ver no Espelho de Ponto / Concluir -->
+<button class="w-full flex items-center justify-center gap-2 bg-surface-container-lowest hover:bg-surface-container-low text-navy-deep font-medium text-body-md py-2.5 px-4 rounded-xl border border-border-subtle active:scale-[0.98] transition-all" type="button">
+<span class="">Concluir e Ir para Espelho de Ponto</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- SHARED COMPONENT: BottomNavBar (Active tab: 'Solicitações') -->
+<nav aria-label="Navegação Principal PWA" class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 bg-surface-container-lowest dark:bg-navy-surface border-t border-border-subtle dark:border-navy-deep shadow-lg dark:shadow-none">
+<!-- Tab 1: Ponto (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-3 py-1 hover:text-secondary dark:hover:text-blue-accent transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-[24px]">fingerprint</span>
+<span class="font-caption text-caption mt-0.5">Ponto</span>
+</a>
+<!-- Tab 2: Histórico (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-3 py-1 hover:text-secondary dark:hover:text-blue-accent transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-[24px]">calendar_today</span>
+<span class="font-caption text-caption mt-0.5">Histórico</span>
+</a>
+<!-- Tab 3: Solicitações (ACTIVE MATCH for Atestado/Protocol Workflow) -->
+<a aria-current="page" class="flex flex-col items-center justify-center bg-secondary-fixed dark:bg-primary-container text-on-secondary-fixed dark:text-secondary-fixed rounded-xl px-3 py-1 font-medium hover:text-secondary dark:hover:text-blue-accent transition-all duration-150" href="#">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">pending_actions</span>
+<span class="font-caption text-caption mt-0.5">Solicitações</span>
+</a>
+<!-- Tab 4: Perfil (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-3 py-1 hover:text-secondary dark:hover:text-blue-accent transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-[24px]">person</span>
+<span class="font-caption text-caption mt-0.5">Perfil</span>
+</a>
+</nav>
+<!-- Lightweight Micro-Interaction Script for Copying Protocol -->
+<script>
+    function copyProtocol() {
+      const textToCopy = document.getElementById('protocolNumber').innerText.trim();
+      const btn = document.getElementById('btnCopyProtocol');
+      
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        const originalHtml = btn.innerHTML;
+        btn.innerHTML = '<span class="material-symbols-outlined text-[16px] text-teal-success">check</span><span class="text-teal-success font-semibold">Copiado!</span>';
+        btn.classList.add('bg-emerald-50', 'border-emerald-200');
+        
+        setTimeout(() => {
+          btn.innerHTML = originalHtml;
+          btn.classList.remove('bg-emerald-50', 'border-emerald-200');
+        }, 2000);
+      }).catch(err => {
+        console.error('Erro ao copiar protocolo:', err);
+      });
+    }
+  </script>
+
+
+</body></html>

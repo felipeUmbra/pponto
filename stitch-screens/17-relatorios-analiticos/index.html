@@ -1,0 +1,954 @@
+<!DOCTYPE html><html class="h-full" lang="pt-BR"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>pPonto Gestão - Relatórios Analíticos &amp; Gestão de Banco de Horas</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Google Fonts: Inter & JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "inverse-primary": "#bec6e0",
+            "error-container": "#ffdad6",
+            "on-tertiary-fixed": "#002114",
+            "on-primary-fixed": "#131b2e",
+            "blue-vibrant": "#2563EB",
+            "teal-success": "#059669",
+            "outline": "#76777d",
+            "inverse-on-surface": "#eaf1ff",
+            "on-error-container": "#93000a",
+            "primary": "#000000",
+            "on-background": "#0b1c30",
+            "outline-variant": "#c6c6cd",
+            "secondary-container": "#316bf3",
+            "on-tertiary-fixed-variant": "#005137",
+            "emerald-light": "#10B981",
+            "inverse-surface": "#213145",
+            "background": "#f8f9ff",
+            "secondary": "#0051d5",
+            "surface-variant": "#d3e4fe",
+            "amber-soft": "#F59E0B",
+            "on-secondary-container": "#fefcff",
+            "on-tertiary": "#ffffff",
+            "surface-tint": "#565e74",
+            "surface-container-highest": "#d3e4fe",
+            "primary-container": "#131b2e",
+            "surface-container-low": "#eff4ff",
+            "tertiary": "#000000",
+            "error": "#ba1a1a",
+            "tertiary-fixed-dim": "#68dba9",
+            "surface-container-high": "#dce9ff",
+            "ruby-danger": "#DC2626",
+            "navy-surface": "#1E293B",
+            "on-surface": "#0b1c30",
+            "purple-bank": "#7C3AED",
+            "on-secondary": "#ffffff",
+            "tertiary-fixed": "#85f8c4",
+            "surface-bright": "#f8f9ff",
+            "surface-container-lowest": "#ffffff",
+            "purple-subtle": "#F5F3FF",
+            "surface-container": "#e5eeff",
+            "on-secondary-fixed-variant": "#003ea8",
+            "on-primary-fixed-variant": "#3f465c",
+            "on-primary-container": "#7c839b",
+            "amber-warning": "#D97706",
+            "secondary-fixed": "#dbe1ff",
+            "neutral-card": "#FFFFFF",
+            "tertiary-container": "#002114",
+            "on-secondary-fixed": "#00174b",
+            "blue-accent": "#3B82F6",
+            "on-surface-variant": "#45464d",
+            "surface": "#f8f9ff",
+            "neutral-canvas": "#F8FAFC",
+            "surface-dim": "#cbdbf5",
+            "on-error": "#ffffff",
+            "navy-deep": "#0F172A",
+            "on-tertiary-container": "#069669",
+            "primary-fixed": "#dae2fd",
+            "secondary-fixed-dim": "#b4c5ff",
+            "primary-fixed-dim": "#bec6e0",
+            "on-primary": "#ffffff",
+            "border-subtle": "#E2E8F0"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-lg": "1.5rem",
+            "margin": "1.5rem",
+            "space-md": "1rem",
+            "space-xs": "0.25rem",
+            "gutter": "1.5rem",
+            "space-xl": "2.5rem",
+            "space-sm": "0.5rem"
+          },
+          "fontFamily": {
+            "clock-large-mobile": ["JetBrains Mono"],
+            "headline-sm": ["Inter"],
+            "badge-label": ["Inter"],
+            "clock-large": ["JetBrains Mono"],
+            "caption": ["Inter"],
+            "headline-md": ["Inter"],
+            "headline-lg": ["Inter"],
+            "display-hero": ["Inter"],
+            "body-lg": ["Inter"],
+            "display-hero-mobile": ["Inter"],
+            "body-sm": ["Inter"],
+            "body-md": ["Inter"],
+            "tabular-time": ["JetBrains Mono"],
+            "headline-lg-mobile": ["Inter"]
+          },
+          "fontSize": {
+            "clock-large-mobile": ["2.25rem", { lineHeight: "2.5rem", letterSpacing: "-0.02em", fontWeight: "600" }],
+            "headline-sm": ["1.125rem", { lineHeight: "1.5rem", fontWeight: "600" }],
+            "badge-label": ["0.6875rem", { lineHeight: "0.875rem", letterSpacing: "0.04em", fontWeight: "600" }],
+            "clock-large": ["3rem", { lineHeight: "3.25rem", letterSpacing: "-0.02em", fontWeight: "600" }],
+            "caption": ["0.6875rem", { lineHeight: "0.875rem", letterSpacing: "0.02em", fontWeight: "500" }],
+            "headline-md": ["1.25rem", { lineHeight: "1.75rem", letterSpacing: "-0.01em", fontWeight: "600" }],
+            "headline-lg": ["2rem", { lineHeight: "2.5rem", letterSpacing: "-0.02em", fontWeight: "700" }],
+            "display-hero": ["3.5rem", { lineHeight: "4rem", letterSpacing: "-0.03em", fontWeight: "700" }],
+            "body-lg": ["1rem", { lineHeight: "1.5rem", fontWeight: "400" }],
+            "display-hero-mobile": ["2.25rem", { lineHeight: "2.75rem", letterSpacing: "-0.02em", fontWeight: "700" }],
+            "body-sm": ["0.75rem", { lineHeight: "1.125rem", fontWeight: "400" }],
+            "body-md": ["0.875rem", { lineHeight: "1.375rem", fontWeight: "400" }],
+            "tabular-time": ["0.875rem", { lineHeight: "1.25rem", letterSpacing: "0em", fontWeight: "500" }],
+            "headline-lg-mobile": ["1.5rem", { lineHeight: "2rem", letterSpacing: "-0.01em", fontWeight: "700" }]
+          }
+        },
+      },
+    }
+  </script>
+</head>
+<body class="bg-neutral-canvas text-on-surface font-body-md text-body-md h-full flex flex-col antialiased selection:bg-secondary selection:text-neutral-card overflow-x-hidden">
+<!-- ========================================================================= -->
+<!-- 1. SIDE NAVIGATION BAR (SHARED COMPONENT: SideNavBar)                      -->
+<!-- ========================================================================= -->
+<aside class="h-screen flex flex-col justify-between p-4 border-r border-border-subtle bg-navy-deep fixed left-0 top-0 z-40 w-64 shadow-sm select-none">
+<!-- Header / Brand Section -->
+<div class="flex flex-col gap-5">
+<div class="flex items-center gap-3 px-2 pt-1">
+<div class="w-10 h-10 rounded-lg bg-blue-vibrant flex items-center justify-center text-neutral-card shadow-sm">
+<span class="material-symbols-outlined text-neutral-card" style="font-variation-settings: 'FILL' 1;">timer</span>
+</div>
+<div class="flex flex-col">
+<span class="text-headline-md font-headline-md font-bold text-neutral-card tracking-tight">pPonto Gestão</span>
+<span class="text-caption font-caption text-outline-variant flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-light inline-block"></span>
+            Portaria 671 MTE Compliance
+          </span>
+</div>
+</div>
+<!-- Quick Action Button -->
+<div class="px-1">
+<button class="w-full flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg bg-blue-vibrant text-neutral-card font-body-md font-medium shadow-sm hover:bg-secondary transition-all duration-150 ease-in-out active:scale-[0.99]" type="button">
+<span class="material-symbols-outlined text-neutral-card">fingerprint</span>
+<span class="">Bater Ponto</span>
+</button>
+</div>
+<!-- Navigation Tabs (from Shared Components JSON) -->
+<nav aria-label="Navegação Principal" class="flex flex-col gap-1.5 mt-1">
+<!-- Tab 1: Painel -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-outline-variant hover:text-neutral-card hover:bg-navy-surface transition-colors duration-150 ease-in-out active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-body-md font-body-md">Painel</span>
+</a>
+<!-- Tab 2: Espelho de Ponto -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-outline-variant hover:text-neutral-card hover:bg-navy-surface transition-colors duration-150 ease-in-out active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined">schedule</span>
+<span class="text-body-md font-body-md">Espelho de Ponto</span>
+</a>
+<!-- Tab 3: Colaboradores -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-outline-variant hover:text-neutral-card hover:bg-navy-surface transition-colors duration-150 ease-in-out active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-body-md font-body-md">Colaboradores</span>
+</a>
+<!-- Tab 4: Escalas & Turnos -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-outline-variant hover:text-neutral-card hover:bg-navy-surface transition-colors duration-150 ease-in-out active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="text-body-md font-body-md">Escalas &amp; Turnos</span>
+</a>
+<!-- Tab 5: Aprovações -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-outline-variant hover:text-neutral-card hover:bg-navy-surface transition-colors duration-150 ease-in-out active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined">rule</span>
+<span class="text-body-md font-body-md">Aprovações</span>
+<span class="ml-auto px-1.5 py-0.5 text-badge-label font-badge-label bg-amber-soft/20 text-amber-soft rounded">5</span>
+</a>
+<!-- Tab 6: Relatórios Fiscais (ACTIVE TAB for Analytics/Reports page) -->
+<a aria-current="page" class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-secondary text-on-secondary font-medium transition-all duration-150 ease-in-out active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+<span class="text-body-md font-body-md">Relatórios Fiscais</span>
+<span class="ml-auto w-2 h-2 rounded-full bg-emerald-light"></span>
+</a>
+</nav>
+</div>
+<!-- Footer System Status & Tabs -->
+<div class="flex flex-col gap-2 pt-4 border-t border-navy-surface">
+<!-- Hardware REP Status Badge -->
+<div class="px-3 py-2 rounded-lg bg-navy-surface/60 border border-navy-surface flex items-center justify-between text-caption font-caption text-outline-variant"><span class="flex items-center gap-1.5 text-neutral-card"><span class="w-2 h-2 rounded-full bg-emerald-light animate-pulse"></span>Sincronização Nuvem</span><span class="font-tabular-time text-tabular-time text-emerald-light">Ativa</span></div>
+<nav aria-label="Navegação Secundária" class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-outline-variant hover:text-neutral-card hover:bg-navy-surface transition-colors" href="#"><span class="material-symbols-outlined">settings</span><span class="text-body-md font-body-md">Políticas de Ponto</span></a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-outline-variant hover:text-neutral-card hover:bg-navy-surface transition-colors" href="#">
+<span class="material-symbols-outlined">headset_mic</span>
+<span class="text-body-md font-body-md">Suporte Técnico</span>
+</a>
+</nav>
+</div>
+</aside>
+<!-- ========================================================================= -->
+<!-- 2. TOP NAVIGATION BAR (SHARED COMPONENT: TopNavBar)                        -->
+<!-- ========================================================================= -->
+<header class="flex justify-between items-center w-[calc(100%-16rem)] ml-64 px-6 h-16 border-b border-border-subtle bg-neutral-card fixed top-0 right-0 z-30 shadow-sm">
+<!-- Left: Search & Sub-Navigation Links -->
+<div class="flex items-center gap-6">
+<div class="relative w-72">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-lg">search</span>
+<input class="w-full pl-9 pr-3 py-1.5 bg-neutral-canvas border border-border-subtle rounded-lg text-body-sm font-body-sm text-on-surface placeholder:text-outline focus:outline-none focus:border-blue-vibrant focus:ring-1 focus:ring-blue-vibrant/20 transition-all" placeholder="Buscar colaborador, matrícula, CPF..." type="text">
+</div>
+<!-- Navigation Links from TopNavBar Spec -->
+<div class="hidden xl:flex items-center gap-5 text-body-sm font-body-sm">
+<a class="text-on-surface-variant hover:text-on-surface font-normal transition-colors" href="#">Visão Geral</a>
+<a class="text-secondary border-b-2 border-secondary pb-1 font-semibold" href="#">Auditoria Fiscal</a>
+<a class="text-on-surface-variant hover:text-on-surface font-normal transition-colors" href="#">Arquivos AFD/AFDT</a>
+</div>
+</div>
+<!-- Right: Trailing Actions & User Profile -->
+<div class="flex items-center gap-3">
+<!-- Secondary Export Action -->
+<button class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border-subtle bg-neutral-card text-on-surface font-body-sm font-medium hover:bg-surface-container-low transition-colors" type="button"><span class="material-symbols-outlined text-outline text-lg">file_download</span>Exportar Relatório</button>
+<!-- Primary Action: Fechar Folha -->
+<button class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-secondary text-neutral-card font-body-sm font-medium hover:bg-blue-vibrant shadow-sm transition-colors" type="button">
+<span class="material-symbols-outlined text-neutral-card text-lg">lock_clock</span>
+        Fechar Folha
+      </button>
+<div class="h-5 w-px bg-border-subtle mx-1"></div>
+<!-- Icon Actions -->
+<button aria-label="Notificações" class="p-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors relative" type="button">
+<span class="material-symbols-outlined text-xl">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-ruby-danger"></span>
+</button>
+<button aria-label="Ajuda" class="p-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors" type="button">
+<span class="material-symbols-outlined text-xl">help_outline</span>
+</button>
+<button aria-label="Ajustes de Parâmetros" class="p-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors" type="button">
+<span class="material-symbols-outlined text-xl">tune</span>
+</button>
+<!-- Profile Section -->
+<div class="flex items-center gap-2 pl-2 border-l border-border-subtle">
+<div class="w-8 h-8 rounded-full bg-navy-surface text-neutral-card flex items-center justify-center font-bold text-caption border border-border-subtle">
+          GR
+        </div>
+<div class="hidden lg:flex flex-col text-left">
+<span class="text-body-sm font-body-sm font-semibold text-on-surface leading-tight">Gestor de RH</span>
+<span class="text-caption font-caption text-outline">Matriz São Paulo</span>
+</div>
+</div>
+</div>
+</header>
+<!-- ========================================================================= -->
+<!-- 3. MAIN WORKSPACE CANVAS (DESKTOP MANAGEMENT CONSOLE)                     -->
+<!-- ========================================================================= -->
+<main class="ml-64 mt-16 p-6 flex-1 flex flex-col gap-6 max-w-7xl">
+<!-- Page Title & Header Actions -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div>
+<div class="flex items-center gap-2 text-caption font-caption text-outline mb-1">
+<a class="hover:text-secondary" href="#">Relatórios Fiscais</a>
+<span class="">/</span>
+<span class="text-secondary font-medium">Analytics &amp; Gestão de Banco</span>
+</div>
+<h1 class="text-headline-lg font-headline-lg text-on-surface tracking-tight">
+          Relatórios Gerenciais &amp; Gestão de Banco de Horas
+        </h1>
+<p class="text-body-md font-body-md text-on-surface-variant mt-0.5">
+          Acompanhamento em tempo real de horas extras, absenteísmo, passivo trabalhista e compensação de jornadas
+        </p>
+</div>
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container text-secondary text-caption font-caption border border-border-subtle font-medium">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">gavel</span>
+          Art. 59 § 2º e § 5º da CLT
+        </span>
+<button class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-neutral-card border border-border-subtle text-on-surface text-body-sm font-body-sm font-medium hover:bg-surface-container-low transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-outline text-lg">refresh</span>
+          Atualizar Dados
+        </button>
+</div>
+</div>
+<!-- ========================================================================= -->
+<!-- 4. ADVANCED ANALYTICS FILTER BAR                                          -->
+<!-- ========================================================================= -->
+<section class="bg-neutral-card rounded-xl p-4 border border-border-subtle shadow-sm flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+<div class="flex flex-wrap items-center gap-3">
+<!-- Filter 1: Período -->
+<div class="flex flex-col gap-1">
+<label class="text-caption font-caption text-outline uppercase font-semibold">Período de Apuração</label>
+<div class="relative inline-flex items-center">
+<span class="material-symbols-outlined absolute left-2.5 text-outline text-lg pointer-events-none">calendar_month</span>
+<select class="pl-8 pr-8 py-1.5 bg-neutral-canvas border border-border-subtle rounded-lg text-body-sm font-body-sm font-medium text-on-surface focus:ring-1 focus:ring-blue-vibrant focus:border-blue-vibrant appearance-none cursor-pointer">
+<option selected="">Mês Atual (Outubro/2024)</option>
+<option>Setembro/2024 (Fechado)</option>
+<option>Agosto/2024 (Fechado)</option>
+<option>3º Trimestre/2024 (Consolidado)</option>
+<option>Personalizado...</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 text-outline text-base pointer-events-none">expand_more</span>
+</div>
+</div>
+<!-- Filter 2: Departamento / Setor -->
+<div class="flex flex-col gap-1">
+<label class="text-caption font-caption text-outline uppercase font-semibold">Departamento / Setor</label>
+<div class="relative inline-flex items-center">
+<span class="material-symbols-outlined absolute left-2.5 text-outline text-lg pointer-events-none">corporate_fare</span>
+<select class="pl-8 pr-8 py-1.5 bg-neutral-canvas border border-border-subtle rounded-lg text-body-sm font-body-sm font-medium text-on-surface focus:ring-1 focus:ring-blue-vibrant focus:border-blue-vibrant appearance-none cursor-pointer">
+<option selected="">Todos os Departamentos</option>
+<option>Operações (284 colaboradores)</option>
+<option>Logística &amp; Frota (142 colaboradores)</option>
+<option>Atendimento / SAC (95 colaboradores)</option>
+<option>Tecnologia da Informação (56 colaboradores)</option>
+<option>Administrativo &amp; Financeiro (48 colaboradores)</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 text-outline text-base pointer-events-none">expand_more</span>
+</div>
+</div>
+<!-- Filter 3: Tipo de Jornada -->
+<div class="flex flex-col gap-1">
+<label class="text-caption font-caption text-outline uppercase font-semibold">Tipo de Jornada</label>
+<div class="relative inline-flex items-center">
+<span class="material-symbols-outlined absolute left-2.5 text-outline text-lg pointer-events-none">timelapse</span>
+<select class="pl-8 pr-8 py-1.5 bg-neutral-canvas border border-border-subtle rounded-lg text-body-sm font-body-sm font-medium text-on-surface focus:ring-1 focus:ring-blue-vibrant focus:border-blue-vibrant appearance-none cursor-pointer">
+<option selected="">Todas as Jornadas</option>
+<option>CLT 44h Semanal</option>
+<option>Escala 12x36</option>
+<option>Estágio 30h Semanal</option>
+<option>Jornada Parcial (20h)</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 text-outline text-base pointer-events-none">expand_more</span>
+</div>
+</div>
+<!-- Quick Filter Badges -->
+<div class="flex flex-col gap-1">
+<label class="text-caption font-caption text-outline uppercase font-semibold">Status do Saldo</label>
+<div class="flex items-center gap-1.5 py-0.5">
+<button class="px-2.5 py-1 rounded-lg bg-surface-container-low text-secondary text-caption font-caption font-semibold hover:bg-secondary hover:text-on-secondary transition-colors" type="button">
+              Todos
+            </button>
+<button class="px-2.5 py-1 rounded-lg bg-neutral-canvas border border-border-subtle text-on-surface-variant text-caption font-caption hover:border-ruby-danger hover:text-ruby-danger transition-colors" type="button">
+              Crédito Alto (&gt;20h)
+            </button>
+<button class="px-2.5 py-1 rounded-lg bg-neutral-canvas border border-border-subtle text-on-surface-variant text-caption font-caption hover:border-amber-warning hover:text-amber-warning transition-colors" type="button">
+              Vencendo &lt;30d
+            </button>
+</div>
+</div>
+</div>
+<!-- Quick Export Actions (XLSX / PDF) -->
+<div class="flex items-center gap-2 self-end lg:self-center border-t lg:border-t-0 pt-3 lg:pt-0 w-full lg:w-auto justify-end border-border-subtle">
+<button class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-border-subtle bg-neutral-card text-on-surface text-body-sm font-body-sm font-medium hover:bg-surface-container-low hover:border-teal-success hover:text-teal-success transition-colors" type="button">
+<span class="material-symbols-outlined text-teal-success text-lg">table_chart</span>
+<span class="">Exportar para Excel (.xlsx)</span>
+</button>
+<button class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-navy-deep text-neutral-card text-body-sm font-body-sm font-medium hover:bg-navy-surface shadow-sm transition-colors" type="button">
+<span class="material-symbols-outlined text-ruby-danger text-lg">picture_as_pdf</span>
+<span class="">Baixar Relatório Executivo (.pdf)</span>
+</button>
+</div>
+</section>
+<!-- ========================================================================= -->
+<!-- 5. GRID DE 4 CARDS DE MÉTRICAS (KPIS EXECUTIVOS)                         -->
+<!-- ========================================================================= -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- KPI 1: Saldo Geral de Banco de Horas -->
+<div class="bg-neutral-card rounded-xl p-4 border border-border-subtle shadow-sm flex flex-col justify-between relative overflow-hidden">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="text-caption font-caption uppercase font-semibold text-outline tracking-wider">Saldo Geral do Banco</span>
+<span class="text-headline-sm font-headline-sm font-bold text-on-surface font-tabular-time mt-1">+1.428h 30m</span>
+</div>
+<div class="w-9 h-9 rounded-lg bg-purple-subtle text-purple-bank flex items-center justify-center">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span>
+</div>
+</div>
+<div class="mt-3 pt-3 border-t border-border-subtle flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<span class="text-caption font-caption text-on-surface-variant">Crédito Acumulado Global</span>
+<span class="inline-flex items-center gap-1 text-badge-label font-badge-label px-2 py-0.5 rounded-full bg-emerald-light/10 text-teal-success font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-teal-success"></span>
+              Em Conformidade
+            </span>
+</div>
+<span class="text-caption font-caption text-outline">
+            Dentro do limite semestral CLT Art. 59 § 5º
+          </span>
+</div>
+</div>
+<!-- KPI 2: Horas Extras Totais -->
+<div class="bg-neutral-card rounded-xl p-4 border border-border-subtle shadow-sm flex flex-col justify-between relative overflow-hidden">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="text-caption font-caption uppercase font-semibold text-outline tracking-wider">Horas Extras Totais</span>
+<span class="text-headline-sm font-headline-sm font-bold text-on-surface font-tabular-time mt-1">342h 15m</span>
+</div>
+<div class="w-9 h-9 rounded-lg bg-surface-container text-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">more_time</span>
+</div>
+</div>
+<div class="mt-3 pt-3 border-t border-border-subtle flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<span class="text-caption font-caption text-on-surface-variant">Variação Mensal</span>
+<span class="inline-flex items-center gap-1 text-badge-label font-badge-label px-2 py-0.5 rounded-full bg-emerald-light/10 text-teal-success font-semibold">
+<span class="material-symbols-outlined text-xs">trending_down</span>
+              -8.4% vs mês ant.
+            </span>
+</div>
+<div class="flex items-center justify-between text-caption font-caption text-outline">
+<span class="">HE 50%: <b class="text-on-surface font-tabular-time">286h</b></span>
+<span class="">HE 100%: <b class="text-ruby-danger font-tabular-time">56h 15m</b></span>
+</div>
+</div>
+</div>
+<!-- KPI 3: Taxa de Absenteísmo -->
+<div class="bg-neutral-card rounded-xl p-4 border border-border-subtle shadow-sm flex flex-col justify-between relative overflow-hidden">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="text-caption font-caption uppercase font-semibold text-outline tracking-wider">Taxa de Absenteísmo</span>
+<span class="text-headline-sm font-headline-sm font-bold text-teal-success font-tabular-time mt-1">1.8%</span>
+</div>
+<div class="w-9 h-9 rounded-lg bg-emerald-light/10 text-teal-success flex items-center justify-center">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">event_busy</span>
+</div>
+</div>
+<div class="mt-3 pt-3 border-t border-border-subtle flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<span class="text-caption font-caption text-on-surface-variant">Meta Operacional: &lt; 3.0%</span>
+<span class="inline-flex items-center gap-1 text-badge-label font-badge-label px-2 py-0.5 rounded-full bg-emerald-light/10 text-teal-success font-semibold">
+              Excelente
+            </span>
+</div>
+<div class="w-full bg-border-subtle h-1.5 rounded-full overflow-hidden">
+<div class="bg-teal-success h-full rounded-full" style="width: 36%;"></div>
+</div>
+</div>
+</div>
+<!-- KPI 4: Alertas de Vencimento -->
+<div class="bg-neutral-card rounded-xl p-4 border border-ruby-danger/30 shadow-sm flex flex-col justify-between relative overflow-hidden">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="text-caption font-caption uppercase font-semibold text-ruby-danger tracking-wider flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-ruby-danger animate-ping"></span>
+              Alertas de Vencimento
+            </span>
+<span class="text-headline-sm font-headline-sm font-bold text-on-surface mt-1">14 Colaboradores</span>
+</div>
+<div class="w-9 h-9 rounded-lg bg-error-container text-ruby-danger flex items-center justify-center">
+<span class="material-symbols-outlined text-xl">warning</span>
+</div>
+</div>
+<div class="mt-3 pt-3 border-t border-border-subtle flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<span class="text-caption font-caption text-ruby-danger font-medium">Vencendo em ≤ 30 dias</span>
+<span class="text-badge-label font-badge-label px-2 py-0.5 rounded-full bg-amber-soft/10 text-amber-warning font-semibold">
+              Ação Urgente
+            </span>
+</div>
+<span class="text-caption font-caption text-outline">
+            Requer quitação em folha ou folga compensatória imediata
+          </span>
+</div>
+</div>
+</section>
+<!-- ========================================================================= -->
+<!-- 6. GRÁFICOS ANALÍTICOS (BENTO 2 COLUNAS)                                  -->
+<!-- ========================================================================= -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- Gráfico 1: Horas Extras por Departamento (Bar Chart) -->
+<div class="lg:col-span-6 bg-neutral-card rounded-xl p-5 border border-border-subtle shadow-sm flex flex-col">
+<div class="flex items-center justify-between mb-4">
+<div>
+<h2 class="text-headline-sm font-headline-sm text-on-surface">Horas Extras por Departamento</h2>
+<p class="text-caption font-caption text-outline">Concentração de horas adicionais no ciclo atual (Outubro/2024)</p>
+</div>
+<span class="text-caption font-caption px-2.5 py-1 rounded bg-surface-container text-secondary font-medium">Mês Corrente</span>
+</div>
+<!-- Custom Data Visualization: Bar Gauge -->
+<div class="flex flex-col gap-4 my-auto pt-2">
+<!-- Departamento 1: Operações -->
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center justify-between text-body-sm font-body-sm">
+<span class="font-medium text-on-surface flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded bg-blue-vibrant"></span>
+                Operações Fabris &amp; Campo
+              </span>
+<div class="flex items-center gap-3">
+<span class="text-outline text-caption font-caption">148h 20m</span>
+<span class="font-tabular-time text-tabular-time font-semibold text-on-surface">43.3%</span>
+</div>
+</div>
+<div class="w-full bg-surface-container-low h-3 rounded-full overflow-hidden flex">
+<div class="bg-blue-vibrant h-full rounded-full transition-all duration-500" style="width: 43.3%;"></div>
+</div>
+</div>
+<!-- Departamento 2: Logística & Frota -->
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center justify-between text-body-sm font-body-sm">
+<span class="font-medium text-on-surface flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded bg-purple-bank"></span>
+                Logística &amp; Centro de Distribuição
+              </span>
+<div class="flex items-center gap-3">
+<span class="text-outline text-caption font-caption">102h 45m</span>
+<span class="font-tabular-time text-tabular-time font-semibold text-on-surface">30.0%</span>
+</div>
+</div>
+<div class="w-full bg-surface-container-low h-3 rounded-full overflow-hidden flex">
+<div class="bg-purple-bank h-full rounded-full transition-all duration-500" style="width: 30.0%;"></div>
+</div>
+</div>
+<!-- Departamento 3: Atendimento / SAC -->
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center justify-between text-body-sm font-body-sm">
+<span class="font-medium text-on-surface flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded bg-amber-soft"></span>
+                Atendimento ao Cliente / SAC
+              </span>
+<div class="flex items-center gap-3">
+<span class="text-outline text-caption font-caption">54h 10m</span>
+<span class="font-tabular-time text-tabular-time font-semibold text-on-surface">15.8%</span>
+</div>
+</div>
+<div class="w-full bg-surface-container-low h-3 rounded-full overflow-hidden flex">
+<div class="bg-amber-soft h-full rounded-full transition-all duration-500" style="width: 15.8%;"></div>
+</div>
+</div>
+<!-- Departamento 4: TI & Administrativo -->
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center justify-between text-body-sm font-body-sm">
+<span class="font-medium text-on-surface flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded bg-teal-success"></span>
+                Tecnologia &amp; Administrativo
+              </span>
+<div class="flex items-center gap-3">
+<span class="text-outline text-caption font-caption">37h 00m</span>
+<span class="font-tabular-time text-tabular-time font-semibold text-on-surface">10.9%</span>
+</div>
+</div>
+<div class="w-full bg-surface-container-low h-3 rounded-full overflow-hidden flex">
+<div class="bg-teal-success h-full rounded-full transition-all duration-500" style="width: 10.9%;"></div>
+</div>
+</div>
+</div>
+<div class="mt-5 pt-3 border-t border-border-subtle flex items-center justify-between text-caption font-caption text-outline">
+<span class="">Total consolidado: <strong class="text-on-surface font-tabular-time">342h 15m extras</strong></span>
+<a class="text-secondary hover:underline font-medium flex items-center gap-1" href="#">
+            Analisar centro de custo
+            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- Gráfico 2: Horas Previstas x Horas Efetivamente Trabalhadas (Weekly Comparison) -->
+<div class="lg:col-span-6 bg-neutral-card rounded-xl p-5 border border-border-subtle shadow-sm flex flex-col">
+<div class="flex items-center justify-between mb-4">
+<div>
+<h2 class="text-headline-sm font-headline-sm text-on-surface">Jornada: Previsto vs Efetivo</h2>
+<p class="text-caption font-caption text-outline">Acompanhamento comparativo semanal das horas de trabalho</p>
+</div>
+<div class="flex items-center gap-3 text-caption font-caption">
+<span class="flex items-center gap-1.5 text-on-surface">
+<span class="w-3 h-1 bg-outline rounded-full inline-block"></span> Previsto
+            </span>
+<span class="flex items-center gap-1.5 text-secondary font-semibold">
+<span class="w-3 h-1 bg-secondary rounded-full inline-block"></span> Efetivo
+            </span>
+</div>
+</div>
+<!-- Weekly Comparison Visualization -->
+<div class="grid grid-cols-4 gap-3 my-auto pt-2">
+<!-- Semana 1 -->
+<div class="bg-neutral-canvas rounded-lg p-3 border border-border-subtle flex flex-col items-center">
+<span class="text-caption font-caption text-outline font-semibold mb-2">Semana 1 (01-07)</span>
+<div class="h-28 flex items-end gap-2 w-full justify-center pb-1">
+<div class="w-5 bg-border-subtle rounded-t hover:bg-outline-variant transition-all flex items-end justify-center group relative" style="height: 75%;">
+<span class="absolute -top-6 text-[10px] font-tabular-time bg-navy-deep text-neutral-card px-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">7.480h</span>
+</div>
+<div class="w-5 bg-secondary rounded-t hover:bg-blue-vibrant transition-all flex items-end justify-center group relative" style="height: 78%;">
+<span class="absolute -top-6 text-[10px] font-tabular-time bg-navy-deep text-neutral-card px-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">7.520h</span>
+</div>
+</div>
+<div class="pt-2 border-t border-border-subtle w-full text-center">
+<span class="text-caption font-caption font-tabular-time text-teal-success font-semibold">+40h saldo</span>
+</div>
+</div>
+<!-- Semana 2 -->
+<div class="bg-neutral-canvas rounded-lg p-3 border border-border-subtle flex flex-col items-center">
+<span class="text-caption font-caption text-outline font-semibold mb-2">Semana 2 (08-14)</span>
+<div class="h-28 flex items-end gap-2 w-full justify-center pb-1">
+<div class="w-5 bg-border-subtle rounded-t hover:bg-outline-variant transition-all flex items-end justify-center group relative" style="height: 75%;">
+<span class="absolute -top-6 text-[10px] font-tabular-time bg-navy-deep text-neutral-card px-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">7.480h</span>
+</div>
+<div class="w-5 bg-secondary rounded-t hover:bg-blue-vibrant transition-all flex items-end justify-center group relative" style="height: 82%;">
+<span class="absolute -top-6 text-[10px] font-tabular-time bg-navy-deep text-neutral-card px-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">7.610h</span>
+</div>
+</div>
+<div class="pt-2 border-t border-border-subtle w-full text-center">
+<span class="text-caption font-caption font-tabular-time text-teal-success font-semibold">+130h saldo</span>
+</div>
+</div>
+<!-- Semana 3 -->
+<div class="bg-neutral-canvas rounded-lg p-3 border border-border-subtle flex flex-col items-center">
+<span class="text-caption font-caption text-outline font-semibold mb-2">Semana 3 (15-21)</span>
+<div class="h-28 flex items-end gap-2 w-full justify-center pb-1">
+<div class="w-5 bg-border-subtle rounded-t hover:bg-outline-variant transition-all flex items-end justify-center group relative" style="height: 75%;">
+<span class="absolute -top-6 text-[10px] font-tabular-time bg-navy-deep text-neutral-card px-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">7.480h</span>
+</div>
+<div class="w-5 bg-secondary rounded-t hover:bg-blue-vibrant transition-all flex items-end justify-center group relative" style="height: 79%;">
+<span class="absolute -top-6 text-[10px] font-tabular-time bg-navy-deep text-neutral-card px-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">7.565h</span>
+</div>
+</div>
+<div class="pt-2 border-t border-border-subtle w-full text-center">
+<span class="text-caption font-caption font-tabular-time text-teal-success font-semibold">+85h saldo</span>
+</div>
+</div>
+<!-- Semana 4 (Em Aberto) -->
+<div class="bg-neutral-canvas rounded-lg p-3 border border-border-subtle flex flex-col items-center relative">
+<span class="text-caption font-caption text-outline font-semibold mb-2">Semana 4 (22-28)</span>
+<div class="h-28 flex items-end gap-2 w-full justify-center pb-1">
+<div class="w-5 bg-border-subtle rounded-t hover:bg-outline-variant transition-all flex items-end justify-center group relative" style="height: 75%;">
+<span class="absolute -top-6 text-[10px] font-tabular-time bg-navy-deep text-neutral-card px-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">7.480h</span>
+</div>
+<div class="w-5 bg-blue-accent rounded-t hover:bg-blue-vibrant transition-all flex items-end justify-center group relative" style="height: 60%;">
+<span class="absolute -top-6 text-[10px] font-tabular-time bg-navy-deep text-neutral-card px-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">6.240h</span>
+</div>
+</div>
+<div class="pt-2 border-t border-border-subtle w-full text-center">
+<span class="text-caption font-caption font-tabular-time text-on-surface-variant font-semibold">Em curso</span>
+</div>
+</div>
+</div>
+<div class="mt-5 pt-3 border-t border-border-subtle flex items-center justify-between text-caption font-caption text-outline">
+<span class="">Aderência à escala programada: <strong class="text-teal-success font-semibold">98.2%</strong></span>
+<span class="text-caption font-caption text-on-surface-variant">Ciclo semestral ativo</span>
+</div>
+</div>
+</section>
+<!-- ========================================================================= -->
+<!-- 7. DETAILED TIMECARD & HOUR BANK MANAGEMENT TABLE                          -->
+<!-- ========================================================================= -->
+<section class="bg-neutral-card rounded-xl border border-border-subtle shadow-sm overflow-hidden">
+<!-- Table Header & Controls -->
+<div class="p-4 border-b border-border-subtle flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+<div>
+<h2 class="text-headline-sm font-headline-sm text-on-surface">Extrato e Gestão de Banco de Horas por Colaborador</h2>
+<p class="text-caption font-caption text-outline">Controle individualizado com vencimentos legais, compensações e saldo cumulativo</p>
+</div>
+<div class="flex items-center gap-2">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-outline text-base">filter_list</span>
+<input class="pl-8 pr-3 py-1.5 bg-neutral-canvas border border-border-subtle rounded-lg text-body-sm font-body-sm text-on-surface placeholder:text-outline focus:outline-none focus:border-blue-vibrant text-xs" placeholder="Filtrar tabela..." type="text">
+</div>
+<button class="p-1.5 border border-border-subtle rounded-lg hover:bg-surface-container-low text-on-surface-variant" title="Visualização em Colunas" type="button">
+<span class="material-symbols-outlined text-lg">view_column</span>
+</button>
+</div>
+</div>
+<!-- Responsive Table Container -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-navy-surface text-neutral-card text-badge-label font-badge-label uppercase tracking-wider">
+<th class="py-3 px-4 font-semibold">Colaborador / Matrícula</th>
+<th class="py-3 px-4 font-semibold">Setor &amp; Regime</th>
+<th class="py-3 px-4 font-semibold text-right">Horas Trabalhadas</th>
+<th class="py-3 px-4 font-semibold text-right">HE (50% / 100%)</th>
+<th class="py-3 px-4 font-semibold text-right">Faltas / Atrasos</th>
+<th class="py-3 px-4 font-semibold text-right">Saldo Mês</th>
+<th class="py-3 px-4 font-semibold text-right">Saldo Acumulado</th>
+<th class="py-3 px-4 font-semibold text-center">Vencimento</th>
+<th class="py-3 px-4 font-semibold text-center">Ações</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-subtle text-body-sm font-body-sm">
+<!-- Row 1: Vencimento Crítico (Ação Urgente) -->
+<tr class="hover:bg-neutral-canvas transition-colors">
+<td class="py-3 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container text-secondary flex items-center justify-center font-bold text-caption">
+                    CS
+                  </div>
+<div>
+<div class="font-semibold text-on-surface leading-snug">Carlos Eduardo Silva</div>
+<div class="text-caption font-caption text-outline font-tabular-time">MAT: 48921 • Operador Senior</div>
+</div>
+</div>
+</td>
+<td class="py-3 px-4">
+<div class="text-on-surface font-medium">Operações</div>
+<div class="text-caption font-caption text-outline">CLT 44h • Turno 1</div>
+</td>
+<td class="py-3 px-4 text-right font-tabular-time font-medium text-on-surface">178h 30m</td>
+<td class="py-3 px-4 text-right font-tabular-time text-on-surface">
+<span class="text-on-surface font-semibold">18h 30m</span>
+<span class="text-caption font-caption text-outline block">(14h / 4h30)</span>
+</td>
+<td class="py-3 px-4 text-right font-tabular-time text-outline">00h 00m</td>
+<td class="py-3 px-4 text-right font-tabular-time text-teal-success font-semibold">+18h 30m</td>
+<td class="py-3 px-4 text-right font-tabular-time text-purple-bank font-bold text-base">+42h 15m</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-error-container text-ruby-danger text-badge-label font-badge-label font-semibold">
+<span class="material-symbols-outlined text-xs">timer</span>
+                  12 dias (14/Nov)
+                </span>
+</td>
+<td class="py-3 px-4 text-center">
+<div class="inline-flex items-center gap-1">
+<button class="p-1 text-secondary hover:bg-surface-container rounded" title="Agendar Compensação" type="button">
+<span class="material-symbols-outlined text-lg">event_available</span>
+</button>
+<button class="p-1 text-on-surface-variant hover:bg-surface-container-low rounded" title="Ajustar Saldo" type="button">
+<span class="material-symbols-outlined text-lg">edit</span>
+</button>
+<button class="p-1 text-on-surface-variant hover:bg-surface-container-low rounded" title="Ver Extrato Detalhado" type="button">
+<span class="material-symbols-outlined text-lg">visibility</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2: Vencimento Próximo (Alerta 28 dias) -->
+<tr class="hover:bg-neutral-canvas transition-colors">
+<td class="py-3 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-purple-subtle text-purple-bank flex items-center justify-center font-bold text-caption">
+                    MF
+                  </div>
+<div>
+<div class="font-semibold text-on-surface leading-snug">Mariana Ferreira Prado</div>
+<div class="text-caption font-caption text-outline font-tabular-time">MAT: 31084 • Sup. de Logística</div>
+</div>
+</div>
+</td>
+<td class="py-3 px-4">
+<div class="text-on-surface font-medium">Logística &amp; Frota</div>
+<div class="text-caption font-caption text-outline">Escala 12x36 • Diurno</div>
+</td>
+<td class="py-3 px-4 text-right font-tabular-time font-medium text-on-surface">192h 00m</td>
+<td class="py-3 px-4 text-right font-tabular-time text-on-surface">
+<span class="text-on-surface font-semibold">12h 00m</span>
+<span class="text-caption font-caption text-outline block">(12h / 0h)</span>
+</td>
+<td class="py-3 px-4 text-right font-tabular-time text-outline">00h 00m</td>
+<td class="py-3 px-4 text-right font-tabular-time text-teal-success font-semibold">+12h 00m</td>
+<td class="py-3 px-4 text-right font-tabular-time text-purple-bank font-bold text-base">+38h 40m</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-soft/10 text-amber-warning text-badge-label font-badge-label font-semibold">
+<span class="material-symbols-outlined text-xs">schedule</span>
+                  28 dias (30/Nov)
+                </span>
+</td>
+<td class="py-3 px-4 text-center">
+<div class="inline-flex items-center gap-1">
+<button class="p-1 text-secondary hover:bg-surface-container rounded" title="Agendar Compensação" type="button">
+<span class="material-symbols-outlined text-lg">event_available</span>
+</button>
+<button class="p-1 text-on-surface-variant hover:bg-surface-container-low rounded" title="Ajustar Saldo" type="button">
+<span class="material-symbols-outlined text-lg">edit</span>
+</button>
+<button class="p-1 text-on-surface-variant hover:bg-surface-container-low rounded" title="Ver Extrato Detalhado" type="button">
+<span class="material-symbols-outlined text-lg">visibility</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3: Saldo Normal / Conformidade Ampla -->
+<tr class="hover:bg-neutral-canvas transition-colors">
+<td class="py-3 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-emerald-light/10 text-teal-success flex items-center justify-center font-bold text-caption">
+                    RO
+                  </div>
+<div>
+<div class="font-semibold text-on-surface leading-snug">Rodrigo Oliveira Ramos</div>
+<div class="text-caption font-caption text-outline font-tabular-time">MAT: 52190 • Analista de Dados</div>
+</div>
+</div>
+</td>
+<td class="py-3 px-4">
+<div class="text-on-surface font-medium">Tecnologia da Informação</div>
+<div class="text-caption font-caption text-outline">CLT 40h • Híbrido</div>
+</td>
+<td class="py-3 px-4 text-right font-tabular-time font-medium text-on-surface">164h 15m</td>
+<td class="py-3 px-4 text-right font-tabular-time text-on-surface">
+<span class="text-on-surface font-semibold">04h 15m</span>
+<span class="text-caption font-caption text-outline block">(4h15 / 0h)</span>
+</td>
+<td class="py-3 px-4 text-right font-tabular-time text-outline">00h 00m</td>
+<td class="py-3 px-4 text-right font-tabular-time text-teal-success font-semibold">+04h 15m</td>
+<td class="py-3 px-4 text-right font-tabular-time text-purple-bank font-bold text-base">+14h 20m</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-light/10 text-teal-success text-badge-label font-badge-label font-semibold">
+                  115 dias (Fev/25)
+                </span>
+</td>
+<td class="py-3 px-4 text-center">
+<div class="inline-flex items-center gap-1">
+<button class="p-1 text-secondary hover:bg-surface-container rounded" title="Agendar Compensação" type="button">
+<span class="material-symbols-outlined text-lg">event_available</span>
+</button>
+<button class="p-1 text-on-surface-variant hover:bg-surface-container-low rounded" title="Ajustar Saldo" type="button">
+<span class="material-symbols-outlined text-lg">edit</span>
+</button>
+<button class="p-1 text-on-surface-variant hover:bg-surface-container-low rounded" title="Ver Extrato Detalhado" type="button">
+<span class="material-symbols-outlined text-lg">visibility</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4: Saldo Devedor (Débito de Horas / Justificativas) -->
+<tr class="hover:bg-neutral-canvas transition-colors">
+<td class="py-3 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-variant text-navy-deep flex items-center justify-center font-bold text-caption">
+                    AL
+                  </div>
+<div>
+<div class="font-semibold text-on-surface leading-snug">Ana Luiza Mendes</div>
+<div class="text-caption font-caption text-outline font-tabular-time">MAT: 67104 • Assistente Comercial</div>
+</div>
+</div>
+</td>
+<td class="py-3 px-4">
+<div class="text-on-surface font-medium">Administrativo</div>
+<div class="text-caption font-caption text-outline">CLT 44h • Presencial</div>
+</td>
+<td class="py-3 px-4 text-right font-tabular-time font-medium text-on-surface">152h 40m</td>
+<td class="py-3 px-4 text-right font-tabular-time text-outline">00h 00m</td>
+<td class="py-3 px-4 text-right font-tabular-time text-ruby-danger font-semibold">
+                -07h 20m
+                <span class="text-caption font-caption text-outline block">(1 Falta Just.)</span>
+</td>
+<td class="py-3 px-4 text-right font-tabular-time text-ruby-danger font-semibold">-07h 20m</td>
+<td class="py-3 px-4 text-right font-tabular-time text-ruby-danger font-bold text-base">-02h 15m</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-neutral-canvas border border-border-subtle text-on-surface-variant text-badge-label font-badge-label">
+                  Saldo Devedor
+                </span>
+</td>
+<td class="py-3 px-4 text-center">
+<div class="inline-flex items-center gap-1">
+<button class="p-1 text-secondary hover:bg-surface-container rounded" title="Agendar Compensação" type="button">
+<span class="material-symbols-outlined text-lg">event_available</span>
+</button>
+<button class="p-1 text-on-surface-variant hover:bg-surface-container-low rounded" title="Ajustar Saldo" type="button">
+<span class="material-symbols-outlined text-lg">edit</span>
+</button>
+<button class="p-1 text-on-surface-variant hover:bg-surface-container-low rounded" title="Ver Extrato Detalhado" type="button">
+<span class="material-symbols-outlined text-lg">visibility</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 5: Atendimento ao Cliente / Turno Noturno -->
+<tr class="hover:bg-neutral-canvas transition-colors">
+<td class="py-3 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container text-secondary flex items-center justify-center font-bold text-caption">
+                    FA
+                  </div>
+<div>
+<div class="font-semibold text-on-surface leading-snug">Felipe Albuquerque Dias</div>
+<div class="text-caption font-caption text-outline font-tabular-time">MAT: 44902 • Operador SAC II</div>
+</div>
+</div>
+</td>
+<td class="py-3 px-4">
+<div class="text-on-surface font-medium">Atendimento / SAC</div>
+<div class="text-caption font-caption text-outline">Jornada 36h • Turno Tarde</div>
+</td>
+<td class="py-3 px-4 text-right font-tabular-time font-medium text-on-surface">144h 00m</td>
+<td class="py-3 px-4 text-right font-tabular-time text-on-surface">
+<span class="text-on-surface font-semibold">06h 30m</span>
+<span class="text-caption font-caption text-outline block">(6h30 / 0h)</span>
+</td>
+<td class="py-3 px-4 text-right font-tabular-time text-outline">00h 00m</td>
+<td class="py-3 px-4 text-right font-tabular-time text-teal-success font-semibold">+06h 30m</td>
+<td class="py-3 px-4 text-right font-tabular-time text-purple-bank font-bold text-base">+21h 10m</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-light/10 text-teal-success text-badge-label font-badge-label font-semibold">
+                  74 dias (Jan/25)
+                </span>
+</td>
+<td class="py-3 px-4 text-center">
+<div class="inline-flex items-center gap-1">
+<button class="p-1 text-secondary hover:bg-surface-container rounded" title="Agendar Compensação" type="button">
+<span class="material-symbols-outlined text-lg">event_available</span>
+</button>
+<button class="p-1 text-on-surface-variant hover:bg-surface-container-low rounded" title="Ajustar Saldo" type="button">
+<span class="material-symbols-outlined text-lg">edit</span>
+</button>
+<button class="p-1 text-on-surface-variant hover:bg-surface-container-low rounded" title="Ver Extrato Detalhado" type="button">
+<span class="material-symbols-outlined text-lg">visibility</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer with Pagination & Summary -->
+<div class="p-4 border-t border-border-subtle flex flex-col sm:flex-row items-center justify-between gap-3 text-caption font-caption text-outline">
+<div class="flex items-center gap-2">
+<span class="">Mostrando <b class="text-on-surface">1-5</b> de <b class="text-on-surface">635 colaboradores</b></span>
+<span class="">•</span>
+<span class="">Saldo Total da Página: <b class="text-purple-bank font-tabular-time">+113h 40m</b></span>
+</div>
+<div class="flex items-center gap-1">
+<button class="px-2.5 py-1.5 border border-border-subtle rounded hover:bg-surface-container-low disabled:opacity-40" disabled="" type="button">
+            Anterior
+          </button>
+<button class="px-2.5 py-1.5 bg-secondary text-neutral-card font-semibold rounded" type="button">1</button>
+<button class="px-2.5 py-1.5 border border-border-subtle rounded hover:bg-surface-container-low" type="button">2</button>
+<button class="px-2.5 py-1.5 border border-border-subtle rounded hover:bg-surface-container-low" type="button">3</button>
+<span class="px-1">...</span>
+<button class="px-2.5 py-1.5 border border-border-subtle rounded hover:bg-surface-container-low" type="button">127</button>
+<button class="px-2.5 py-1.5 border border-border-subtle rounded hover:bg-surface-container-low" type="button">
+            Próxima
+          </button>
+</div>
+</div>
+</section>
+<!-- ========================================================================= -->
+<!-- 8. COMPLIANCE AUDIT NOTICE & QUICK SIGN-OFF CALLOUT                       -->
+<!-- ========================================================================= -->
+<section class="bg-surface-container-low border border-border-subtle rounded-xl p-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-4">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary text-2xl mt-0.5">verified</span>
+<div>
+<h4 class="text-body-md font-body-md font-semibold text-on-surface">Auditoria de Passivo Trabalhista &amp; Assinatura Digital ICP-Brasil</h4>
+<p class="text-caption font-caption text-on-surface-variant">
+            Os saldos acumulados respeitam as diretrizes do Artigo 59 da CLT e Portaria MTE 671. Relatório pronto para geração e assinatura do arquivo AFDT oficial com certificação A1/A3.
+          </p>
+</div>
+</div>
+<div class="flex items-center gap-2 shrink-0">
+<button class="px-3 py-2 rounded-lg border border-border-subtle bg-neutral-card text-on-surface text-body-sm font-body-sm font-medium hover:bg-surface-container-high transition-colors" type="button">
+          Pré-visualizar AFDT
+        </button>
+<button class="px-3.5 py-2 rounded-lg bg-teal-success text-neutral-card text-body-sm font-body-sm font-medium hover:bg-teal-success/90 transition-colors shadow-sm flex items-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-neutral-card text-base">check_circle</span>
+          Assinar &amp; Homologar Período
+        </button>
+</div>
+</section>
+</main>
+
+
+</body></html>

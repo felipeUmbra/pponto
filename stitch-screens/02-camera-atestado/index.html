@@ -1,0 +1,375 @@
+<!DOCTYPE html><html class="light" lang="pt-BR"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<title>pPonto - Scanner de Atestado Médico</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Inter & JetBrains Mono Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-secondary-container": "#fefcff",
+            "surface-variant": "#d3e4fe",
+            "surface-container-low": "#eff4ff",
+            "inverse-primary": "#bec6e0",
+            "on-surface": "#0b1c30",
+            "on-surface-variant": "#45464d",
+            "on-secondary-fixed": "#00174b",
+            "on-background": "#0b1c30",
+            "purple-bank": "#7C3AED",
+            "neutral-canvas": "#F8FAFC",
+            "surface-bright": "#f8f9ff",
+            "secondary-container": "#316bf3",
+            "navy-surface": "#1E293B",
+            "on-tertiary-fixed-variant": "#005137",
+            "secondary-fixed-dim": "#b4c5ff",
+            "on-error": "#ffffff",
+            "surface-container-highest": "#d3e4fe",
+            "navy-deep": "#0F172A",
+            "on-primary": "#ffffff",
+            "on-primary-container": "#7c839b",
+            "tertiary-fixed-dim": "#68dba9",
+            "on-tertiary": "#ffffff",
+            "emerald-light": "#10B981",
+            "error": "#ba1a1a",
+            "teal-success": "#059669",
+            "ruby-danger": "#DC2626",
+            "surface-container-lowest": "#ffffff",
+            "amber-warning": "#D97706",
+            "on-primary-fixed-variant": "#3f465c",
+            "primary": "#000000",
+            "surface-container-high": "#dce9ff",
+            "primary-container": "#131b2e",
+            "secondary": "#0051d5",
+            "amber-soft": "#F59E0B",
+            "error-container": "#ffdad6",
+            "purple-subtle": "#F5F3FF",
+            "on-secondary": "#ffffff",
+            "primary-fixed": "#dae2fd",
+            "on-error-container": "#93000a",
+            "blue-accent": "#3B82F6",
+            "surface-tint": "#565e74",
+            "neutral-card": "#FFFFFF",
+            "outline": "#76777d",
+            "blue-vibrant": "#2563EB",
+            "inverse-on-surface": "#eaf1ff",
+            "tertiary-container": "#002114",
+            "on-primary-fixed": "#131b2e",
+            "border-subtle": "#E2E8F0",
+            "primary-fixed-dim": "#bec6e0",
+            "surface-container": "#e5eeff",
+            "tertiary-fixed": "#85f8c4",
+            "outline-variant": "#c6c6cd",
+            "background": "#f8f9ff",
+            "surface": "#f8f9ff",
+            "on-tertiary-fixed": "#002114",
+            "inverse-surface": "#213145",
+            "tertiary": "#000000",
+            "on-secondary-fixed-variant": "#003ea8",
+            "surface-dim": "#cbdbf5",
+            "on-tertiary-container": "#069669",
+            "secondary-fixed": "#dbe1ff"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-xl": "2.5rem",
+            "margin": "1.5rem",
+            "space-sm": "0.5rem",
+            "space-md": "1rem",
+            "gutter": "1.5rem",
+            "space-lg": "1.5rem",
+            "space-xs": "0.25rem"
+          },
+          "fontFamily": {
+            "body-lg": ["Inter"],
+            "display-hero": ["Inter"],
+            "clock-large": ["JetBrains Mono"],
+            "tabular-time": ["JetBrains Mono"],
+            "headline-sm": ["Inter"],
+            "headline-lg-mobile": ["Inter"],
+            "headline-lg": ["Inter"],
+            "clock-large-mobile": ["JetBrains Mono"],
+            "body-md": ["Inter"],
+            "display-hero-mobile": ["Inter"],
+            "body-sm": ["Inter"],
+            "badge-label": ["Inter"],
+            "headline-md": ["Inter"],
+            "caption": ["Inter"]
+          },
+          "fontSize": {
+            "body-lg": ["1rem", { "lineHeight": "1.5rem", "fontWeight": "400" }],
+            "display-hero": ["3.5rem", { "lineHeight": "4rem", "letterSpacing": "-0.03em", "fontWeight": "700" }],
+            "clock-large": ["3rem", { "lineHeight": "3.25rem", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "tabular-time": ["0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "0em", "fontWeight": "500" }],
+            "headline-sm": ["1.125rem", { "lineHeight": "1.5rem", "fontWeight": "600" }],
+            "headline-lg-mobile": ["1.5rem", { "lineHeight": "2rem", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "headline-lg": ["2rem", { "lineHeight": "2.5rem", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "clock-large-mobile": ["2.25rem", { "lineHeight": "2.5rem", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "body-md": ["0.875rem", { "lineHeight": "1.375rem", "fontWeight": "400" }],
+            "display-hero-mobile": ["2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "body-sm": ["0.75rem", { "lineHeight": "1.125rem", "fontWeight": "400" }],
+            "badge-label": ["0.6875rem", { "lineHeight": "0.875rem", "letterSpacing": "0.04em", "fontWeight": "600" }],
+            "headline-md": ["1.25rem", { "lineHeight": "1.75rem", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "caption": ["0.6875rem", { "lineHeight": "0.875rem", "letterSpacing": "0.02em", "fontWeight": "500" }]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    
+    @keyframes scanRay {
+      0% {
+        top: 4%;
+        opacity: 0.15;
+      }
+      15% {
+        opacity: 0.9;
+      }
+      85% {
+        opacity: 0.9;
+      }
+      100% {
+        top: 96%;
+        opacity: 0.15;
+      }
+    }
+
+    .animate-scan-ray {
+      animation: scanRay 2.8s ease-in-out infinite alternate;
+    }
+
+    @keyframes pulseRing {
+      0% {
+        transform: scale(0.96);
+        opacity: 0.8;
+      }
+      50% {
+        transform: scale(1.02);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(0.96);
+        opacity: 0.8;
+      }
+    }
+
+    .shutter-glow {
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.35), 0 8px 24px -4px rgba(37, 99, 235, 0.45);
+    }
+  </style>
+</head>
+<body class="bg-navy-deep text-neutral-canvas font-body-md antialiased overflow-hidden select-none m-0 p-0 h-screen w-screen flex flex-col justify-between relative">
+<!-- CAMERA FEED SIMULATION LAYER -->
+<div class="absolute inset-0 z-0 overflow-hidden">
+<img alt="Visor da Câmera - Documento Médico" class="w-full h-full object-cover object-center filter brightness-90 contrast-105 scale-105 transition-transform duration-700" data-alt="A clean overhead high-resolution documentary photograph of an official printed medical certificate with clear stamped clinic letterhead, doctor signature, and CRM number resting flat upon a dark executive office table. Bright natural ambient lighting illuminates the paper evenly with sharp legibility and high contrast text. Professional corporate medical verification aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCE8mAY-RpUEhkPTBo_tBN88wmqAOZ4aFsRD5fZ8ZaU6u-ggm1JA0-WLKxsiQs-sDU7Jvq8QRt6M_3mAA88YbhtAS-3JXOAOs_jKRZOzOoNN5wn2JC7jAZLLwjzH4utxU0KLzMhA4fkVQMfflVNbMu6FhZIGrQTXOV8zahrtK90KcCdqOcVTGXeMQgBJLU3W4JbRnKngejhyJnimh6nFBEpgHd-BAzXsccY2VW-SGx3EnlDCMDHq1uLFw">
+<!-- Subtle dark vignette over camera feed to pop scanner graphics -->
+<div class="absolute inset-0 bg-navy-deep/40 pointer-events-none"></div>
+<div class="absolute inset-0 bg-gradient-to-b from-navy-deep/85 via-transparent to-navy-deep/90 pointer-events-none"></div>
+</div>
+<!-- 1. TOP OVERLAY BAR -->
+<header class="relative z-30 w-full pt-4 pb-3 px-4 backdrop-blur-md bg-navy-deep/75 border-b border-navy-surface/60 flex flex-col gap-2 transition-all">
+<!-- Status & Connectivity Pill Top Row -->
+<div class="flex items-center justify-between w-full">
+<!-- Back / Close Button -->
+<button aria-label="Fechar scanner" class="w-10 h-10 rounded-full bg-navy-surface/80 hover:bg-navy-surface active:scale-95 text-neutral-canvas flex items-center justify-center border border-border-subtle/20 shadow-sm transition-all" title="Cancelar digitalização" type="button">
+<span class="material-symbols-outlined text-[22px]">close</span>
+</button>
+<!-- Central Mode Badge -->
+<div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-navy-surface/90 border border-teal-success/30 shadow-sm">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-light opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-light"></span>
+</span>
+<span class="font-caption text-caption text-neutral-canvas tracking-wide uppercase">Detecção Automática Ativa</span>
+</div>
+<!-- Flash Toggle Button -->
+<button aria-label="Alternar iluminação" class="w-10 h-10 rounded-full bg-navy-surface/80 hover:bg-navy-surface active:scale-95 text-neutral-canvas flex items-center justify-center border border-border-subtle/20 shadow-sm transition-all" id="flashToggleBtn" title="Alternar Flash" type="button">
+<span class="material-symbols-outlined text-[20px] text-amber-soft">flash_on</span>
+</button>
+</div>
+<!-- Title & Instruction Header -->
+<div class="text-center mt-1">
+<h1 class="font-headline-sm-mobile text-headline-sm-mobile text-surface-container-lowest font-bold tracking-tight">
+        Escanear Atestado
+      </h1>
+<p class="font-body-sm text-body-sm text-outline-variant mt-0.5">
+        Posicione o documento médico completo no quadro
+      </p>
+</div>
+</header>
+<!-- 2. CENTRAL SCANNER VIEWPORT -->
+<main class="relative z-20 flex-1 flex flex-col items-center justify-center px-6 py-2 overflow-hidden">
+<!-- Intelligent Document Bounding Frame (Proporção A4 vertical) -->
+<div class="relative w-full max-w-xs sm:max-w-sm aspect-[1/1.414] rounded-xl border-2 border-blue-accent/60 shadow-2xl overflow-hidden backdrop-brightness-110">
+<!-- Pulsing Semi-transparent Overlay Mask Inside Document -->
+<div class="absolute inset-0 bg-blue-vibrant/5 pointer-events-none"></div>
+<!-- Laser Scanner Line Ray -->
+<div class="absolute left-0 right-0 h-1 bg-gradient-to-r from-transparent via-blue-accent to-transparent shadow-[0_0_14px_4px_rgba(59,130,246,0.8)] z-20 animate-scan-ray pointer-events-none"></div>
+<!-- AI Corner Guides (Precision Highlighting) -->
+<!-- Top Left -->
+<div class="absolute top-0 left-0 w-8 h-8 border-t-4 border-l-4 border-blue-vibrant rounded-tl-lg shadow-[0_0_10px_rgba(37,99,235,0.7)]"></div>
+<!-- Top Right -->
+<div class="absolute top-0 right-0 w-8 h-8 border-t-4 border-r-4 border-blue-vibrant rounded-tr-lg shadow-[0_0_10px_rgba(37,99,235,0.7)]"></div>
+<!-- Bottom Left -->
+<div class="absolute bottom-0 left-0 w-8 h-8 border-b-4 border-l-4 border-blue-vibrant rounded-bl-lg shadow-[0_0_10px_rgba(37,99,235,0.7)]"></div>
+<!-- Bottom Right -->
+<div class="absolute bottom-0 right-0 w-8 h-8 border-b-4 border-r-4 border-blue-vibrant rounded-br-lg shadow-[0_0_10px_rgba(37,99,235,0.7)]"></div>
+<!-- Crosshairs / Reticle Micro Precision Marks -->
+<div class="absolute top-1/2 left-3 -translate-y-1/2 w-2 h-0.5 bg-blue-accent/50"></div>
+<div class="absolute top-1/2 right-3 -translate-y-1/2 w-2 h-0.5 bg-blue-accent/50"></div>
+<div class="absolute top-3 left-1/2 -translate-x-1/2 w-0.5 h-2 bg-blue-accent/50"></div>
+<div class="absolute bottom-3 left-1/2 -translate-x-1/2 w-0.5 h-2 bg-blue-accent/50"></div>
+<!-- Top Floating Detection Pill -->
+<div class="absolute top-3 inset-x-0 flex justify-center z-20 pointer-events-none">
+<div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-navy-deep/85 border border-emerald-light/40 backdrop-blur-md text-emerald-light shadow-md">
+<span class="material-symbols-outlined text-[15px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-badge-label text-badge-label font-semibold tracking-wider uppercase">Documento Detectado • Mantenha Firme</span>
+</div>
+</div>
+<!-- Bottom Frame Telemetry / AI Diagnostics -->
+<div class="absolute bottom-3 inset-x-3 flex items-center justify-between z-20 pointer-events-none">
+<!-- Alignment Score -->
+<div class="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-navy-deep/80 backdrop-blur-sm border border-border-subtle/20 text-neutral-canvas font-caption text-caption">
+<span class="material-symbols-outlined text-[14px] text-teal-success">aspect_ratio</span>
+<span class="">Alinhamento: <strong class="text-surface-container-lowest font-semibold">98%</strong></span>
+</div>
+<!-- Lighting Meter -->
+<div class="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-navy-deep/80 backdrop-blur-sm border border-border-subtle/20 text-neutral-canvas font-caption text-caption">
+<span class="material-symbols-outlined text-[14px] text-amber-soft">wb_sunny</span>
+<span class="">Luz Ideal</span>
+</div>
+</div>
+</div>
+<!-- Feedback Context Prompt (Directly Under Viewport) -->
+<div class="mt-3 flex items-center gap-2 px-3 py-1.5 rounded-full bg-navy-surface/70 border border-border-subtle/20 backdrop-blur-sm">
+<span class="material-symbols-outlined text-[16px] text-blue-accent">info</span>
+<p class="font-body-sm text-body-sm text-surface-container-lowest">
+        Evite reflexos e sombras sobre os dados médicos
+      </p>
+</div>
+</main>
+<!-- 3. INSTRUCTION CARD & REGULATORY COMPLIANCE -->
+<section class="relative z-30 px-5 pb-1">
+<div class="max-w-md mx-auto rounded-xl bg-navy-surface/90 backdrop-blur-md border border-border-subtle/20 p-3 shadow-lg flex items-start gap-3">
+<div class="w-8 h-8 rounded-lg bg-secondary/20 text-blue-accent flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[20px]">verified_user</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between gap-2">
+<h2 class="font-headline-sm text-body-md text-surface-container-lowest font-semibold truncate">
+            Requisitos de Validação
+          </h2>
+<span class="px-2 py-0.5 rounded text-[10px] font-medium tracking-wide bg-navy-deep text-outline-variant uppercase border border-border-subtle/10">
+            Portaria 671 MTE
+          </span>
+</div>
+<p class="font-body-sm text-body-sm text-outline-variant mt-0.5 leading-snug">
+          Certifique-se de que o <strong class="text-neutral-canvas">CRM</strong>, <strong class="text-neutral-canvas">assinatura</strong> e <strong class="text-neutral-canvas">dias de afastamento</strong> estejam nítidos.
+        </p>
+</div>
+</div>
+</section>
+<!-- 4. BOTTOM CAPTURE CONTROLS BAR -->
+<footer class="relative z-30 w-full pt-3 pb-8 px-6 bg-navy-deep/90 backdrop-blur-xl border-t border-navy-surface/80 flex items-center justify-between max-w-lg mx-auto">
+<!-- Secondary Action: File Upload / Gallery -->
+<div class="flex flex-col items-center gap-1">
+<button aria-label="Upload de Arquivo PDF ou Imagem" class="w-13 h-13 p-3 rounded-full bg-navy-surface/90 hover:bg-navy-surface active:scale-95 text-neutral-canvas flex items-center justify-center border border-border-subtle/20 shadow-sm transition-transform duration-150" title="Enviar arquivo da galeria ou PDF" type="button">
+<span class="material-symbols-outlined text-[24px] text-surface-container-lowest">folder_open</span>
+</button>
+<span class="font-caption text-caption text-outline-variant">Galeria / PDF</span>
+</div>
+<!-- Primary Action: Big Camera Shutter Button -->
+<div class="flex flex-col items-center gap-1 -mt-2">
+<button aria-label="Capturar foto do atestado" class="relative w-20 h-20 rounded-full bg-blue-vibrant flex items-center justify-center p-1.5 shutter-glow active:scale-90 transition-all duration-150 group cursor-pointer focus:outline-none" id="shutterBtn" type="button">
+<!-- Outer Rotating / Stabilizing Ring -->
+<span class="absolute inset-0 rounded-full border-2 border-white/80 border-dashed animate-spin" style="animation-duration: 16s;"></span>
+<!-- Inner Shutter Core -->
+<span class="w-full h-full rounded-full bg-surface-container-lowest flex items-center justify-center shadow-inner group-active:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[28px] text-blue-vibrant" style="font-variation-settings: 'FILL' 1;">
+            document_scanner
+          </span>
+</span>
+</button>
+<span class="font-caption text-caption text-surface-container-lowest font-medium tracking-wide">Capturar</span>
+</div>
+<!-- Secondary Action: Manual Focus & Grid Toggle -->
+<div class="flex flex-col items-center gap-1">
+<button aria-label="Grade de alinhamento" class="w-13 h-13 p-3 rounded-full bg-navy-surface/90 hover:bg-navy-surface active:scale-95 text-neutral-canvas flex items-center justify-center border border-border-subtle/20 shadow-sm transition-transform duration-150" id="gridToggleBtn" title="Alternar grade de enquadramento manual" type="button">
+<span class="material-symbols-outlined text-[24px] text-surface-container-lowest">grid_on</span>
+</button>
+<span class="font-caption text-caption text-outline-variant">Modo Grade</span>
+</div>
+</footer>
+<!-- Interactive Mock Logic -->
+<script>
+    // Flash Toggle Simulation
+    const flashBtn = document.getElementById('flashToggleBtn');
+    let flashOn = true;
+    if (flashBtn) {
+      flashBtn.addEventListener('click', () => {
+        flashOn = !flashOn;
+        const icon = flashBtn.querySelector('.material-symbols-outlined');
+        if (icon) {
+          icon.textContent = flashOn ? 'flash_on' : 'flash_off';
+          icon.className = flashOn 
+            ? 'material-symbols-outlined text-[20px] text-amber-soft' 
+            : 'material-symbols-outlined text-[20px] text-outline-variant';
+        }
+      });
+    }
+
+    // Capture Simulation with visual flash feedback
+    const shutterBtn = document.getElementById('shutterBtn');
+    if (shutterBtn) {
+      shutterBtn.addEventListener('click', () => {
+        // Flash overlay effect
+        const flashOverlay = document.createElement('div');
+        flashOverlay.className = 'fixed inset-0 bg-white z-50 transition-opacity duration-300 pointer-events-none opacity-90';
+        document.body.appendChild(flashOverlay);
+        
+        setTimeout(() => {
+          flashOverlay.classList.remove('opacity-90');
+          flashOverlay.classList.add('opacity-0');
+          setTimeout(() => flashOverlay.remove(), 300);
+        }, 80);
+      });
+    }
+
+    // Grid toggle interactive styling
+    const gridBtn = document.getElementById('gridToggleBtn');
+    let gridActive = true;
+    if (gridBtn) {
+      gridBtn.addEventListener('click', () => {
+        gridActive = !gridActive;
+        const icon = gridBtn.querySelector('.material-symbols-outlined');
+        if (icon) {
+          icon.textContent = gridActive ? 'grid_on' : 'grid_off';
+          icon.classList.toggle('text-blue-accent', gridActive);
+        }
+      });
+    }
+  </script>
+
+
+</body></html>

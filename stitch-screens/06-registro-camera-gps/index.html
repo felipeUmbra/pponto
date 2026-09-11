@@ -1,0 +1,551 @@
+<!DOCTYPE html><html class="light" lang="pt-BR"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Dot8 Ponto Web - Registro de Ponto Seguro</title>
+<!-- Google Fonts: Inter & JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<!-- Material Symbols Outlined (Exact Google Fonts Link Mandated) -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS with Forms and Container Queries -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "blue-accent": "#3B82F6",
+            "error-container": "#ffdad6",
+            "on-background": "#0b1c30",
+            "purple-bank": "#7C3AED",
+            "tertiary-fixed": "#85f8c4",
+            "secondary-fixed": "#dbe1ff",
+            "inverse-primary": "#bec6e0",
+            "on-primary-fixed-variant": "#3f465c",
+            "ruby-danger": "#DC2626",
+            "surface-container-highest": "#d3e4fe",
+            "surface-variant": "#d3e4fe",
+            "purple-subtle": "#F5F3FF",
+            "surface-dim": "#cbdbf5",
+            "inverse-surface": "#213145",
+            "surface-container-high": "#dce9ff",
+            "border-subtle": "#E2E8F0",
+            "neutral-card": "#FFFFFF",
+            "on-secondary-container": "#fefcff",
+            "on-tertiary-container": "#069669",
+            "on-secondary-fixed-variant": "#003ea8",
+            "tertiary": "#000000",
+            "teal-success": "#059669",
+            "on-error-container": "#93000a",
+            "on-primary-fixed": "#131b2e",
+            "primary": "#000000",
+            "surface": "#f8f9ff",
+            "on-secondary-fixed": "#00174b",
+            "on-surface": "#0b1c30",
+            "surface-container": "#e5eeff",
+            "on-tertiary": "#ffffff",
+            "on-primary": "#ffffff",
+            "outline": "#76777d",
+            "amber-warning": "#D97706",
+            "primary-fixed-dim": "#bec6e0",
+            "error": "#ba1a1a",
+            "blue-vibrant": "#2563EB",
+            "primary-fixed": "#dae2fd",
+            "background": "#f8f9ff",
+            "navy-surface": "#1E293B",
+            "surface-tint": "#565e74",
+            "on-tertiary-fixed": "#002114",
+            "surface-bright": "#f8f9ff",
+            "on-tertiary-fixed-variant": "#005137",
+            "inverse-on-surface": "#eaf1ff",
+            "secondary": "#0051d5",
+            "amber-soft": "#F59E0B",
+            "emerald-light": "#10B981",
+            "on-surface-variant": "#45464d",
+            "secondary-fixed-dim": "#b4c5ff",
+            "neutral-canvas": "#F8FAFC",
+            "primary-container": "#131b2e",
+            "on-secondary": "#ffffff",
+            "surface-container-lowest": "#ffffff",
+            "tertiary-fixed-dim": "#68dba9",
+            "navy-deep": "#0F172A",
+            "on-primary-container": "#7c839b",
+            "secondary-container": "#316bf3",
+            "surface-container-low": "#eff4ff",
+            "tertiary-container": "#002114",
+            "on-error": "#ffffff",
+            "outline-variant": "#c6c6cd"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-lg": "1.5rem",
+            "space-xl": "2.5rem",
+            "space-sm": "0.5rem",
+            "margin": "1.5rem",
+            "space-md": "1rem",
+            "gutter": "1.5rem",
+            "space-xs": "0.25rem"
+          },
+          "fontFamily": {
+            "headline-lg": ["Inter"],
+            "tabular-time": ["JetBrains Mono"],
+            "body-sm": ["Inter"],
+            "headline-sm": ["Inter"],
+            "headline-lg-mobile": ["Inter"],
+            "caption": ["Inter"],
+            "headline-md": ["Inter"],
+            "clock-large-mobile": ["JetBrains Mono"],
+            "display-hero": ["Inter"],
+            "badge-label": ["Inter"],
+            "body-md": ["Inter"],
+            "clock-large": ["JetBrains Mono"],
+            "display-hero-mobile": ["Inter"],
+            "body-lg": ["Inter"]
+          },
+          "fontSize": {
+            "headline-lg": ["2rem", { "lineHeight": "2.5rem", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "tabular-time": ["0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "0em", "fontWeight": "500" }],
+            "body-sm": ["0.75rem", { "lineHeight": "1.125rem", "fontWeight": "400" }],
+            "headline-sm": ["1.125rem", { "lineHeight": "1.5rem", "fontWeight": "600" }],
+            "headline-lg-mobile": ["1.5rem", { "lineHeight": "2rem", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "caption": ["0.6875rem", { "lineHeight": "0.875rem", "letterSpacing": "0.02em", "fontWeight": "500" }],
+            "headline-md": ["1.25rem", { "lineHeight": "1.75rem", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "clock-large-mobile": ["2.25rem", { "lineHeight": "2.5rem", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "display-hero": ["3.5rem", { "lineHeight": "4rem", "letterSpacing": "-0.03em", "fontWeight": "700" }],
+            "badge-label": ["0.6875rem", { "lineHeight": "0.875rem", "letterSpacing": "0.04em", "fontWeight": "600" }],
+            "body-md": ["0.875rem", { "lineHeight": "1.375rem", "fontWeight": "400" }],
+            "clock-large": ["3rem", { "lineHeight": "3.25rem", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "display-hero-mobile": ["2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "body-lg": ["1rem", { "lineHeight": "1.5rem", "fontWeight": "400" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    @keyframes pulse-ring {
+      0% { transform: scale(0.95); opacity: 0.8; }
+      50% { transform: scale(1.1); opacity: 0.3; }
+      100% { transform: scale(0.95); opacity: 0.8; }
+    }
+    .animate-pulse-ring {
+      animation: pulse-ring 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+  </style>
+</head>
+<body class="bg-neutral-canvas text-on-surface font-body-md text-body-md antialiased min-h-screen flex flex-col justify-between selection:bg-blue-accent selection:text-surface-container-lowest">
+<!-- ================= TOP APP BAR (Desktop Portal & User Verification) ================= -->
+<header class="bg-surface-container-lowest flex justify-between items-center w-full px-6 py-3 shadow-sm border-b border-border-subtle sticky top-0 z-40">
+<!-- Brand Anchor & Product Info -->
+<div class="flex items-center space-x-6">
+<div class="flex items-center space-x-3">
+<div class="w-10 h-10 rounded-xl bg-navy-deep flex items-center justify-center text-surface-container-lowest shadow-sm">
+<span class="material-symbols-outlined text-blue-accent" style="font-variation-settings: 'FILL' 1;">fingerprint</span>
+</div>
+<div>
+<span class="font-headline-md text-headline-md text-on-surface tracking-tight block leading-tight">pPonto</span>
+<span class="text-caption font-caption text-blue-vibrant font-semibold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-light"></span>
+            PORTAL DO COLABORADOR WEB
+          </span>
+</div>
+</div>
+<div class="hidden lg:block h-7 w-px bg-border-subtle"></div>
+<!-- Employee Identification -->
+<div class="hidden sm:flex items-center space-x-3 bg-surface-container-low px-3 py-1.5 rounded-lg border border-border-subtle">
+<div class="w-8 h-8 rounded-full bg-primary-container text-surface-container-lowest flex items-center justify-center font-headline-sm text-headline-sm">
+          LS
+        </div>
+<div class="text-left">
+<div class="font-headline-sm text-headline-sm text-on-surface leading-snug">Lucas Silveira</div>
+<div class="text-caption font-caption text-on-surface-variant font-medium">Analista de Sistemas • Matrícula #48291</div>
+</div>
+</div>
+</div>
+<!-- Hardware & Security Anti-Fraud Status Telemetry -->
+<div class="flex items-center space-x-3">
+<!-- Camera Status Chip -->
+<div class="flex items-center space-x-1.5 bg-surface-container-low text-teal-success border border-border-subtle px-3 py-1 rounded-full text-caption font-caption font-medium">
+<span class="w-2 h-2 rounded-full bg-emerald-light animate-ping"></span>
+<span class="material-symbols-outlined text-teal-success text-base" data-icon="videocam">videocam</span>
+<span class="hidden md:inline">Câmera: Conectada</span>
+</div>
+<!-- GPS Status Chip -->
+<div class="flex items-center space-x-1.5 bg-surface-container-low text-teal-success border border-border-subtle px-3 py-1 rounded-full text-caption font-caption font-medium">
+<span class="material-symbols-outlined text-teal-success text-base" data-icon="location_on">location_on</span>
+<span class="hidden md:inline">Localização: Autorizada</span>
+</div>
+<!-- NTP Official Sync Pill -->
+<div class="hidden xl:flex items-center space-x-1.5 bg-primary-container text-surface-container-lowest px-3 py-1 rounded-full text-caption font-caption font-medium">
+<span class="material-symbols-outlined text-blue-accent text-base" data-icon="schedule">schedule</span>
+<span class="">NTP Brasília Sincronizado (±0.02s)</span>
+</div>
+<!-- User Avatar / Sign Out -->
+<a class="flex items-center justify-center w-9 h-9 rounded-lg border border-border-subtle text-on-surface-variant hover:text-ruby-danger hover:bg-surface-container-low transition-colors duration-150" href="#" title="Encerrar Sessão Segura">
+<span class="material-symbols-outlined text-base" data-icon="logout">logout</span>
+</a>
+</div>
+</header>
+<!-- ================= MAIN PUNCH CANVAS ================= -->
+<main class="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 py-6 lg:py-8">
+<!-- Top System Alert / Anti-Spoof Compliance Banner -->
+<section class="mb-6 bg-surface-container-lowest border border-border-subtle rounded-xl p-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-sm">
+<div class="flex items-center space-x-3">
+<div class="p-2 bg-purple-subtle rounded-lg text-purple-bank flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="verified_user">verified_user</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Ambiente Biométrico Auditado — Portaria MTP nº 671/2021</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Validação por Inteligência Artificial ativa com detecção de vivacidade facial (liveness test) e cerca delimitadora corporativa.</p>
+</div>
+</div>
+<div class="flex items-center space-x-2 self-end md:self-center">
+<span class="text-caption font-caption bg-surface-container text-secondary font-medium px-2.5 py-1 rounded-md border border-secondary-fixed">REP-P Em Conformidade</span>
+</div>
+</section>
+<!-- Bento Grid Canvas Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- LEFT COLUMN: Biometrics & Map Telemetry (5 cols) -->
+<div class="lg:col-span-5 flex flex-col gap-6">
+<!-- Anti-Fraud Camera Live Feed Card -->
+<div class="bg-surface-container-lowest rounded-xl border border-border-subtle p-5 shadow-sm relative overflow-hidden flex flex-col">
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-blue-vibrant" data-icon="camera_front">camera_front</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Visor Facial Anti-Fraude</span>
+</div>
+<span class="bg-error-container text-on-error-container text-caption font-caption font-medium px-2 py-0.5 rounded-full flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-ruby-danger"></span>
+              Foto Obrigatória - Anti-Proxy
+            </span>
+</div>
+<!-- Camera Viewport & Face Detection Frame -->
+<div class="relative w-full aspect-[4/3] rounded-xl overflow-hidden bg-navy-deep flex items-center justify-center border border-border-subtle group">
+<!-- Simulated Camera Feed Image -->
+<img class="w-full h-full object-cover filter contrast-[1.05]" data-alt="A front-facing biometric webcam preview showing a young male professional centered in soft natural office lighting with subtle computer screen glow. High resolution crisp detail with biometric overlay grid lines, digital facial anchor dots in light emerald green, conveying high security enterprise artificial intelligence facial recognition." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBo3CGSRB8bbX0QEMwRMWtENzXgkFL-SSNNJ1jwiKVtcwLwiFFXYRRoXeD7zyozw6O-MTNpOKH2htfr8K12JzbqELps1rIEgIheZZ5Lj2-7SkHk0QAOYygGsPrBbQBvBaSY31its8SKAIQU4TrTr1MBDsFZ6vn9MVd1e_m67KHBArUPnSntybmt-8WVqctH5rvwtDG5uVapy0Pi1YiAXmuk_UOTx_dMRQmVWvMo-Ws1R1rDSL3lZ9rVuw">
+<!-- Scanlines / Security UI Overlay -->
+<div class="absolute inset-0 bg-gradient-to-t from-navy-deep/80 via-transparent to-navy-deep/40 pointer-events-none"></div>
+<!-- Face Oval Mask Overlay with Verification Brackets -->
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<div class="relative w-48 h-60 sm:w-56 sm:h-72 rounded-[45%] border-2 border-dashed border-emerald-light/70 flex items-center justify-center">
+<!-- Precision Corner Crosshairs -->
+<div class="absolute -top-2 -left-2 w-5 h-5 border-t-2 border-l-2 border-emerald-light"></div>
+<div class="absolute -top-2 -right-2 w-5 h-5 border-t-2 border-r-2 border-emerald-light"></div>
+<div class="absolute -bottom-2 -left-2 w-5 h-5 border-b-2 border-l-2 border-emerald-light"></div>
+<div class="absolute -bottom-2 -right-2 w-5 h-5 border-b-2 border-r-2 border-emerald-light"></div>
+<!-- Subtle Pulse Ring for Active Liveness -->
+<div class="absolute inset-0 rounded-[45%] border border-emerald-light/40 animate-pulse-ring"></div>
+</div>
+</div>
+<!-- Verification Success Badge Overlay -->
+<div class="absolute top-3 left-3 right-3 flex items-center justify-between pointer-events-none">
+<div class="bg-navy-deep/85 backdrop-blur-md text-surface-container-lowest border border-teal-success/50 px-3 py-1 rounded-lg text-caption font-caption flex items-center space-x-1.5 shadow-md">
+<span class="material-symbols-outlined text-teal-success text-sm" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-medium text-teal-success">Rosto Reconhecido: Lucas Silveira</span>
+</div>
+<div class="bg-navy-deep/85 backdrop-blur-md text-teal-success border border-teal-success/50 px-2 py-1 rounded-lg text-caption font-caption font-bold tabular-nums">
+                98.4% Match
+              </div>
+</div>
+<!-- Liveness Test Interactive Feed Status -->
+<div class="absolute bottom-3 left-3 right-3 bg-navy-deep/85 backdrop-blur-md text-surface-container-lowest px-3 py-2 rounded-lg border border-border-subtle flex items-center justify-between text-body-sm font-body-sm">
+<div class="flex items-center space-x-2">
+<span class="w-2 h-2 rounded-full bg-teal-success"></span>
+<span class="text-caption font-caption text-surface-container-lowest">Detecção de Vivacidade Ativa (Anti-Spoofing)</span>
+</div>
+<span class="text-caption font-caption text-outline-variant font-tabular-time">30 FPS • HD</span>
+</div>
+</div>
+<div class="mt-3 flex items-center justify-between text-body-sm font-body-sm text-on-surface-variant">
+<span class="flex items-center gap-1 text-caption font-caption">
+<span class="material-symbols-outlined text-blue-accent text-sm" data-icon="lock">lock</span>
+              Hash Criptográfica Biometria SHA-256
+            </span>
+<button class="text-caption font-caption text-blue-vibrant hover:underline flex items-center gap-0.5">
+<span class="material-symbols-outlined text-sm" data-icon="refresh">refresh</span>
+              Recalibrar Câmera
+            </button>
+</div>
+</div>
+<!-- GPS Geofence Detection Card -->
+<div class="bg-surface-container-lowest rounded-xl border border-border-subtle p-5 shadow-sm flex flex-col">
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-blue-vibrant" data-icon="share_location">share_location</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Geolocalização &amp; Cerca Virtual</span>
+</div>
+<span class="bg-surface-container text-teal-success border border-teal-success/30 text-caption font-caption font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-teal-success"></span>
+              Dentro da Cerca (70m)
+            </span>
+</div>
+<!-- Mini Map Styled Container -->
+<div class="relative w-full h-40 rounded-lg overflow-hidden border border-border-subtle bg-surface-container-low">
+<img class="w-full h-full object-cover filter saturate-150 opacity-90" data-alt="An overhead satellite styled digital vector cartography map of Avenida Paulista in Sao Paulo with subtle blueprint styling, clean streets in slate gray, an emerald green translucent radius circle indicator around corporate headquarters, and a high contrast blue pin beacon right at the center." data-location="São Paulo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBy18Os6DKGB3s7yMc6ptkraDk5JhfyuSLVqocFpnu8JM8nZOy5rwnWLvhT3TjfFrWPQmls2_NwWh3iVSRuFiE2or3f3XKPx_2uj4gKsXPb-BJ-eeEyN9uO7AjxlSx-DuiGGqxEDvYjSESy51Dv9VOzaKONxpnhBgWRFL2HJPKd-NGuZB8qFMvuc5QagEK6RiztuaNvjaY0cfwDgfJ_AjTB-escJQ-jC1akq8J92Ytmng4X6xRotP1mpg">
+<!-- Visual Geofence Center Pin & Ping Animation -->
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<div class="w-24 h-24 rounded-full bg-emerald-light/20 border border-emerald-light flex items-center justify-center">
+<div class="w-5 h-5 rounded-full bg-blue-vibrant border-2 border-surface-container-lowest shadow-md flex items-center justify-center">
+<div class="w-1.5 h-1.5 rounded-full bg-surface-container-lowest"></div>
+</div>
+</div>
+</div>
+<!-- GPS Precision Floating Pill -->
+<div class="absolute bottom-2 left-2 right-2 bg-surface-container-lowest/90 backdrop-blur-sm border border-border-subtle px-2.5 py-1 rounded text-caption font-caption text-on-surface flex items-center justify-between">
+<span class="flex items-center gap-1 text-teal-success font-semibold">
+<span class="material-symbols-outlined text-xs" data-icon="my_location">my_location</span>
+                Precisão: ±4 metros
+              </span>
+<span class="text-on-surface-variant font-tabular-time">25m do ponto central</span>
+</div>
+</div>
+<!-- Address and Coordinate Details -->
+<div class="mt-3 space-y-1.5">
+<div class="flex items-start space-x-2 text-body-sm font-body-sm text-on-surface">
+<span class="material-symbols-outlined text-on-surface-variant text-base mt-0.5" data-icon="domain">domain</span>
+<div>
+<p class="font-medium text-on-surface">Sede Corporativa pPonto - São Paulo</p>
+<p class="text-caption font-caption text-on-surface-variant">Av. Paulista, 1000 - Bela Vista, São Paulo/SP • CEP 01310-100</p>
+</div>
+</div>
+<div class="flex items-center justify-between text-caption font-caption text-outline font-tabular-time pt-1 border-t border-border-subtle">
+<span class="">Lat: -23.550520 | Long: -46.633308</span>
+<span class="text-teal-success font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-xs" data-icon="verified">verified</span> Perímetro Válido
+              </span>
+</div>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN: Clock, Shift Tabs, Punch Action & Portaria 671 Receipt (7 cols) -->
+<div class="lg:col-span-7 flex flex-col gap-6">
+<!-- Main Punch Engine Card -->
+<div class="bg-surface-container-lowest rounded-xl border border-border-subtle p-6 shadow-sm flex flex-col justify-between">
+<!-- Master Digital NTP Clock Section -->
+<div class="text-center py-4 border-b border-border-subtle bg-surface-container-low/40 rounded-xl p-6">
+<div class="inline-flex items-center space-x-2 bg-surface-container text-secondary font-semibold text-caption font-caption px-3 py-1 rounded-full mb-3 border border-secondary-fixed">
+<span class="material-symbols-outlined text-xs" data-icon="public">public</span>
+<span class="">HORÁRIO OFICIAL DE BRASÍLIA (NTP.BR)</span>
+</div>
+<!-- Large Dynamic Real-time Clock display -->
+<div class="flex items-baseline justify-center font-clock-large text-clock-large text-navy-deep tracking-tight font-semibold" id="clock-container">
+<span id="hours-minutes" class="">23:17</span>
+<span class="text-blue-accent font-clock-large text-clock-large animate-pulse mx-0.5">:</span>
+<span class="text-blue-accent font-clock-large text-clock-large" id="seconds">58</span>
+<span class="text-body-lg font-body-lg text-outline ml-2 font-tabular-time">BRT</span>
+</div>
+<p class="text-body-md font-body-md text-on-surface-variant mt-1 font-medium" id="current-full-date">
+              Quinta-feira, 24 de Outubro de 2024
+            </p>
+</div>
+<!-- Shift Selector: 4 Turnos Jornada Diária -->
+<div class="my-6">
+<div class="flex items-center justify-between mb-3">
+<span class="font-headline-sm text-headline-sm text-on-surface">Jornada Contratual de Hoje (08:00 - 17:00)</span>
+<span class="text-caption font-caption text-purple-bank bg-purple-subtle px-2.5 py-1 rounded font-medium">Banco de Horas: +04:20h acumulado</span>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<!-- 1. Entrada: Concluída -->
+<div class="p-3 rounded-xl border border-teal-success/40 bg-surface-container-low flex flex-col justify-between text-left relative overflow-hidden">
+<div class="flex items-center justify-between mb-1">
+<span class="text-caption font-caption text-on-surface-variant font-semibold uppercase">1ª Entrada</span>
+<span class="material-symbols-outlined text-teal-success text-base" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="font-tabular-time text-headline-sm text-navy-deep font-bold">08:02</div>
+<div class="flex items-center justify-between mt-1 pt-1 border-t border-border-subtle text-caption font-caption text-teal-success font-medium">
+<span class="">Prev: 08:00</span>
+<span class="text-[10px] bg-emerald-light/15 px-1 rounded">+2 min</span>
+</div>
+</div>
+<!-- 2. Saída Almoço: Concluída -->
+<div class="p-3 rounded-xl border border-teal-success/40 bg-surface-container-low flex flex-col justify-between text-left relative overflow-hidden">
+<div class="flex items-center justify-between mb-1">
+<span class="text-caption font-caption text-on-surface-variant font-semibold uppercase">1ª Saída</span>
+<span class="material-symbols-outlined text-teal-success text-base" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="font-tabular-time text-headline-sm text-navy-deep font-bold">12:05</div>
+<div class="flex items-center justify-between mt-1 pt-1 border-t border-border-subtle text-caption font-caption text-teal-success font-medium">
+<span class="">Prev: 12:00</span>
+<span class="text-[10px] bg-emerald-light/15 px-1 rounded">+5 min</span>
+</div>
+</div>
+<!-- 3. Volta Almoço: Próxima Ação (Active / Pulsing State) -->
+<div class="p-3 rounded-xl border-2 border-blue-accent bg-surface-container-highest/40 flex flex-col justify-between text-left relative shadow-sm ring-2 ring-blue-accent/20">
+<div class="absolute -top-1.5 -right-1.5">
+<span class="flex h-3.5 w-3.5">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-accent opacity-75"></span>
+<span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-blue-vibrant"></span>
+</span>
+</div>
+<div class="flex items-center justify-between mb-1">
+<span class="text-caption font-caption text-blue-vibrant font-bold uppercase">2ª Volta</span>
+<span class="material-symbols-outlined text-blue-vibrant text-base" data-icon="pending">pending</span>
+</div>
+<div class="font-tabular-time text-headline-sm text-blue-vibrant font-bold">13:00</div>
+<div class="flex items-center justify-between mt-1 pt-1 border-t border-border-subtle text-caption font-caption text-blue-vibrant font-bold">
+<span class="">Ação Atual</span>
+<span class="bg-blue-accent text-surface-container-lowest text-[10px] px-1.5 py-0.2 rounded">Bater</span>
+</div>
+</div>
+<!-- 4. Saída Fim de Turno: Aguardando -->
+<div class="p-3 rounded-xl border border-border-subtle bg-surface-container-low/30 opacity-75 flex flex-col justify-between text-left">
+<div class="flex items-center justify-between mb-1">
+<span class="text-caption font-caption text-outline font-semibold uppercase">2ª Saída</span>
+<span class="material-symbols-outlined text-outline text-base" data-icon="schedule">schedule</span>
+</div>
+<div class="font-tabular-time text-headline-sm text-outline-variant font-bold">--:--</div>
+<div class="flex items-center justify-between mt-1 pt-1 border-t border-border-subtle text-caption font-caption text-outline">
+<span class="">Prev: 17:00</span>
+<span class="">Aguardando</span>
+</div>
+</div>
+</div>
+</div>
+<!-- PRIMARY ACTION BUTTON: Massive Biometric Clock-in -->
+<div class="space-y-4">
+<button class="w-full h-16 bg-blue-vibrant hover:bg-secondary text-surface-container-lowest rounded-xl font-headline-sm text-headline-sm flex items-center justify-center space-x-3 shadow-md hover:shadow-lg active:scale-[0.99] transition-all duration-150 focus:ring-4 focus:ring-blue-accent/30 outline-none" id="btn-punch-action" onclick="triggerBiometricPunch()">
+<span class="material-symbols-outlined text-2xl" data-icon="fingerprint">fingerprint</span>
+<span class="">REGISTRAR BATIDA COM RECONHECIMENTO FACIAL</span>
+</button>
+<!-- Justification Secondary Link -->
+<div class="flex items-center justify-center space-x-2 text-center pt-2">
+<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="edit_calendar">edit_calendar</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant">Precisa solicitar correção de batida anterior?</span>
+<a class="text-body-sm font-body-sm text-blue-vibrant font-semibold hover:underline" href="#">Clique aqui para justificar</a>
+</div>
+</div>
+</div>
+<!-- Portaria 671 Legal Digital Receipt Preview Card -->
+<div class="bg-surface-container-lowest rounded-xl border border-border-subtle p-5 shadow-sm">
+<div class="flex items-center justify-between pb-3 border-b border-border-subtle mb-3">
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-secondary" data-icon="receipt_long">receipt_long</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Comprovante de Registro de Ponto do Trabalhador</span>
+</div>
+<span class="text-caption font-caption bg-surface-container-low text-on-surface-variant px-2.5 py-1 rounded border border-border-subtle font-mono">
+              Art. 80 Portaria 671
+            </span>
+</div>
+<!-- Receipt Details Micro-Grid -->
+<div class="bg-neutral-canvas rounded-lg p-4 border border-border-subtle text-body-sm font-body-sm space-y-2.5">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-caption font-caption pb-2 border-b border-border-subtle">
+<div>
+<span class="text-outline block">Empregador:</span>
+<strong class="text-on-surface block font-semibold">PPONTO TECNOLOGIA E GESTÃO S.A.</strong>
+<span class="font-tabular-time text-on-surface-variant">CNPJ: 28.491.039/0001-44</span>
+</div>
+<div>
+<span class="text-outline block">Colaborador:</span>
+<strong class="text-on-surface block font-semibold">PPONTO TECNOLOGIA E GESTÃO S.A.</strong>
+<span class="font-tabular-time text-on-surface-variant">CPF: ***.892.108-** • Matrícula: 48291</span>
+</div>
+</div>
+<!-- Dynamic Verification Signature Preview -->
+<div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 pt-1">
+<div>
+<div class="text-caption font-caption text-outline">Chave de Assinatura Digital do Recibo (SHA-512):</div>
+<div class="font-tabular-time text-caption font-caption text-on-surface-variant font-mono truncate max-w-sm sm:max-w-md">
+                  e9b7a421f6c4083d81829da145bc029e71ab8254c7b8091...
+                </div>
+</div>
+<div class="flex items-center space-x-2 shrink-0">
+<span class="material-symbols-outlined text-teal-success text-base" data-icon="mark_email_read">mark_email_read</span>
+<span class="text-caption font-caption text-teal-success font-medium">Envio automático por e-mail</span>
+</div>
+</div>
+</div>
+<div class="mt-3 flex items-center justify-between text-caption font-caption text-on-surface-variant">
+<span class="">O arquivo PDF assinado com certificado ICP-Brasil é emitido instantaneamente após a confirmação.</span>
+<a class="text-blue-vibrant hover:underline font-medium inline-flex items-center gap-1" href="#">
+              Ver espelho completo
+              <span class="material-symbols-outlined text-xs" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- ================= FOOTER / AUDIT TELEMETRY BAR ================= -->
+<footer class="bg-surface-container-lowest border-t border-border-subtle py-3 px-6 text-caption font-caption text-on-surface-variant">
+<div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+<div class="flex items-center space-x-4">
+<span class="flex items-center gap-1 font-medium text-on-surface"><span class="w-2 h-2 rounded-full bg-emerald-light"></span> Sistema pPonto REP-P v4.8.2 Ativo</span>
+<span class="hidden md:inline text-border-subtle">|</span>
+<span class="hidden md:inline">Certificação MTE Registro nº 000492/2022</span>
+</div>
+<div class="flex items-center space-x-4 text-outline">
+<span class="">Conexão Segura TLS 1.3</span>
+<span class="">IP: 189.102.44.12</span>
+<a class="hover:text-on-surface transition-colors" href="#">Termos de Privacidade de Dados Biométricos (LGPD)</a>
+</div>
+</div>
+</footer>
+<!-- Interactive Real-Time NTP Clock Script & Micro-interactions -->
+<script>
+    function updateClock() {
+      const now = new Date();
+      
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+      
+      const hoursMinutesElem = document.getElementById('hours-minutes');
+      const secondsElem = document.getElementById('seconds');
+      
+      if (hoursMinutesElem && secondsElem) {
+        hoursMinutesElem.textContent = `${hours}:${minutes}`;
+        secondsElem.textContent = seconds;
+      }
+    }
+
+    // Instant run and interval
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    // Punch Trigger Simulation
+    function triggerBiometricPunch() {
+      const btn = document.getElementById('btn-punch-action');
+      if (!btn) return;
+
+      const originalHTML = btn.innerHTML;
+      btn.disabled = true;
+      btn.classList.add('opacity-90', 'cursor-not-allowed');
+      btn.innerHTML = `
+        <span class="material-symbols-outlined text-2xl animate-spin" data-icon="sync">sync</span>
+        <span>VALIDANDO BIOMETRIA & GERANDO RECIBO PORTARIA 671...</span>
+      `;
+
+      setTimeout(() => {
+        btn.classList.remove('bg-blue-vibrant', 'hover:bg-secondary');
+        btn.classList.add('bg-teal-success');
+        btn.innerHTML = `
+          <span class="material-symbols-outlined text-2xl" data-icon="task_alt" style="font-variation-settings: 'FILL' 1;">task_alt</span>
+          <span>BATIDA REGISTRADA COM SUCESSO ÀS ${new Date().toLocaleTimeString('pt-BR')}!</span>
+        `;
+        
+        setTimeout(() => {
+          btn.disabled = false;
+          btn.classList.remove('bg-teal-success', 'opacity-90', 'cursor-not-allowed');
+          btn.classList.add('bg-blue-vibrant', 'hover:bg-secondary');
+          btn.innerHTML = originalHTML;
+        }, 3500);
+      }, 1500);
+    }
+  </script>
+
+
+</body></html>

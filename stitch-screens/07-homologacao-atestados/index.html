@@ -1,0 +1,876 @@
+<!DOCTYPE html><html class="h-full" lang="pt-BR"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Dot8 Gestão - Central de Triagem e Homologação de Atestados</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS with custom config -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-secondary-container": "#fefcff",
+            "outline-variant": "#c6c6cd",
+            "surface-variant": "#d3e4fe",
+            "on-error": "#ffffff",
+            "teal-success": "#059669",
+            "on-secondary-fixed-variant": "#003ea8",
+            "tertiary": "#000000",
+            "surface-container-low": "#eff4ff",
+            "primary-container": "#131b2e",
+            "secondary-fixed": "#dbe1ff",
+            "secondary-fixed-dim": "#b4c5ff",
+            "on-error-container": "#93000a",
+            "inverse-primary": "#bec6e0",
+            "border-subtle": "#E2E8F0",
+            "on-primary": "#ffffff",
+            "purple-subtle": "#F5F3FF",
+            "surface-bright": "#f8f9ff",
+            "surface-container-lowest": "#ffffff",
+            "on-tertiary": "#ffffff",
+            "inverse-on-surface": "#eaf1ff",
+            "surface-container-high": "#dce9ff",
+            "on-tertiary-fixed": "#002114",
+            "secondary-container": "#316bf3",
+            "on-primary-fixed-variant": "#3f465c",
+            "surface-container-highest": "#d3e4fe",
+            "blue-vibrant": "#2563EB",
+            "primary-fixed-dim": "#bec6e0",
+            "on-secondary": "#ffffff",
+            "surface-tint": "#565e74",
+            "inverse-surface": "#213145",
+            "surface-container": "#e5eeff",
+            "on-primary-container": "#7c839b",
+            "tertiary-fixed": "#85f8c4",
+            "on-secondary-fixed": "#00174b",
+            "amber-soft": "#F59E0B",
+            "ruby-danger": "#DC2626",
+            "on-surface-variant": "#45464d",
+            "amber-warning": "#D97706",
+            "on-primary-fixed": "#131b2e",
+            "on-surface": "#0b1c30",
+            "surface-dim": "#cbdbf5",
+            "on-background": "#0b1c30",
+            "emerald-light": "#10B981",
+            "surface": "#f8f9ff",
+            "background": "#f8f9ff",
+            "secondary": "#0051d5",
+            "purple-bank": "#7C3AED",
+            "blue-accent": "#3B82F6",
+            "navy-deep": "#0F172A",
+            "on-tertiary-container": "#069669",
+            "error": "#ba1a1a",
+            "neutral-canvas": "#F8FAFC",
+            "navy-surface": "#1E293B",
+            "error-container": "#ffdad6",
+            "on-tertiary-fixed-variant": "#005137",
+            "primary-fixed": "#dae2fd",
+            "outline": "#76777d",
+            "primary": "#000000",
+            "tertiary-fixed-dim": "#68dba9",
+            "tertiary-container": "#002114",
+            "neutral-card": "#FFFFFF"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-xl": "2.5rem",
+            "margin": "1.5rem",
+            "space-xs": "0.25rem",
+            "space-sm": "0.5rem",
+            "gutter": "1.5rem",
+            "space-md": "1rem",
+            "space-lg": "1.5rem"
+          },
+          "fontFamily": {
+            "tabular-time": ["JetBrains Mono"],
+            "body-sm": ["Inter"],
+            "display-hero": ["Inter"],
+            "body-lg": ["Inter"],
+            "headline-lg-mobile": ["Inter"],
+            "display-hero-mobile": ["Inter"],
+            "badge-label": ["Inter"],
+            "headline-lg": ["Inter"],
+            "headline-sm": ["Inter"],
+            "clock-large": ["JetBrains Mono"],
+            "caption": ["Inter"],
+            "body-md": ["Inter"],
+            "headline-md": ["Inter"],
+            "clock-large-mobile": ["JetBrains Mono"]
+          },
+          "fontSize": {
+            "tabular-time": ["0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "0em", "fontWeight": "500" }],
+            "body-sm": ["0.75rem", { "lineHeight": "1.125rem", "fontWeight": "400" }],
+            "display-hero": ["3.5rem", { "lineHeight": "4rem", "letterSpacing": "-0.03em", "fontWeight": "700" }],
+            "body-lg": ["1rem", { "lineHeight": "1.5rem", "fontWeight": "400" }],
+            "headline-lg-mobile": ["1.5rem", { "lineHeight": "2rem", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "display-hero-mobile": ["2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "badge-label": ["0.6875rem", { "lineHeight": "0.875rem", "letterSpacing": "0.04em", "fontWeight": "600" }],
+            "headline-lg": ["2rem", { "lineHeight": "2.5rem", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "headline-sm": ["1.125rem", { "lineHeight": "1.5rem", "fontWeight": "600" }],
+            "clock-large": ["3rem", { "lineHeight": "3.25rem", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "caption": ["0.6875rem", { "lineHeight": "0.875rem", "letterSpacing": "0.02em", "fontWeight": "500" }],
+            "body-md": ["0.875rem", { "lineHeight": "1.375rem", "fontWeight": "400" }],
+            "headline-md": ["1.25rem", { "lineHeight": "1.75rem", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "clock-large-mobile": ["2.25rem", { "lineHeight": "2.5rem", "letterSpacing": "-0.02em", "fontWeight": "600" }]
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-neutral-canvas text-on-surface h-full flex overflow-hidden font-body-md text-body-md antialiased selection:bg-secondary selection:text-white">
+<!-- ========================================================================= -->
+<!-- 1. SHARED COMPONENT: SideNavBar                                          -->
+<!-- ========================================================================= -->
+<!-- JSON Specification applied:
+       Name: SideNavBar
+       Structure: docked full-height left-0 w-64, flex flex-col justify-between h-screen p-4
+       BG: bg-navy-surface, border-r border-border-subtle
+       Active Tab: 'Solicitações e Atestados' (Mapped strictly by screen intent)
+  -->
+<aside class="w-64 h-screen bg-navy-surface flex flex-col justify-between p-4 border-r border-border-subtle shrink-0 z-30 select-none">
+<div class="flex flex-col gap-6">
+<!-- Brand & Header -->
+<div class="flex items-center gap-3 px-2 pt-1 pb-2">
+<div class="w-10 h-10 rounded-xl bg-blue-vibrant flex items-center justify-center text-surface-container-lowest shadow-md shadow-blue-vibrant/30">
+<span class="material-symbols-outlined text-2xl" data-icon="fingerprint">fingerprint</span>
+</div>
+<div class="flex flex-col">
+<span class="text-headline-sm font-headline-sm text-surface-container-lowest font-bold tracking-tight">Dot8 Gestão</span>
+<span class="text-body-sm font-body-sm text-outline-variant">Administrador RH</span>
+</div>
+</div>
+<!-- Quick CTA Button -->
+<button class="w-full py-2.5 px-4 bg-navy-deep hover:bg-blue-accent/20 border border-blue-accent/30 text-surface-container-lowest rounded-lg font-body-md text-body-md font-medium flex items-center justify-center gap-2 transition-all duration-150 active:scale-[0.99]">
+<span class="material-symbols-outlined text-blue-accent text-lg" data-icon="touch_app">touch_app</span>
+<span class="">Registrar Ponto Web</span>
+</button>
+<!-- Main Navigation Tabs -->
+<nav aria-label="Navegação Principal" class="flex flex-col gap-1.5">
+<!-- Tab 0: Dashboard -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-outline-variant hover:text-surface-container-lowest hover:bg-navy-deep transition-colors duration-150 active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="dashboard">dashboard</span>
+<span class="text-body-md font-body-md">Dashboard</span>
+</a>
+<!-- Tab 1: Tratamento de Ponto -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-outline-variant hover:text-surface-container-lowest hover:bg-navy-deep transition-colors duration-150 active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="how_to_reg">how_to_reg</span>
+<span class="text-body-md font-body-md">Tratamento de Ponto</span>
+</a>
+<!-- Tab 2: Espelho de Ponto -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-outline-variant hover:text-surface-container-lowest hover:bg-navy-deep transition-colors duration-150 active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="calendar_month">calendar_month</span>
+<span class="text-body-md font-body-md">Espelho de Ponto</span>
+</a>
+<!-- Tab 3: Solicitações e Atestados (ACTIVE MATCH) -->
+<!-- Applied style_active_navigation: text-surface-container-lowest border-l-4 border-blue-accent bg-navy-deep font-semibold -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-r-lg text-surface-container-lowest border-l-4 border-blue-accent bg-navy-deep font-semibold active:scale-[0.99] transition-all duration-150" href="#">
+<span class="material-symbols-outlined text-xl text-blue-accent" data-icon="assignment" data-weight="fill" style="font-variation-settings: 'FILL' 1;">assignment</span>
+<span class="text-body-md font-body-md flex-1">Solicitações e Atestados</span>
+<span class="px-1.5 py-0.5 rounded-full bg-blue-accent/30 text-surface-container-lowest text-caption font-caption text-xs font-semibold">12</span>
+</a>
+<!-- Tab 4: Relatórios Fiscais -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-outline-variant hover:text-surface-container-lowest hover:bg-navy-deep transition-colors duration-150 active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="receipt_long">receipt_long</span>
+<span class="text-body-md font-body-md">Relatórios Fiscais</span>
+</a>
+<!-- Tab 5: Configurações -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-outline-variant hover:text-surface-container-lowest hover:bg-navy-deep transition-colors duration-150 active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="settings">settings</span>
+<span class="text-body-md font-body-md">Configurações</span>
+</a>
+</nav>
+</div>
+<!-- SideNav Footer -->
+<div class="flex flex-col gap-1 border-t border-navy-deep pt-3">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-outline-variant hover:text-surface-container-lowest hover:bg-navy-deep transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="help_outline">help_outline</span>
+<span class="text-body-sm font-body-sm">Suporte Técnico</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-outline-variant hover:text-ruby-danger hover:bg-navy-deep transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="logout">logout</span>
+<span class="text-body-sm font-body-sm">Encerrar Sessão</span>
+</a>
+<div class="mt-2 px-3 py-2 bg-navy-deep/80 rounded-lg flex items-center justify-between border border-border-subtle/10">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-emerald-light"></div>
+<span class="text-caption font-caption text-outline-variant">Servidor REP-P em Nuvem</span>
+</div>
+<span class="text-caption font-caption text-outline-variant font-tabular-time">v4.18</span>
+</div>
+</div>
+</aside>
+<!-- ========================================================================= -->
+<!-- MAIN WORKSPACE                                                           -->
+<!-- ========================================================================= -->
+<div class="flex-1 flex flex-col h-screen overflow-hidden min-w-0">
+<!-- ========================================================================= -->
+<!-- 2. SHARED COMPONENT: TopNavBar                                            -->
+<!-- ========================================================================= -->
+<!-- JSON Specification applied:
+         Name: TopNavBar
+         Layout: flex justify-between items-center w-full px-6 py-3
+         BG: bg-surface-container-lowest, border-b border-border-subtle
+         Trailing icon actions: ["notifications", "wifi", "schedule"]
+         Trailing primary action: "Sincronizar REP"
+    -->
+<header class="bg-surface-container-lowest border-b border-border-subtle flex justify-between items-center w-full px-6 py-3 shrink-0 shadow-sm z-20">
+<!-- Left side: Brand + Search Bar -->
+<div class="flex items-center gap-6 flex-1 max-w-2xl">
+<div class="flex items-center gap-2 pr-4 border-r border-border-subtle">
+<span class="text-headline-md font-headline-md text-on-surface font-bold tracking-tight">Dot8 Ponto</span>
+<span class="px-2 py-0.5 rounded text-caption font-caption bg-surface-container-low text-secondary font-semibold">Triagem</span>
+</div>
+<!-- Search with filter input -->
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-lg" data-icon="search">search</span>
+<input class="w-full pl-9 pr-4 py-2 text-body-sm font-body-sm bg-neutral-canvas border border-border-subtle rounded-lg focus:outline-none focus:border-blue-vibrant focus:ring-2 focus:ring-blue-vibrant/20 transition-all placeholder:text-outline" placeholder="Buscar por colaborador, matrícula (ex: 04981) ou CID-10..." type="text" value="Carlos Eduardo Silveira">
+</div>
+</div>
+<!-- Navigation Links from JSON -->
+<nav class="hidden lg:flex items-center gap-6 px-4">
+<a class="text-body-sm font-body-sm text-on-surface-variant hover:text-on-surface transition-colors duration-150" href="#">Visão Geral</a>
+<a class="text-body-sm font-body-sm text-secondary border-b-2 border-secondary font-semibold pb-1" href="#">Colaboradores</a>
+<a class="text-body-sm font-body-sm text-on-surface-variant hover:text-on-surface transition-colors duration-150" href="#">Fechamento de Ponto</a>
+</nav>
+<!-- Trailing actions cluster -->
+<div class="flex items-center gap-3">
+<!-- Hardware Sync Button -->
+<button class="flex items-center gap-2 px-3 py-1.5 bg-neutral-canvas hover:bg-surface-container-low border border-border-subtle text-on-surface rounded-lg font-body-sm text-body-sm font-medium transition-all active:scale-[0.98]"><span class="material-symbols-outlined text-blue-vibrant text-base" data-icon="sync">sync</span><span class="">Sincronizar Atestados</span></button>
+<!-- Status & utility icons -->
+<div class="flex items-center gap-1 border-l border-border-subtle pl-2">
+<button class="p-2 text-on-surface-variant hover:text-on-surface hover:bg-neutral-canvas rounded-lg transition-colors" title="Status Conexão em Nuvem (Online)">
+<span class="material-symbols-outlined text-teal-success text-xl" data-icon="wifi">wifi</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-on-surface hover:bg-neutral-canvas rounded-lg transition-colors" title="Horário Oficial de Brasília">
+<span class="material-symbols-outlined text-outline text-xl" data-icon="schedule">schedule</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-on-surface hover:bg-neutral-canvas rounded-lg transition-colors relative" title="Notificações Pendentes">
+<span class="material-symbols-outlined text-outline text-xl" data-icon="notifications">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-ruby-danger ring-2 ring-surface-container-lowest"></span>
+</button>
+</div>
+<!-- Manager Profile Avatar -->
+<div class="flex items-center gap-2 pl-3 border-l border-border-subtle">
+<div class="w-8 h-8 rounded-full bg-secondary-fixed text-on-secondary-fixed font-semibold flex items-center justify-center text-body-sm border border-secondary-fixed-dim">
+            GR
+          </div>
+<div class="hidden xl:flex flex-col text-left">
+<span class="text-body-sm font-body-sm font-semibold text-on-surface leading-tight">Gestor RH</span>
+<span class="text-caption font-caption text-outline leading-tight">Filial SP-01</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Sub-header: Quick Filters Ribbon -->
+<div class="bg-surface-container-lowest border-b border-border-subtle px-6 py-2.5 flex items-center justify-between shrink-0">
+<div class="flex items-center gap-2">
+<span class="text-caption font-caption text-outline font-semibold tracking-wider mr-2">FILTROS DE AUDITORIA:</span>
+<button class="px-3 py-1 rounded-full text-caption font-caption bg-navy-surface text-surface-container-lowest font-semibold flex items-center gap-1.5 shadow-sm">
+<span class="">Pendentes</span>
+<span class="w-4 h-4 rounded-full bg-blue-accent text-white flex items-center justify-center text-[10px]">7</span>
+</button>
+<button class="px-3 py-1 rounded-full text-caption font-caption bg-surface-container-low text-on-surface-variant hover:text-on-surface border border-border-subtle font-medium flex items-center gap-1.5">
+<span class="">Em Análise Médica</span>
+<span class="w-4 h-4 rounded-full bg-outline-variant text-navy-deep flex items-center justify-center text-[10px]">3</span>
+</button>
+<button class="px-3 py-1 rounded-full text-caption font-caption bg-surface-container-low text-on-surface-variant hover:text-on-surface border border-border-subtle font-medium flex items-center gap-1.5">
+<span class="">Aprovados (Hoje)</span>
+<span class="w-4 h-4 rounded-full bg-teal-success/20 text-teal-success flex items-center justify-center text-[10px]">19</span>
+</button>
+<button class="px-3 py-1 rounded-full text-caption font-caption bg-surface-container-low text-on-surface-variant hover:text-on-surface border border-border-subtle font-medium flex items-center gap-1.5">
+<span class="">Recusados</span>
+<span class="w-4 h-4 rounded-full bg-ruby-danger/20 text-ruby-danger flex items-center justify-center text-[10px]">2</span>
+</button>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 text-caption font-caption text-outline">
+<span class="material-symbols-outlined text-base text-amber-soft" data-icon="timer">timer</span>
+<span class="">SLA Médio de Triagem: <strong class="text-on-surface font-semibold">4h 12m</strong></span>
+</div>
+<div class="h-4 w-[1px] bg-border-subtle"></div>
+<div class="flex items-center gap-1.5 text-caption font-caption text-teal-success font-medium">
+<span class="w-2 h-2 rounded-full bg-teal-success"></span>
+<span class="">Portaria 671 MTE Compliance 100%</span>
+</div>
+</div>
+</div>
+<!-- ========================================================================= -->
+<!-- 3. SPLIT VIEW: High-Density Audit Console                                 -->
+<!-- ========================================================================= -->
+<main class="flex-1 flex overflow-hidden min-h-0 bg-neutral-canvas">
+<!-- ----------------------------------------------------------------------- -->
+<!-- LEFT PANEL: Submitted Certificates Queue (380px)                       -->
+<!-- ----------------------------------------------------------------------- -->
+<section class="w-[380px] border-r border-border-subtle bg-surface-container-lowest flex flex-col shrink-0">
+<!-- Queue Meta Header -->
+<div class="p-3 border-b border-border-subtle bg-neutral-canvas/60 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="text-body-sm font-body-sm font-semibold text-on-surface">Fila de Entrada</span>
+<span class="px-2 py-0.5 rounded-full text-caption font-caption bg-secondary-fixed text-on-secondary-fixed font-bold">12 itens</span>
+</div>
+<div class="flex items-center gap-1">
+<button class="p-1 rounded text-outline hover:text-on-surface hover:bg-neutral-canvas" title="Ordenar por SLA">
+<span class="material-symbols-outlined text-base" data-icon="swap_vert">swap_vert</span>
+</button>
+<button class="p-1 rounded text-outline hover:text-on-surface hover:bg-neutral-canvas" title="Configurar Colunas">
+<span class="material-symbols-outlined text-base" data-icon="tune">tune</span>
+</button>
+</div>
+</div>
+<!-- Card Scroll Container -->
+<div class="flex-1 overflow-y-auto divide-y divide-border-subtle">
+<!-- ITEM 1 (SELECTED & ACTIVE AUDIT CARD) -->
+<article class="p-3.5 bg-surface-container-low/80 border-l-4 border-blue-vibrant relative cursor-pointer hover:bg-surface-container-low transition-colors">
+<div class="flex items-start justify-between mb-1.5">
+<div class="flex items-center gap-2">
+<span class="font-tabular-time text-caption font-caption text-secondary font-bold">ATT-2024-889104</span>
+<span class="px-1.5 py-0.2 rounded text-[10px] font-bold bg-amber-soft/15 text-amber-warning uppercase tracking-wide">Aguardando RH</span>
+</div>
+<span class="text-caption font-caption text-ruby-danger font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]" data-icon="schedule">schedule</span>
+                18h restantes
+              </span>
+</div>
+<!-- Employee Info -->
+<div class="flex items-center gap-2.5 mb-2">
+<div class="w-8 h-8 rounded-full bg-navy-surface text-surface-container-lowest flex items-center justify-center font-bold text-xs">
+                CS
+              </div>
+<div class="flex-1 min-w-0">
+<h2 class="text-body-sm font-body-sm font-bold text-on-surface truncate">Carlos Eduardo Silveira</h2>
+<p class="text-caption font-caption text-outline truncate">Matrícula: 04981 • Operações Logísticas</p>
+</div>
+</div>
+<!-- IA Validation Tags -->
+<div class="flex items-center gap-2 mb-2">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container-lowest border border-border-subtle text-caption font-caption text-on-surface font-medium">
+<span class="material-symbols-outlined text-xs text-teal-success" data-icon="document_scanner">document_scanner</span>
+                OCR: <strong class="text-teal-success font-semibold">96%</strong>
+</span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container-lowest border border-border-subtle text-caption font-caption text-on-surface font-medium">
+<span class="material-symbols-outlined text-xs text-teal-success" data-icon="verified">verified</span>
+                CRM/CFM Válido
+              </span>
+</div>
+<!-- Details Preview -->
+<div class="flex items-center justify-between text-caption font-caption text-on-surface-variant pt-1 border-t border-border-subtle/60">
+<span class="">Período: <strong class="text-on-surface font-semibold">16/10 a 17/10 (2 dias)</strong></span>
+<span class="font-tabular-time text-outline">Enviado: Hoje, 08:34</span>
+</div>
+</article>
+<!-- ITEM 2 -->
+<article class="p-3.5 bg-surface-container-lowest hover:bg-neutral-canvas transition-colors cursor-pointer">
+<div class="flex items-start justify-between mb-1.5">
+<div class="flex items-center gap-2">
+<span class="font-tabular-time text-caption font-caption text-outline font-semibold">ATT-2024-889098</span>
+<span class="px-1.5 py-0.2 rounded text-[10px] font-bold bg-amber-soft/15 text-amber-warning uppercase tracking-wide">Aguardando RH</span>
+</div>
+<span class="text-caption font-caption text-outline font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]" data-icon="schedule">schedule</span>
+                22h restantes
+              </span>
+</div>
+<div class="flex items-center gap-2.5 mb-2">
+<div class="w-8 h-8 rounded-full bg-surface-variant text-secondary font-bold flex items-center justify-center text-xs">
+                MC
+              </div>
+<div class="flex-1 min-w-0">
+<h3 class="text-body-sm font-body-sm font-semibold text-on-surface truncate">Mariana Costa</h3>
+<p class="text-caption font-caption text-outline truncate">Matrícula: 03819 • Atendimento ao Cliente</p>
+</div>
+</div>
+<div class="flex items-center gap-2 mb-2">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-neutral-canvas border border-border-subtle text-caption font-caption text-on-surface font-medium">
+<span class="material-symbols-outlined text-xs text-teal-success" data-icon="document_scanner">document_scanner</span>
+                OCR: <strong class="text-teal-success font-semibold">92%</strong>
+</span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-neutral-canvas border border-border-subtle text-caption font-caption text-on-surface font-medium">
+<span class="material-symbols-outlined text-xs text-teal-success" data-icon="verified">verified</span>
+                CRM/CFM Válido
+              </span>
+</div>
+<div class="flex items-center justify-between text-caption font-caption text-on-surface-variant pt-1 border-t border-border-subtle/60">
+<span class="">Período: <strong class="text-on-surface font-semibold">17/10 (1 dia)</strong></span>
+<span class="font-tabular-time text-outline">Enviado: Hoje, 07:15</span>
+</div>
+</article>
+<!-- ITEM 3 -->
+<article class="p-3.5 bg-surface-container-lowest hover:bg-neutral-canvas transition-colors cursor-pointer">
+<div class="flex items-start justify-between mb-1.5">
+<div class="flex items-center gap-2">
+<span class="font-tabular-time text-caption font-caption text-outline font-semibold">ATT-2024-889072</span>
+<span class="px-1.5 py-0.2 rounded text-[10px] font-bold bg-blue-accent/15 text-blue-accent uppercase tracking-wide">Em Análise Médica</span>
+</div>
+<span class="text-caption font-caption text-outline font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]" data-icon="schedule">schedule</span>
+                34h restantes
+              </span>
+</div>
+<div class="flex items-center gap-2.5 mb-2">
+<div class="w-8 h-8 rounded-full bg-surface-container text-on-surface font-bold flex items-center justify-center text-xs">
+                RA
+              </div>
+<div class="flex-1 min-w-0">
+<h3 class="text-body-sm font-body-sm font-semibold text-on-surface truncate">Rodrigo Azevedo Ramos</h3>
+<p class="text-caption font-caption text-outline truncate">Matrícula: 01420 • Manutenção Predial</p>
+</div>
+</div>
+<div class="flex items-center gap-2 mb-2">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-neutral-canvas border border-border-subtle text-caption font-caption text-on-surface font-medium">
+<span class="material-symbols-outlined text-xs text-amber-soft" data-icon="document_scanner">document_scanner</span>
+                OCR: <strong class="text-amber-warning font-semibold">78%</strong>
+</span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-neutral-canvas border border-border-subtle text-caption font-caption text-ruby-danger font-medium">
+<span class="material-symbols-outlined text-xs text-ruby-danger" data-icon="warning">warning</span>
+                Período &gt; 15 dias (INSS)
+              </span>
+</div>
+<div class="flex items-center justify-between text-caption font-caption text-on-surface-variant pt-1 border-t border-border-subtle/60">
+<span class="">Período: <strong class="text-on-surface font-semibold">14/10 a 28/10 (15 dias)</strong></span>
+<span class="font-tabular-time text-outline">Enviado: Ontem, 16:40</span>
+</div>
+</article>
+<!-- ITEM 4 -->
+<article class="p-3.5 bg-surface-container-lowest hover:bg-neutral-canvas transition-colors cursor-pointer">
+<div class="flex items-start justify-between mb-1.5">
+<div class="flex items-center gap-2">
+<span class="font-tabular-time text-caption font-caption text-outline font-semibold">ATT-2024-889055</span>
+<span class="px-1.5 py-0.2 rounded text-[10px] font-bold bg-amber-soft/15 text-amber-warning uppercase tracking-wide">Aguardando RH</span>
+</div>
+<span class="text-caption font-caption text-outline font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]" data-icon="schedule">schedule</span>
+                38h restantes
+              </span>
+</div>
+<div class="flex items-center gap-2.5 mb-2">
+<div class="w-8 h-8 rounded-full bg-purple-subtle text-purple-bank font-bold flex items-center justify-center text-xs">
+                BL
+              </div>
+<div class="flex-1 min-w-0">
+<h3 class="text-body-sm font-body-sm font-semibold text-on-surface truncate">Beatriz Lima dos Santos</h3>
+<p class="text-caption font-caption text-outline truncate">Matrícula: 05210 • Engenharia de Software</p>
+</div>
+</div>
+<div class="flex items-center gap-2 mb-2">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-neutral-canvas border border-border-subtle text-caption font-caption text-on-surface font-medium">
+<span class="material-symbols-outlined text-xs text-teal-success" data-icon="document_scanner">document_scanner</span>
+                OCR: <strong class="text-teal-success font-semibold">99%</strong>
+</span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-neutral-canvas border border-border-subtle text-caption font-caption text-on-surface font-medium">
+<span class="material-symbols-outlined text-xs text-teal-success" data-icon="verified">verified</span>
+                CRM/CFM Válido
+              </span>
+</div>
+<div class="flex items-center justify-between text-caption font-caption text-on-surface-variant pt-1 border-t border-border-subtle/60">
+<span class="">Período: <strong class="text-on-surface font-semibold">15/10 (Horas: 14h-18h)</strong></span>
+<span class="font-tabular-time text-outline">Enviado: Ontem, 18:22</span>
+</div>
+</article>
+</div>
+<!-- Left Panel Footer Statistics -->
+<div class="p-3 bg-neutral-canvas border-t border-border-subtle flex items-center justify-between text-caption font-caption text-outline">
+<span class="">Mostrando 4 de 12 pendentes</span>
+<button class="text-secondary font-semibold hover:underline">Ver fila completa</button>
+</div>
+</section>
+<!-- ----------------------------------------------------------------------- -->
+<!-- CENTRAL & RIGHT AUDITOR: Document + Extraction + Timecard Comparison    -->
+<!-- ----------------------------------------------------------------------- -->
+<section class="flex-1 flex flex-col overflow-hidden bg-neutral-canvas">
+<!-- Auditor Workspace Scroll Area -->
+<div class="flex-1 overflow-y-auto p-6 space-y-5">
+<!-- Protocol Header Banner -->
+<div class="bg-surface-container-lowest border border-border-subtle rounded-xl p-4 flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-blue-vibrant/10 text-blue-vibrant flex items-center justify-center">
+<span class="material-symbols-outlined text-2xl" data-icon="medical_information">medical_information</span>
+</div>
+<div>
+<div class="flex items-center gap-2.5">
+<h1 class="text-headline-sm font-headline-sm text-on-surface font-bold">Auditoria de Atestado Médico</h1>
+<span class="px-2 py-0.5 rounded-full text-caption font-caption font-tabular-time bg-secondary-fixed text-on-secondary-fixed font-bold">Protocolo: ATT-2024-889104</span>
+<span class="px-2 py-0.5 rounded-full text-caption font-caption bg-emerald-light/15 text-teal-success font-semibold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-teal-success"></span>
+                    Assinatura ICP-Brasil Verificada
+                  </span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-0.5">
+                  Submetido via Dot8 PWA Mobile em <strong>17/10/2024 às 08:34:12</strong> por <strong>Carlos Eduardo Silveira</strong> (CPF 281.***.***-45)
+                </p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-3 py-1.5 bg-neutral-canvas border border-border-subtle hover:bg-surface-container-low text-on-surface rounded-lg font-body-sm text-body-sm font-medium flex items-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-base" data-icon="history">history</span>
+<span class="">Histórico de Faltas</span>
+</button>
+<button class="px-3 py-1.5 bg-neutral-canvas border border-border-subtle hover:bg-surface-container-low text-on-surface rounded-lg font-body-sm text-body-sm font-medium flex items-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-base" data-icon="download">download</span>
+<span class="">Baixar PDF Original</span>
+</button>
+</div>
+</div>
+<!-- Bento Grid: Document Viewer + OCR Extracted Attributes -->
+<div class="grid grid-cols-12 gap-5">
+<!-- Bento Box 1: Document High-Definition Viewer (5 Cols) -->
+<div class="col-span-12 lg:col-span-5 bg-surface-container-lowest border border-border-subtle rounded-xl flex flex-col overflow-hidden shadow-sm">
+<!-- Viewer Toolbar -->
+<div class="bg-navy-deep px-3 py-2 text-surface-container-lowest flex items-center justify-between shrink-0">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-blue-accent text-lg" data-icon="pageview">pageview</span>
+<span class="text-caption font-caption font-semibold">Visualizador Seguro • Documento Digital</span>
+</div>
+<!-- Controls: Zoom, Rotate, Contrast -->
+<div class="flex items-center gap-1">
+<button class="p-1 hover:bg-navy-surface rounded text-outline-variant hover:text-white transition-colors" title="Zoom Menos">
+<span class="material-symbols-outlined text-base" data-icon="zoom_out">zoom_out</span>
+</button>
+<span class="text-caption font-caption font-tabular-time px-1 text-white">100%</span>
+<button class="p-1 hover:bg-navy-surface rounded text-outline-variant hover:text-white transition-colors" title="Zoom Mais">
+<span class="material-symbols-outlined text-base" data-icon="zoom_in">zoom_in</span>
+</button>
+<div class="w-[1px] h-3.5 bg-navy-surface mx-1"></div>
+<button class="p-1 hover:bg-navy-surface rounded text-outline-variant hover:text-white transition-colors" title="Girar 90°">
+<span class="material-symbols-outlined text-base" data-icon="rotate_right">rotate_right</span>
+</button>
+<button class="p-1 hover:bg-navy-surface rounded text-blue-accent transition-colors" title="Alternar Contraste / Filtro OCR">
+<span class="material-symbols-outlined text-base" data-icon="contrast">contrast</span>
+</button>
+<button class="p-1 hover:bg-navy-surface rounded text-outline-variant hover:text-white transition-colors" title="Tela Cheia">
+<span class="material-symbols-outlined text-base" data-icon="fullscreen">fullscreen</span>
+</button>
+</div>
+</div>
+<!-- Document Viewport Frame -->
+<div class="relative flex-1 bg-neutral-canvas flex items-center justify-center p-4 min-h-[420px] overflow-hidden">
+<!-- Watermark / Security Mesh -->
+<div class="absolute inset-0 opacity-5 pointer-events-none flex flex-col justify-around rotate-[-20deg] select-none text-navy-deep font-bold text-lg">
+<div class="">DOT8 RH COMPLIANCE • RECONHECIMENTO SEGURO</div>
+<div class="">DOT8 RH COMPLIANCE • RECONHECIMENTO SEGURO</div>
+<div class="">DOT8 RH COMPLIANCE • RECONHECIMENTO SEGURO</div>
+</div>
+<!-- Simulated High-Precision Scanned Medical Note -->
+<div class="w-full max-w-[340px] bg-white border border-border-subtle rounded shadow-lg p-5 flex flex-col gap-3 relative transition-transform">
+<!-- Header Clinic -->
+<div class="border-b border-border-subtle pb-2 flex items-center justify-between">
+<div>
+<div class="text-[11px] font-bold text-navy-deep tracking-wide uppercase">Policlínica São Paulo</div>
+<div class="text-[9px] text-outline">CNPJ: 45.928.110/0001-92 • R. Augusta, 1400 - SP</div>
+</div>
+<div class="w-7 h-7 rounded bg-teal-success/10 text-teal-success flex items-center justify-center">
+<span class="material-symbols-outlined text-base" data-icon="local_hospital">local_hospital</span>
+</div>
+</div>
+<!-- Medical Note Body -->
+<div class="text-center my-1">
+<span class="text-[12px] font-bold uppercase tracking-widest text-navy-deep border-b border-dashed border-border-subtle pb-0.5">Atestado Médico</span>
+</div>
+<div class="text-[10px] text-on-surface leading-relaxed space-y-1.5 text-justify">
+<p class="">
+                      Atesto para os devidos fins de comprovação trabalhista que o(a) paciente 
+                      <span class="font-bold bg-blue-accent/10 px-1 py-0.5 rounded text-blue-vibrant">Carlos Eduardo Silveira</span>, 
+                      portador(a) do CPF 281.344.918-45, esteve sob meus cuidados médicos no dia 16/10/2024.
+                    </p>
+<p class="">
+                      Necessitando o mesmo de <span class="font-bold bg-blue-accent/10 px-1 py-0.5 rounded text-blue-vibrant">02 (dois) dias de repouso</span> para recuperação de seu quadro clínico, iniciando em 16/10/2024 até 17/10/2024.
+                    </p>
+<p class="text-[9px] text-outline-variant pt-1">
+                      Classificação Internacional de Doenças: <span class="font-bold text-navy-deep bg-neutral-canvas px-1 py-0.5 rounded">CID-10 J06.9</span> (Infecção aguda das vias aéreas superiores, não especificada).
+                    </p>
+</div>
+<!-- Doctor Signature Stamp -->
+<div class="pt-3 border-t border-border-subtle flex flex-col items-center justify-center text-center">
+<div class="font-tabular-time text-[10px] text-blue-vibrant italic mb-0.5">Assinado digitalmente via ICP-Brasil</div>
+<div class="text-[11px] font-bold text-navy-deep">Dr. Marcelo Nogueira</div>
+<div class="text-[9px] text-outline font-tabular-time">Médico Clínico Geral • CRM/SP 148920</div>
+<div class="mt-2 flex items-center gap-1 bg-emerald-light/10 text-teal-success px-2 py-0.5 rounded border border-emerald-light/20 text-[9px] font-semibold">
+<span class="material-symbols-outlined text-[12px]" data-icon="check_circle">check_circle</span>
+                      Certificado Digital Válido (CFM)
+                    </div>
+</div>
+</div>
+<!-- Optical OCR Target Box Overlay -->
+<div class="absolute bottom-6 right-6 bg-navy-deep/90 text-surface-container-lowest px-2.5 py-1 rounded text-caption font-caption flex items-center gap-1.5 shadow-md backdrop-blur">
+<span class="w-2 h-2 rounded-full bg-emerald-light animate-pulse"></span>
+<span class="">96% de Confiança no Reconhecimento</span>
+</div>
+</div>
+<!-- Viewport Footer Status -->
+<div class="p-2.5 bg-neutral-canvas border-t border-border-subtle flex items-center justify-between text-caption font-caption">
+<span class="text-outline">Arquivo: <strong class="text-on-surface">atestado_carlos_1610.pdf</strong> (1.4 MB)</span>
+<span class="text-teal-success font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="lock">lock</span>
+                  Hash SHA-256 Validado
+                </span>
+</div>
+</div>
+<!-- Bento Box 2: Extracted OCR Attributes & Medical Registry (7 Cols) -->
+<div class="col-span-12 lg:col-span-7 flex flex-col gap-5">
+<!-- Extraction Card -->
+<div class="bg-surface-container-lowest border border-border-subtle rounded-xl p-4 shadow-sm">
+<div class="flex items-center justify-between pb-3 border-b border-border-subtle mb-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-blue-vibrant text-xl" data-icon="smart_toy">smart_toy</span>
+<h3 class="text-headline-sm font-headline-sm font-bold text-on-surface">Dados Extraídos por IA (OCR Auditado)</h3>
+</div>
+<span class="px-2 py-0.5 rounded text-caption font-caption bg-surface-container-low text-blue-vibrant font-semibold">
+                    100% dos campos mapeados
+                  </span>
+</div>
+<div class="grid grid-cols-2 gap-3.5">
+<!-- Colaborador -->
+<div class="p-2.5 rounded-lg bg-neutral-canvas border border-border-subtle">
+<span class="text-caption font-caption text-outline uppercase font-semibold">Colaborador Declarado</span>
+<div class="text-body-sm font-body-sm font-bold text-on-surface flex items-center justify-between mt-0.5">
+<span class="">Carlos Eduardo Silveira</span>
+<span class="material-symbols-outlined text-teal-success text-base" data-icon="verified_user">verified_user</span>
+</div>
+<span class="text-caption font-caption text-outline font-tabular-time">CPF: 281.344.918-45 (Match 100%)</span>
+</div>
+<!-- Estabelecimento de Saúde -->
+<div class="p-2.5 rounded-lg bg-neutral-canvas border border-border-subtle">
+<span class="text-caption font-caption text-outline uppercase font-semibold">Unidade de Saúde / Clínica</span>
+<div class="text-body-sm font-body-sm font-bold text-on-surface flex items-center justify-between mt-0.5">
+<span class="">Policlínica São Paulo</span>
+<span class="material-symbols-outlined text-teal-success text-base" data-icon="apartment">apartment</span>
+</div>
+<span class="text-caption font-caption text-outline font-tabular-time">CNES: 2781902 • Cadastro Regular</span>
+</div>
+<!-- Médico & CRM -->
+<div class="p-2.5 rounded-lg bg-neutral-canvas border border-border-subtle">
+<span class="text-caption font-caption text-outline uppercase font-semibold">Profissional Emitente</span>
+<div class="text-body-sm font-body-sm font-bold text-on-surface flex items-center justify-between mt-0.5">
+<span class="">Dr. Marcelo Nogueira</span>
+<span class="material-symbols-outlined text-teal-success text-base" data-icon="check_circle">check_circle</span>
+</div>
+<span class="text-caption font-caption text-teal-success font-semibold font-tabular-time">
+                      CRM/SP 148920 • Situação: Ativo (CFM)
+                    </span>
+</div>
+<!-- Período de Afastamento -->
+<div class="p-2.5 rounded-lg bg-blue-vibrant/5 border border-blue-vibrant/20">
+<span class="text-caption font-caption text-blue-vibrant uppercase font-semibold">Período de Afastamento</span>
+<div class="text-body-sm font-body-sm font-bold text-blue-vibrant flex items-center justify-between mt-0.5">
+<span class="">2 Dias Corridos</span>
+<span class="material-symbols-outlined text-blue-vibrant text-base" data-icon="date_range">date_range</span>
+</div>
+<span class="text-caption font-caption text-blue-vibrant font-tabular-time font-medium">
+                      16/10/2024 até 17/10/2024
+                    </span>
+</div>
+<!-- CID-10 -->
+<div class="p-2.5 rounded-lg bg-neutral-canvas border border-border-subtle col-span-2">
+<div class="flex items-center justify-between">
+<div>
+<span class="text-caption font-caption text-outline uppercase font-semibold">Código CID-10 Registrado</span>
+<div class="text-body-sm font-body-sm font-bold text-on-surface mt-0.5 flex items-center gap-2">
+<span class="font-tabular-time bg-surface-container-high px-2 py-0.5 rounded text-navy-deep">J06.9</span>
+<span class="">Infecção aguda das vias aéreas superiores, não especificada</span>
+</div>
+</div>
+<span class="px-2 py-1 rounded bg-teal-success/10 text-teal-success text-caption font-caption font-semibold">
+                        Abono Legal CLT Art. 473
+                      </span>
+</div>
+</div>
+</div>
+</div>
+<!-- Portaria 671 MTE Compliance Checklist -->
+<div class="bg-surface-container-lowest border border-border-subtle rounded-xl p-4 shadow-sm">
+<div class="flex items-center justify-between pb-2.5 border-b border-border-subtle mb-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-teal-success text-xl" data-icon="fact_check">fact_check</span>
+<h3 class="text-headline-sm font-headline-sm font-bold text-on-surface">Checklist de Conformidade (Portaria MTE 671)</h3>
+</div>
+<span class="text-caption font-caption text-teal-success font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="verified">verified</span>
+                    100% Conforme
+                  </span>
+</div>
+<div class="grid grid-cols-3 gap-3">
+<!-- Check 1 -->
+<div class="p-2.5 rounded-lg bg-neutral-canvas border border-border-subtle flex items-start gap-2">
+<span class="material-symbols-outlined text-teal-success text-lg mt-0.5" data-icon="check_circle">check_circle</span>
+<div>
+<div class="text-caption font-caption font-bold text-on-surface">Assinatura / Carimbo</div>
+<div class="text-caption font-caption text-outline leading-tight">Digital ICP-Brasil válida</div>
+</div>
+</div>
+<!-- Check 2 -->
+<div class="p-2.5 rounded-lg bg-neutral-canvas border border-border-subtle flex items-start gap-2">
+<span class="material-symbols-outlined text-teal-success text-lg mt-0.5" data-icon="check_circle">check_circle</span>
+<div>
+<div class="text-caption font-caption font-bold text-on-surface">CRM/UF Ativo</div>
+<div class="text-caption font-caption text-outline leading-tight">Checado no banco CFM</div>
+</div>
+</div>
+<!-- Check 3 -->
+<div class="p-2.5 rounded-lg bg-neutral-canvas border border-border-subtle flex items-start gap-2">
+<span class="material-symbols-outlined text-teal-success text-lg mt-0.5" data-icon="check_circle">check_circle</span>
+<div>
+<div class="text-caption font-caption font-bold text-on-surface">Justificativa Legal</div>
+<div class="text-caption font-caption text-outline leading-tight">CID informado &amp; compatível</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Section: Automated Timecard Comparison (Conferência de Ponto Automática) -->
+<div class="bg-surface-container-lowest border border-border-subtle rounded-xl p-4 shadow-sm">
+<div class="flex items-center justify-between pb-3 border-b border-border-subtle mb-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-purple-bank text-xl" data-icon="compare_arrows">compare_arrows</span>
+<div>
+<h3 class="text-headline-sm font-headline-sm font-bold text-on-surface">Conferência Automática de Espelho de Ponto</h3>
+<span class="text-caption font-caption text-outline">Cruzamento entre a escala contratual prevista e as faltas no REP durante o período do atestado</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="text-right">
+<span class="text-caption font-caption text-outline">Total de Horas Calculadas:</span>
+<div class="text-headline-sm font-headline-sm font-bold font-tabular-time text-purple-bank">16:00h a Abonar</div>
+</div>
+<div class="h-8 w-[1px] bg-border-subtle"></div>
+<span class="px-2.5 py-1 rounded bg-purple-subtle text-purple-bank text-caption font-caption font-bold">
+                  Compensação em Banco
+                </span>
+</div>
+</div>
+<!-- Timecard Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-neutral-canvas text-caption font-caption text-outline font-semibold uppercase tracking-wider border-y border-border-subtle">
+<th class="py-2.5 px-3">Data</th>
+<th class="py-2.5 px-3">Escala Prevista</th>
+<th class="py-2.5 px-3">Marcações REP Efetivas</th>
+<th class="py-2.5 px-3">Status do Espelho</th>
+<th class="py-2.5 px-3">Horas Abonadas</th>
+<th class="py-2.5 px-3 text-right">Ação Proposta</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-subtle font-tabular-time text-body-sm">
+<!-- Row 1: 16/10/2024 -->
+<tr class="hover:bg-neutral-canvas/50 transition-colors">
+<td class="py-3 px-3 font-semibold text-on-surface">
+                      16/10/2024 <span class="text-caption font-caption text-outline font-normal">(Quarta-feira)</span>
+</td>
+<td class="py-3 px-3 text-on-surface">
+                      08:00 - 12:00 | 13:00 - 17:00 <span class="text-caption text-outline font-sans">(8h)</span>
+</td>
+<td class="py-3 px-3">
+<span class="text-ruby-danger font-medium flex items-center gap-1 font-sans text-caption">
+<span class="material-symbols-outlined text-sm" data-icon="close">close</span>
+                        Sem marcações registradas (Ausente)
+                      </span>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-caption font-sans bg-ruby-danger/10 text-ruby-danger font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-ruby-danger"></span>
+                        Falta Integral Injustificada
+                      </span>
+</td>
+<td class="py-3 px-3 font-bold text-teal-success font-sans">
+                      +08:00h
+                    </td>
+<td class="py-3 px-3 text-right font-sans">
+<span class="text-caption font-semibold text-blue-vibrant bg-blue-vibrant/10 px-2 py-1 rounded">
+                        Abono Automático (Atestado)
+                      </span>
+</td>
+</tr>
+<!-- Row 2: 17/10/2024 -->
+<tr class="hover:bg-neutral-canvas/50 transition-colors">
+<td class="py-3 px-3 font-semibold text-on-surface">
+                      17/10/2024 <span class="text-caption font-caption text-outline font-normal">(Quinta-feira)</span>
+</td>
+<td class="py-3 px-3 text-on-surface">
+                      08:00 - 12:00 | 13:00 - 17:00 <span class="text-caption text-outline font-sans">(8h)</span>
+</td>
+<td class="py-3 px-3">
+<span class="text-ruby-danger font-medium flex items-center gap-1 font-sans text-caption">
+<span class="material-symbols-outlined text-sm" data-icon="close">close</span>
+                        Sem marcações registradas (Ausente)
+                      </span>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-caption font-sans bg-ruby-danger/10 text-ruby-danger font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-ruby-danger"></span>
+                        Falta Integral Injustificada
+                      </span>
+</td>
+<td class="py-3 px-3 font-bold text-teal-success font-sans">
+                      +08:00h
+                    </td>
+<td class="py-3 px-3 text-right font-sans">
+<span class="text-caption font-semibold text-blue-vibrant bg-blue-vibrant/10 px-2 py-1 rounded">
+                        Abono Automático (Atestado)
+                      </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Impact on Hour Bank & Monthly Closing -->
+<div class="mt-3 p-2.5 rounded-lg bg-surface-container-low border border-border-subtle flex items-center justify-between text-caption font-caption">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-blue-vibrant text-base" data-icon="info">info</span>
+<span class="text-on-surface-variant">
+                  Impacto no Fechamento Mensal: A homologação anula o débito de 16h no Banco de Horas de Carlos Eduardo e remove pendências para geração do AFDT/ACJEF.
+                </span>
+</div>
+<span class="text-on-surface font-semibold">Competência: <strong>Outubro/2024</strong></span>
+</div>
+</div>
+</div>
+<!-- ========================================================================= -->
+<!-- HR DECISION ACTION DOCK (Fixed Bottom Action Bar)                         -->
+<!-- ========================================================================= -->
+<footer class="bg-surface-container-lowest border-t border-border-subtle p-4 px-6 flex flex-col md:flex-row items-center justify-between gap-4 shadow-lg shrink-0 z-10">
+<!-- Internal Notes & Justification Input -->
+<div class="flex-1 w-full flex items-center gap-3">
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-base" data-icon="rate_review">rate_review</span>
+<input class="w-full pl-9 pr-4 py-2 text-body-sm font-body-sm bg-neutral-canvas border border-border-subtle rounded-lg focus:outline-none focus:border-blue-vibrant focus:ring-1 focus:ring-blue-vibrant text-on-surface placeholder:text-outline" placeholder="Parecer do auditor / Observações internas (ex: Atestado conferido com CRM ativo no CFM, abonado conforme política)..." type="text" value="Documento original conferido e aprovado. CRM válido e dentro dos limites da Portaria 671 MTE.">
+</div>
+</div>
+<!-- Decision Action Cluster -->
+<div class="flex items-center gap-3 shrink-0">
+<!-- Action 1: Request Recapture -->
+<button class="px-3 py-2 bg-neutral-canvas hover:bg-surface-container-low border border-border-subtle text-on-surface rounded-lg font-body-sm text-body-sm font-medium flex items-center gap-1.5 transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined text-amber-warning text-lg" data-icon="replay">replay</span>
+<span class="">Solicitar Recaptura</span>
+</button>
+<!-- Action 2: Forward to Occupational Medicine -->
+<button class="px-3 py-2 bg-neutral-canvas hover:bg-surface-container-low border border-border-subtle text-on-surface rounded-lg font-body-sm text-body-sm font-medium flex items-center gap-1.5 transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined text-blue-vibrant text-lg" data-icon="forward_to_inbox">forward_to_inbox</span>
+<span class="">Medicina do Trabalho</span>
+</button>
+<!-- Primary Decision: Approve & Credit Hours -->
+<button class="px-5 py-2 bg-blue-vibrant hover:bg-secondary text-surface-container-lowest rounded-lg font-body-sm text-body-sm font-bold flex items-center gap-2 shadow-md shadow-blue-vibrant/25 transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined text-xl" data-icon="check_circle">check_circle</span>
+<span class="">Aprovar e Abonar Horas (16h)</span>
+</button>
+</div>
+</footer>
+</section>
+</main>
+</div>
+
+
+</body></html>

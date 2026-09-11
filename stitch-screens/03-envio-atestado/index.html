@@ -1,0 +1,416 @@
+<!DOCTYPE html><html class="light" lang="pt-BR"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>pPonto - Enviar Atestado Médico</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Inter & JetBrains Mono Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-secondary": "#ffffff",
+            "on-secondary-fixed": "#00174b",
+            "on-error": "#ffffff",
+            "secondary-fixed-dim": "#b4c5ff",
+            "secondary": "#0051d5",
+            "tertiary": "#000000",
+            "on-tertiary-fixed-variant": "#005137",
+            "emerald-light": "#10B981",
+            "outline": "#76777d",
+            "inverse-primary": "#bec6e0",
+            "border-subtle": "#E2E8F0",
+            "blue-vibrant": "#2563EB",
+            "teal-success": "#059669",
+            "on-background": "#0b1c30",
+            "surface-container": "#e5eeff",
+            "on-secondary-container": "#fefcff",
+            "surface-tint": "#565e74",
+            "surface-container-low": "#eff4ff",
+            "surface-bright": "#f8f9ff",
+            "tertiary-fixed": "#85f8c4",
+            "on-primary-fixed-variant": "#3f465c",
+            "purple-bank": "#7C3AED",
+            "on-primary-fixed": "#131b2e",
+            "primary-container": "#131b2e",
+            "primary": "#000000",
+            "on-primary": "#ffffff",
+            "on-secondary-fixed-variant": "#003ea8",
+            "tertiary-container": "#002114",
+            "background": "#f8f9ff",
+            "neutral-canvas": "#F8FAFC",
+            "purple-subtle": "#F5F3FF",
+            "neutral-card": "#FFFFFF",
+            "outline-variant": "#c6c6cd",
+            "surface-variant": "#d3e4fe",
+            "error-container": "#ffdad6",
+            "on-primary-container": "#7c839b",
+            "surface-container-lowest": "#ffffff",
+            "on-surface-variant": "#45464d",
+            "tertiary-fixed-dim": "#68dba9",
+            "amber-warning": "#D97706",
+            "ruby-danger": "#DC2626",
+            "navy-deep": "#0F172A",
+            "on-tertiary-fixed": "#002114",
+            "inverse-surface": "#213145",
+            "secondary-container": "#316bf3",
+            "on-surface": "#0b1c30",
+            "surface-container-highest": "#d3e4fe",
+            "primary-fixed-dim": "#bec6e0",
+            "amber-soft": "#F59E0B",
+            "primary-fixed": "#dae2fd",
+            "inverse-on-surface": "#eaf1ff",
+            "surface-container-high": "#dce9ff",
+            "on-tertiary-container": "#069669",
+            "error": "#ba1a1a",
+            "surface": "#f8f9ff",
+            "surface-dim": "#cbdbf5",
+            "on-error-container": "#93000a",
+            "on-tertiary": "#ffffff",
+            "navy-surface": "#1E293B",
+            "secondary-fixed": "#dbe1ff",
+            "blue-accent": "#3B82F6"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "gutter": "1.5rem",
+            "space-xl": "2.5rem",
+            "space-sm": "0.5rem",
+            "space-md": "1rem",
+            "margin": "1.5rem",
+            "space-xs": "0.25rem",
+            "space-lg": "1.5rem"
+          },
+          "fontFamily": {
+            "headline-lg": ["Inter"],
+            "display-hero": ["Inter"],
+            "tabular-time": ["JetBrains Mono"],
+            "badge-label": ["Inter"],
+            "display-hero-mobile": ["Inter"],
+            "caption": ["Inter"],
+            "headline-lg-mobile": ["Inter"],
+            "body-lg": ["Inter"],
+            "body-md": ["Inter"],
+            "headline-sm": ["Inter"],
+            "body-sm": ["Inter"],
+            "clock-large": ["JetBrains Mono"],
+            "headline-md": ["Inter"],
+            "clock-large-mobile": ["JetBrains Mono"]
+          },
+          "fontSize": {
+            "headline-lg": ["2rem", { "lineHeight": "2.5rem", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "display-hero": ["3.5rem", { "lineHeight": "4rem", "letterSpacing": "-0.03em", "fontWeight": "700" }],
+            "tabular-time": ["0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "0em", "fontWeight": "500" }],
+            "badge-label": ["0.6875rem", { "lineHeight": "0.875rem", "letterSpacing": "0.04em", "fontWeight": "600" }],
+            "display-hero-mobile": ["2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "caption": ["0.6875rem", { "lineHeight": "0.875rem", "letterSpacing": "0.02em", "fontWeight": "500" }],
+            "headline-lg-mobile": ["1.5rem", { "lineHeight": "2rem", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "body-lg": ["1rem", { "lineHeight": "1.5rem", "fontWeight": "400" }],
+            "body-md": ["0.875rem", { "lineHeight": "1.375rem", "fontWeight": "400" }],
+            "headline-sm": ["1.125rem", { "lineHeight": "1.5rem", "fontWeight": "600" }],
+            "body-sm": ["0.75rem", { "lineHeight": "1.125rem", "fontWeight": "400" }],
+            "clock-large": ["3rem", { "lineHeight": "3.25rem", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "headline-md": ["1.25rem", { "lineHeight": "1.75rem", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "clock-large-mobile": ["2.25rem", { "lineHeight": "2.5rem", "letterSpacing": "-0.02em", "fontWeight": "600" }]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    /* Hide scrollbars on mobile viewport simulation */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="bg-neutral-canvas text-on-surface antialiased font-body-md text-body-md flex justify-center min-h-screen">
+<!-- Mobile Container / Frame simulating PWA Screen (max-w-md for smartphone view, expands gracefully) -->
+<div class="w-full max-w-md bg-neutral-canvas min-h-screen flex flex-col relative shadow-2xl border-x border-border-subtle pb-28">
+<!-- Top App Bar / Modal Header (PWA Task Navigation) -->
+<header class="sticky top-0 z-40 bg-neutral-card/95 backdrop-blur-md px-4 py-3 border-b border-border-subtle shadow-sm flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<button aria-label="Voltar" class="w-9 h-9 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-colors duration-150 active:scale-95" type="button">
+<span class="material-symbols-outlined text-[22px]" data-icon="arrow_back">arrow_back</span>
+</button>
+<div>
+<h1 class="font-headline-sm text-headline-sm text-on-surface leading-tight">Enviar Atestado</h1>
+<p class="font-caption text-caption text-outline">Protocolo temporário: #ATT-2024-984</p>
+</div>
+</div>
+<!-- Compliance Pill / Etapa -->
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-low text-secondary border border-secondary/20">
+<span class="w-1.5 h-1.5 rounded-full bg-blue-vibrant animate-pulse"></span>
+<span class="font-caption text-caption font-semibold">Portaria 671</span>
+</div>
+</header>
+<!-- Main Scrollable Content Canvas -->
+<main class="flex-1 px-4 py-4 space-y-4">
+<!-- Colaborador Context Pill Card -->
+<div class="bg-neutral-card p-3.5 rounded-xl border border-border-subtle shadow-sm flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-11 h-11 rounded-full bg-surface-container flex items-center justify-center text-secondary border border-secondary/20 relative">
+<span class="material-symbols-outlined text-2xl" data-icon="badge">badge</span>
+<span class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-light border-2 border-neutral-card rounded-full"></span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Mariana Costa</h2>
+<span class="bg-surface-container-low text-secondary px-1.5 py-0.5 rounded font-tabular-time text-caption font-semibold">#1042</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Design Lead • Squad Experiência &amp; Mobile</p>
+</div>
+</div>
+<div class="text-right">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-badge-label font-badge-label bg-emerald-light/10 text-teal-success border border-emerald-light/20">
+            Jornada 40h
+          </span>
+</div>
+</div>
+<!-- Tipo de Ausência Selector (Segmented Badges) -->
+<section class="bg-neutral-card p-4 rounded-xl border border-border-subtle shadow-sm space-y-3">
+<label class="block font-headline-sm text-body-md text-on-surface">
+          Tipo de Justificativa / Documento <span class="text-ruby-danger">*</span>
+</label>
+<div class="grid grid-cols-3 gap-2">
+<!-- Option 1: Selected -->
+<button class="flex flex-col items-center justify-center p-2.5 rounded-lg border-2 border-secondary bg-surface-container-low text-secondary transition-all" type="button">
+<span class="material-symbols-outlined mb-1 text-secondary" data-icon="medical_services" data-weight="fill" style="font-variation-settings: 'FILL' 1;">medical_services</span>
+<span class="font-caption text-caption font-semibold text-center leading-tight">Atestado Médico</span>
+<span class="font-caption text-[10px] text-outline mt-0.5">Doença (CID)</span>
+</button>
+<!-- Option 2 -->
+<button class="flex flex-col items-center justify-center p-2.5 rounded-lg border border-border-subtle hover:bg-surface-container-low/50 text-on-surface-variant transition-all" type="button">
+<span class="material-symbols-outlined mb-1 text-outline" data-icon="schedule">schedule</span>
+<span class="font-caption text-caption text-center leading-tight">Comparecimento</span>
+<span class="font-caption text-[10px] text-outline mt-0.5">Consulta/Exame</span>
+</button>
+<!-- Option 3 -->
+<button class="flex flex-col items-center justify-center p-2.5 rounded-lg border border-border-subtle hover:bg-surface-container-low/50 text-on-surface-variant transition-all" type="button">
+<span class="material-symbols-outlined mb-1 text-outline" data-icon="family_restroom">family_restroom</span>
+<span class="font-caption text-caption text-center leading-tight">Acompanhante</span>
+<span class="font-caption text-[10px] text-outline mt-0.5">Filho/Dependente</span>
+</button>
+</div>
+</section>
+<!-- Período de Ausência e Horários -->
+<section class="bg-neutral-card p-4 rounded-xl border border-border-subtle shadow-sm space-y-3.5">
+<div class="flex items-center justify-between">
+<label class="font-headline-sm text-body-md text-on-surface">Período de Afastamento <span class="text-ruby-danger">*</span></label>
+<!-- Abono parcial toggle -->
+<label class="flex items-center gap-2 cursor-pointer">
+<span class="font-caption text-caption text-on-surface-variant">Abono Parcial</span>
+<input class="w-4 h-4 rounded text-secondary focus:ring-secondary border-border-subtle" type="checkbox">
+</label>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<div>
+<span class="block font-caption text-caption text-outline mb-1">Data de Início</span>
+<div class="relative">
+<input class="w-full h-11 pl-9 pr-3 rounded-lg border border-border-subtle bg-neutral-canvas font-tabular-time text-body-sm text-on-surface font-semibold focus:border-secondary focus:ring-1 focus:ring-secondary" readonly="" type="text" value="24/10/2024">
+<span class="material-symbols-outlined text-outline absolute left-2.5 top-2.5 text-lg" data-icon="calendar_today">calendar_today</span>
+</div>
+</div>
+<div>
+<span class="block font-caption text-caption text-outline mb-1">Data de Retorno</span>
+<div class="relative">
+<input class="w-full h-11 pl-9 pr-3 rounded-lg border border-border-subtle bg-neutral-canvas font-tabular-time text-body-sm text-on-surface font-semibold focus:border-secondary focus:ring-1 focus:ring-secondary" readonly="" type="text" value="25/10/2024">
+<span class="material-symbols-outlined text-outline absolute left-2.5 top-2.5 text-lg" data-icon="event_available">event_available</span>
+</div>
+</div>
+</div>
+<!-- Calculadora de Dias Úteis / Impacto no Espelho -->
+<div class="bg-surface-container-low/70 border border-secondary/15 rounded-lg p-2.5 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-lg" data-icon="info">info</span>
+<span class="font-caption text-caption text-on-surface-variant">Duração estimada de abono:</span>
+</div>
+<span class="font-headline-sm text-caption text-secondary font-bold bg-neutral-card px-2 py-0.5 rounded border border-secondary/20">
+            2 dias (16h abonadas)
+          </span>
+</div>
+</section>
+<!-- Dados Médicos & LGPD Banner -->
+<section class="bg-neutral-card p-4 rounded-xl border border-border-subtle shadow-sm space-y-3">
+<div class="flex items-center justify-between border-b border-border-subtle pb-2">
+<h3 class="font-headline-sm text-body-md text-on-surface flex items-center gap-1.5">
+<span class="material-symbols-outlined text-secondary text-lg" data-icon="clinical_notes">clinical_notes</span>
+            Dados do Profissional Emissor
+          </h3>
+<span class="font-badge-label text-badge-label uppercase text-outline">Portaria 671 MTE</span>
+</div>
+<div class="grid grid-cols-1 gap-3">
+<!-- Nome do Médico -->
+<div>
+<label class="block font-caption text-caption text-outline mb-1">Nome do Médico ou Dentista <span class="text-ruby-danger">*</span></label>
+<div class="relative">
+<input class="w-full h-11 pl-9 pr-3 rounded-lg border border-border-subtle bg-white font-body-sm text-on-surface focus:border-secondary focus:ring-1 focus:ring-secondary" type="text" value="Dr. Roberto Silveira">
+<span class="material-symbols-outlined text-outline absolute left-2.5 top-2.5 text-lg" data-icon="person">person</span>
+</div>
+</div>
+<!-- CRM e UF -->
+<div class="grid grid-cols-3 gap-2">
+<div class="col-span-2">
+<label class="block font-caption text-caption text-outline mb-1">CRM / Registro Profissional <span class="text-ruby-danger">*</span></label>
+<div class="relative">
+<input class="w-full h-11 pl-9 pr-2 rounded-lg border border-border-subtle bg-white font-tabular-time text-body-sm text-on-surface font-medium focus:border-secondary focus:ring-1 focus:ring-secondary" type="text" value="148920">
+<span class="material-symbols-outlined text-outline absolute left-2.5 top-2.5 text-lg" data-icon="badge">badge</span>
+</div>
+</div>
+<div>
+<label class="block font-caption text-caption text-outline mb-1">UF</label>
+<input class="w-full h-11 text-center rounded-lg border border-border-subtle bg-white font-tabular-time text-body-sm text-on-surface font-semibold focus:border-secondary focus:ring-1 focus:ring-secondary" type="text" value="SP">
+</div>
+</div>
+<!-- CID com Consentimento LGPD -->
+<div class="pt-1">
+<div class="flex items-center justify-between mb-1">
+<label class="font-caption text-caption text-outline">Código CID-10 (Opcional - LGPD)</label>
+<span class="text-[10px] text-amber-warning font-semibold flex items-center gap-0.5">
+<span class="material-symbols-outlined text-xs" data-icon="lock">lock</span> Sigilo Médico
+              </span>
+</div>
+<div class="relative">
+<input class="w-full h-11 pl-9 pr-3 rounded-lg border border-border-subtle bg-white font-tabular-time text-body-sm text-on-surface focus:border-secondary focus:ring-1 focus:ring-secondary" type="text" value="J06.9 - Infecção aguda das vias aéreas superiores">
+<span class="material-symbols-outlined text-outline absolute left-2.5 top-2.5 text-lg" data-icon="healing">healing</span>
+</div>
+<p class="font-caption text-[11px] text-outline mt-1 leading-snug">
+              Conforme Parecer CFM nº 02/2021 e LGPD, a revelação do diagnóstico (CID) é facultativa e exige sua autorização expressa.
+            </p>
+</div>
+</div>
+</section>
+<!-- Anexo de Documento com Validação OCR -->
+<section class="bg-neutral-card p-4 rounded-xl border border-border-subtle shadow-sm space-y-3">
+<div class="flex items-center justify-between">
+<label class="font-headline-sm text-body-md text-on-surface">
+            Documento Comprobatório <span class="text-ruby-danger">*</span>
+</label>
+<span class="font-caption text-caption text-teal-success font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-sm text-emerald-light" data-icon="check_circle" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+            1 arquivo anexado
+          </span>
+</div>
+<!-- Document Preview Card (Simulating Attached File with OCR) -->
+<div class="border border-border-subtle rounded-xl p-3 bg-neutral-canvas/50 relative overflow-hidden">
+<div class="flex items-start gap-3">
+<!-- Simulated thumbnail -->
+<div class="w-14 h-16 rounded-lg bg-surface-container flex flex-col items-center justify-center border border-secondary/20 shadow-xs relative shrink-0">
+<span class="material-symbols-outlined text-secondary text-2xl" data-icon="picture_as_pdf">picture_as_pdf</span>
+<span class="font-caption text-[9px] uppercase font-bold text-secondary mt-0.5">PDF</span>
+<!-- Verified Badge -->
+<span class="absolute -top-1.5 -right-1.5 w-4 h-4 bg-emerald-light text-white rounded-full flex items-center justify-center text-[10px] shadow">✓</span>
+</div>
+<!-- Details & Tags -->
+<div class="flex-1 min-w-0">
+<div class="flex items-start justify-between gap-1">
+<p class="font-headline-sm text-body-sm text-on-surface truncate font-medium">atestado_medico_outubro.pdf</p>
+<button aria-label="Remover anexo" class="text-ruby-danger hover:bg-ruby-danger/10 p-1 rounded transition-colors" type="button">
+<span class="material-symbols-outlined text-lg" data-icon="delete">delete</span>
+</button>
+</div>
+<p class="font-tabular-time text-caption text-outline">1.8 MB • Enviado hoje às 09:42</p>
+<!-- OCR Intelligence Detection Ribbon -->
+<div class="mt-2 inline-flex items-center gap-1.5 px-2 py-1 rounded bg-surface-container-low text-secondary border border-secondary/20 max-w-full">
+<span class="material-symbols-outlined text-xs text-blue-vibrant" data-icon="document_scanner">document_scanner</span>
+<span class="font-caption text-[11px] font-medium truncate">OCR: Assinatura e CRM/SP 148920 detectados</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Upload Buttons -->
+<div class="grid grid-cols-2 gap-2 pt-1">
+<button class="flex items-center justify-center gap-2 h-11 px-3 rounded-lg border border-border-subtle bg-white hover:bg-surface-container-low text-on-surface-variant font-body-sm font-medium transition-colors" type="button">
+<span class="material-symbols-outlined text-lg text-secondary" data-icon="photo_camera">photo_camera</span>
+            Tirar Foto
+          </button>
+<button class="flex items-center justify-center gap-2 h-11 px-3 rounded-lg border border-border-subtle bg-white hover:bg-surface-container-low text-on-surface-variant font-body-sm font-medium transition-colors" type="button">
+<span class="material-symbols-outlined text-lg text-secondary" data-icon="upload_file">upload_file</span>
+            Substituir Arquivo
+          </button>
+</div>
+</section>
+<!-- Campo de Observações Adicionais -->
+<section class="bg-neutral-card p-4 rounded-xl border border-border-subtle shadow-sm space-y-2">
+<label class="block font-headline-sm text-body-md text-on-surface" for="observations">
+          Observações para o Gestor / RH
+        </label>
+<textarea class="w-full rounded-lg border border-border-subtle bg-white text-body-sm text-on-surface focus:border-secondary focus:ring-1 focus:ring-secondary p-2.5 placeholder:text-outline-variant" id="observations" placeholder="Ex: Comunico que estarei em repouso domiciliar. Atividades críticas repassadas ao Pedro." rows="2"></textarea>
+</section>
+<!-- Legal Compliance & Prazo Banner -->
+<div class="bg-surface-container-low/60 border border-secondary/20 rounded-xl p-3.5 space-y-2">
+<div class="flex items-start gap-2.5">
+<span class="material-symbols-outlined text-secondary text-xl shrink-0 mt-0.5" data-icon="verified_user">verified_user</span>
+<div>
+<h4 class="font-headline-sm text-caption font-bold text-on-surface">Política de Submissão e Sigilo</h4>
+<p class="font-body-sm text-caption text-on-surface-variant leading-relaxed">
+              O envio deve ocorrer no prazo de até <strong>48 horas</strong> úteis após a emissão do atestado. Todos os registros médicos são restritos ao Médico do Trabalho e auditáveis nos termos da <strong>LGPD (Lei 13.709/18)</strong> e <strong>Portaria 671 MTE</strong>.
+            </p>
+</div>
+</div>
+</div>
+<!-- Action Submissions (Direct in canvas flow before fixed bar) -->
+<div class="space-y-2.5 pt-2">
+<button class="w-full h-12 rounded-xl bg-blue-vibrant hover:bg-secondary text-white font-headline-sm text-body-md font-semibold shadow-md flex items-center justify-center gap-2 transition-all active:scale-[0.99]" type="button">
+<span class="material-symbols-outlined text-xl" data-icon="send">send</span>
+          Enviar para Validação do RH
+        </button>
+<button class="w-full h-10 rounded-xl border border-border-subtle bg-neutral-card text-on-surface font-body-sm font-medium hover:bg-surface-container-low flex items-center justify-center gap-2 transition-colors" type="button">
+<span class="material-symbols-outlined text-lg text-outline" data-icon="bookmark_border">bookmark_border</span>
+          Salvar como Rascunho
+        </button>
+</div>
+</main>
+<!-- Bottom Navigation Bar (Exact specification from Shared Components JSON for Mobile) -->
+<!-- JSON Schema: Labels ["Ponto", "Histórico", "Solicitações", "Perfil"] | Icons: ["fingerprint", "calendar_today", "pending_actions", "person"] -->
+<!-- Active Intent: 'Solicitações' for Atestados e Justificativas -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 bg-surface-container-lowest border-t border-border-subtle shadow-lg">
+<!-- Tab 1: Ponto (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1 hover:text-secondary transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-2xl" data-icon="fingerprint">fingerprint</span>
+<span class="font-caption text-caption mt-0.5">Ponto</span>
+</a>
+<!-- Tab 2: Histórico (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1 hover:text-secondary transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-2xl" data-icon="calendar_today">calendar_today</span>
+<span class="font-caption text-caption mt-0.5">Histórico</span>
+</a>
+<!-- Tab 3: Solicitações (Active: Selected based on semantic mapping for Atestados e Justificativas) -->
+<!-- Classes strictly mapped from Shared Components JSON style_active_navigation: "flex flex-col items-center justify-center bg-secondary-fixed dark:bg-primary-container text-on-secondary-fixed dark:text-secondary-fixed rounded-xl px-3 py-1 font-medium" -->
+<a class="flex flex-col items-center justify-center bg-secondary-fixed text-on-secondary-fixed rounded-xl px-3 py-1 font-medium" href="#">
+<span class="material-symbols-outlined text-2xl" data-icon="pending_actions" data-weight="fill" style="font-variation-settings: 'FILL' 1;">pending_actions</span>
+<span class="font-caption text-caption mt-0.5">Solicitações</span>
+</a>
+<!-- Tab 4: Perfil (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1 hover:text-secondary transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-2xl" data-icon="person">person</span>
+<span class="font-caption text-caption mt-0.5">Perfil</span>
+</a>
+</nav>
+</div>
+
+
+</body></html>

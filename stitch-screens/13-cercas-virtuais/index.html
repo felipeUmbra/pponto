@@ -1,0 +1,724 @@
+<!DOCTYPE html><html class="h-full" lang="pt-BR"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>pPonto Gestão - Configurações de Localização &amp; Cercas Virtuais (Geofencing)</title>
+<!-- Google Fonts: Inter & JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;600&amp;display=swap" rel="stylesheet">
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS Play CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config verbatim according to Design System -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "inverse-primary": "#bec6e0",
+            "error-container": "#ffdad6",
+            "on-tertiary-fixed": "#002114",
+            "on-primary-fixed": "#131b2e",
+            "blue-vibrant": "#2563EB",
+            "teal-success": "#059669",
+            "outline": "#76777d",
+            "inverse-on-surface": "#eaf1ff",
+            "on-error-container": "#93000a",
+            "primary": "#000000",
+            "on-background": "#0b1c30",
+            "outline-variant": "#c6c6cd",
+            "secondary-container": "#316bf3",
+            "on-tertiary-fixed-variant": "#005137",
+            "emerald-light": "#10B981",
+            "inverse-surface": "#213145",
+            "background": "#f8f9ff",
+            "secondary": "#0051d5",
+            "surface-variant": "#d3e4fe",
+            "amber-soft": "#F59E0B",
+            "on-secondary-container": "#fefcff",
+            "on-tertiary": "#ffffff",
+            "surface-tint": "#565e74",
+            "surface-container-highest": "#d3e4fe",
+            "primary-container": "#131b2e",
+            "surface-container-low": "#eff4ff",
+            "tertiary": "#000000",
+            "error": "#ba1a1a",
+            "tertiary-fixed-dim": "#68dba9",
+            "surface-container-high": "#dce9ff",
+            "ruby-danger": "#DC2626",
+            "navy-surface": "#1E293B",
+            "on-surface": "#0b1c30",
+            "purple-bank": "#7C3AED",
+            "on-secondary": "#ffffff",
+            "tertiary-fixed": "#85f8c4",
+            "surface-bright": "#f8f9ff",
+            "surface-container-lowest": "#ffffff",
+            "purple-subtle": "#F5F3FF",
+            "surface-container": "#e5eeff",
+            "on-secondary-fixed-variant": "#003ea8",
+            "on-primary-fixed-variant": "#3f465c",
+            "on-primary-container": "#7c839b",
+            "amber-warning": "#D97706",
+            "secondary-fixed": "#dbe1ff",
+            "neutral-card": "#FFFFFF",
+            "tertiary-container": "#002114",
+            "on-secondary-fixed": "#00174b",
+            "blue-accent": "#3B82F6",
+            "on-surface-variant": "#45464d",
+            "surface": "#f8f9ff",
+            "neutral-canvas": "#F8FAFC",
+            "surface-dim": "#cbdbf5",
+            "on-error": "#ffffff",
+            "navy-deep": "#0F172A",
+            "on-tertiary-container": "#069669",
+            "primary-fixed": "#dae2fd",
+            "secondary-fixed-dim": "#b4c5ff",
+            "primary-fixed-dim": "#bec6e0",
+            "on-primary": "#ffffff",
+            "border-subtle": "#E2E8F0"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-lg": "1.5rem",
+            "margin": "1.5rem",
+            "space-md": "1rem",
+            "space-xs": "0.25rem",
+            "gutter": "1.5rem",
+            "space-xl": "2.5rem",
+            "space-sm": "0.5rem"
+          },
+          "fontFamily": {
+            "clock-large-mobile": ["JetBrains Mono"],
+            "headline-sm": ["Inter"],
+            "badge-label": ["Inter"],
+            "clock-large": ["JetBrains Mono"],
+            "caption": ["Inter"],
+            "headline-md": ["Inter"],
+            "headline-lg": ["Inter"],
+            "display-hero": ["Inter"],
+            "body-lg": ["Inter"],
+            "display-hero-mobile": ["Inter"],
+            "body-sm": ["Inter"],
+            "body-md": ["Inter"],
+            "tabular-time": ["JetBrains Mono"],
+            "headline-lg-mobile": ["Inter"]
+          },
+          "fontSize": {
+            "clock-large-mobile": ["2.25rem", { "lineHeight": "2.5rem", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "headline-sm": ["1.125rem", { "lineHeight": "1.5rem", "fontWeight": "600" }],
+            "badge-label": ["0.6875rem", { "lineHeight": "0.875rem", "letterSpacing": "0.04em", "fontWeight": "600" }],
+            "clock-large": ["3rem", { "lineHeight": "3.25rem", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "caption": ["0.6875rem", { "lineHeight": "0.875rem", "letterSpacing": "0.02em", "fontWeight": "500" }],
+            "headline-md": ["1.25rem", { "lineHeight": "1.75rem", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "headline-lg": ["2rem", { "lineHeight": "2.5rem", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "display-hero": ["3.5rem", { "lineHeight": "4rem", "letterSpacing": "-0.03em", "fontWeight": "700" }],
+            "body-lg": ["1rem", { "lineHeight": "1.5rem", "fontWeight": "400" }],
+            "display-hero-mobile": ["2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "body-sm": ["0.75rem", { "lineHeight": "1.125rem", "fontWeight": "400" }],
+            "body-md": ["0.875rem", { "lineHeight": "1.375rem", "fontWeight": "400" }],
+            "tabular-time": ["0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "0em", "fontWeight": "500" }],
+            "headline-lg-mobile": ["1.5rem", { "lineHeight": "2rem", "letterSpacing": "-0.01em", "fontWeight": "700" }]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+      vertical-align: middle;
+      display: inline-block;
+      line-height: 1;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #F1F5F9;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #CBD5E1;
+      border-radius: 9999px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #94A3B8;
+    }
+  </style>
+</head>
+<body class="bg-neutral-canvas text-on-surface antialiased h-full flex overflow-hidden">
+<!-- ========================================================================= -->
+<!-- 1. SideNavBar COMPONENT (Shared Components JSON Anchor)                   -->
+<!-- ========================================================================= -->
+<aside class="h-screen flex flex-col justify-between p-4 border-r border-border-subtle bg-navy-deep fixed left-0 top-0 z-40 w-64 select-none">
+<div>
+<!-- Brand & Header -->
+<div class="flex items-center gap-3 px-2 py-3 mb-4">
+<div class="w-10 h-10 rounded-lg bg-blue-vibrant flex items-center justify-center text-neutral-card shadow-sm">
+<span class="material-symbols-outlined text-2xl" data-icon="fingerprint">fingerprint</span>
+</div>
+<div class="flex flex-col">
+<span class="text-headline-md font-headline-md font-bold text-neutral-card tracking-tight">pPonto Gestão</span>
+<span class="text-caption font-caption text-outline-variant">Portaria 671 MTE Compliance</span>
+</div>
+</div>
+<!-- Quick Action CTA -->
+<div class="mb-5">
+<button class="w-full flex items-center justify-center gap-2 bg-blue-vibrant hover:bg-secondary text-neutral-card py-2.5 px-4 rounded-lg font-body-md text-body-md font-semibold transition-all duration-150 ease-in-out active:scale-[0.99] shadow-sm">
+<span class="material-symbols-outlined text-lg" data-icon="fingerprint">fingerprint</span>
+<span class="">Bater Ponto</span>
+</button>
+</div>
+<!-- Main Navigation Menu -->
+<nav class="space-y-1">
+<!-- 1. Painel -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-outline-variant hover:text-neutral-card hover:bg-navy-surface transition-colors font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="dashboard">dashboard</span>
+<span class="">Painel</span>
+</a>
+<!-- 2. Espelho de Ponto -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-outline-variant hover:text-neutral-card hover:bg-navy-surface transition-colors font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="schedule">schedule</span>
+<span class="">Espelho de Ponto</span>
+</a>
+<!-- 3. Colaboradores -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-outline-variant hover:text-neutral-card hover:bg-navy-surface transition-colors font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="group">group</span>
+<span class="">Colaboradores</span>
+</a>
+<!-- 4. Escalas & Turnos -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-outline-variant hover:text-neutral-card hover:bg-navy-surface transition-colors font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="calendar_month">calendar_month</span>
+<span class="">Escalas &amp; Turnos</span>
+</a>
+<!-- 5. Aprovações -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-outline-variant hover:text-neutral-card hover:bg-navy-surface transition-colors font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="rule">rule</span>
+<span class="">Aprovações</span>
+</a>
+<!-- 6. Relatórios Fiscais -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-outline-variant hover:text-neutral-card hover:bg-navy-surface transition-colors font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="verified_user">verified_user</span>
+<span class="">Relatórios Fiscais</span>
+</a>
+</nav>
+</div>
+<!-- Footer Tabs with ACTIVE Anchor mapped to "Configurações REP" -->
+<div class="pt-4 border-t border-navy-surface space-y-1">
+<div class="px-2 pb-2">
+<span class="text-caption font-caption text-outline-variant uppercase tracking-wider font-semibold">Infraestrutura</span>
+</div>
+<!-- ACTIVE TAB: Configurações REP -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-secondary text-on-secondary font-medium font-body-md text-body-md shadow-sm" href="#"><span class="material-symbols-outlined text-xl" data-icon="share_location">share_location</span>
+<span class="flex-1">Cercas Virtuais</span>
+<span class="w-2 h-2 rounded-full bg-emerald-light"></span></a>
+<!-- Suporte Técnico -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-outline-variant hover:text-neutral-card hover:bg-navy-surface transition-colors font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="headset_mic">headset_mic</span>
+<span class="">Suporte Técnico</span>
+</a>
+<!-- Hardware Sync Status Mini Banner -->
+<div class="mt-4 p-3 rounded-lg bg-navy-surface border border-border-subtle/10 flex items-center justify-between"><div class="flex items-center gap-2">
+<span class="relative flex h-2.5 w-2.5">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-light opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-light"></span>
+</span>
+<span class="text-caption font-caption text-neutral-card font-medium">REP-P Nuvem Ativo</span>
+</div>
+<span class="font-tabular-time text-caption text-teal-success font-semibold">100% Digital</span></div>
+</div>
+</aside>
+<!-- ========================================================================= -->
+<!-- 2. MAIN CONTENT WRAPPER (Shifted by 64px/256px for Sidebar)              -->
+<!-- ========================================================================= -->
+<div class="flex-1 flex flex-col pl-64 h-full overflow-hidden">
+<!-- TopNavBar COMPONENT (Shared Components JSON Anchor) -->
+<header class="flex justify-between items-center w-full px-6 h-16 border-b border-border-subtle bg-neutral-card fixed top-0 right-0 left-64 z-30 shadow-sm">
+<!-- Search Bar on Left -->
+<div class="flex items-center gap-6">
+<div class="relative w-80">
+<span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-on-surface-variant">
+<span class="material-symbols-outlined text-lg" data-icon="search">search</span>
+</span>
+<input class="w-full pl-9 pr-4 py-1.5 bg-surface-container-low border border-border-subtle rounded-lg text-body-md font-body-md text-on-surface focus:outline-none focus:border-blue-vibrant focus:ring-1 focus:ring-blue-vibrant transition-all placeholder:text-outline" placeholder="Buscar cerca virtual ou localidade..." type="text">
+</div>
+<!-- Navigation Links Cluster -->
+<nav class="hidden xl:flex items-center space-x-6 text-body-md font-body-md">
+<a class="text-on-surface-variant hover:text-on-surface transition-colors font-normal" href="#">Visão Geral</a>
+<a class="text-secondary border-b-2 border-secondary pb-1 font-semibold" href="#">Auditoria Fiscal</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors font-normal" href="#">Arquivos AFD/AFDT</a>
+</nav>
+</div>
+<!-- Trailing Action Buttons & User Profile -->
+<div class="flex items-center gap-3">
+<button class="px-3 py-1.5 border border-border-subtle text-on-surface rounded-lg text-body-md font-body-md font-medium hover:bg-surface-container-low transition-colors flex items-center gap-2"><span class="material-symbols-outlined text-base" data-icon="description">description</span>
+<span class="">Exportar Relatório</span></button>
+<button class="px-3 py-1.5 bg-secondary hover:bg-secondary-container text-on-secondary rounded-lg text-body-md font-body-md font-semibold transition-colors shadow-sm">
+          Fechar Folha
+        </button>
+<div class="h-6 w-px bg-border-subtle mx-1"></div>
+<!-- Trailing Icon Actions -->
+<div class="flex items-center gap-1">
+<button class="p-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low rounded-lg transition-colors" title="Notificações">
+<span class="material-symbols-outlined text-xl" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low rounded-lg transition-colors" title="Ajuda">
+<span class="material-symbols-outlined text-xl" data-icon="help_outline">help_outline</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low rounded-lg transition-colors" title="Filtros e Configuração">
+<span class="material-symbols-outlined text-xl" data-icon="tune">tune</span>
+</button>
+</div>
+<div class="h-6 w-px bg-border-subtle mx-1"></div>
+<!-- Manager Profile Avatar -->
+<div class="flex items-center gap-2 pl-2">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center font-bold text-secondary text-caption border border-border-subtle">
+            RH
+          </div>
+<div class="hidden lg:flex flex-col text-left">
+<span class="text-caption font-caption font-semibold leading-tight text-on-surface">Mariana Tavares</span>
+<span class="text-caption font-caption text-on-surface-variant text-[10px]">Gestora Trabalhista</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Canvas Scrollable Body -->
+<main class="flex-1 mt-16 overflow-y-auto custom-scrollbar p-6 bg-neutral-canvas">
+<!-- Page Header with Subtitle & Primary Actions -->
+<div class="flex flex-col md:flex-row md:items-center justify-between pb-6 border-b border-border-subtle gap-4">
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="px-2 py-0.5 rounded text-badge-label font-badge-label bg-surface-variant text-secondary font-semibold uppercase tracking-wider">
+              Segurança &amp; Perímetros
+            </span>
+<span class="px-2 py-0.5 rounded text-badge-label font-badge-label bg-emerald-100 text-teal-success font-semibold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-teal-success"></span>
+              Conforme Portaria MTE 671/2021
+            </span>
+</div>
+<h1 class="text-headline-lg font-headline-lg text-on-surface tracking-tight">Configurações de Localização &amp; Cercas Virtuais (Geofencing)</h1>
+<p class="text-body-md font-body-md text-on-surface-variant mt-1">Gestão de perímetros autorizados para registro de ponto digital via web e mobile (Portaria 671 MTE - REP-P).</p>
+</div>
+<!-- Header CTAs -->
+<div class="flex items-center gap-3">
+<button class="px-4 py-2 border border-border-subtle bg-neutral-card text-on-surface rounded-lg text-body-md font-body-md font-medium hover:bg-surface-container-low transition-all shadow-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-lg" data-icon="add_location_alt">add_location_alt</span>
+<span class="">+ Novo Perímetro de Bate-Ponto</span>
+</button>
+<button class="px-4 py-2 bg-blue-vibrant hover:bg-secondary text-on-secondary rounded-lg text-body-md font-body-md font-semibold transition-all shadow-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-lg" data-icon="save">save</span>
+<span class="">Salvar Configurações de Perímetro</span>
+</button>
+</div>
+</div>
+<!-- Quick Metrics Ribbon (Instrumental KPI Cards) -->
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6"><!-- Metric 1: Cercas Ativas -->
+<div class="p-4 rounded-xl bg-neutral-card border border-border-subtle shadow-sm flex items-start justify-between">
+<div>
+<span class="text-caption font-caption text-on-surface-variant font-medium">Cercas Virtuais Ativas</span>
+<div class="text-headline-lg font-headline-lg text-on-surface mt-1">03</div>
+<span class="text-caption font-caption text-teal-success flex items-center gap-1 mt-1 font-semibold">
+<span class="material-symbols-outlined text-sm" data-icon="check_circle">check_circle</span>
+100% perímetro validado
+</span>
+</div>
+<div class="w-10 h-10 rounded-lg bg-surface-container-low text-secondary flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="share_location">share_location</span>
+</div>
+</div>
+<!-- Metric 2: Colaboradores Cobertos -->
+<div class="p-4 rounded-xl bg-neutral-card border border-border-subtle shadow-sm flex items-start justify-between">
+<div>
+<span class="text-caption font-caption text-on-surface-variant font-medium">Colaboradores Cobertos</span>
+<div class="text-headline-lg font-headline-lg text-on-surface mt-1">248</div>
+<span class="text-caption font-caption text-on-surface-variant mt-1 block">
+142 SP • 68 Cajamar • 38 RJ
+</span>
+</div>
+<div class="w-10 h-10 rounded-lg bg-surface-container-low text-blue-accent flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="badge">badge</span>
+</div>
+</div>
+<!-- Metric 3: Precisão Média GPS -->
+<div class="p-4 rounded-xl bg-neutral-card border border-border-subtle shadow-sm flex items-start justify-between">
+<div>
+<span class="text-caption font-caption text-on-surface-variant font-medium">Precisão Média GPS</span>
+<div class="text-headline-lg font-headline-lg text-on-surface mt-1 font-tabular-time">± 4,2 m</div>
+<span class="text-caption font-caption text-teal-success flex items-center gap-1 mt-1 font-semibold">
+<span class="material-symbols-outlined text-sm" data-icon="gps_fixed">gps_fixed</span>
+Conformidade REP-P Alta
+</span>
+</div>
+<div class="w-10 h-10 rounded-lg bg-surface-container-low text-teal-success flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="my_location">my_location</span>
+</div>
+</div>
+<!-- Metric 4: Tentativas Fora do Perímetro -->
+<div class="p-4 rounded-xl bg-neutral-card border border-border-subtle shadow-sm flex items-start justify-between">
+<div>
+<span class="text-caption font-caption text-on-surface-variant font-medium">Tentativas Fora da Cerca</span>
+<div class="text-headline-lg font-headline-lg text-on-surface mt-1 font-tabular-time">02 <span class="text-sm font-normal text-on-surface-variant">hoje</span></div>
+<span class="text-caption font-caption text-amber-warning flex items-center gap-1 mt-1 font-medium">
+<span class="material-symbols-outlined text-sm" data-icon="warning">warning</span>
+Bloqueadas com auditoria
+</span>
+</div>
+<div class="w-10 h-10 rounded-lg bg-error-container/40 text-ruby-danger flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="gpp_bad">gpp_bad</span>
+</div>
+</div></section>
+<!-- Main Dual Grid Section -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mt-6">
+<!-- =================================================================== -->
+<!-- SECTION 1: CERCAS VIRTUAIS (GEOFENCING) - 7 COLS                    -->
+<!-- =================================================================== -->
+<div class="flex flex-col gap-6 w-full">
+<!-- Interactive Vector Styled Map Container -->
+<div class="bg-neutral-card border border-border-subtle rounded-xl p-5 shadow-sm">
+<div class="flex items-center justify-between pb-3 border-b border-border-subtle mb-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="map">map</span>
+<h2 class="text-headline-sm font-headline-sm text-on-surface">Cercas Virtuais (Geofencing)</h2>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2.5 py-0.5 rounded-full text-badge-label font-badge-label bg-emerald-50 text-teal-success border border-emerald-200 flex items-center gap-1 font-semibold">
+<span class="w-2 h-2 rounded-full bg-emerald-light animate-pulse"></span>
+                  Precisão GPS: ±4 metros
+                </span>
+<button class="text-caption font-caption text-secondary hover:underline flex items-center gap-1" title="Centralizar Matriz SP">
+<span class="material-symbols-outlined text-sm" data-icon="my_location">my_location</span>
+                  Centralizar
+                </button>
+</div>
+</div>
+<!-- Simulated Modern Technical Vector Map Canvas -->
+<div class="relative w-full h-80 rounded-lg overflow-hidden bg-slate-100 border border-border-subtle flex items-center justify-center select-none shadow-inner" style="background-color: #F1F5F9;">
+<!-- Grid overlay simulating vector CAD/GIS system -->
+<div class="absolute inset-0 opacity-40" style="background-image: radial-gradient(#94A3B8 1px, transparent 1px); background-size: 24px 24px;"></div>
+<!-- Stylized Simulated Roads & Buildings -->
+<svg class="absolute inset-0 w-full h-full opacity-35" xmlns="http://www.w3.org/2000/svg">
+<!-- Street Grid Lines -->
+<path d="M -50,160 L 800,160" stroke="#CBD5E1" stroke-width="32"></path>
+<path d="M -50,160 L 800,160" stroke="#FFFFFF" stroke-width="26"></path>
+<path d="M 320,-50 L 320,400" stroke="#CBD5E1" stroke-width="24"></path>
+<path d="M 320,-50 L 320,400" stroke="#FFFFFF" stroke-width="18"></path>
+<path d="M 120,-50 L 120,400" stroke="#E2E8F0" stroke-width="12"></path>
+<path d="M 520,-50 L 520,400" stroke="#E2E8F0" stroke-width="14"></path>
+<!-- Metro / Avenue Diagonal -->
+<path d="M -20,320 L 700,40" stroke="#E2E8F0" stroke-dasharray="6,4" stroke-width="16"></path>
+<!-- Urban Blocks -->
+<rect fill="#E2E8F0" height="100" rx="4" width="160" x="140" y="40"></rect>
+<rect fill="#E2E8F0" height="100" rx="4" width="160" x="340" y="40"></rect>
+<rect fill="#E2E8F0" height="120" rx="4" width="160" x="140" y="180"></rect>
+<rect fill="#E2E8F0" height="120" rx="4" width="160" x="340" y="180"></rect>
+</svg>
+<!-- Radial Geofence Zone: Matriz SP (70m radius) -->
+<div class="relative z-10 flex items-center justify-center">
+<!-- Outermost Pulse Wave -->
+<div class="absolute w-64 h-64 rounded-full bg-emerald-light/15 border border-teal-success/40 animate-ping" style="animation-duration: 3s;"></div>
+<!-- Geofence 70m Perimeter Circle -->
+<div class="w-56 h-56 rounded-full bg-teal-success/15 border-2 border-dashed border-teal-success flex items-center justify-center shadow-lg backdrop-blur-[1px]">
+<!-- Inner Radius Guide -->
+<div class="w-32 h-32 rounded-full border border-teal-success/30 flex items-center justify-center">
+<span class="text-[10px] font-tabular-time text-teal-success font-bold bg-neutral-card/90 px-2 py-0.5 rounded shadow-sm">
+                      Raio: 70m
+                    </span>
+</div>
+</div>
+<!-- Workplace Headquarters Marker Center -->
+<div class="absolute flex flex-col items-center pointer-events-none -translate-y-5">
+<div class="w-9 h-9 rounded-full bg-blue-vibrant border-2 border-neutral-card shadow-md flex items-center justify-center text-neutral-card">
+<span class="material-symbols-outlined text-lg" data-icon="corporate_fare">corporate_fare</span>
+</div>
+<div class="w-2.5 h-2.5 bg-blue-vibrant rotate-45 -mt-1 shadow-sm"></div>
+<!-- Tag Label -->
+<div class="mt-1 bg-navy-deep text-neutral-card text-caption font-caption px-2 py-0.5 rounded shadow-md font-semibold whitespace-nowrap">
+                    Matriz SP (Av. Paulista, 1000)
+                  </div>
+</div>
+</div>
+<!-- Map Navigation Floating Controls (Top-Right) -->
+<div class="absolute top-3 right-3 bg-neutral-card/95 border border-border-subtle rounded-lg shadow-sm p-1 flex flex-col gap-1 z-20">
+<button class="w-7 h-7 flex items-center justify-center text-on-surface hover:bg-surface-container-low rounded text-sm font-bold">+</button>
+<div class="h-px bg-border-subtle w-full"></div>
+<button class="w-7 h-7 flex items-center justify-center text-on-surface hover:bg-surface-container-low rounded text-sm font-bold">-</button>
+</div>
+<!-- Map Footer Status Bar -->
+<div class="absolute bottom-2 left-2 right-2 bg-neutral-card/95 backdrop-blur-sm border border-border-subtle rounded-lg px-3 py-2 flex items-center justify-between text-caption font-caption shadow-sm z-20">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-teal-success text-base" data-icon="verified">verified</span>
+<span class="text-on-surface font-medium">Coordenadas: <span class="font-tabular-time text-on-surface-variant">-23.561414, -46.655881</span></span>
+</div>
+<span class="text-on-surface-variant font-medium">70 metros de tolerância radial ativa</span>
+</div>
+</div>
+<!-- List of Configured Geographic Perimeters -->
+<div class="mt-5">
+<div class="flex items-center justify-between mb-3">
+<span class="text-headline-sm font-headline-sm text-on-surface">Locais Autorizados Cadastrados</span>
+<span class="text-caption font-caption text-on-surface-variant font-medium">3 unidades mapeadas</span>
+</div>
+<div class="space-y-3">
+<!-- Location 1: Matriz SP (Active Highlighted) -->
+<div class="p-3.5 rounded-lg border-2 border-blue-vibrant/60 bg-surface-container-low/50 transition-all hover:bg-surface-container-low">
+<div class="flex items-start justify-between gap-3">
+<div class="flex items-start gap-3">
+<div class="w-9 h-9 rounded-lg bg-secondary text-neutral-card flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-lg" data-icon="domain">domain</span>
+</div>
+<div>
+<div class="flex items-center gap-2 flex-wrap">
+<span class="font-headline-sm text-headline-sm text-on-surface">Matriz São Paulo</span>
+<span class="px-2 py-0.5 rounded text-badge-label font-badge-label bg-emerald-100 text-teal-success font-semibold">
+                            Tolerância Ativa
+                          </span>
+<span class="px-2 py-0.5 rounded text-badge-label font-badge-label bg-error-container text-ruby-danger font-semibold">
+                            Bloquear fora do raio
+                          </span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-0.5">
+                          Av. Paulista, 1000 - Bela Vista, São Paulo - SP, 01310-100
+                        </p>
+<div class="flex items-center gap-4 mt-2 text-caption font-caption text-on-surface-variant">
+<span class="flex items-center gap-1 font-semibold text-on-surface">
+<span class="material-symbols-outlined text-sm text-secondary" data-icon="radar">radar</span>
+                            Raio: 70m
+                          </span>
+<span class="flex items-center gap-1 font-semibold text-on-surface">
+<span class="material-symbols-outlined text-sm text-secondary" data-icon="group">group</span>
+                            142 colaboradores vinculados
+                          </span>
+<span class="text-ruby-danger flex items-center gap-1 font-medium">
+<span class="material-symbols-outlined text-sm" data-icon="gpp_bad">gpp_bad</span>
+                            Justificativa obrigatória se violado
+                          </span>
+</div>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex items-center gap-1">
+<button class="p-1.5 text-on-surface-variant hover:text-secondary rounded hover:bg-neutral-card transition-colors" title="Editar Perímetro">
+<span class="material-symbols-outlined text-lg" data-icon="edit">edit</span>
+</button>
+<button class="p-1.5 text-on-surface-variant hover:text-ruby-danger rounded hover:bg-neutral-card transition-colors" title="Excluir Perímetro">
+<span class="material-symbols-outlined text-lg" data-icon="delete">delete</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Location 2: CD Cajamar -->
+<div class="p-3.5 rounded-lg border border-border-subtle bg-neutral-card transition-all hover:bg-surface-container-low/40">
+<div class="flex items-start justify-between gap-3">
+<div class="flex items-start gap-3">
+<div class="w-9 h-9 rounded-lg bg-surface-container-highest text-secondary flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-lg" data-icon="warehouse">warehouse</span>
+</div>
+<div>
+<div class="flex items-center gap-2 flex-wrap">
+<span class="font-headline-sm text-headline-sm text-on-surface">Centro de Distribuição Cajamar</span>
+<span class="px-2 py-0.5 rounded text-badge-label font-badge-label bg-emerald-100 text-teal-success font-semibold">
+                            Tolerância Ativa
+                          </span>
+<span class="px-2 py-0.5 rounded text-badge-label font-badge-label bg-amber-100 text-amber-warning font-semibold">
+                            Permitir com Alerta
+                          </span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-0.5">
+                          Rod. Anhanguera, km 38 - Empresarial, Cajamar - SP, 07750-000
+                        </p>
+<div class="flex items-center gap-4 mt-2 text-caption font-caption text-on-surface-variant">
+<span class="flex items-center gap-1 font-semibold text-on-surface">
+<span class="material-symbols-outlined text-sm text-secondary" data-icon="radar">radar</span>
+                            Raio: 150m
+                          </span>
+<span class="flex items-center gap-1 font-semibold text-on-surface">
+<span class="material-symbols-outlined text-sm text-secondary" data-icon="group">group</span>
+                            68 colaboradores vinculados
+                          </span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1">
+<button class="p-1.5 text-on-surface-variant hover:text-secondary rounded hover:bg-surface-container-low transition-colors" title="Editar Perímetro">
+<span class="material-symbols-outlined text-lg" data-icon="edit">edit</span>
+</button>
+<button class="p-1.5 text-on-surface-variant hover:text-ruby-danger rounded hover:bg-surface-container-low transition-colors" title="Excluir Perímetro">
+<span class="material-symbols-outlined text-lg" data-icon="delete">delete</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Location 3: Filial RJ -->
+<div class="p-3.5 rounded-lg border border-border-subtle bg-neutral-card transition-all hover:bg-surface-container-low/40">
+<div class="flex items-start justify-between gap-3">
+<div class="flex items-start gap-3">
+<div class="w-9 h-9 rounded-lg bg-surface-container-highest text-secondary flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-lg" data-icon="location_city">location_city</span>
+</div>
+<div>
+<div class="flex items-center gap-2 flex-wrap">
+<span class="font-headline-sm text-headline-sm text-on-surface">Filial Rio de Janeiro</span>
+<span class="px-2 py-0.5 rounded text-badge-label font-badge-label bg-emerald-100 text-teal-success font-semibold">
+                            Tolerância Ativa
+                          </span>
+<span class="px-2 py-0.5 rounded text-badge-label font-badge-label bg-error-container text-ruby-danger font-semibold">
+                            Bloquear fora do raio
+                          </span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-0.5">
+                          Av. Rio Branco, 156 - Centro, Rio de Janeiro - RJ, 20040-003
+                        </p>
+<div class="flex items-center gap-4 mt-2 text-caption font-caption text-on-surface-variant">
+<span class="flex items-center gap-1 font-semibold text-on-surface">
+<span class="material-symbols-outlined text-sm text-secondary" data-icon="radar">radar</span>
+                            Raio: 80m
+                          </span>
+<span class="flex items-center gap-1 font-semibold text-on-surface">
+<span class="material-symbols-outlined text-sm text-secondary" data-icon="group">group</span>
+                            38 colaboradores vinculados
+                          </span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1">
+<button class="p-1.5 text-on-surface-variant hover:text-secondary rounded hover:bg-surface-container-low transition-colors" title="Editar Perímetro">
+<span class="material-symbols-outlined text-lg" data-icon="edit">edit</span>
+</button>
+<button class="p-1.5 text-on-surface-variant hover:text-ruby-danger rounded hover:bg-surface-container-low transition-colors" title="Excluir Perímetro">
+<span class="material-symbols-outlined text-lg" data-icon="delete">delete</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Parameter Modification / Geofence Editor Box -->
+<div class="bg-neutral-card border border-border-subtle rounded-xl p-5 shadow-sm">
+<div class="flex items-center justify-between pb-3 border-b border-border-subtle mb-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="tune">tune</span>
+<h3 class="text-headline-sm font-headline-sm text-on-surface">Editor de Parâmetros de Perímetro</h3>
+</div>
+<span class="text-caption font-caption text-on-surface-variant">Editando: <strong>Matriz São Paulo</strong></span>
+</div>
+<div class="space-y-4">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div>
+<label class="block text-caption font-caption font-semibold text-on-surface mb-1.5">Endereço Corporativo</label>
+<div class="relative">
+<input class="w-full pl-3 pr-8 py-2 text-body-md font-body-md border border-border-subtle rounded-lg focus:ring-1 focus:ring-blue-vibrant focus:border-blue-vibrant text-on-surface bg-neutral-card" type="text" value="Av. Paulista, 1000 - Bela Vista, SP">
+<span class="material-symbols-outlined absolute right-2.5 top-2.5 text-on-surface-variant text-base" data-icon="pin_drop">pin_drop</span>
+</div>
+</div>
+<div>
+<label class="block text-caption font-caption font-semibold text-on-surface mb-1.5">Busca por CEP ou Coordenadas (Lat, Long)</label>
+<div class="flex gap-2">
+<input class="w-full px-3 py-2 text-body-md font-body-md border border-border-subtle rounded-lg focus:ring-1 focus:ring-blue-vibrant focus:border-blue-vibrant text-on-surface font-tabular-time" type="text" value="01310-100">
+<button class="px-3 py-2 bg-surface-container-high hover:bg-surface-container text-secondary rounded-lg text-body-md font-body-md font-semibold transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined text-lg" data-icon="travel_explore">travel_explore</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Slider: Raio de Tolerância (30m a 500m) -->
+<div class="p-3.5 bg-surface-container-low rounded-lg border border-border-subtle">
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-2">
+<span class="text-body-md font-body-md font-semibold text-on-surface">Raio de Tolerância de Batida</span>
+<span class="text-caption font-caption text-on-surface-variant">(Recomendado MTE: 50m a 100m)</span>
+</div>
+<span class="font-tabular-time text-body-md font-bold text-secondary bg-neutral-card px-2.5 py-0.5 rounded border border-border-subtle" id="radius-value-display">
+                    70 metros
+                  </span>
+</div>
+<input class="w-full h-2 bg-border-subtle rounded-lg appearance-none cursor-pointer accent-blue-vibrant" id="radius-slider" max="500" min="30" step="5" type="range" value="70">
+<div class="flex justify-between text-[11px] font-caption text-on-surface-variant mt-1.5">
+<span class="">30 metros (Ultra-restrito)</span>
+<span class="">100 metros</span>
+<span class="">250 metros</span>
+<span class="">500 metros (Área Ampla)</span>
+</div>
+</div>
+<!-- Policy Toggle: Restrição & Compliance -->
+<div class="p-3.5 bg-surface-container-low rounded-lg border border-border-subtle flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div class="space-y-0.5">
+<span class="text-body-md font-body-md font-semibold text-on-surface">Ação Fora do Raio Autorizado</span>
+<p class="text-caption font-caption text-on-surface-variant">Gestão de perímetros autorizados para registro de ponto digital via web e mobile (Portaria 671 MTE - REP-P).</p>
+</div>
+<!-- Interactive Radio/Segmented Control -->
+<div class="flex items-center bg-neutral-card p-1 rounded-lg border border-border-subtle shrink-0">
+<button class="px-3 py-1.5 rounded-md text-caption font-caption font-medium text-on-surface-variant hover:text-on-surface transition-colors flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm text-amber-soft" data-icon="warning">warning</span>
+<span class="">Permitir com Alerta</span>
+</button>
+<button class="px-3 py-1.5 rounded-md text-caption font-caption font-semibold bg-error-container text-ruby-danger shadow-sm flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm" data-icon="block">block</span>
+<span class="">Bloquear Batida</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- =================================================================== -->
+<!-- SECTION 2: SINCRONIZAÇÃO DE RELÓGIOS FÍSICOS (REP) - 5 COLS         -->
+<!-- =================================================================== -->
+
+</div>
+<!-- Bottom Floating Toast Notification (Hidden by default, triggered on test action) -->
+
+</main>
+</div>
+<!-- Vanilla JavaScript for Micro-Interactions & Sliders -->
+<script>
+    // Slider dynamic text sync
+    const radiusSlider = document.getElementById('radius-slider');
+    const radiusDisplay = document.getElementById('radius-value-display');
+
+    if (radiusSlider && radiusDisplay) {
+      radiusSlider.addEventListener('input', (e) => {
+        radiusDisplay.textContent = `${e.target.value} metros`;
+      });
+    }
+
+    // Hardware sync feedback toast trigger
+    const toast = document.getElementById('toast-feedback');
+    const toastMsg = document.getElementById('toast-message');
+    const testConnBtn = document.getElementById('test-connection-btn');
+    const forceSyncBtn = document.getElementById('force-sync-btn');
+
+    function showToast(message) {
+      if (!toast) return;
+      toastMsg.textContent = message;
+      toast.classList.remove('opacity-0', 'pointer-events-none');
+      toast.classList.add('opacity-100');
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'pointer-events-none');
+        toast.classList.remove('opacity-100');
+      }, 3500);
+    }
+
+    if (testConnBtn) {
+      testConnBtn.addEventListener('click', () => {
+        showToast('Socket TCP/IP testado com êxito: latência 14ms (2 dispositivos ativos).');
+      });
+    }
+
+    if (forceSyncBtn) {
+      forceSyncBtn.addEventListener('click', () => {
+        showToast('Coleta forçada de arquivo AFD concluída. 41.922 registros salvos na nuvem.');
+      });
+    }
+  </script>
+
+
+</body></html>

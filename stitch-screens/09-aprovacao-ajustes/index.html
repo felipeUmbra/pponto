@@ -1,0 +1,728 @@
+<!DOCTYPE html><html class="light" lang="pt-BR"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>pPonto Gestão - Central de Aprovação de Ajustes de Ponto</title>
+<!-- Material Symbols & Inter / JetBrains Mono Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration matching EXACT token definitions -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "inverse-surface": "#213145",
+            "purple-bank": "#7C3AED",
+            "amber-soft": "#F59E0B",
+            "on-surface": "#0b1c30",
+            "on-primary-container": "#7c839b",
+            "primary-fixed": "#dae2fd",
+            "outline": "#76777d",
+            "on-error": "#ffffff",
+            "ruby-danger": "#DC2626",
+            "blue-vibrant": "#2563EB",
+            "blue-accent": "#3B82F6",
+            "on-surface-variant": "#45464d",
+            "purple-subtle": "#F5F3FF",
+            "error": "#ba1a1a",
+            "surface": "#f8f9ff",
+            "neutral-card": "#FFFFFF",
+            "background": "#f8f9ff",
+            "surface-tint": "#565e74",
+            "on-tertiary-fixed": "#002114",
+            "primary-container": "#131b2e",
+            "surface-container-lowest": "#ffffff",
+            "surface-bright": "#f8f9ff",
+            "tertiary-fixed-dim": "#68dba9",
+            "inverse-on-surface": "#eaf1ff",
+            "outline-variant": "#c6c6cd",
+            "surface-container-low": "#eff4ff",
+            "on-secondary": "#ffffff",
+            "emerald-light": "#10B981",
+            "on-background": "#0b1c30",
+            "secondary-fixed": "#dbe1ff",
+            "navy-deep": "#0F172A",
+            "surface-container-high": "#dce9ff",
+            "border-subtle": "#E2E8F0",
+            "surface-variant": "#d3e4fe",
+            "on-secondary-fixed": "#00174b",
+            "surface-container": "#e5eeff",
+            "surface-dim": "#cbdbf5",
+            "navy-surface": "#1E293B",
+            "on-tertiary-fixed-variant": "#005137",
+            "secondary-container": "#316bf3",
+            "on-tertiary": "#ffffff",
+            "on-secondary-fixed-variant": "#003ea8",
+            "on-primary-fixed-variant": "#3f465c",
+            "on-primary": "#ffffff",
+            "inverse-primary": "#bec6e0",
+            "on-tertiary-container": "#069669",
+            "teal-success": "#059669",
+            "primary-fixed-dim": "#bec6e0",
+            "neutral-canvas": "#F8FAFC",
+            "primary": "#000000",
+            "secondary": "#0051d5",
+            "tertiary": "#000000",
+            "tertiary-container": "#002114",
+            "on-secondary-container": "#fefcff",
+            "on-error-container": "#93000a",
+            "amber-warning": "#D97706",
+            "secondary-fixed-dim": "#b4c5ff",
+            "on-primary-fixed": "#131b2e",
+            "error-container": "#ffdad6",
+            "tertiary-fixed": "#85f8c4",
+            "surface-container-highest": "#d3e4fe"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-md": "1rem",
+            "space-xs": "0.25rem",
+            "space-sm": "0.5rem",
+            "gutter": "1.5rem",
+            "margin": "1.5rem",
+            "space-xl": "2.5rem",
+            "space-lg": "1.5rem"
+          },
+          "fontFamily": {
+            "headline-lg": ["Inter"],
+            "caption": ["Inter"],
+            "clock-large": ["JetBrains Mono"],
+            "body-sm": ["Inter"],
+            "body-md": ["Inter"],
+            "headline-lg-mobile": ["Inter"],
+            "badge-label": ["Inter"],
+            "body-lg": ["Inter"],
+            "tabular-time": ["JetBrains Mono"],
+            "display-hero": ["Inter"],
+            "headline-sm": ["Inter"],
+            "clock-large-mobile": ["JetBrains Mono"],
+            "headline-md": ["Inter"],
+            "display-hero-mobile": ["Inter"]
+          },
+          "fontSize": {
+            "headline-lg": ["2rem", { "lineHeight": "2.5rem", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "caption": ["0.6875rem", { "lineHeight": "0.875rem", "letterSpacing": "0.02em", "fontWeight": "500" }],
+            "clock-large": ["3rem", { "lineHeight": "3.25rem", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "body-sm": ["0.75rem", { "lineHeight": "1.125rem", "fontWeight": "400" }],
+            "body-md": ["0.875rem", { "lineHeight": "1.375rem", "fontWeight": "400" }],
+            "headline-lg-mobile": ["1.5rem", { "lineHeight": "2rem", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "badge-label": ["0.6875rem", { "lineHeight": "0.875rem", "letterSpacing": "0.04em", "fontWeight": "600" }],
+            "body-lg": ["1rem", { "lineHeight": "1.5rem", "fontWeight": "400" }],
+            "tabular-time": ["0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "0em", "fontWeight": "500" }],
+            "display-hero": ["3.5rem", { "lineHeight": "4rem", "letterSpacing": "-0.03em", "fontWeight": "700" }],
+            "headline-sm": ["1.125rem", { "lineHeight": "1.5rem", "fontWeight": "600" }],
+            "clock-large-mobile": ["2.25rem", { "lineHeight": "2.5rem", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "headline-md": ["1.25rem", { "lineHeight": "1.75rem", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "display-hero-mobile": ["2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-neutral-canvas text-on-surface antialiased overflow-hidden font-body-md text-body-md selection:bg-secondary selection:text-neutral-card">
+<!-- Docked Left SideNavBar (Shared Component from JSON Blueprint) -->
+<aside class="h-screen flex flex-col justify-between p-4 border-r border-border-subtle bg-navy-deep fixed left-0 top-0 z-40 w-64 shadow-sm select-none">
+<div class="flex flex-col gap-6">
+<!-- Brand Anchor Header -->
+<div class="flex items-center gap-3 px-2 py-2">
+<div class="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center text-neutral-card shadow-sm">
+<span class="material-symbols-outlined text-neutral-card" style="font-variation-settings: 'FILL' 1;">fingerprint</span>
+</div>
+<div>
+<h1 class="text-headline-md font-headline-md font-bold text-neutral-card tracking-tight">pPonto Gestão</h1>
+<p class="text-caption font-caption text-outline-variant">Portaria 671 MTE Compliance</p>
+</div>
+</div>
+<!-- Quick Action CTA -->
+<div class="px-1">
+<button class="w-full flex items-center justify-center gap-2 bg-secondary hover:bg-blue-vibrant text-on-secondary py-2.5 px-4 rounded-lg font-body-md text-body-md font-medium transition-all duration-150 ease-in-out active:scale-[0.99] shadow-sm">
+<span class="material-symbols-outlined text-body-lg">add_circle</span>
+<span class="">Bater Ponto</span>
+</button>
+</div>
+<!-- Navigation Links -->
+<nav class="flex flex-col gap-1 px-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-outline-variant hover:text-neutral-card hover:bg-navy-surface transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-body-md text-body-md">Painel</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-outline-variant hover:text-neutral-card hover:bg-navy-surface transition-colors" href="#">
+<span class="material-symbols-outlined">schedule</span>
+<span class="font-body-md text-body-md">Tratamento de Ponto</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-outline-variant hover:text-neutral-card hover:bg-navy-surface transition-colors" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="font-body-md text-body-md">Espelho de Ponto</span>
+</a>
+<!-- Active Solicitações / Ajustes (Closest Match to Prompt) -->
+<a class="flex items-center justify-between px-3 py-2.5 rounded-lg bg-secondary text-on-secondary font-medium transition-all duration-150" href="#">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">rule</span>
+<span class="font-body-md text-body-md">Solicitações e Ajustes</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-ruby-danger text-neutral-card text-badge-label font-badge-label font-bold">8</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-outline-variant hover:text-neutral-card hover:bg-navy-surface transition-colors" href="#">
+<span class="material-symbols-outlined">verified_user</span>
+<span class="font-body-md text-body-md">Relatórios Fiscais</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-outline-variant hover:text-neutral-card hover:bg-navy-surface transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-body-md text-body-md">Configurações</span>
+</a>
+</nav>
+</div>
+<!-- SideNavBar Footer -->
+<div class="flex flex-col gap-1 pt-4 border-t border-navy-surface px-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-outline-variant hover:text-neutral-card hover:bg-navy-surface transition-colors" href="#">
+<span class="material-symbols-outlined">headset_mic</span>
+<span class="font-body-md text-body-md">Suporte Técnico</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-outline-variant hover:text-ruby-danger hover:bg-navy-surface transition-colors" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-body-md text-body-md">Sair</span>
+</a>
+<div class="mt-2 px-3 py-2 rounded bg-navy-surface flex items-center justify-between"><div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald-light animate-pulse"></span><span class="text-caption font-caption text-neutral-card">Servidor Cloud REP-P</span></div><span class="text-caption font-caption text-emerald-light tabular-nums font-semibold">Ativo</span></div>
+</div>
+</aside>
+<!-- TopNavBar (Shared Component aligned to the top, offset by w-64) -->
+<header class="fixed top-0 right-0 left-64 h-16 bg-neutral-card border-b border-border-subtle z-30 flex items-center justify-between px-6">
+<div class="flex items-center gap-4 flex-1 max-w-2xl">
+<!-- Breadcrumb Hierarchy -->
+<nav class="flex items-center gap-2 text-on-surface-variant text-body-sm font-body-sm">
+<span class="hover:text-on-surface cursor-pointer">Solicitações</span>
+<span class="material-symbols-outlined text-body-sm text-outline">chevron_right</span>
+<span class="font-semibold text-on-surface">Ajustes de Marcação</span>
+</nav>
+<div class="h-4 w-px bg-border-subtle mx-1"></div>
+<!-- Search Input -->
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-body-md">search</span>
+<input class="w-full pl-9 pr-4 py-1.5 bg-neutral-canvas border border-border-subtle rounded-lg text-body-md font-body-md text-on-surface placeholder:text-outline focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="Buscar colaborador, matrícula ou justificativa..." type="text">
+</div>
+</div>
+<!-- Right Header Actions & Profile -->
+<div class="flex items-center gap-4">
+<!-- REP State Badge -->
+<div class="flex items-center gap-1.5 px-2.5 py-1 bg-surface-container-low border border-border-subtle rounded-full">
+<span class="w-2 h-2 rounded-full bg-teal-success"></span>
+<span class="text-caption font-caption font-semibold text-teal-success">Sincronizado na Nuvem</span>
+</div>
+<!-- Filial Selector -->
+<div class="flex items-center gap-1.5 px-3 py-1 bg-neutral-canvas border border-border-subtle rounded-lg text-body-sm font-body-sm text-on-surface cursor-pointer hover:border-outline transition-colors">
+<span class="material-symbols-outlined text-body-sm text-outline">domain</span>
+<span class="font-medium">Matriz SP-01</span>
+<span class="material-symbols-outlined text-body-sm text-outline">arrow_drop_down</span>
+</div>
+<div class="h-6 w-px bg-border-subtle"></div>
+<!-- Quick Icon Actions -->
+<div class="flex items-center gap-1 text-on-surface-variant">
+<button class="p-2 rounded-lg hover:bg-surface-container-low transition-colors relative" title="Notificações">
+<span class="material-symbols-outlined text-body-lg">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 bg-ruby-danger rounded-full"></span>
+</button>
+<button class="p-2 rounded-lg hover:bg-surface-container-low transition-colors" title="Ajuda">
+<span class="material-symbols-outlined text-body-lg">help_outline</span>
+</button>
+<button class="p-2 rounded-lg hover:bg-surface-container-low transition-colors" title="Filtros">
+<span class="material-symbols-outlined text-body-lg">tune</span>
+</button>
+</div>
+<!-- User Profile Avatar -->
+<div class="flex items-center gap-3 pl-2">
+<div class="w-9 h-9 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center font-bold text-body-sm">
+          RH
+        </div>
+<div class="hidden lg:flex flex-col text-left">
+<span class="text-body-sm font-body-sm font-semibold text-on-surface leading-tight">Gestor de RH</span>
+<span class="text-caption font-caption text-outline">Auditor Geral #801</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Canvas Hub (Left offset 64 = 256px, Top offset 16 = 64px) -->
+<main class="ml-64 mt-16 h-[calc(100vh-4rem)] flex flex-col bg-neutral-canvas overflow-hidden">
+<!-- Top Filter Navigation Ribbon -->
+<div class="px-6 py-3 bg-neutral-card border-b border-border-subtle flex items-center justify-between flex-shrink-0">
+<div class="flex items-center gap-2">
+<!-- Tabs with badges -->
+<button class="px-3.5 py-1.5 rounded-lg bg-surface-container-low text-secondary border border-secondary/30 font-medium text-body-sm flex items-center gap-2 shadow-xs">
+<span class="">Pendentes</span>
+<span class="px-1.5 py-0.5 rounded-full bg-secondary text-on-secondary text-caption font-caption font-bold">8</span>
+</button>
+<button class="px-3.5 py-1.5 rounded-lg text-on-surface-variant hover:bg-neutral-canvas font-medium text-body-sm flex items-center gap-2 transition-colors">
+<span class="">Aprovados Hoje</span>
+<span class="px-1.5 py-0.5 rounded-full bg-neutral-canvas border border-border-subtle text-caption font-caption text-on-surface">14</span>
+</button>
+<button class="px-3.5 py-1.5 rounded-lg text-on-surface-variant hover:bg-neutral-canvas font-medium text-body-sm flex items-center gap-2 transition-colors">
+<span class="">Recusados</span>
+<span class="px-1.5 py-0.5 rounded-full bg-neutral-canvas border border-border-subtle text-caption font-caption text-on-surface">3</span>
+</button>
+<button class="px-3.5 py-1.5 rounded-lg text-on-surface-variant hover:bg-neutral-canvas font-medium text-body-sm flex items-center gap-2 transition-colors">
+<span class="">Aguardando Gestor Direto</span>
+<span class="px-1.5 py-0.5 rounded-full bg-neutral-canvas border border-border-subtle text-caption font-caption text-on-surface">2</span>
+</button>
+</div>
+<!-- Quick Date Range & Export -->
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-2 px-3 py-1.5 bg-neutral-canvas border border-border-subtle rounded-lg text-body-sm font-body-sm text-on-surface">
+<span class="material-symbols-outlined text-body-sm text-outline">calendar_today</span>
+<span class="font-medium">Mês Atual: Outubro/2024</span>
+<span class="material-symbols-outlined text-body-sm text-outline">expand_more</span>
+</div>
+<button class="flex items-center gap-1.5 px-3 py-1.5 border border-border-subtle hover:bg-neutral-canvas text-on-surface rounded-lg text-body-sm font-medium transition-colors">
+<span class="material-symbols-outlined text-body-sm">file_download</span>
+<span class="">Relatório AFD</span>
+</button>
+</div>
+</div>
+<!-- Master-Detail Work Surface -->
+<div class="flex-1 flex overflow-hidden">
+<!-- LEFT COLUMN: Queue of Pending Adjustments (380px fixed width) -->
+<section class="w-96 border-r border-border-subtle bg-neutral-canvas flex flex-col flex-shrink-0">
+<!-- Queue Meta Header -->
+<div class="p-4 border-b border-border-subtle bg-neutral-card flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">Fila de Triagem</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-secondary text-caption font-caption font-bold">8 não resolvidos</span>
+</div>
+<button class="p-1 hover:bg-neutral-canvas rounded text-outline" title="Ordenar por data">
+<span class="material-symbols-outlined text-body-md">swap_vert</span>
+</button>
+</div>
+<!-- Scrollable Queue Cards -->
+<div class="flex-1 overflow-y-auto divide-y divide-border-subtle">
+<!-- Card 1: ACTIVE / SELECTED -->
+<div class="p-4 bg-surface-container-low border-l-4 border-secondary cursor-pointer transition-all relative shadow-xs">
+<div class="flex items-start justify-between mb-1.5">
+<div>
+<h4 class="font-headline-sm text-body-md font-bold text-on-surface">Carlos Eduardo Silveira</h4>
+<p class="text-caption font-caption text-outline">Matrícula 04981 • Operações</p>
+</div>
+<span class="px-2 py-0.5 rounded text-badge-label font-badge-label bg-amber-soft/10 text-amber-warning border border-amber-warning/30 flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-warning"></span>
+                Pendente RH
+              </span>
+</div>
+<!-- Request Type & Details -->
+<div class="mt-2.5 flex items-center gap-2">
+<span class="px-2 py-1 rounded bg-neutral-card border border-border-subtle text-caption font-caption font-medium text-ruby-danger flex items-center gap-1">
+<span class="material-symbols-outlined text-caption">schedule</span>
+                Inclusão de Saída 17:50
+              </span>
+<span class="text-caption font-caption text-outline font-tabular-time text-tabular-time">23/10/2024</span>
+</div>
+<p class="mt-2 text-body-sm font-body-sm text-on-surface-variant line-clamp-1 italic">"Esquecimento de registro no app ao sair com a gerência..."</p>
+<div class="mt-3 pt-2 border-t border-border-subtle/70 flex items-center justify-between text-caption font-caption text-outline">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-caption">schedule</span>
+                Enviado há 2h
+              </span>
+<span class="flex items-center gap-1 text-teal-success font-medium">
+<span class="material-symbols-outlined text-caption">attach_file</span>
+                1 anexo validado
+              </span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="p-4 bg-neutral-card hover:bg-surface-container-lowest cursor-pointer transition-colors border-l-4 border-transparent">
+<div class="flex items-start justify-between mb-1.5">
+<div>
+<h4 class="font-headline-sm text-body-md font-semibold text-on-surface">Mariana Costa</h4>
+<p class="text-caption font-caption text-outline">Matrícula 03819 • Atendimento</p>
+</div>
+<span class="px-2 py-0.5 rounded text-badge-label font-badge-label bg-surface-container text-on-surface-variant">
+                Pendente RH
+              </span>
+</div>
+<div class="mt-2 flex items-center gap-2">
+<span class="px-2 py-1 rounded bg-neutral-canvas border border-border-subtle text-caption font-caption font-medium text-secondary flex items-center gap-1">
+<span class="material-symbols-outlined text-caption">edit_calendar</span>
+                Ajuste Intervalo 13:00 → 13:15
+              </span>
+<span class="text-caption font-caption text-outline font-tabular-time text-tabular-time">23/10/2024</span>
+</div>
+<p class="mt-2 text-body-sm font-body-sm text-on-surface-variant line-clamp-1">
+              Motivo: Atendimento a cliente prioritário em loja.
+            </p>
+<div class="mt-3 pt-2 border-t border-border-subtle/50 flex items-center justify-between text-caption font-caption text-outline">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-caption">schedule</span>
+                Enviado há 4h
+              </span>
+<span class="text-outline">Sem anexo</span>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="p-4 bg-neutral-card hover:bg-surface-container-lowest cursor-pointer transition-colors border-l-4 border-transparent">
+<div class="flex items-start justify-between mb-1.5">
+<div>
+<h4 class="font-headline-sm text-body-md font-semibold text-on-surface">Rodrigo Azevedo Ramos</h4>
+<p class="text-caption font-caption text-outline">Matrícula 01420 • Manutenção</p>
+</div>
+<span class="px-2 py-0.5 rounded text-badge-label font-badge-label bg-amber-soft/10 text-amber-warning">
+                Pendente RH
+              </span>
+</div>
+<div class="mt-2 flex items-center gap-2">
+<span class="px-2 py-1 rounded bg-neutral-canvas border border-border-subtle text-caption font-caption font-medium text-emerald-light flex items-center gap-1">
+<span class="material-symbols-outlined text-caption">login</span>
+                Inclusão de Entrada 07:45
+              </span>
+<span class="text-caption font-caption text-outline font-tabular-time text-tabular-time">22/10/2024</span>
+</div>
+<p class="mt-2 text-body-sm font-body-sm text-on-surface-variant line-clamp-1">
+              Motivo: Serviço externo emergencial no gerador filial 2.
+            </p>
+<div class="mt-3 pt-2 border-t border-border-subtle/50 flex items-center justify-between text-caption font-caption text-outline">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-caption">schedule</span>
+                Enviado há 6h
+              </span>
+<span class="flex items-center gap-1 text-teal-success font-medium">
+<span class="material-symbols-outlined text-caption">attach_file</span>
+                Ordem de serviço
+              </span>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="p-4 bg-neutral-card hover:bg-surface-container-lowest cursor-pointer transition-colors border-l-4 border-transparent">
+<div class="flex items-start justify-between mb-1.5">
+<div>
+<h4 class="font-headline-sm text-body-md font-semibold text-on-surface">Beatriz Lima dos Santos</h4>
+<p class="text-caption font-caption text-outline">Matrícula 05210 • Engenharia</p>
+</div>
+<span class="px-2 py-0.5 rounded text-badge-label font-badge-label bg-surface-container text-on-surface-variant">
+                Pendente RH
+              </span>
+</div>
+<div class="mt-2 flex items-center gap-2">
+<span class="px-2 py-1 rounded bg-neutral-canvas border border-border-subtle text-caption font-caption font-medium text-purple-bank flex items-center gap-1">
+<span class="material-symbols-outlined text-caption">content_copy</span>
+                Correção de Batida Duplicada
+              </span>
+<span class="text-caption font-caption text-outline font-tabular-time text-tabular-time">22/10/2024</span>
+</div>
+<p class="mt-2 text-body-sm font-body-sm text-on-surface-variant line-clamp-1">Motivo: Duplo registro no Portal Web às 08:00 e 08:01.</p>
+<div class="mt-3 pt-2 border-t border-border-subtle/50 flex items-center justify-between text-caption font-caption text-outline">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-caption">schedule</span>
+                Enviado ontem
+              </span>
+<span class="text-outline">Sistema Web/Mobile</span>
+</div>
+</div>
+</div>
+</section>
+<!-- RIGHT COLUMN: Detailed Audit & Resolution Panel (Full Remaining Width) -->
+<section class="flex-1 flex flex-col bg-neutral-card overflow-y-auto">
+<!-- Audit Header Strip -->
+<div class="p-6 border-b border-border-subtle bg-neutral-card flex flex-col gap-4">
+<div class="flex items-center justify-between flex-wrap gap-4">
+<div>
+<div class="flex items-center gap-3">
+<h2 class="text-headline-sm font-headline-sm font-bold text-on-surface tracking-tight">
+                  Auditoria de Ajuste de Marcação #AJ-2024-4192
+                </h2>
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container-high text-secondary text-caption font-caption font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-caption">verified</span>
+                  Portaria 671 MTE
+                </span>
+</div>
+<p class="text-body-sm font-body-sm text-outline mt-0.5 flex items-center gap-2">
+<span class="">Data do Evento: <strong class="text-on-surface font-tabular-time text-tabular-time">23/10/2024 (Quarta-feira)</strong></span>
+<span class="">•</span>
+<span class="">Protocolo Fiscal com fé pública: <strong class="text-on-surface font-tabular-time text-tabular-time">P671-004981-20241023-9941</strong></span>
+</p>
+</div>
+<!-- Fast Action Indicator -->
+<div class="flex items-center gap-2">
+<span class="text-caption font-caption text-outline uppercase tracking-wider">Status:</span>
+<span class="px-3 py-1 rounded-full bg-amber-soft/10 text-amber-warning border border-amber-warning/30 text-badge-label font-badge-label font-bold flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-amber-warning"></span>
+                AGUARDANDO DELIBERAÇÃO RH
+              </span>
+</div>
+</div>
+<!-- Employee Profile Summary Card (Bento Sub-surface) -->
+<div class="p-4 bg-neutral-canvas rounded-xl border border-border-subtle grid grid-cols-1 md:grid-cols-4 gap-4">
+<div>
+<span class="text-caption font-caption text-outline uppercase">Colaborador</span>
+<p class="text-body-md font-body-md font-bold text-on-surface mt-0.5">Carlos Eduardo Silveira</p>
+<p class="text-caption font-caption text-outline">Matrícula 04981 • CPF ***.820.198-**</p>
+</div>
+<div>
+<span class="text-caption font-caption text-outline uppercase">Cargo &amp; Setor</span>
+<p class="text-body-md font-body-md font-semibold text-on-surface mt-0.5">Analista de Operações Pleno</p>
+<p class="text-caption font-caption text-outline">Depto Operações Logísticas SP</p>
+</div>
+<div>
+<span class="text-caption font-caption text-outline uppercase">Horário Contratual</span>
+<p class="text-body-md font-body-md font-semibold text-on-surface font-tabular-time text-tabular-time mt-0.5">08:00 às 17:48</p>
+<p class="text-caption font-caption text-outline">Intervalo 12:00 às 13:00 (1h)</p>
+</div>
+<div>
+<span class="text-caption font-caption text-outline uppercase">Banco de Horas Atual</span>
+<div class="flex items-center gap-2 mt-0.5">
+<span class="px-2 py-0.5 rounded bg-purple-subtle text-purple-bank font-bold font-tabular-time text-tabular-time text-body-sm">
+                  +04:15h Crédito
+                </span>
+<span class="text-caption font-caption text-teal-success font-medium">Regular</span>
+</div>
+<p class="text-caption font-caption text-outline">Fechamento em 31/10</p>
+</div>
+</div>
+</div>
+<!-- Audit Body Canvas -->
+<div class="p-6 flex flex-col gap-6">
+<!-- Section: Comparison Timeline (Espelho Original vs Proposta) -->
+<div>
+<div class="flex items-center justify-between mb-3">
+<div>
+<h3 class="text-headline-sm font-headline-sm font-bold text-on-surface">
+                  Tratamento de Espelho: Registros Originais vs. Ajuste Solicitado
+                </h3>
+<p class="text-body-sm font-body-sm text-outline">
+                  Confronto de eventos REP-P e apontamento de inconsistência de fechamento diário
+                </p>
+</div>
+<span class="text-caption font-caption text-secondary font-semibold bg-surface-container-low px-2.5 py-1 rounded">
+                Tolerância CLT Art. 58 § 1º (± 10 min)
+              </span>
+</div>
+<!-- Comparison Table Container -->
+<div class="border border-border-subtle rounded-xl overflow-hidden shadow-xs bg-neutral-card">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-border-subtle text-caption font-caption text-on-surface font-semibold uppercase">
+<th class="py-3 px-4">Momento da Jornada</th>
+<th class="py-3 px-4">Espelho Original (REP-P)</th>
+<th class="py-3 px-4">Origem / Canal</th>
+<th class="py-3 px-4">Ajuste Solicitado</th>
+<th class="py-3 px-4">Status &amp; Conformidade</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-subtle text-body-sm font-body-sm">
+<!-- Row 1: Entrada -->
+<tr class="hover:bg-neutral-canvas/60 transition-colors">
+<td class="py-3 px-4 font-medium text-on-surface flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-teal-success"></span>
+                      1ª Entrada
+                    </td>
+<td class="py-3 px-4 font-tabular-time text-tabular-time font-semibold text-on-surface">08:02</td>
+<td class="py-3 px-4 text-outline font-caption text-caption">Aplicativo Mobile REP-P (Smartphone)</td>
+<td class="py-3 px-4 text-outline">- Mantido -</td>
+<td class="py-3 px-4">
+<span class="px-2 py-0.5 rounded text-badge-label font-badge-label bg-emerald-light/10 text-teal-success font-semibold">
+                        Válido (NSR 41902)
+                      </span>
+</td>
+</tr>
+<!-- Row 2: Intervalo Saída -->
+<tr class="hover:bg-neutral-canvas/60 transition-colors">
+<td class="py-3 px-4 font-medium text-on-surface flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-teal-success"></span>
+                      Intervalo (Saída)
+                    </td>
+<td class="py-3 px-4 font-tabular-time text-tabular-time font-semibold text-on-surface">12:05</td>
+<td class="py-3 px-4 text-outline font-caption text-caption">Aplicativo Mobile REP-P (Smartphone)</td>
+<td class="py-3 px-4 text-outline">- Mantido -</td>
+<td class="py-3 px-4">
+<span class="px-2 py-0.5 rounded text-badge-label font-badge-label bg-emerald-light/10 text-teal-success font-semibold">
+                        Válido (NSR 41920)
+                      </span>
+</td>
+</tr>
+<!-- Row 3: Intervalo Retorno -->
+<tr class="hover:bg-neutral-canvas/60 transition-colors">
+<td class="py-3 px-4 font-medium text-on-surface flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-teal-success"></span>
+                      Intervalo (Retorno)
+                    </td>
+<td class="py-3 px-4 font-tabular-time text-tabular-time font-semibold text-on-surface">13:06</td>
+<td class="py-3 px-4 text-outline font-caption text-caption">Portal Web REP-P (Estação Trabalho)</td>
+<td class="py-3 px-4 text-outline">- Mantido -</td>
+<td class="py-3 px-4">
+<span class="px-2 py-0.5 rounded text-badge-label font-badge-label bg-emerald-light/10 text-teal-success font-semibold">
+                        Válido (NSR 41955)
+                      </span>
+</td>
+</tr>
+<!-- Row 4: Saída Faltante -> Solicitada -->
+<tr class="bg-amber-soft/5">
+<td class="py-3 px-4 font-medium text-ruby-danger flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-ruby-danger animate-pulse"></span>
+                      2ª Saída Contratual
+                    </td>
+<td class="py-3 px-4 font-tabular-time text-tabular-time font-bold text-ruby-danger">
+                      [SEM REGISTRO]
+                    </td>
+<td class="py-3 px-4 text-ruby-danger font-caption text-caption font-medium">
+                      Omissão / Batida Faltante
+                    </td>
+<td class="py-3 px-4 font-tabular-time text-tabular-time font-bold text-secondary flex items-center gap-1.5">
+<span class="material-symbols-outlined text-body-sm text-secondary">arrow_forward</span>
+                      17:50
+                    </td>
+<td class="py-3 px-4">
+<span class="px-2 py-0.5 rounded text-badge-label font-badge-label bg-secondary text-on-secondary font-bold">
+                        Ajuste Manual Proposto
+                      </span>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- Journey Balance Impact Bar -->
+<div class="p-3 bg-neutral-canvas border-t border-border-subtle flex items-center justify-between flex-wrap gap-2 text-body-sm font-body-sm">
+<div class="flex items-center gap-4 text-outline">
+<span class="">Jornada Prevista: <strong class="text-on-surface font-tabular-time text-tabular-time">08h48</strong></span>
+<span class="">•</span>
+<span class="">Jornada Apurada com Ajuste: <strong class="text-on-surface font-tabular-time text-tabular-time">08h45</strong></span>
+<span class="">•</span>
+<span class="">Variação: <strong class="text-amber-warning font-tabular-time text-tabular-time">-00:03</strong></span>
+</div>
+<div class="flex items-center gap-1.5 text-teal-success font-semibold text-caption font-caption">
+<span class="material-symbols-outlined text-body-sm">check_circle</span>
+<span class="">Dentro da tolerância legal (Art. 58 CLT). Sem geração irregular de horas extras.</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Section: Justificativa & Evidências (Grid Bento) -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+<!-- Box 1: Colaborador Statement -->
+<div class="p-4 rounded-xl border border-border-subtle bg-neutral-card flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-2">
+<span class="text-caption font-caption text-outline uppercase font-semibold">Justificativa Formal do Colaborador</span>
+<span class="text-caption font-caption text-outline">Registrado via Web PWA</span>
+</div>
+<div class="p-3 bg-neutral-canvas rounded-lg border border-border-subtle text-on-surface font-body-md text-body-md leading-relaxed">"Finalização de relatório de expedição mensal diretamente na sala da gerência com o gestor Paulo Souza. Acabei esquecendo de registrar no aplicativo mobile ao me retirar às 17:50."</div>
+</div>
+<!-- Compliance History Insight -->
+<div class="mt-4 pt-3 border-t border-border-subtle flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-high text-secondary flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-body-lg">history_toggle_off</span>
+</div>
+<div>
+<p class="text-caption font-caption font-semibold text-on-surface">Histórico de Conformidade Individual (CLT)</p>
+<p class="text-caption font-caption text-outline">Colaborador possui apenas 1 ajuste nos últimos 90 dias. Sem reincidência excessiva.</p>
+</div>
+</div>
+</div>
+<!-- Box 2: Documento & Evidência Anexada -->
+<div class="p-4 rounded-xl border border-border-subtle bg-neutral-card flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-2">
+<span class="text-caption font-caption text-outline uppercase font-semibold">Documento Comprobatório Anexado</span>
+<span class="text-caption font-caption text-teal-success font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-caption">verified</span>
+                    Assinatura do Gestor Válida
+                  </span>
+</div>
+<!-- Attachment Card -->
+<div class="p-3 bg-neutral-canvas border border-border-subtle rounded-lg flex items-center justify-between hover:border-secondary transition-colors cursor-pointer group">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-ruby-danger/10 text-ruby-danger flex items-center justify-center font-bold text-caption font-caption">
+                      PDF
+                    </div>
+<div>
+<p class="text-body-sm font-body-sm font-semibold text-on-surface group-hover:text-secondary transition-colors">
+                        email_autorizacao_gerencia_paulo.pdf
+                      </p>
+<p class="text-caption font-caption text-outline">184 KB • Validação por Paulo Souza (Gerente Operacional)</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-1.5 rounded hover:bg-surface-container text-outline hover:text-on-surface" title="Visualizar documento">
+<span class="material-symbols-outlined text-body-lg">visibility</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container text-outline hover:text-on-surface" title="Baixar">
+<span class="material-symbols-outlined text-body-lg">download</span>
+</button>
+</div>
+</div>
+</div>
+<div class="mt-4 p-2.5 rounded bg-surface-container-low text-caption font-caption text-on-surface-variant flex items-start gap-2">
+<span class="material-symbols-outlined text-body-sm text-secondary flex-shrink-0 mt-0.5">info</span>
+<span class="">Anexos são armazenados sob criptografia fiscal e vinculados ao Registro de Ponto Eletrônico Programa (REP-P) conforme Portaria 671 MTE.</span>
+</div>
+</div>
+</div>
+<!-- Section: Parecer do RH e Campo de Observações Internas -->
+<div class="p-4 rounded-xl border border-border-subtle bg-neutral-canvas">
+<label class="block text-caption font-caption uppercase font-semibold text-on-surface-variant mb-1.5" for="rh_notes">
+              Parecer Técnico do Auditor de RH (Obrigatório para o arquivo AFDT/ACJEF)
+            </label>
+<textarea class="w-full p-3 bg-neutral-card border border-border-subtle rounded-lg text-body-sm font-body-sm text-on-surface placeholder:text-outline focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" id="rh_notes" placeholder="Insira as observações legais ou parecer administrativo do RH..." rows="2">Ajuste deferido com base na declaração expressa da gerência imediata e compatibilidade com a tolerância do Art. 58 da CLT.</textarea>
+<div class="mt-2 flex items-center justify-between text-caption font-caption text-outline">
+<span class="">Este parecer será gravado de forma imutável com a assinatura digital do auditor logado.</span>
+<span class="">128 caracteres digitados</span>
+</div>
+</div>
+</div>
+<!-- Sticky Audit Resolution Action Bar -->
+<div class="mt-auto p-4 bg-neutral-card border-t border-border-subtle flex items-center justify-between sticky bottom-0 z-10 shadow-sm">
+<div class="flex items-center gap-2 text-caption font-caption text-outline">
+<span class="material-symbols-outlined text-body-sm text-secondary">gavel</span>
+<span class="">Ação respaldada pela Portaria MTE nº 671/2021. Operação auditada.</span>
+</div>
+<div class="flex items-center gap-3">
+<!-- Secondary / Action 1 -->
+<button class="px-4 py-2 border border-border-subtle hover:bg-neutral-canvas text-on-surface rounded-lg text-body-sm font-body-sm font-medium transition-colors flex items-center gap-1.5">
+<span class="material-symbols-outlined text-body-sm">contact_support</span>
+<span class="">Solicitar Esclarecimento</span>
+</button>
+<!-- Danger / Reject Action -->
+<button class="px-4 py-2 border border-ruby-danger/30 text-ruby-danger hover:bg-ruby-danger/10 rounded-lg text-body-sm font-body-sm font-semibold transition-colors flex items-center gap-1.5">
+<span class="material-symbols-outlined text-body-sm">close</span>
+<span class="">Recusar Ajuste</span>
+</button>
+<!-- Primary Highlighted Decision Button -->
+<button class="px-5 py-2.5 bg-secondary hover:bg-blue-vibrant text-on-secondary rounded-lg text-body-sm font-body-sm font-bold shadow-sm flex items-center gap-2 transition-all active:scale-[0.99]">
+<span class="material-symbols-outlined text-body-md" style="font-variation-settings: 'FILL' 1;">done_all</span>
+<span class="">Aprovar Ajuste e Atualizar Espelho</span>
+</button>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Lightweight inline interaction script for UI feedback -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Toggle button active states for interaction feel
+      const approveBtn = document.querySelector('button.bg-secondary');
+      if (approveBtn) {
+        approveBtn.addEventListener('click', () => {
+          const originalText = approveBtn.innerHTML;
+          approveBtn.innerHTML = '<span class="material-symbols-outlined animate-spin text-body-md">sync</span> Gravando no REP-P...';
+          approveBtn.disabled = true;
+          setTimeout(() => {
+            approveBtn.innerHTML = '<span class="material-symbols-outlined text-body-md">check</span> Ajuste Gravado com Sucesso!';
+            approveBtn.classList.replace('bg-secondary', 'bg-teal-success');
+            setTimeout(() => {
+              approveBtn.innerHTML = originalText;
+              approveBtn.classList.replace('bg-teal-success', 'bg-secondary');
+              approveBtn.disabled = false;
+            }, 2500);
+          }, 800);
+        });
+      }
+    });
+  </script>
+
+
+</body></html>

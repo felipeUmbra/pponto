@@ -1,0 +1,834 @@
+<!DOCTYPE html><html class="h-full bg-neutral-canvas" lang="pt-BR"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Dot8 Gestão - Painel de Tratamento de Ponto e Conformidade MTE</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "blue-accent": "#3B82F6",
+            "error-container": "#ffdad6",
+            "on-background": "#0b1c30",
+            "purple-bank": "#7C3AED",
+            "tertiary-fixed": "#85f8c4",
+            "secondary-fixed": "#dbe1ff",
+            "inverse-primary": "#bec6e0",
+            "on-primary-fixed-variant": "#3f465c",
+            "ruby-danger": "#DC2626",
+            "surface-container-highest": "#d3e4fe",
+            "surface-variant": "#d3e4fe",
+            "purple-subtle": "#F5F3FF",
+            "surface-dim": "#cbdbf5",
+            "inverse-surface": "#213145",
+            "surface-container-high": "#dce9ff",
+            "border-subtle": "#E2E8F0",
+            "neutral-card": "#FFFFFF",
+            "on-secondary-container": "#fefcff",
+            "on-tertiary-container": "#069669",
+            "on-secondary-fixed-variant": "#003ea8",
+            "tertiary": "#000000",
+            "teal-success": "#059669",
+            "on-error-container": "#93000a",
+            "on-primary-fixed": "#131b2e",
+            "primary": "#000000",
+            "surface": "#f8f9ff",
+            "on-secondary-fixed": "#00174b",
+            "on-surface": "#0b1c30",
+            "surface-container": "#e5eeff",
+            "on-tertiary": "#ffffff",
+            "on-primary": "#ffffff",
+            "outline": "#76777d",
+            "amber-warning": "#D97706",
+            "primary-fixed-dim": "#bec6e0",
+            "error": "#ba1a1a",
+            "blue-vibrant": "#2563EB",
+            "primary-fixed": "#dae2fd",
+            "background": "#f8f9ff",
+            "navy-surface": "#1E293B",
+            "surface-tint": "#565e74",
+            "on-tertiary-fixed": "#002114",
+            "surface-bright": "#f8f9ff",
+            "on-tertiary-fixed-variant": "#005137",
+            "inverse-on-surface": "#eaf1ff",
+            "secondary": "#0051d5",
+            "amber-soft": "#F59E0B",
+            "emerald-light": "#10B981",
+            "on-surface-variant": "#45464d",
+            "secondary-fixed-dim": "#b4c5ff",
+            "neutral-canvas": "#F8FAFC",
+            "primary-container": "#131b2e",
+            "on-secondary": "#ffffff",
+            "surface-container-lowest": "#ffffff",
+            "tertiary-fixed-dim": "#68dba9",
+            "navy-deep": "#0F172A",
+            "on-primary-container": "#7c839b",
+            "secondary-container": "#316bf3",
+            "surface-container-low": "#eff4ff",
+            "tertiary-container": "#002114",
+            "on-error": "#ffffff",
+            "outline-variant": "#c6c6cd"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-lg": "1.5rem",
+            "space-xl": "2.5rem",
+            "space-sm": "0.5rem",
+            "margin": "1.5rem",
+            "space-md": "1rem",
+            "gutter": "1.5rem",
+            "space-xs": "0.25rem"
+          },
+          "fontFamily": {
+            "headline-lg": ["Inter"],
+            "tabular-time": ["JetBrains Mono"],
+            "body-sm": ["Inter"],
+            "headline-sm": ["Inter"],
+            "headline-lg-mobile": ["Inter"],
+            "caption": ["Inter"],
+            "headline-md": ["Inter"],
+            "clock-large-mobile": ["JetBrains Mono"],
+            "display-hero": ["Inter"],
+            "badge-label": ["Inter"],
+            "body-md": ["Inter"],
+            "clock-large": ["JetBrains Mono"],
+            "display-hero-mobile": ["Inter"],
+            "body-lg": ["Inter"]
+          },
+          "fontSize": {
+            "headline-lg": ["2rem", { "lineHeight": "2.5rem", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "tabular-time": ["0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "0em", "fontWeight": "500" }],
+            "body-sm": ["0.75rem", { "lineHeight": "1.125rem", "fontWeight": "400" }],
+            "headline-sm": ["1.125rem", { "lineHeight": "1.5rem", "fontWeight": "600" }],
+            "headline-lg-mobile": ["1.5rem", { "lineHeight": "2rem", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "caption": ["0.6875rem", { "lineHeight": "0.875rem", "letterSpacing": "0.02em", "fontWeight": "500" }],
+            "headline-md": ["1.25rem", { "lineHeight": "1.75rem", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "clock-large-mobile": ["2.25rem", { "lineHeight": "2.5rem", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "display-hero": ["3.5rem", { "lineHeight": "4rem", "letterSpacing": "-0.03em", "fontWeight": "700" }],
+            "badge-label": ["0.6875rem", { "lineHeight": "0.875rem", "letterSpacing": "0.04em", "fontWeight": "600" }],
+            "body-md": ["0.875rem", { "lineHeight": "1.375rem", "fontWeight": "400" }],
+            "clock-large": ["3rem", { "lineHeight": "3.25rem", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "display-hero-mobile": ["2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "body-lg": ["1rem", { "lineHeight": "1.5rem", "fontWeight": "400" }]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #F1F5F9;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #CBD5E1;
+      border-radius: 9999px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #94A3B8;
+    }
+  </style>
+</head>
+<body class="h-full font-body-md text-on-surface bg-neutral-canvas antialiased overflow-hidden flex flex-row">
+<!-- ======================================================== -->
+<!-- 1. SIDE NAVIGATION BAR (Predicted Shared Component: SideNavBar) -->
+<!-- ======================================================== -->
+<aside class="w-64 bg-navy-surface dark:bg-navy-deep border-r border-border-subtle dark:border-navy-deep flex flex-col justify-between h-screen p-4 flex-shrink-0 z-30 select-none">
+<div class="flex flex-col space-y-6">
+<!-- Header Brand Info -->
+<div class="flex items-center space-x-3 px-2 py-1">
+<div class="w-10 h-10 rounded-xl bg-blue-vibrant flex items-center justify-center text-surface-container-lowest shadow-sm flex-shrink-0">
+<span class="material-symbols-outlined text-surface-container-lowest" data-icon="fingerprint">fingerprint</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="text-headline-sm font-headline-sm text-surface-container-lowest font-bold tracking-tight truncate">Dot8 Gestão</span>
+<span class="text-caption font-caption text-outline-variant truncate">Administrador RH</span>
+</div>
+</div>
+<!-- Quick Web Punch Trigger CTA -->
+<button class="w-full py-2.5 px-3 bg-blue-vibrant hover:bg-secondary text-surface-container-lowest font-headline-sm text-body-sm rounded-lg flex items-center justify-center space-x-2 transition-colors shadow-sm">
+<span class="material-symbols-outlined" data-icon="schedule">schedule</span>
+<span class="">Registrar Ponto Web</span>
+</button>
+<!-- Navigation Links List (6 tabs as defined in JSON) -->
+<nav class="flex flex-col space-y-1">
+<!-- 1. Dashboard -->
+<a class="flex items-center space-x-3 px-3 py-2.5 rounded-lg text-outline-variant dark:text-on-primary-container hover:text-surface-container-lowest dark:hover:text-surface-container-lowest hover:bg-navy-deep dark:hover:bg-primary-container transition-colors duration-150" href="#dashboard">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-body-md font-body-md">Dashboard</span>
+</a>
+<!-- 2. Tratamento de Ponto (ACTIVE INTENT) -->
+<a class="flex items-center space-x-3 px-3 py-2.5 rounded-lg text-surface-container-lowest dark:text-surface-container-lowest border-l-4 border-blue-accent bg-navy-deep dark:bg-primary-container font-semibold transition-colors duration-150" href="#tratamento">
+<span class="material-symbols-outlined text-blue-accent" data-icon="how_to_reg">how_to_reg</span>
+<span class="text-body-md font-body-md">Tratamento de Ponto</span>
+<span class="ml-auto bg-ruby-danger text-surface-container-lowest text-caption font-caption px-1.5 py-0.5 rounded-full font-bold">6</span>
+</a>
+<!-- 3. Espelho de Ponto -->
+<a class="flex items-center space-x-3 px-3 py-2.5 rounded-lg text-outline-variant dark:text-on-primary-container hover:text-surface-container-lowest dark:hover:text-surface-container-lowest hover:bg-navy-deep dark:hover:bg-primary-container transition-colors duration-150" href="#espelho">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+<span class="text-body-md font-body-md">Espelho de Ponto</span>
+</a>
+<!-- 4. Solicitações e Atestados -->
+<a class="flex items-center space-x-3 px-3 py-2.5 rounded-lg text-outline-variant dark:text-on-primary-container hover:text-surface-container-lowest dark:hover:text-surface-container-lowest hover:bg-navy-deep dark:hover:bg-primary-container transition-colors duration-150" href="#solicitacoes">
+<span class="material-symbols-outlined" data-icon="assignment">assignment</span>
+<span class="text-body-md font-body-md">Solicitações e Atestados</span>
+<span class="ml-auto bg-amber-soft text-navy-deep text-caption font-caption px-1.5 py-0.5 rounded-full font-bold">12</span>
+</a>
+<!-- 5. Relatórios Fiscais -->
+<a class="flex items-center space-x-3 px-3 py-2.5 rounded-lg text-outline-variant dark:text-on-primary-container hover:text-surface-container-lowest dark:hover:text-surface-container-lowest hover:bg-navy-deep dark:hover:bg-primary-container transition-colors duration-150" href="#relatorios">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+<span class="text-body-md font-body-md">Relatórios Fiscais</span>
+</a>
+<!-- 6. Configurações -->
+<a class="flex items-center space-x-3 px-3 py-2.5 rounded-lg text-outline-variant dark:text-on-primary-container hover:text-surface-container-lowest dark:hover:text-surface-container-lowest hover:bg-navy-deep dark:hover:bg-primary-container transition-colors duration-150" href="#configuracoes">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-body-md font-body-md">Configurações</span>
+</a>
+</nav>
+</div>
+<!-- SideNavBar Footer -->
+<div class="pt-4 border-t border-navy-deep flex flex-col space-y-2">
+<!-- Portaria 671 Compliance Pill -->
+<div class="p-2.5 rounded-lg bg-navy-deep/70 border border-slate-700/50 flex flex-col space-y-1"><div class="flex items-center space-x-1.5 text-tertiary-fixed"><span class="material-symbols-outlined text-sm" data-icon="cloud_done">cloud_done</span><span class="text-caption font-caption font-semibold">Portaria 671 MTE</span></div><p class="text-caption font-caption text-outline-variant leading-tight">REP-P Nuvem &amp; SHA-256 ativo</p></div>
+<a class="flex items-center space-x-3 px-3 py-2 rounded-lg text-outline-variant hover:text-surface-container-lowest hover:bg-navy-deep transition-colors text-body-sm" href="#suporte">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+<span class="">Suporte Técnico</span>
+</a>
+<a class="flex items-center space-x-3 px-3 py-2 rounded-lg text-outline-variant hover:text-ruby-danger hover:bg-navy-deep transition-colors text-body-sm" href="#logout">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="">Encerrar Sessão</span>
+</a>
+</div>
+</aside>
+<!-- ======================================================== -->
+<!-- MAIN WORKSPACE (TopNavBar + Content Canvas)               -->
+<!-- ======================================================== -->
+<div class="flex-1 flex flex-col h-screen overflow-hidden min-w-0">
+<!-- 2. TOP NAVIGATION BAR (Predicted Shared Component: TopNavBar) -->
+<header class="bg-surface-container-lowest dark:bg-navy-surface border-b border-border-subtle dark:border-navy-deep shadow-sm flex justify-between items-center w-full px-6 py-3 flex-shrink-0 z-20">
+<!-- Left: Brand / Quick Search -->
+<div class="flex items-center space-x-6">
+<span class="text-headline-md font-headline-md text-on-surface dark:text-surface-container-lowest font-bold tracking-tight">Dot8 Ponto</span>
+<!-- Search Bar on Left as per JSON -->
+<div class="relative w-80">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-lg" data-icon="search">search</span>
+<input class="w-full pl-9 pr-4 py-1.5 text-body-sm font-body-sm bg-neutral-canvas border border-border-subtle rounded-lg focus:outline-none focus:border-blue-vibrant focus:ring-1 focus:ring-blue-vibrant placeholder-outline" placeholder="Buscar colaborador por nome, CPF ou PIS..." type="text">
+</div>
+<!-- Links from JSON -->
+<nav class="hidden lg:flex items-center space-x-5 text-body-sm font-body-sm">
+<a class="text-on-surface-variant hover:text-on-surface transition-colors" href="#">Visão Geral</a>
+<a class="text-secondary dark:text-secondary-fixed border-b-2 border-secondary dark:border-secondary-fixed font-semibold pb-1" href="#">Colaboradores</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors" href="#">Fechamento de Ponto</a>
+</nav>
+</div>
+<!-- Right: Trailing Actions + Status + User Profile -->
+<div class="flex items-center space-x-4">
+<!-- Hardware Sync: Sincronizar REP with real-time feedback indicator -->
+<div class="hidden sm:flex items-center space-x-2 bg-neutral-canvas border border-border-subtle px-3 py-1.5 rounded-lg"><span class="w-2.5 h-2.5 rounded-full bg-emerald-light animate-pulse"></span><span class="material-symbols-outlined text-outline text-base" data-icon="cloud_done">cloud_done</span><span class="text-caption font-caption font-medium text-on-surface">Nuvem Conectada</span></div>
+<button class="flex items-center space-x-1.5 px-3 py-1.5 bg-blue-vibrant hover:bg-secondary text-surface-container-lowest rounded-lg font-headline-sm text-body-sm transition-colors shadow-sm"><span class="material-symbols-outlined text-base" data-icon="sync">sync</span><span class="">Atualizar Dados</span></button>
+<!-- Trailing Icon Actions -->
+<div class="flex items-center space-x-1 text-on-surface-variant">
+<button class="p-2 hover:bg-surface-container-low rounded-lg transition-colors relative" title="Notificações">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 bg-ruby-danger rounded-full ring-2 ring-surface-container-lowest"></span>
+</button>
+<button class="p-2 hover:bg-surface-container-low rounded-lg transition-colors" title="Horário Oficial de Brasília">
+<span class="material-symbols-outlined" data-icon="schedule">schedule</span>
+</button>
+</div>
+<div class="h-6 w-px bg-border-subtle"></div>
+<!-- RH Manager Profile -->
+<div class="flex items-center space-x-3 cursor-pointer pl-1">
+<img class="w-9 h-9 rounded-full object-cover ring-2 ring-blue-accent/20" data-alt="Close up professional portrait of a Brazilian human resources director in modern office attire with soft ambient company lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmYxvvUnJcgv1M-RHkzUIg5RwLTGymUFstSAdXjKF07QSaSfJu2OS3lwgvFfDuhWFO2iMCXGFx_sPjZ0D0Gpz92TZVXnC8SN_C2iTaCulqyg_9aZ65iASR-2_dTIjLFn4vaeILaHZJrf_eaWhESn_mjkH1gSgkAjxAYtA9WhrkqI8t7tOz9HI-zOHtKlbXLB3HOaBIx8RuM9Mamrln5ukTo7sNknwFL19v8KDE1jEFQ8UtTMYZCiKq2w">
+<div class="hidden md:flex flex-col text-left">
+<span class="text-body-sm font-body-sm font-semibold text-on-surface">Mariana Alencar</span>
+<span class="text-caption font-caption text-outline">Gestora de DP &amp; Relações Trabalhistas</span>
+</div>
+</div>
+</div>
+</header>
+<!-- CONTENT SCROLLABLE CANVAS -->
+<main class="flex-1 overflow-y-auto custom-scrollbar p-6 space-y-6">
+<!-- SUB-HEADER: Context Bar & Quick Action Controls -->
+<section class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 bg-surface-container-lowest p-5 rounded-xl border border-border-subtle shadow-sm">
+<div>
+<div class="flex items-center space-x-2">
+<h1 class="text-headline-lg font-headline-lg text-on-surface">Tratamento de Ponto &amp; Ocorrências</h1>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-caption font-caption bg-emerald-light/10 text-teal-success font-semibold border border-emerald-light/20">
+              Período Aberto
+            </span>
+</div>
+<p class="text-body-md font-body-md text-on-surface-variant mt-0.5">
+            Olá, Mariana. Existem <strong class="text-ruby-danger">6 divergências críticas</strong> e <strong class="text-amber-warning">12 solicitações</strong> aguardando validação hoje.
+          </p>
+</div>
+<div class="flex flex-wrap items-center gap-3">
+<!-- Competência / Date Picker Trigger -->
+<div class="flex items-center space-x-2 bg-neutral-canvas border border-border-subtle rounded-lg px-3 py-2 text-body-sm font-body-sm">
+<span class="material-symbols-outlined text-outline" data-icon="calendar_month">calendar_month</span>
+<span class="font-medium text-on-surface">Período: 01/10 a 31/10/2024</span>
+<span class="text-outline text-xs">• Hoje, 24 de Outubro</span>
+<button class="material-symbols-outlined text-outline hover:text-on-surface text-base ml-1" data-icon="expand_more">expand_more</button>
+</div>
+<!-- Action: Export AFD/ACJEF -->
+<button class="inline-flex items-center space-x-2 px-3.5 py-2 bg-surface-container-lowest hover:bg-neutral-canvas text-navy-deep border border-border-subtle rounded-lg font-body-md text-body-sm font-medium transition-colors shadow-sm">
+<span class="material-symbols-outlined text-base text-blue-vibrant" data-icon="description">description</span>
+<span class="">Exportar AFD / ACJEF (MTE)</span>
+</button>
+<!-- Action: Fechar Folha -->
+<button class="inline-flex items-center space-x-2 px-4 py-2 bg-navy-deep hover:bg-navy-surface text-surface-container-lowest rounded-lg font-body-md text-body-sm font-semibold transition-colors shadow-sm">
+<span class="material-symbols-outlined text-base" data-icon="task_alt">task_alt</span>
+<span class="">Fechar Folha / Integração</span>
+</button>
+</div>
+</section>
+<!-- ANALYTICAL KPI METRICS (Bento-style Grid) -->
+<section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
+<!-- KPI 1: Presentes Hoje -->
+<div class="bg-surface-container-lowest border border-border-subtle rounded-xl p-5 shadow-sm hover:border-blue-accent/50 transition-all">
+<div class="flex items-center justify-between">
+<span class="text-caption font-caption text-outline uppercase tracking-wider font-semibold">Presentes Hoje</span>
+<div class="w-8 h-8 rounded-lg bg-emerald-light/10 text-teal-success flex items-center justify-center">
+<span class="material-symbols-outlined text-lg" data-icon="how_to_reg">how_to_reg</span>
+</div>
+</div>
+<div class="mt-3 flex items-baseline justify-between">
+<div class="flex items-baseline space-x-2">
+<span class="text-headline-lg font-headline-lg text-on-surface">142</span>
+<span class="text-body-md font-body-md text-outline">/ 150</span>
+</div>
+<span class="inline-flex items-center space-x-1 px-2 py-0.5 rounded-full text-caption font-caption bg-emerald-light/10 text-teal-success font-semibold">
+<span class="material-symbols-outlined text-xs" data-icon="arrow_upward">arrow_upward</span>
+<span class="">+2.4% vs ontem</span>
+</span>
+</div>
+<div class="mt-3 w-full bg-neutral-canvas rounded-full h-1.5 overflow-hidden">
+<div class="bg-emerald-light h-1.5 rounded-full" style="width: 94.6%"></div>
+</div>
+<p class="mt-2 text-caption font-caption text-on-surface-variant">94.6% de aderência à escala programada</p>
+</div>
+<!-- KPI 2: Atrasos / Divergências -->
+<div class="bg-surface-container-lowest border border-border-subtle rounded-xl p-5 shadow-sm hover:border-amber-soft/50 transition-all">
+<div class="flex items-center justify-between">
+<span class="text-caption font-caption text-outline uppercase tracking-wider font-semibold">Atrasos &amp; Divergências</span>
+<div class="w-8 h-8 rounded-lg bg-amber-soft/10 text-amber-warning flex items-center justify-center">
+<span class="material-symbols-outlined text-lg" data-icon="warning">warning</span>
+</div>
+</div>
+<div class="mt-3 flex items-baseline justify-between">
+<span class="text-headline-lg font-headline-lg text-amber-warning">6</span>
+<span class="inline-flex items-center space-x-1 px-2 py-0.5 rounded-full text-caption font-caption bg-amber-soft/15 text-amber-warning font-semibold">
+<span class="material-symbols-outlined text-xs" data-icon="schedule">schedule</span>
+<span class="">Fora de tolerância (+15m)</span>
+</span>
+</div>
+<div class="mt-3 flex items-center space-x-3 text-caption font-caption text-on-surface-variant">
+<span class="flex items-center space-x-1">
+<span class="w-2 h-2 rounded-full bg-ruby-danger"></span>
+<span class="">2 faltas não justificadas</span>
+</span>
+<span class="flex items-center space-x-1">
+<span class="w-2 h-2 rounded-full bg-amber-soft"></span>
+<span class="">4 batidas ímpares</span>
+</span>
+</div>
+</div>
+<!-- KPI 3: Solicitações Pendentes -->
+<div class="bg-surface-container-lowest border border-border-subtle rounded-xl p-5 shadow-sm hover:border-blue-vibrant/50 transition-all">
+<div class="flex items-center justify-between">
+<span class="text-caption font-caption text-outline uppercase tracking-wider font-semibold">Solicitações Pendentes</span>
+<div class="w-8 h-8 rounded-lg bg-surface-container-low text-blue-vibrant flex items-center justify-center">
+<span class="material-symbols-outlined text-lg" data-icon="assignment_late">assignment_late</span>
+</div>
+</div>
+<div class="mt-3 flex items-baseline justify-between">
+<div class="flex items-baseline space-x-1">
+<span class="text-headline-lg font-headline-lg text-on-surface">12</span>
+<span class="text-body-sm font-body-sm text-outline">aguardando triagem</span>
+</div>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-caption font-caption bg-blue-vibrant/10 text-blue-vibrant font-semibold">
+              Requer ação
+            </span>
+</div>
+<div class="mt-3 flex items-center justify-between text-caption font-caption pt-1 border-t border-border-subtle">
+<span class="text-on-surface-variant"><strong>8</strong> ajustes manuais</span>
+<span class="text-outline">•</span>
+<span class="text-on-surface-variant"><strong>4</strong> atestados médicos</span>
+</div>
+</div>
+<!-- KPI 4: Banco de Horas Acumulado -->
+<div class="bg-surface-container-lowest border border-border-subtle rounded-xl p-5 shadow-sm hover:border-purple-bank/50 transition-all">
+<div class="flex items-center justify-between">
+<span class="text-caption font-caption text-outline uppercase tracking-wider font-semibold">Banco de Horas Acumulado</span>
+<div class="w-8 h-8 rounded-lg bg-purple-subtle text-purple-bank flex items-center justify-center">
+<span class="material-symbols-outlined text-lg" data-icon="hourglass_top">hourglass_top</span>
+</div>
+</div>
+<div class="mt-3 flex items-baseline justify-between">
+<span class="text-headline-lg font-headline-lg text-purple-bank font-tabular-time">+340h 15m</span>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-caption font-caption bg-purple-subtle text-purple-bank font-semibold">
+              Saldo Positivo
+            </span>
+</div>
+<p class="mt-3 text-caption font-caption text-on-surface-variant flex items-center space-x-1">
+<span class="material-symbols-outlined text-xs text-teal-success" data-icon="trending_up">trending_up</span>
+<span class="">Equipe comercial e suporte em expansão controlada</span>
+</p>
+</div>
+</section>
+<!-- TWO-COLUMN WORKFLOW SECTION: Main Table + Medical Certificates Queue -->
+<section class="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
+<!-- LEFT/CENTER: Interactive Treatment Table (8 Columns on XL) -->
+<div class="xl:col-span-8 bg-surface-container-lowest rounded-xl border border-border-subtle shadow-sm flex flex-col">
+<!-- Table Header / Toolbar Filters -->
+<div class="p-5 border-b border-border-subtle flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+<div>
+<h2 class="text-headline-sm font-headline-sm text-on-surface">Tratamento de Ocorrências e Batidas</h2>
+<p class="text-caption font-caption text-on-surface-variant">Ajustes manuais com justificativa legal para espelho fiscal</p>
+</div>
+<!-- Filter Badges / Dropdowns -->
+<div class="flex flex-wrap items-center gap-2">
+<select class="text-body-sm font-body-sm bg-neutral-canvas border border-border-subtle rounded-lg px-2.5 py-1.5 text-on-surface focus:outline-none focus:ring-1 focus:ring-blue-vibrant">
+<option>Todos os Departamentos</option>
+<option>Engenharia de Software</option>
+<option>Vendas Corporativas</option>
+<option>Operações &amp; Logística</option>
+</select>
+<select class="text-body-sm font-body-sm bg-neutral-canvas border border-border-subtle rounded-lg px-2.5 py-1.5 text-on-surface focus:outline-none focus:ring-1 focus:ring-blue-vibrant">
+<option>Todos os Status</option>
+<option>Inconsistência</option>
+<option>Fora de Cerca (Geofence)</option>
+<option>Atrasado</option>
+<option>Falta Justificada</option>
+</select>
+<button class="p-1.5 bg-neutral-canvas border border-border-subtle rounded-lg text-outline hover:text-on-surface" title="Recarregar dados">
+<span class="material-symbols-outlined text-base" data-icon="refresh">refresh</span>
+</button>
+</div>
+</div>
+<!-- High-Density Data Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-slate-50 border-b border-border-subtle text-caption font-caption text-outline uppercase tracking-wider">
+<th class="py-3 px-4 font-semibold">Colaborador</th>
+<th class="py-3 px-3 font-semibold">Jornada Contratual</th>
+<th class="py-3 px-3 font-semibold">Batidas Realizadas</th>
+<th class="py-3 px-3 font-semibold">Divergência Detectada</th>
+<th class="py-3 px-3 font-semibold text-center">Foto / Biometria</th>
+<th class="py-3 px-4 font-semibold text-right">Ações de Gestão</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-subtle text-body-sm font-body-sm">
+<!-- ROW 1: Lucas Fernandes (Falta Batida de Saída) -->
+<tr class="hover:bg-neutral-canvas/70 transition-colors">
+<td class="py-3.5 px-4">
+<div class="flex items-center space-x-3">
+<img class="w-8 h-8 rounded-full object-cover ring-1 ring-border-subtle flex-shrink-0" data-alt="Modern studio headshot portrait of a male software engineer with glasses and dark navy polo shirt on a clean grey background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpDyEmw89J8Ujj6Y1OhD3exHhL4EtEmUvPXKdg_j6k_gvciMDI4PYAC2Q8ZDtc6NRKTGbyC0TH8A-W0HP0qU79GldPiklHSJQsP79XOwfSq6PNxygacP-ewgvz2gxP-fhq91P-mV0RhJXDr7Z-lcLcijxF2UQ2-AMi6eJ1kBeGd0M-b4Tm9GIoEI_yV6vlnRiEk0UHupVfzh2cm8V0kN4uIKaN80yA26fNhAGn5V3ikDF9MHJ56VHtqw">
+<div>
+<div class="font-semibold text-on-surface leading-snug">Lucas Fernandes</div>
+<div class="text-caption font-caption text-outline">Dev Senior • Engenharia</div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-3 text-on-surface-variant font-tabular-time">09:00 - 18:00</td>
+<td class="py-3.5 px-3">
+<div class="flex items-center space-x-1.5 font-tabular-time text-on-surface">
+<span class="px-1.5 py-0.5 bg-neutral-canvas border border-border-subtle rounded">08:58</span>
+<span class="text-outline">→</span>
+<span class="px-1.5 py-0.5 bg-neutral-canvas border border-border-subtle rounded">12:02</span>
+<span class="text-outline">→</span>
+<span class="px-1.5 py-0.5 bg-neutral-canvas border border-border-subtle rounded">13:05</span>
+<span class="text-outline">→</span>
+<span class="px-1.5 py-0.5 bg-error-container text-ruby-danger border border-ruby-danger/30 rounded font-semibold">--:--</span>
+</div>
+</td>
+<td class="py-3.5 px-3">
+<span class="inline-flex items-center space-x-1 px-2 py-0.5 rounded-full text-caption font-caption bg-red-50 text-ruby-danger border border-red-200">
+<span class="material-symbols-outlined text-xs" data-icon="error">error</span>
+<span class="">Batida Ímpar (Falta Saída)</span>
+</span>
+</td>
+<td class="py-3.5 px-3 text-center">
+<div class="inline-flex items-center justify-center w-7 h-7 rounded-md bg-emerald-light/10 text-teal-success" title="Biometria Facial 99.8% Reconhecida">
+<span class="material-symbols-outlined text-base" data-icon="face">face</span>
+</div>
+</td>
+<td class="py-3.5 px-4 text-right whitespace-nowrap">
+<div class="inline-flex items-center space-x-1.5">
+<button class="p-1.5 text-blue-vibrant hover:bg-surface-container-low rounded border border-blue-accent/30 font-medium text-caption font-caption flex items-center space-x-1" title="Incluir Batida">
+<span class="material-symbols-outlined text-sm" data-icon="edit_calendar">edit_calendar</span>
+<span class="">Ajustar</span>
+</button>
+<button class="p-1.5 text-outline hover:text-on-surface hover:bg-neutral-canvas rounded" title="Ver Espelho Completo">
+<span class="material-symbols-outlined text-base" data-icon="visibility">visibility</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- ROW 2: Camila Rocha (Fora de Cerca - Geofence 120m) -->
+<tr class="hover:bg-neutral-canvas/70 transition-colors bg-amber-50/20">
+<td class="py-3.5 px-4">
+<div class="flex items-center space-x-3">
+<img class="w-8 h-8 rounded-full object-cover ring-1 ring-border-subtle flex-shrink-0" data-alt="Professional portrait photo of an executive woman in business suit smiling softly against neutral office wall." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHDwu_EtsNE6yZC-wjC-c12N9bkLzcSjq3NJ9TBanZdGd8usGZPMW9EyB-pdzcbTbzn2VtVCdCGu7wnZ7SfTj0-viuGg0Mk68LO1veu3KDC9JfcL8c6jl4R0HQHm24KVmazrnoV9Z8I0gBHaTeqPVIB5RXosDLl2hokZmoA39WgXathzT2eczPT9ISAIPOj6Wd1uuSJgf-YP2ly1lpxejqSnV2zBEaOilZB2uTrE_SfLa7wYfEnqHEtA">
+<div>
+<div class="font-semibold text-on-surface leading-snug">Camila Rocha</div>
+<div class="text-caption font-caption text-outline">Executiva Contas • Comercial</div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-3 text-on-surface-variant font-tabular-time">08:00 - 17:00</td>
+<td class="py-3.5 px-3">
+<div class="flex items-center space-x-1.5 font-tabular-time text-on-surface">
+<span class="px-1.5 py-0.5 bg-amber-100 text-amber-warning border border-amber-soft/40 rounded font-semibold">08:14</span>
+<span class="text-outline">→</span>
+<span class="px-1.5 py-0.5 bg-neutral-canvas border border-border-subtle rounded">12:10</span>
+<span class="text-outline">→</span>
+<span class="px-1.5 py-0.5 bg-neutral-canvas border border-border-subtle rounded">13:10</span>
+<span class="text-outline">→</span>
+<span class="px-1.5 py-0.5 bg-neutral-canvas border border-border-subtle rounded">17:02</span>
+</div>
+</td>
+<td class="py-3.5 px-3">
+<span class="inline-flex items-center space-x-1 px-2 py-0.5 rounded-full text-caption font-caption bg-amber-100 text-amber-warning border border-amber-soft/30">
+<span class="material-symbols-outlined text-xs" data-icon="location_off">location_off</span>
+<span class="">Fora da Cerca (+120m)</span>
+</span>
+</td>
+<td class="py-3.5 px-3 text-center">
+<button class="inline-flex items-center space-x-1 text-blue-vibrant hover:underline text-caption font-caption" title="Ver comprovante geolocalizado">
+<span class="material-symbols-outlined text-base" data-icon="map">map</span>
+<span class="">Ver GPS</span>
+</button>
+</td>
+<td class="py-3.5 px-4 text-right whitespace-nowrap">
+<div class="inline-flex items-center space-x-1.5">
+<button class="px-2 py-1 bg-emerald-light/10 text-teal-success hover:bg-emerald-light/20 rounded border border-emerald-light/30 font-medium text-caption font-caption flex items-center space-x-1">
+<span class="material-symbols-outlined text-sm" data-icon="check">check</span>
+<span class="">Aprovar</span>
+</button>
+<button class="px-2 py-1 bg-red-50 text-ruby-danger hover:bg-red-100 rounded border border-ruby-danger/30 font-medium text-caption font-caption">
+                        Rejeitar
+                      </button>
+</div>
+</td>
+</tr>
+<!-- ROW 3: Thiago Brandão (Atraso com Justificativa de Trânsito) -->
+<tr class="hover:bg-neutral-canvas/70 transition-colors">
+<td class="py-3.5 px-4">
+<div class="flex items-center space-x-3">
+<img class="w-8 h-8 rounded-full object-cover ring-1 ring-border-subtle flex-shrink-0" data-alt="Close up business portrait of young Latino logistics coordinator in high visibility uniform collar." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCP-weMkc2MmIFFCREbZ-ZII2P_hByK83JzKU-UmR1Wt7w4mSJNyDDiD6IrecNFLZc0TzSBDjyEWhf0cD4aS8hqG-KuwGcuPEa-AFM_Ve698KWU5EZYno10XbHNLbQmsCUVKSjek3tqCn73AQBfeZ8Wzh3jio_MI-BYVokQdYwVsKVWZ37DAUknAtLfQmBCDHEkS1Kqdvb7e7HRLQcRxUDnE7DZjGrfb-t4zP09J9IX8ORbpZgVFK159A">
+<div>
+<div class="font-semibold text-on-surface leading-snug">Thiago Brandão</div>
+<div class="text-caption font-caption text-outline">Analista • Operações</div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-3 text-on-surface-variant font-tabular-time">07:00 - 16:00</td>
+<td class="py-3.5 px-3">
+<div class="flex items-center space-x-1.5 font-tabular-time text-on-surface">
+<span class="px-1.5 py-0.5 bg-amber-50 text-amber-warning border border-amber-soft/30 rounded font-semibold">07:38</span>
+<span class="text-outline">→</span>
+<span class="px-1.5 py-0.5 bg-neutral-canvas border border-border-subtle rounded">11:30</span>
+<span class="text-outline">→</span>
+<span class="px-1.5 py-0.5 bg-neutral-canvas border border-border-subtle rounded">12:30</span>
+<span class="text-outline">→</span>
+<span class="px-1.5 py-0.5 bg-neutral-canvas border border-border-subtle rounded">16:00</span>
+</div>
+</td>
+<td class="py-3.5 px-3">
+<span class="inline-flex items-center space-x-1 px-2 py-0.5 rounded-full text-caption font-caption bg-neutral-canvas text-on-surface-variant border border-border-subtle">
+<span class="material-symbols-outlined text-xs text-amber-soft" data-icon="alarm">alarm</span>
+<span class="">Atraso: +38min (Acidente Linha 9)</span>
+</span>
+</td>
+<td class="py-3.5 px-3 text-center">
+<div class="inline-flex items-center justify-center w-7 h-7 rounded-md bg-emerald-light/10 text-teal-success" title="Facial Válida">
+<span class="material-symbols-outlined text-base" data-icon="face">face</span>
+</div>
+</td>
+<td class="py-3.5 px-4 text-right whitespace-nowrap">
+<div class="inline-flex items-center space-x-1.5">
+<button class="px-2 py-1 bg-surface-container-low text-blue-vibrant hover:bg-surface-container-highest rounded border border-blue-accent/30 font-medium text-caption font-caption flex items-center space-x-1">
+<span class="material-symbols-outlined text-sm" data-icon="savings">savings</span>
+<span class="">Abonar Horas</span>
+</button>
+<button class="p-1.5 text-outline hover:text-on-surface hover:bg-neutral-canvas rounded" title="Ver Detalhes">
+<span class="material-symbols-outlined text-base" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- ROW 4: Beatriz Santos (Biometria Duvidosa / Iluminação Baixa) -->
+<tr class="hover:bg-neutral-canvas/70 transition-colors">
+<td class="py-3.5 px-4">
+<div class="flex items-center space-x-3">
+<img class="w-8 h-8 rounded-full object-cover ring-1 ring-border-subtle flex-shrink-0" data-alt="Portrait photo of a young Brazilian female financial analyst in navy blue blazer in corporate conference room." src="https://lh3.googleusercontent.com/aida-public/AB6AXuApLF7SwKx0X8pHX-FGWZ9IMjxyR1_sHKo6nsl06bFi8-cnxldI5rb6G474mRJCjyzVy3_p4dpJJ-XBTaGeMXbislSnlGJn_E07sX4yvROpxb9_NJa0OrjcgDtGtdbqnLdPfr1nyIghECIE7jxz_Fjt11B7FTkvms0WnQ_wo5iuq2k3SfJKxUBWm9uBn6-yynclxAipu8UfzxxFcKSeSjYwzUFFVkVj7Nec709utCvQ81Lnx6bIKiaiDw">
+<div>
+<div class="font-semibold text-on-surface leading-snug">Beatriz Santos</div>
+<div class="text-caption font-caption text-outline">Especialista FP&amp;A • Financeiro</div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-3 text-on-surface-variant font-tabular-time">09:00 - 18:00</td>
+<td class="py-3.5 px-3">
+<div class="flex items-center space-x-1.5 font-tabular-time text-on-surface">
+<span class="px-1.5 py-0.5 bg-neutral-canvas border border-border-subtle rounded">08:55</span>
+<span class="text-outline">→</span>
+<span class="px-1.5 py-0.5 bg-neutral-canvas border border-border-subtle rounded">12:00</span>
+<span class="text-outline">→</span>
+<span class="px-1.5 py-0.5 bg-neutral-canvas border border-border-subtle rounded">13:00</span>
+<span class="text-outline">→</span>
+<span class="px-1.5 py-0.5 bg-neutral-canvas border border-border-subtle rounded">18:05</span>
+</div>
+</td>
+<td class="py-3.5 px-3">
+<span class="inline-flex items-center space-x-1 px-2 py-0.5 rounded-full text-caption font-caption bg-amber-100 text-amber-warning border border-amber-soft/30">
+<span class="material-symbols-outlined text-xs" data-icon="photo_camera_front">photo_camera_front</span>
+<span class="">Alerta Anti-Spoof (65%)</span>
+</span>
+</td>
+<td class="py-3.5 px-3 text-center">
+<button class="inline-flex items-center space-x-1 text-amber-warning hover:underline text-caption font-caption">
+<span class="material-symbols-outlined text-base" data-icon="visibility">visibility</span>
+<span class="">Foto (Luz Fraca)</span>
+</button>
+</td>
+<td class="py-3.5 px-4 text-right whitespace-nowrap">
+<div class="inline-flex items-center space-x-1.5">
+<button class="px-2.5 py-1 bg-emerald-light/10 text-teal-success hover:bg-emerald-light/20 rounded border border-emerald-light/30 font-medium text-caption font-caption">
+                        Validar Face
+                      </button>
+<button class="px-2 py-1 text-ruby-danger hover:bg-red-50 rounded border border-border-subtle font-medium text-caption font-caption">
+                        Solicitar Repeteco
+                      </button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Pagination & Bulk Operations Footer -->
+<div class="p-4 border-t border-border-subtle bg-slate-50 flex flex-col sm:flex-row items-center justify-between gap-3 rounded-b-xl">
+<div class="text-caption font-caption text-on-surface-variant flex items-center space-x-2">
+<span class="">Mostrando <strong>4 de 6</strong> ocorrências pendentes</span>
+<span class="text-outline">•</span>
+<button class="text-blue-vibrant hover:underline font-medium">Selecionar todas as 6</button>
+</div>
+<div class="flex items-center space-x-2">
+<button class="px-3 py-1.5 bg-surface-container-lowest border border-border-subtle rounded text-body-sm font-body-sm text-outline hover:text-on-surface">
+                Anterior
+              </button>
+<button class="px-3 py-1.5 bg-blue-vibrant text-surface-container-lowest rounded text-body-sm font-body-sm font-semibold">
+                1
+              </button>
+<button class="px-3 py-1.5 bg-surface-container-lowest border border-border-subtle rounded text-body-sm font-body-sm text-on-surface hover:bg-neutral-canvas">
+                2
+              </button>
+<button class="px-3 py-1.5 bg-surface-container-lowest border border-border-subtle rounded text-body-sm font-body-sm text-on-surface hover:bg-neutral-canvas">
+                Próximo
+              </button>
+</div>
+</div>
+</div>
+<!-- RIGHT: Fila de Atestados Médicos & Triagem de Ajustes (4 Columns on XL) -->
+<div class="xl:col-span-4 space-y-5">
+<div class="bg-surface-container-lowest rounded-xl border border-border-subtle p-5 shadow-sm">
+<div class="flex items-center justify-between pb-3 border-b border-border-subtle">
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-ruby-danger" data-icon="medical_services">medical_services</span>
+<h3 class="text-headline-sm font-headline-sm text-on-surface">Fila de Atestados</h3>
+</div>
+<span class="px-2 py-0.5 bg-ruby-danger/10 text-ruby-danger rounded-full text-caption font-caption font-bold">
+                4 Novos
+              </span>
+</div>
+<div class="mt-4 space-y-4">
+<!-- ATESTADO ITEM 1 -->
+<div class="p-3.5 rounded-lg border border-border-subtle bg-neutral-canvas/60 hover:bg-neutral-canvas transition-colors flex flex-col space-y-3">
+<div class="flex items-start justify-between">
+<div class="flex items-center space-x-2.5">
+<img class="w-7 h-7 rounded-full object-cover" data-alt="Portrait photo of a young brunette woman in casual office environment with soft natural window illumination." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_rv1-delpXerwzIm--nXo0ltzExUh4tsZcFVb1jakUY70l_USiCLy6t7zdpryverJcSnFm3lYfcnoZbrSysiYYFEQnZkSf1zOUZRAT4nm8oqrFfW9D_oh6Nxujtf22VYij1mdB_HXNGayjkz-LAAH7KPOLe6oBtVE5czUU0_lkC98FyxN6hGS33_t2OxjL7hAasqwCR3VHDs2vCRtplkHrVQamJRKYwAwX0pZGQdggN2eIqTXtcg5yA">
+<div>
+<div class="text-body-sm font-body-sm font-semibold text-on-surface">Juliana Mendes</div>
+<div class="text-caption font-caption text-outline">Operações • CID J06.9 (Gripe)</div>
+</div>
+</div>
+<span class="text-caption font-caption text-outline font-tabular-time">Hoje, 08:30</span>
+</div>
+<div class="flex items-center space-x-3 bg-surface-container-lowest p-2 rounded border border-border-subtle">
+<!-- Thumbnail preview of certificate -->
+<div class="w-12 h-14 bg-slate-100 rounded border border-border-subtle flex flex-col items-center justify-center text-outline overflow-hidden relative flex-shrink-0 cursor-pointer group" title="Clique para ampliar PDF">
+<span class="material-symbols-outlined text-xl text-ruby-danger group-hover:scale-110 transition-transform" data-icon="picture_as_pdf">picture_as_pdf</span>
+<span class="text-[9px] font-mono mt-0.5">atestado.pdf</span>
+</div>
+<div class="text-caption font-caption text-on-surface-variant flex-1 min-w-0">
+<p class="font-medium text-on-surface truncate">Dr. Roberto Silveira (CRM 124.908-SP)</p>
+<p class="text-outline">Período: <strong>24/10 a 26/10 (3 dias)</strong></p>
+<p class="text-teal-success font-semibold flex items-center space-x-1">
+<span class="material-symbols-outlined text-xs" data-icon="check_circle">check_circle</span>
+<span class="">Assinatura Digital ICP-Brasil Válida</span>
+</p>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-2 pt-1">
+<button class="py-1.5 px-3 bg-emerald-light hover:bg-teal-success text-surface-container-lowest rounded text-caption font-caption font-semibold flex items-center justify-center space-x-1 transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="check">check</span>
+<span class="">Deferir Atestado</span>
+</button>
+<button class="py-1.5 px-3 bg-surface-container-lowest hover:bg-neutral-canvas border border-border-subtle text-ruby-danger rounded text-caption font-caption font-medium flex items-center justify-center space-x-1 transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="close">close</span>
+<span class="">Indeferir</span>
+</button>
+</div>
+</div>
+<!-- ATESTADO ITEM 2 -->
+<div class="p-3.5 rounded-lg border border-border-subtle bg-neutral-canvas/60 hover:bg-neutral-canvas transition-colors flex flex-col space-y-3">
+<div class="flex items-start justify-between">
+<div class="flex items-center space-x-2.5">
+<img class="w-7 h-7 rounded-full object-cover" data-alt="Portrait photo of a Brazilian male executive with short hair wearing a navy blue shirt and calm expression." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2oFQfZs2OFMFfh0lGP1Qxr6BrXddqnTq-1y9fTI0lRxfss67Orh4ldYw1xeIqEqIQlsfJjSXaVzxCTv1LIbJndvHrhPf2xcrqFY6gXRDprSMnM5PknnYvabB2LssXkey97vwKlcV-JsS02mtElju9Os97fKkqcJ8FgzRVa-uPT15JEDd8fmZg-TFJjwJivcVYRDUIpJaKuLQ4RGjI9vRvPEsa0lwOLxPg5OrFcxSIn5FA3P5GcBPvfw">
+<div>
+<div class="text-body-sm font-body-sm font-semibold text-on-surface">Rafael Cordeiro</div>
+<div class="text-caption font-caption text-outline">TI • Declaração Horas (Odonto)</div>
+</div>
+</div>
+<span class="text-caption font-caption text-outline font-tabular-time">Ontem, 17:15</span>
+</div>
+<div class="flex items-center space-x-3 bg-surface-container-lowest p-2 rounded border border-border-subtle">
+<div class="w-12 h-14 bg-slate-100 rounded border border-border-subtle flex flex-col items-center justify-center text-outline overflow-hidden flex-shrink-0 cursor-pointer group" title="Ver imagem da declaração">
+<span class="material-symbols-outlined text-xl text-blue-accent group-hover:scale-110 transition-transform" data-icon="image">image</span>
+<span class="text-[9px] font-mono mt-0.5">recibo.jpg</span>
+</div>
+<div class="text-caption font-caption text-on-surface-variant flex-1 min-w-0">
+<p class="font-medium text-on-surface truncate">Clínica OdontoSanté (CRO 45.221)</p>
+<p class="text-outline">Período: <strong>23/10 (14:00 às 16:30)</strong></p>
+<p class="text-amber-warning font-semibold flex items-center space-x-1">
+<span class="material-symbols-outlined text-xs" data-icon="info">info</span>
+<span class="">Abono Parcial de 2h 30m</span>
+</p>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-2 pt-1">
+<button class="py-1.5 px-3 bg-emerald-light hover:bg-teal-success text-surface-container-lowest rounded text-caption font-caption font-semibold flex items-center justify-center space-x-1 transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="check">check</span>
+<span class="">Deferir Abono</span>
+</button>
+<button class="py-1.5 px-3 bg-surface-container-lowest hover:bg-neutral-canvas border border-border-subtle text-ruby-danger rounded text-caption font-caption font-medium flex items-center justify-center space-x-1 transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="close">close</span>
+<span class="">Indeferir</span>
+</button>
+</div>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-border-subtle text-center">
+<a class="text-body-sm font-body-sm font-semibold text-blue-vibrant hover:underline inline-flex items-center space-x-1" href="#solicitacoes">
+<span class="">Ver todos os 12 chamados de ponto</span>
+<span class="material-symbols-outlined text-base" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- Biometric & Geofence Verification Widget -->
+<div class="bg-surface-container-lowest rounded-xl border border-border-subtle p-4 shadow-sm">
+<div class="flex items-center space-x-2 text-on-surface font-semibold text-body-md mb-2">
+<span class="material-symbols-outlined text-blue-vibrant" data-icon="radar">radar</span>
+<span class="">Monitoramento de Perímetro (Geofence)</span>
+</div>
+<!-- Mini-map placeholder visual with 70m green boundary ring -->
+<div class="h-28 w-full bg-slate-100 rounded-lg border border-border-subtle relative overflow-hidden flex items-center justify-center">
+<!-- Radial green geofence circle -->
+<div class="absolute w-24 h-24 rounded-full bg-emerald-light/20 border-2 border-dashed border-emerald-light animate-pulse"></div>
+<!-- Center Building Pin -->
+<div class="relative z-10 w-4 h-4 rounded-full bg-blue-vibrant ring-4 ring-white shadow flex items-center justify-center">
+<div class="w-1.5 h-1.5 bg-white rounded-full"></div>
+</div>
+<!-- Simulated Out-of-bounds user dot -->
+<div class="absolute right-8 top-4 z-10 w-3 h-3 rounded-full bg-amber-soft ring-2 ring-white shadow" title="Camila Rocha (120m)"></div>
+</div>
+<div class="mt-2.5 flex items-center justify-between text-caption font-caption text-outline">
+<span class="flex items-center space-x-1 text-teal-success font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-light"></span>
+<span class="">Sede Faria Lima (Raio: 70m)</span>
+</span>
+<span class="">Precisão GPS: ±3 metros</span>
+</div>
+</div>
+</div>
+</section>
+<!-- AUDIT TRAIL & LEGAL COMPLIANCE FOOTER BANNER -->
+<footer class="bg-surface-container-lowest rounded-xl border border-border-subtle p-4 flex flex-col md:flex-row items-center justify-between text-caption font-caption text-on-surface-variant gap-3 shadow-sm">
+<div class="flex items-center space-x-3">
+<div class="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 flex-shrink-0">
+<span class="material-symbols-outlined text-base" data-icon="security">security</span>
+</div>
+<div>
+<span class="font-semibold text-on-surface">Conformidade Legal Ativa:</span>
+<span class="">Sistema Homologado pelo Ministério do Trabalho e Emprego nos termos da <strong>Portaria 671/2021 (REP-P)</strong>.</span>
+</div>
+</div>
+<div class="flex items-center space-x-4 text-outline font-tabular-time">
+<span title="Assinatura Hash do Espelho Atual" class="">Hash SHA-256: 8f4b...c39a</span>
+<span class="">•</span>
+<span class="">NSR: #00084920</span>
+<span class="">•</span>
+<span class="text-teal-success flex items-center space-x-1">
+<span class="material-symbols-outlined text-xs" data-icon="lock">lock</span>
+<span class="">Trilha Imutável</span>
+</span>
+</div>
+</footer>
+</main>
+</div>
+<!-- Interactive Demo Script: Instant Status Feedback Toast -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Small feedback on Sync REP button click
+      const syncBtn = document.querySelector('button:has([data-icon="sync"])');
+      if (syncBtn) {
+        syncBtn.addEventListener('click', () => {
+          const originalText = syncBtn.innerHTML;
+          syncBtn.innerHTML = `
+            <span class="material-symbols-outlined text-base animate-spin" data-icon="autorenew">autorenew</span>
+            <span>Sincronizando REP...</span>
+          `;
+          syncBtn.disabled = true;
+
+          setTimeout(() => {
+            syncBtn.innerHTML = `
+              <span class="material-symbols-outlined text-base text-tertiary-fixed" data-icon="check_circle">check_circle</span>
+              <span>REP Atualizado</span>
+            `;
+            setTimeout(() => {
+              syncBtn.innerHTML = originalText;
+              syncBtn.disabled = false;
+            }, 2000);
+          }, 1200);
+        });
+      }
+    });
+  </script>
+
+
+</body></html>

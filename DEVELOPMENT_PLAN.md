@@ -196,23 +196,23 @@ Created and populated in Turso `pponto` (hostname: `pponto-felipeumbra.aws-ap-no
 
 ```
 1. ✅ Turso DB created + schema + seed data     ← DONE
-2. 🔲 Wire Turso HTTP client in src/core/turso-client.ts
-3. 🔲 Types + config + hash router
-4. 🔲 Auth module + login view
-5. 🔲 Mobile shell (bottom nav) + punch view
-6. 🔲 Admin shell (sidebar) + dashboard view
-7. 🔲 Espelho de ponto view
-8. 🔲 Solicitação de ajuste view
-9. 🔲 Tratamento de ponto (admin) view
-10. 🔲 Homologação atestados view
-11. 🔲 Aprovação ajustes view
-12. 🔲 Relatórios analíticos + banco de horas view
-13. 🔲 Fechamento de folha + fiscal export view
-14. 🔲 Cercas virtuais config view
-15. 🔲 Offline module (IndexedDB + sync status)
-16. 🔲 Web punch view (camera + GPS)
-17. 🔲 PWA hardening (SW, icons, manifest)
-18. 🔲 Tests + CI/CD
+2. ✅ Turso HTTP client in src/core/turso-client.ts  ← Phase 1
+3. ✅ Types + config + hash router              ← Phase 1
+4. ✅ Auth module + login view                  ← Phase 1 (static shell)
+5. ✅ Mobile shell (bottom nav) + punch view    ← Phase 1 (placeholder)
+6. ✅ Admin shell (sidebar) + dashboard view    ← Phase 1 (placeholder)
+7. 🔲 Espelho de ponto view                     ← Phase 2
+8. 🔲 Solicitação de ajuste view                ← Phase 2
+9. 🔲 Tratamento de ponto (admin) view          ← Phase 3
+10. 🔲 Homologação atestados view               ← Phase 3
+11. 🔲 Aprovação ajustes view                   ← Phase 3
+12. 🔲 Relatórios analíticos + banco de horas view  ← Phase 4
+13. 🔲 Fechamento de folha + fiscal export view ← Phase 4
+14. 🔲 Cercas virtuais config view              ← Phase 4
+15. 🔲 Offline module (IndexedDB + sync status) ← Phase 1 done, UI Phase 4
+16. 🔲 Web punch view (camera + GPS)            ← Phase 3
+17. 🔲 PWA hardening (SW, icons, manifest)      ← Phase 5
+18. 🔲 Tests + CI/CD                            ← Phase 5
 ```
 
 ---
@@ -223,3 +223,6 @@ Created and populated in Turso `pponto` (hostname: `pponto-felipeumbra.aws-ap-no
 |----------|-------|-------|
 | `TURSO_DATABASE_URL` | `libsql://pponto-felipeumbra.aws-ap-northeast-1.turso.io` | Runtime config for HTTP client |
 | `TURSO_AUTH_TOKEN` | *(to be generated via `turso db tokens create pponto`)* | Auth token for Turso API |
+
+> **Phase 1 deliverable:** All core infrastructure files below are implemented, typechecked, linted, and unit-tested.
+> Runtime DB connectivity needs `VITE_TURSO_URL` + `VITE_TURSO_TOKEN` in `.env` (see `.env.example`).

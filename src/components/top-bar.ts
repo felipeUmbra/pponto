@@ -14,11 +14,12 @@ export function renderTopBar(title: string): HTMLElement {
     <div class="flex items-center space-x-6">
       <span class="text-headline-md font-bold tracking-tight text-on-surface">pPonto</span>
       <div class="relative w-80">
-        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-lg">search</span>
+        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-lg" aria-hidden="true">search</span>
         <input
           class="w-full pl-9 pr-4 py-1.5 text-sm bg-neutral-canvas border border-border-subtle rounded-lg focus:outline-none focus:border-blue-vibrant focus:ring-1 focus:ring-blue-vibrant placeholder-outline"
           placeholder="Buscar colaborador por nome, CPF ou PIS..."
           type="text"
+          aria-label="Buscar colaborador"
         />
       </div>
       <nav class="hidden lg:flex items-center space-x-5 text-sm">

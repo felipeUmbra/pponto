@@ -5,6 +5,8 @@
 import type { RouteName } from '../../types.js';
 import { renderMobileNav } from '../../components/mobile-nav.js';
 import { getQueueCount } from '../../core/offline.js';
+import { clearSession } from '../../core/store.js';
+import { navigate } from '../../router.js';
 
 export function renderMobileShell(
   activeRoute: RouteName,
@@ -33,8 +35,11 @@ export function renderMobileShell(
         <span class="w-2 h-2 rounded-full bg-emerald-light animate-pulse"></span>
         <span class="text-[11px] text-white font-medium" data-role="conn-pill">Online</span>
       </div>
-      <button class="w-8 h-8 rounded-full bg-navy-surface flex items-center justify-center text-white hover:bg-blue-accent/20 transition-colors">
+      <button class="w-8 h-8 rounded-full bg-navy-surface flex items-center justify-center text-white hover:bg-blue-accent/20 transition-colors" aria-label="Ajuda" title="Ajuda">
         <span class="material-symbols-outlined text-[18px]">help_outline</span>
+      </button>
+      <button class="w-8 h-8 rounded-full bg-navy-surface flex items-center justify-center text-white hover:bg-ruby-danger/30 transition-colors" data-role="logout-btn" aria-label="Encerrar sessão" title="Encerrar Sessão">
+        <span class="material-symbols-outlined text-[18px]">logout</span>
       </button>
     </div>
   `;
@@ -51,6 +56,12 @@ export function renderMobileShell(
     <span class="text-[11px] text-outline font-mono">REP-P v3.12</span>
   `;
   shell.appendChild(banner);
+
+  // Logout action
+  header.querySelector<HTMLButtonElement>('[data-role="logout-btn"]')?.addEventListener('click', () => {
+    clearSession();
+    navigate('/login');
+  });
 
   // Title
   const titleBar = document.createElement('div');

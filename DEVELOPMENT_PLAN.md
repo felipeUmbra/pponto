@@ -82,6 +82,11 @@ src/
 
 Created and populated in Turso `pponto` (hostname: `pponto-felipeumbra.aws-ap-northeast-1.turso.io`).
 
+> **Database strategy (dev/prod separation):**
+> - `pponto` (dev/test) — current working DB with seed data. Used during development.
+> - `pponto-prod` (production) — `pponto-prod-felipeumbra.aws-ap-northeast-1.turso.io`, created with the same schema; reserved for release deploys. Use `.env.production` with `VITE_TURSO_URL`/`VITE_TURSO_TOKEN` pointing at prod.
+> - Token note: the libsql HTTP endpoint requires a **database-scoped** token (`turso db tokens create <db>`), not an Org management token.
+
 | Table | Rows | Purpose |
 |-------|------|---------|
 | `companies` | 1 | Tenant (CNPJ, address) |
@@ -159,7 +164,7 @@ Created and populated in Turso `pponto` (hostname: `pponto-felipeumbra.aws-ap-no
 
 **Delivered:** executive KPI bento (saldo geral, HE, absenteísmo, vencimentos), horas extras por departamento bar chart, previsto-vs-efetivo weekly comparison, extrato de banco de horas por colaborador with CLT §59 split (50%/100%), CSV exports; fechamento de folha workflow ribbon (4 etapas), Portaria 671 MTE export cards (AFD Art. 83, AFDT Art. 84, ACJEF Art. 85, layout folha ERP) with download, ICP-Brasil lot audit trail with SHA-256; cercas virtuais map with radial zones, CRUD + raio slider (30–500m) + active toggle; contingência offline status card with live queue count + manual/auto sync drain; configurações with company card, feature-flag toggles, reminder lead-time, RBAC matrix. All five admin views verified end-to-end; Turso queries degrade gracefully to demo dataset when the token is invalid/unreachable.
 
-### Phase 5 — PWA Hardening & CI/CD
+### Phase 5 — PWA Hardening & CI/CD (in progress)
 | Work item | Description |
 |-----------|-------------|
 | Service worker | Update `sw.js` to precache app shell + offline fallback |
@@ -167,6 +172,24 @@ Created and populated in Turso `pponto` (hostname: `pponto-felipeumbra.aws-ap-no
 | E2E tests | Playwright tests for: login → punch → espelho; admin dashboard flows |
 | Unit tests | Vitest coverage for store, auth, router, time calculations |
 | CI pipeline | GitHub Actions: typecheck + lint + test + build on push to main |
+
+### Phase 6 — UX/UI Polish & Accessibility (implemented)
+**Goal:** Fix the missing icon rendering and bring the interface to production visual quality.
+
+| Work item | Status | Description |
+|-----------|--------|-------------|
+| Icon font | ✅ | Load **Material Symbols Outlined** (Google Fonts) in `index.html` with `icon_names` subset (98 icons preloaded) + define `.material-symbols-outlined` font class in `styles.css` (with size/`font-variation-settings` utilities) |
+| Icon audit | ✅ | Sweep all `.material-symbols-outlined` usages; replaced outdated glyph names (`progress_activity` → `autorenew`, `pace` → `speed`). Verified: **69 icons used across 24 files, 0 missing from preload** |
+| Icon fallback | ✅ | 105-icon font preloaded via Google Fonts `icon_names` subset + service worker caches `index.html` (which loads the font), so the PWA works offline after first visit |
+| Empty states | ✅ | Branded empty-state component (`src/components/empty-state.ts` → `createEmptyState`) used across admin views (dashboard, offline, aprovacao, homologacao) and mobile (espelho, solicitacoes) — icon + title + message + CTA |
+| Focus & a11y | ✅ | `:focus-visible` rings, `aria-label` on icon-only buttons (mobile-nav, shell logout, etc.), `aria-hidden` on decorative icons, `prefers-reduced-motion` block (disables shimmer/pulse/scan), `prefers-contrast: high`, skip-link, `.sr-only`, `role="tab"` + `aria-selected` on mobile tabs |
+| Loading skeletons | ✅ | Shimmer skeleton components (`src/components/skeleton.ts` → `createAdminPageSkeleton`, `createPunchSkeleton`, `createListSkeleton`) used in all 9 admin views + mobile espelho/solicitacoes/ajuste |
+| Responsive audit | ✅ | Tables wrapped in `overflow-x-auto` (dashboard, tratamento, relatorios, fechamento, configuracoes); touch targets ≥ 44px via `@media (pointer: coarse)`; mobile safe-area insets (`safe-area-pb`/`safe-area-tb` with `env(safe-area-inset-*)`); mobile viewport max-w 420px |
+| Evidence screenshots | 🔲 | Capture before/after icons (`evidence_icon1.png` / `evidence_icon2.png` are the "before" evidence) — **pending: "after" screenshots not yet captured** |
+
+**Root cause (verified):** `index.html` loaded no Google Fonts; `styles.css` had no `.material-symbols-outlined` font-family rule. All icon spans rendered as empty inline text. Fixed by adding the Google Fonts `<link>` with `icon_names` subset + font-family class.
+
+**Delivered (Phase 6):** employee logout button in mobile `shell.ts` top bar (`logout` icon), admin toggle icons (`toggle_on`/`toggle_off` in configuracoes/cercas switches), SW cache bumped to `v4` to force fresh `index.html`.
 
 ---
 
@@ -226,8 +249,10 @@ Created and populated in Turso `pponto` (hostname: `pponto-felipeumbra.aws-ap-no
 16. ✅ Offline module (IndexedDB + sync status) ← Phase 1 done, UI Phase 4
 17. ✅ Web punch view (camera + GPS)            ← Phase 3
 18. ✅ Configurações (settings + RBAC)          ← Phase 4
-19. 🔲 PWA hardening (SW, icons, manifest)      ← Phase 5
-20. 🔲 Tests + CI/CD                            ← Phase 5
+19. ✅ PWA hardening (SW, icons, manifest)      ← Phase 5 (implemented)
+20. ✅ E2E + CI/CD                              ← Phase 5 (implemented)
+21. ✅ Icon font + UX/UI polish (missing icons)  ← Phase 6 (implemented)
+22. ✅ A11y + responsive + empty states          ← Phase 6 (implemented)
 ```
 
 ---

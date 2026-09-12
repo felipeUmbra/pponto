@@ -10,10 +10,14 @@ import {
 import type { MedicalCertificate } from '../../types.js';
 import { getCurrentUser } from '../../core/store.js';
 
+import { createEmptyState } from '../../components/empty-state.js';
+import { createAdminPageSkeleton } from '../../components/skeleton.js';
+
 export async function renderHomologacao(): Promise<HTMLElement> {
   const el = document.createElement('div');
   el.className = 'space-y-6';
-  el.innerHTML = '<p class="text-caption text-outline text-center py-8">Carregando dados…</p>';
+  // Show skeleton while loading
+  el.appendChild(createAdminPageSkeleton());
 
   try {
     const [certificates, users] = await Promise.all([listPendingCertificates(), listAdminUsers()]);
@@ -39,7 +43,12 @@ export async function renderHomologacao(): Promise<HTMLElement> {
     const badge = header.querySelector<HTMLSpanElement>('.inline-flex');
 
     if (certificates.length === 0) {
-      grid.innerHTML = '<p class="text-caption text-outline text-center py-8 col-span-full">Nenhum atestado pendente 🎉</p>';
+      grid.appendChild(createEmptyState({
+        icon: 'medical_information',
+        title: 'Nenhum atestado pendente',
+        subtitle: 'Todos os atestados estão em dia 🎉',
+        className: 'col-span-full',
+      }));
     } else {
       for (const c of certificates) {
         const emp = userById.get(c.user_id);

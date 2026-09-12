@@ -5,10 +5,13 @@
 import { listAdminUsers } from '../../api/data.js';
 import type { AdminUserRow } from '../../api/data.js';
 
+import { createAdminPageSkeleton } from '../../components/skeleton.js';
+
 export async function renderTratamento(): Promise<HTMLElement> {
   const el = document.createElement('div');
   el.className = 'space-y-6';
-  el.innerHTML = '<p class="text-caption text-outline text-center py-8">Carregando dados…</p>';
+  // Show skeleton while loading
+  el.appendChild(createAdminPageSkeleton());
 
   try {
     const users = await listAdminUsers();

@@ -68,16 +68,20 @@ export function renderSideNav(activeRoute: RouteName): HTMLElement {
     const isActive = link.route === `/${activeRoute}` || (activeRoute === 'admin' && link.route === '/admin');
     const a = document.createElement('a');
     a.href = `#${link.route}`;
-    a.className = `flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors duration-150 ${
+    a.className = `flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors duration-150 focus-ring ${
       isActive
         ? 'text-white border-l-4 border-blue-accent bg-navy-deep font-semibold'
         : 'text-outline-variant hover:text-white hover:bg-navy-deep'
     }`;
+    a.setAttribute('role', 'menuitem');
     a.innerHTML = `
-      <span class="material-symbols-outlined${isActive ? ' text-blue-accent' : ''}">${link.icon}</span>
+      <span class="material-symbols-outlined${isActive ? ' text-blue-accent' : ''}" aria-hidden="true"></span>
       <span class="text-sm flex-1">${link.label}</span>
       <span class="badge-slot" data-route="${link.route}"></span>
     `;
+    // Set icon after DOM insertion to avoid innerHTML overwriting
+    const iconSpan = a.querySelector('.material-symbols-outlined');
+    if (iconSpan) iconSpan.textContent = link.icon;
     nav.appendChild(a);
   }
 

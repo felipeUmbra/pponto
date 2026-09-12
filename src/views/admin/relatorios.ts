@@ -15,9 +15,13 @@ import { formatBank, formatDuration, formatLongDate, monthLabel } from '../../ut
 
 const OT_COLORS = ['bg-blue-vibrant', 'bg-purple-bank', 'bg-amber-soft', 'bg-teal-success', 'bg-ruby-danger'];
 
+import { createAdminPageSkeleton } from '../../components/skeleton.js';
+
 export async function renderRelatorios(): Promise<HTMLElement> {
   const el = document.createElement('div');
   el.className = 'space-y-6';
+  // Show skeleton while loading
+  el.appendChild(createAdminPageSkeleton());
   el.innerHTML = '<p class="text-caption text-outline text-center py-8">Carregando dados…</p>';
 
   const user = getCurrentUser();

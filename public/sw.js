@@ -1,12 +1,26 @@
-const CACHE_NAME = 'pponto-v2';
-const APP_SHELL = ['./', './index.html', './manifest.webmanifest', './clock.svg'];
+const CACHE_NAME = 'pponto-v5';
+const APP_SHELL = [
+  './',
+  './index.html',
+  './manifest.webmanifest',
+  './clock.svg',
+  './icons/icon-192.png',
+  './icons/icon-512.png',
+  './icons/icon-192-maskable.png',
+  './icons/icon-512-maskable.png',
+];
 
+// Install: precache the app shell + icon set, then switch to the new version.
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL)).then(() => self.skipWaiting()),
+    caches
+      .open(CACHE_NAME)
+      .then((cache) => cache.addAll(APP_SHELL))
+      .then(() => self.skipWaiting()),
   );
 });
 
+// Activate: drop old caches and take control of uncontrolled clients.
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches
@@ -16,6 +30,8 @@ self.addEventListener('activate', (event) => {
   );
 });
 
+// Fetch: cache-first with network revalidation for same-origin GET requests,
+// falling back to the cached index.html (offline SPA shell) on network failure.
 self.addEventListener('fetch', (event) => {
   // Only handle GET same-origin requests in production; skip during dev
   if (event.request.method !== 'GET') return;

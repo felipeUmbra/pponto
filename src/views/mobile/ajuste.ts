@@ -12,18 +12,15 @@ import { getTodayPunches, insertAdjustment } from '../../api/data.js';
 import type { Punch, PunchType } from '../../types.js';
 import { PUNCH_LABELS, dateKey } from '../../utils/time.js';
 import { esc } from '../../utils/dom.js';
+import { createMobileViewSkeleton } from '../../components/skeleton.js';
 
 type AdjKind = 'inclusao' | 'alteracao' | 'abono';
 
 export function renderAjuste(): HTMLElement {
   const el = document.createElement('div');
   el.className = 'space-y-3.5';
-  el.innerHTML = `
-    <div class="text-center py-6 text-outline text-body-sm">
-      <span class="material-symbols-outlined animate-spin inline-block">autorenew</span>
-      Carregando formulário...
-    </div>
-  `;
+  // Show skeleton while loading
+  el.appendChild(createMobileViewSkeleton());
   void initAjuste(el);
   return el;
 }

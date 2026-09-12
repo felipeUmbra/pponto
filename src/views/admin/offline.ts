@@ -15,9 +15,13 @@ import { insertPunch } from '../../api/data.js';
 import type { Punch } from '../../types.js';
 import { formatSeconds } from '../../utils/time.js';
 import { showToast } from '../../components/toast.js';
+import { createAdminPageSkeleton } from '../../components/skeleton.js';
+import { createEmptyState } from '../../components/empty-state.js';
 
 export function renderOffline(): HTMLElement {
   const el = document.createElement('div');
+  // Show skeleton while loading (though this view loads fast)
+  el.appendChild(createAdminPageSkeleton());
   el.className = 'space-y-4 max-w-2xl';
   el.innerHTML = `
     <section class="bg-neutral-card rounded-xl p-4 border border-border-subtle shadow-sm">
@@ -92,7 +96,11 @@ async function initOffline(root: HTMLElement): Promise<void> {
     if (listEl) {
       listEl.innerHTML = queued.length
         ? queued.map(renderQueuedItem).join('')
-        : '<p class="text-caption text-outline text-center py-4">Nenhum registro pendente. Tudo sincronizado! 🎉</p>';
+        : createEmptyState({
+            icon: 'cloud_done',
+            title: 'Tudo sincronizado',
+            subtitle: 'Nenhum registro pendente de sincronização 🎉',
+          }).outerHTML;
     }
   };
 

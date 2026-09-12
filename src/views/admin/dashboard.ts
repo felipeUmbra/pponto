@@ -10,10 +10,14 @@ import {
 } from '../../api/data.js';
 import type { MedicalCertificate, AdjustmentRequest } from '../../types.js';
 
+import { createAdminPageSkeleton } from '../../components/skeleton.js';
+import { createEmptyState } from '../../components/empty-state.js';
+
 export async function renderDashboard(): Promise<HTMLElement> {
   const el = document.createElement('div');
   el.className = 'space-y-6';
-  el.innerHTML = '<p class="text-caption text-outline text-center py-8">Carregando dados…</p>';
+  // Show skeleton while loading
+  el.appendChild(createAdminPageSkeleton());
 
   try {
     const [stats, users, certificates, adjustments] = await Promise.all([
@@ -183,7 +187,11 @@ function renderSideQueue(
   certList.className = 'mt-4 space-y-3';
 
   if (certificates.length === 0) {
-    certList.innerHTML = '<p class="text-caption text-outline text-center py-4">Nenhum atestado pendente</p>';
+    certList.appendChild(createEmptyState({
+      icon: 'medical_information',
+      title: 'Nenhum atestado pendente',
+      subtitle: 'Todos os atestados estão em dia 🎉',
+    }));
   } else {
     for (const c of certificates.slice(0, 3)) {
       const item = document.createElement('div');
@@ -225,7 +233,11 @@ function renderSideQueue(
   const adjList = document.createElement('div');
   adjList.className = 'mt-4 space-y-3';
   if (adjustments.length === 0) {
-    adjList.innerHTML = '<p class="text-caption text-outline text-center py-4">Nenhum ajuste pendente</p>';
+    adjList.appendChild(createEmptyState({
+      icon: 'edit_calendar',
+      title: 'Nenhum ajuste pendente',
+      subtitle: 'Todos os ajustes estão em dia 🎉',
+    }));
   } else {
     for (const a of adjustments.slice(0, 3)) {
       const item = document.createElement('div');

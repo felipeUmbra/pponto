@@ -18,10 +18,13 @@ import { esc } from '../../utils/dom.js';
 import { showToast } from '../../components/toast.js';
 import { showModal } from '../../components/modal.js';
 
+import { createAdminPageSkeleton } from '../../components/skeleton.js';
+
 export async function renderCercas(): Promise<HTMLElement> {
   const el = document.createElement('div');
   el.className = 'space-y-6';
-  el.innerHTML = '<p class="text-caption text-outline text-center py-8">Carregando dados…</p>';
+  // Show skeleton while loading
+  el.appendChild(createAdminPageSkeleton());
 
   const user = getCurrentUser();
   const companyId = user?.company_id ?? 'cmp-001';

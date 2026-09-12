@@ -16,11 +16,13 @@ import type { CompanySettings } from '../../types.js';
 import { getCurrentUser } from '../../core/store.js';
 import { esc } from '../../utils/dom.js';
 import { showToast } from '../../components/toast.js';
+import { createAdminPageSkeleton } from '../../components/skeleton.js';
 
 export async function renderConfiguracoes(): Promise<HTMLElement> {
   const el = document.createElement('div');
   el.className = 'space-y-6';
-  el.innerHTML = '<p class="text-caption text-outline text-center py-8">Carregando dados…</p>';
+  // Show skeleton while loading
+  el.appendChild(createAdminPageSkeleton());
 
   const user = getCurrentUser();
   const companyId = user?.company_id ?? 'cmp-001';

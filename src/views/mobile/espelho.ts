@@ -28,18 +28,16 @@ import {
   weekdayLabel,
 } from '../../utils/time.js';
 import { renderPunchSlots } from '../../components/punch-card.js';
+import { createMobileViewSkeleton } from '../../components/skeleton.js';
+import { createEmptyState } from '../../components/empty-state.js';
 
 type Filter = 'all' | 'inconsistencies' | 'requests';
 
 export function renderEspelho(): HTMLElement {
   const el = document.createElement('div');
   el.className = 'space-y-3.5';
-  el.innerHTML = `
-    <div class="text-center py-6 text-outline text-body-sm">
-      <span class="material-symbols-outlined animate-spin inline-block">autorenew</span>
-      Carregando espelho...
-    </div>
-  `;
+  // Show skeleton while loading
+  el.appendChild(createMobileViewSkeleton());
   void initEspelho(el);
   return el;
 }
@@ -264,7 +262,11 @@ async function initEspelho(root: HTMLElement): Promise<void> {
 
     const list = filtered.length
       ? filtered.map((d) => dayCard(d)).join('')
-      : `<div class="text-center py-8 text-outline text-caption">Nenhum registro neste filtro.</div>`;
+      : createEmptyState({
+          icon: 'history_toggle_off',
+          title: 'Nenhum registro neste filtro',
+          subtitle: 'Não há batidas ou solicitações para o período selecionado.',
+        }).outerHTML;
 
     region.innerHTML = `${header}${tabs}<section class="space-y-3">${list}</section>`;
 

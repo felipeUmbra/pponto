@@ -163,3 +163,132 @@
 .material-symbols-outlined.text-\[28px\] { font-size: 28px; font-variation-settings: 'opsz' 28; }
 .material-symbols-outlined.text-\[30px\] { font-size: 30px; font-variation-settings: 'opsz' 30; }
 .material-symbols-outlined.text-\[32px\] { font-size: 32px; font-variation-settings: 'opsz' 32; }
+
+/* =========================================================
+   Skeleton loading animations (from Stitch design system)
+   ========================================================= */
+@keyframes shimmer {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+.skeleton-text {
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+.skeleton-text,
+.skeleton-text.h-4 {
+  animation: shimmer 1.5s ease-in-out infinite;
+  background-color: #dce9ff;
+}
+
+/* Ensure skeleton animation works with Tailwind animate-pulse */
+.animate-pulse.skeleton-text {
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+/* =========================================================
+   Accessibility: Focus rings and prefers-reduced-motion
+   ========================================================= */
+
+/* Focus visible styles - consistent focus rings for keyboard navigation */
+:focus-visible {
+  outline: 2px solid var(--color-blue-vibrant);
+  outline-offset: 2px;
+}
+
+/* Remove default focus for mouse users, keep for keyboard */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Custom focus ring utility classes */
+.focus-ring {
+  outline: none;
+}
+.focus-ring:focus-visible {
+  outline: 2px solid var(--color-blue-vibrant);
+  outline-offset: 2px;
+}
+
+/* Reduced motion - disable animations for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Disable specific animations */
+  .pulse-ring-active,
+  .scanner-beam,
+  .animate-pulse,
+  .animate-spin,
+  .skeleton-text {
+    animation: none !important;
+  }
+
+  /* Keep opacity changes instant */
+  .animate-pulse {
+    opacity: 1 !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --color-border-subtle: #000;
+    --color-on-surface-variant: #000;
+  }
+
+  .bg-surface-container-high {
+    background-color: var(--color-surface-container-high) !important;
+  }
+}
+
+/* Ensure sufficient touch targets (minimum 44x44px) */
+@media (pointer: coarse) {
+  button,
+  [role="button"],
+  a,
+  input,
+  select,
+  textarea {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Screen reader only utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Skip to main content link */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.75rem 1.5rem;
+  background: var(--color-blue-vibrant);
+  color: white;
+  border-radius: 0.5rem;
+  z-index: 100;
+  font-weight: 600;
+}
+.skip-link:focus {
+  top: 1rem;
+}

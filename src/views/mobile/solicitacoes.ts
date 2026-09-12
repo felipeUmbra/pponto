@@ -8,18 +8,16 @@ import { getCertificates, getAdjustments } from '../../api/data.js';
 import type { MedicalCertificate as Cert, AdjustmentRequest as Adj } from '../../types.js';
 import { esc } from '../../utils/dom.js';
 import { renderStatusBadge } from '../../components/status-badge.js';
+import { createMobileViewSkeleton } from '../../components/skeleton.js';
+import { createEmptyState } from '../../components/empty-state.js';
 
 type Tab = 'certificates' | 'adjustments';
 
 export function renderSolicitacoes(): HTMLElement {
   const el = document.createElement('div');
   el.className = 'space-y-3.5';
-  el.innerHTML = `
-    <div class="text-center py-6 text-outline text-body-sm">
-      <span class="material-symbols-outlined animate-spin inline-block">autorenew</span>
-      Carregando solicitações...
-    </div>
-  `;
+  // Show skeleton while loading
+  el.appendChild(createMobileViewSkeleton());
   void initSolicitacoes(el);
   return el;
 }
@@ -121,10 +119,16 @@ async function initSolicitacoes(root: HTMLElement): Promise<void> {
       tab === 'certificates'
         ? certs.length
           ? certs.map(certCard).join('')
-          : '<div class="text-center py-8 text-outline text-caption">Nenhum atestado cadastrado.</div>'
+          : createEmptyState({
+              icon: 'medical_information',
+              title: 'Nenhum atestado cadastrado',
+            }).outerHTML
         : adjs.length
           ? adjs.map(adjCard).join('')
-          : '<div class="text-center py-8 text-outline text-caption">Nenhum ajuste solicitado.</div>';
+          : createEmptyState({
+              icon: 'edit_calendar',
+              title: 'Nenhum ajuste solicitado',
+            }).outerHTML;
 
     region.innerHTML = `${tabs}<section class="space-y-3">${body}</section>`;
 

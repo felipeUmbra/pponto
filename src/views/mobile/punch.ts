@@ -31,16 +31,13 @@ import {
 } from '../../utils/time.js';
 import { renderTodayGrid } from '../../components/punch-card.js';
 import { esc } from '../../utils/dom.js';
+import { createMobileViewSkeleton } from '../../components/skeleton.js';
 
 export function renderPonto(): HTMLElement {
   const el = document.createElement('div');
   el.className = 'space-y-3.5';
-  el.innerHTML = `
-    <div class="text-center py-6 text-outline text-body-sm">
-      <span class="material-symbols-outlined animate-spin inline-block">autorenew</span>
-      Carregando...
-    </div>
-  `;
+  // Show skeleton while loading
+  el.appendChild(createMobileViewSkeleton());
   void initPunch(el);
   return el;
 }

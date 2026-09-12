@@ -136,8 +136,8 @@ window.addEventListener('pponto:refresh', () => {
 });
 
 // Boot
-initRouter();
 onRouteChange(render);
+initRouter();
 
 // Auto-drain the offline queue when the app boots online.
 // Uses a dynamic import to keep the boot path lean, and only runs

@@ -21,6 +21,7 @@ import {
 } from '../../api/data.js';
 import type { PunchType } from '../../types.js';
 import { PUNCH_SHORT_LABELS, PUNCH_CTA_LABELS, PUNCH_ORDER, formatLongDate, formatSeconds, formatTime, haversineMeters, nextPunchType } from '../../utils/time.js';
+import { createAdminPageSkeleton } from '../../components/skeleton.js';
 
 interface GeoState {
   lat: number;
@@ -34,12 +35,8 @@ interface GeoState {
 export async function renderPontoWeb(): Promise<HTMLElement> {
   const el = document.createElement('div');
   el.className = 'space-y-6';
-  el.innerHTML = `
-    <div class="text-center py-6 text-outline text-body-sm">
-      <span class="material-symbols-outlined animate-spin inline-block">autorenew</span>
-      Carregando Ponto Web...
-    </div>
-  `;
+  // Show skeleton while loading
+  el.appendChild(createAdminPageSkeleton());
   void initPontoWeb(el);
   return el;
 }

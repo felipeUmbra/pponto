@@ -25,15 +25,23 @@ export function renderMobileNav(activeRoute: RouteName): HTMLElement {
   for (const item of NAV_ITEMS) {
     const isActive = item.route === activeRoute;
     const btn = document.createElement('button');
-    btn.className = `flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-lg transition-colors ${
+    btn.className = `flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-lg transition-colors focus-ring ${
       isActive
         ? 'text-blue-vibrant bg-blue-vibrant/10'
         : 'text-outline hover:text-on-surface hover:bg-surface-container-low'
     }`;
-    btn.innerHTML = `
-      <span class="material-symbols-outlined text-[22px]">${item.icon}</span>
-      <span class="text-[10px] font-medium leading-tight">${item.label}</span>
-    `;
+    btn.setAttribute('role', 'tab');
+    btn.setAttribute('aria-label', item.label);
+    btn.setAttribute('aria-selected', isActive.toString());
+    const iconSpan = document.createElement('span');
+    iconSpan.className = 'material-symbols-outlined text-[22px]';
+    iconSpan.textContent = item.icon;
+    iconSpan.setAttribute('aria-hidden', 'true');
+    const labelSpan = document.createElement('span');
+    labelSpan.className = 'text-[10px] font-medium leading-tight';
+    labelSpan.textContent = item.label;
+    btn.appendChild(iconSpan);
+    btn.appendChild(labelSpan);
     btn.addEventListener('click', () => navigate(`/${item.route}`));
     nav.appendChild(btn);
   }

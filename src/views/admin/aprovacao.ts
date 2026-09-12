@@ -10,10 +10,14 @@ import {
 import type { AdjustmentRequest } from '../../types.js';
 import { getCurrentUser } from '../../core/store.js';
 
+import { createAdminPageSkeleton } from '../../components/skeleton.js';
+import { createEmptyState } from '../../components/empty-state.js';
+
 export async function renderAprovacao(): Promise<HTMLElement> {
   const el = document.createElement('div');
   el.className = 'space-y-6';
-  el.innerHTML = '<p class="text-caption text-outline text-center py-8">Carregando dados…</p>';
+  // Show skeleton while loading
+  el.appendChild(createAdminPageSkeleton());
 
   try {
     const [adjustments, users] = await Promise.all([listPendingAdjustments(), listAdminUsers()]);
@@ -39,7 +43,12 @@ export async function renderAprovacao(): Promise<HTMLElement> {
     const badge = header.querySelector<HTMLSpanElement>('.inline-flex');
 
     if (adjustments.length === 0) {
-      grid.innerHTML = '<p class="text-caption text-outline text-center py-8 col-span-full">Nenhum ajuste pendente 🎉</p>';
+      grid.appendChild(createEmptyState({
+        icon: 'edit_calendar',
+        title: 'Nenhum ajuste pendente',
+        subtitle: 'Todos os ajustes estão em dia 🎉',
+        className: 'col-span-full',
+      }));
     } else {
       for (const a of adjustments) {
         const emp = userById.get(a.user_id);

@@ -5,33 +5,14 @@
  */
 import { tursoQuery } from './turso-client.js';
 import { saveSession, clearSession, getCurrentUser } from './store.js';
-import { HAS_TURSO, isDemoMode, setDemoFallback } from '../api/data.js';
+import { HAS_TURSO, isDemoMode, setDemoFallback, findDemoUser, type DemoAuthUser } from '../api/data.js';
 import type { Session, User } from '../types.js';
 
-interface UserRow {
-  id: string;
-  cpf: string;
-  pin_hash: string | null;
-  name: string;
-  email: string;
-  role: string;
-  company_id: string;
-  department_id: string | null;
-}
-
-const DEMO_USERS: UserRow[] = [
-  { id: 'usr-demo-1', cpf: '35470291012', pin_hash: '1234', name: 'Ana Beatriz Souza', email: 'ana.souza@pponto.dev', role: 'employee', company_id: 'cmp-001', department_id: 'dept-02' },
-  { id: 'usr-demo-2', cpf: '82947215075', pin_hash: '1234', name: 'Rafael Mendes', email: 'rafael.mendes@pponto.dev', role: 'employee', company_id: 'cmp-001', department_id: 'dept-02' },
-  { id: 'usr-demo-3', cpf: '11122233344', pin_hash: '1234', name: 'Carlos Medeiros', email: 'carlos.medeiros@pponto.dev', role: 'manager', company_id: 'cmp-001', department_id: 'dept-03' },
-  { id: 'usr-demo-4', cpf: '55566677788', pin_hash: '1234', name: 'Mariana Alencar', email: 'mariana.alencar@pponto.dev', role: 'rh', company_id: 'cmp-001', department_id: 'dept-01' },
-  { id: 'usr-demo-5', cpf: '99988877766', pin_hash: '1234', name: 'Pedro Augusto', email: 'pedro.augusto@pponto.dev', role: 'admin', company_id: 'cmp-001', department_id: 'dept-01' },
-];
-
-async function findUser(cpfOrId: string): Promise<UserRow> {
+async function findUser(cpfOrId: string): Promise<DemoAuthUser> {
   if (HAS_TURSO && !isDemoMode()) {
     try {
       const where = cpfOrId.length === 11 ? 'cpf = ?' : 'id = ?';
-      const users = await tursoQuery<UserRow>(
+      const users = await tursoQuery<DemoAuthUser>(
         `SELECT id, cpf, pin_hash, name, email, role, company_id, department_id FROM users WHERE ${where} LIMIT 1`,
         [cpfOrId],
       );
@@ -40,17 +21,17 @@ async function findUser(cpfOrId: string): Promise<UserRow> {
     } catch (err) {
       // Unauthorized / network — degrade to demo so the app stays usable
       setDemoFallback(true);
-      const u = DEMO_USERS.find((x) => x.id === cpfOrId || x.cpf === cpfOrId);
+      const u = findDemoUser(cpfOrId);
       if (!u) throw err;
       return u;
     }
   }
-  const u = DEMO_USERS.find((x) => x.id === cpfOrId || x.cpf === cpfOrId);
+  const u = findDemoUser(cpfOrId);
   if (!u) throw new Error('Usuário não encontrado.');
   return u;
 }
 
-function toSession(u: UserRow): Session {
+function toSession(u: DemoAuthUser): Session {
   return {
     user: {
       id: u.id,

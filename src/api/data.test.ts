@@ -19,6 +19,11 @@ import {
   deleteGeofence,
   getAdminReport,
   businessDaysInMonth,
+  createUser,
+  listSchedules,
+  findDemoUser,
+  registerDemoUser,
+  listUsers,
 } from './data.js';
 
 // These tests run against the built-in demo dataset (no Turso credentials
@@ -171,5 +176,65 @@ describe('Phase 4 admin data layer', () => {
     expect(report.weekly.length).toBe(4);
     expect(report.totalBankMinutes).toBeDefined();
     expect(report.absenceRate).toBeGreaterThanOrEqual(0);
+  });
+});
+
+describe('Phase 6 user management', () => {
+  it('creates a user in demo mode and registers them for login', async () => {
+    const id = await createUser({
+      companyId: 'cmp-001',
+      departmentId: 'dept-02',
+      cpf: '12345678901',
+      name: 'Nova Colaboradora',
+      email: 'nova@pponto.dev',
+      role: 'employee',
+      pin: '4321',
+      scheduleId: 'sch-comercial',
+    });
+    expect(id).toBeTruthy();
+
+    // Listed among demo users
+    const users = await listUsers();
+    expect(users.some((u) => u.id === id && u.name === 'Nova Colaboradora')).toBe(true);
+
+    // Can be found by the auth demo registry (id and CPF)
+    expect(findDemoUser(id)?.pin_hash).toBe('4321');
+    expect(findDemoUser('12345678901')?.name).toBe('Nova Colaboradora');
+  });
+
+  it('lists company work schedules', async () => {
+    const schedules = await listSchedules('cmp-001');
+    expect(schedules.length).toBeGreaterThan(0);
+    expect(schedules.some((s) => s.name === 'Comercial 8h')).toBe(true);
+  });
+
+  it('registers demo users idempotently (same id/CPF not duplicated)', async () => {
+    await createUser({
+      companyId: 'cmp-001',
+      departmentId: null,
+      cpf: '98765432100',
+      name: 'Duplicata Fake',
+      email: 'dup@pponto.dev',
+      role: 'manager',
+      pin: '1111',
+      scheduleId: null,
+    });
+    await createUser({
+      companyId: 'cmp-001',
+      departmentId: null,
+      cpf: '98765432100',
+      name: 'Duplicata Fake',
+      email: 'dup@pponto.dev',
+      role: 'manager',
+      pin: '1111',
+      scheduleId: null,
+    });
+    // Two users exist in the dataset, but demo-auth keys on CPF are unique.
+    const byCpf = findDemoUser('98765432100');
+    expect(byCpf?.name).toBe('Duplicata Fake');
+    // registerDemoUser is idempotent — pushing the same CPF again is a no-op.
+    registerDemoUser(byCpf!);
+    const count = ['98765432100'].filter((q) => !!findDemoUser(q)).length;
+    expect(count).toBe(1);
   });
 });

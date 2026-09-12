@@ -35,6 +35,40 @@ export function setDemoFallback(v: boolean): void {
 }
 export const isDemoMode = (): boolean => !HAS_TURSO || demoFallback;
 
+// ─── Demo authentication registry ───────────────────────────
+// Single source of truth for demo-mode credentials so that users created
+// via the admin UI (when Turso is absent/unreachable) can log in right away.
+export interface DemoAuthUser {
+  id: string;
+  cpf: string;
+  pin_hash: string | null;
+  name: string;
+  email: string;
+  role: string;
+  company_id: string;
+  department_id: string | null;
+}
+
+const DEMO_AUTH_USERS: DemoAuthUser[] = [
+  { id: 'usr-demo-1', cpf: '35470291012', pin_hash: '1234', name: 'Ana Beatriz Souza', email: 'ana.souza@pponto.dev', role: 'employee', company_id: 'cmp-001', department_id: 'dept-02' },
+  { id: 'usr-demo-2', cpf: '82947215075', pin_hash: '1234', name: 'Rafael Mendes', email: 'rafael.mendes@pponto.dev', role: 'employee', company_id: 'cmp-001', department_id: 'dept-02' },
+  { id: 'usr-demo-3', cpf: '11122233344', pin_hash: '1234', name: 'Carlos Medeiros', email: 'carlos.medeiros@pponto.dev', role: 'manager', company_id: 'cmp-001', department_id: 'dept-03' },
+  { id: 'usr-demo-4', cpf: '55566677788', pin_hash: '1234', name: 'Mariana Alencar', email: 'mariana.alencar@pponto.dev', role: 'rh', company_id: 'cmp-001', department_id: 'dept-01' },
+  { id: 'usr-demo-5', cpf: '99988877766', pin_hash: '1234', name: 'Pedro Augusto', email: 'pedro.augusto@pponto.dev', role: 'admin', company_id: 'cmp-001', department_id: 'dept-01' },
+];
+
+/** Register a newly-created user in the demo login list. */
+export function registerDemoUser(u: DemoAuthUser): void {
+  if (!DEMO_AUTH_USERS.some((x) => x.id === u.id || x.cpf === u.cpf)) {
+    DEMO_AUTH_USERS.push(u);
+  }
+}
+
+/** Find a demo-mode user by id or CPF (used by auth for demo fallback). */
+export function findDemoUser(cpfOrId: string): DemoAuthUser | undefined {
+  return DEMO_AUTH_USERS.find((x) => x.id === cpfOrId || x.cpf === cpfOrId);
+}
+
 /**
  * Run the Turso query and, on ANY failure (401/network/proxy), flip the
  * demo fallback flag and return the demo equivalent. Mirrors `listUsers()`
@@ -1129,6 +1163,78 @@ export async function deleteGeofence(fenceId: string): Promise<void> {
     return;
   }
   await tursoExecute('DELETE FROM geofences WHERE id = ?', [fenceId]);
+}
+
+// ─── Admin user management (Phase 6) ───────────────────────
+
+/** All work schedules for a company (new-user form + RBAC). */
+export async function listSchedules(companyId: string): Promise<WorkSchedule[]> {
+  return withDemo(
+    () =>
+      tursoQuery<WorkSchedule>('SELECT * FROM work_schedules WHERE company_id = ? ORDER BY name', [companyId]),
+    () => Object.values(demo.schedules).filter((s) => s.company_id === companyId),
+  );
+}
+
+/**
+ * Create a new user (employee/manager/rh/admin) with PIN and optional
+ * schedule assignment. Works in demo mode (mutates the in-memory seed)
+ * and against Turso (INSERT users + schedule_assignments).
+ */
+export async function createUser(input: {
+  companyId: string;
+  departmentId: string | null;
+  cpf: string;
+  name: string;
+  email: string;
+  role: User['role'];
+  pin: string;
+  scheduleId: string | null;
+}): Promise<string> {
+  const id = `usr-${crypto.randomUUID().slice(0, 8)}`;
+  const now = new Date().toISOString();
+
+  if (isDemoMode()) {
+    demo.users.push({
+      id,
+      company_id: input.companyId,
+      department_id: input.departmentId,
+      cpf: input.cpf,
+      name: input.name,
+      email: input.email,
+      role: input.role,
+      created_at: now,
+    });
+    // Keep the demo auth list in sync so the new user can log in.
+    if (input.pin) {
+      registerDemoUser({
+        id,
+        cpf: input.cpf,
+        pin_hash: input.pin,
+        name: input.name,
+        email: input.email,
+        role: input.role,
+        company_id: input.companyId,
+        department_id: input.departmentId,
+      });
+    }
+    return id;
+  }
+
+  await tursoExecute(
+    `INSERT INTO users (id, company_id, department_id, cpf, name, email, role, pin_hash, created_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    [id, input.companyId, input.departmentId, input.cpf, input.name, input.email, input.role, input.pin, now],
+  );
+
+  if (input.scheduleId) {
+    await tursoExecute(
+      `INSERT INTO schedule_assignments (id, user_id, schedule_id, start_date, end_date, created_at)
+       VALUES (?, ?, ?, ?, NULL, ?)`,
+      [`sa-${crypto.randomUUID().slice(0, 8)}`, id, input.scheduleId, now, now],
+    );
+  }
+  return id;
 }
 
 /** Persist company settings feature flags. */

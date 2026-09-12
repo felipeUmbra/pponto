@@ -7,13 +7,16 @@
  * - RBAC role matrix
  */
 import {
+  createUser,
   getCompanySettings,
   listAdminUsers,
   listDepartments,
+  listSchedules,
   updateCompanySettings,
 } from '../../api/data.js';
-import type { CompanySettings } from '../../types.js';
+import type { CompanySettings, UserRole } from '../../types.js';
 import { getCurrentUser } from '../../core/store.js';
+import { rerender } from '../../router.js';
 import { esc } from '../../utils/dom.js';
 import { showToast } from '../../components/toast.js';
 import { createAdminPageSkeleton } from '../../components/skeleton.js';
@@ -29,10 +32,11 @@ export async function renderConfiguracoes(): Promise<HTMLElement> {
   const isAdmin = user?.role === 'admin';
 
   try {
-    const [settings, users, departments] = await Promise.all([
+    const [settings, users, departments, schedules] = await Promise.all([
       getCompanySettings(companyId),
       listAdminUsers(),
       listDepartments(companyId),
+      listSchedules(companyId),
     ]);
     el.innerHTML = '';
 
@@ -59,7 +63,7 @@ export async function renderConfiguracoes(): Promise<HTMLElement> {
     el.appendChild(renderReminder(settings, companyId, isAdmin));
 
     // ── RBAC matrix ──
-    el.appendChild(renderRbac(users, departments));
+    el.appendChild(renderRbac(users, departments, schedules, companyId, isAdmin));
   } catch (err) {
     el.innerHTML = `<p class="text-caption text-ruby-danger text-center py-8">Erro ao carregar: ${String(err)}</p>`;
   }
@@ -182,6 +186,9 @@ function renderReminder(settings: CompanySettings, companyId: string, isAdmin: b
 function renderRbac(
   users: Awaited<ReturnType<typeof listAdminUsers>>,
   departments: Awaited<ReturnType<typeof listDepartments>>,
+  schedules: Awaited<ReturnType<typeof listSchedules>>,
+  companyId: string,
+  isAdmin: boolean,
 ): HTMLElement {
   const section = document.createElement('section');
   section.className = 'bg-neutral-card rounded-xl p-5 border border-border-subtle shadow-sm';
@@ -198,9 +205,14 @@ function renderRbac(
   };
 
   section.innerHTML = `
-    <div class="mb-4">
-      <h2 class="text-headline-sm text-on-surface">Controle de Acesso (RBAC)</h2>
-      <p class="text-caption text-outline">${departments.map((d) => esc(d.name)).join(' • ')}</p>
+    <div class="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+      <div>
+        <h2 class="text-headline-sm text-on-surface">Controle de Acesso (RBAC)</h2>
+        <p class="text-caption text-outline">${departments.map((d) => esc(d.name)).join(' • ')}</p>
+      </div>
+      <button class="px-3 py-2 rounded-lg bg-blue-vibrant hover:bg-secondary text-white text-body-sm font-semibold shadow-sm transition-colors flex items-center gap-1.5 btn-add-user ${isAdmin ? '' : 'opacity-40 pointer-events-none'}" ${isAdmin ? '' : 'disabled'}>
+        <span class="material-symbols-outlined text-[18px]">person_add</span>Novo Colaborador
+      </button>
     </div>
     <div class="overflow-x-auto">
       <table class="w-full text-left border-collapse">
@@ -231,5 +243,183 @@ function renderRbac(
       </table>
     </div>`;
 
+  // ── Add user modal ──
+  section.querySelector('.btn-add-user')?.addEventListener('click', () => {
+    void openAddUserModal({ departments, schedules, companyId, onCreated: () => {
+      showToast('Colaborador criado', 'O novo acesso já está disponível para login.', { icon: 'check_circle', tone: 'success' });
+      rerender();
+    }});
+  });
+
   return section;
+}
+
+// ─── Add-user modal (Phase 6) ──────────────────────────────
+
+interface AddUserModalOptions {
+  departments: Awaited<ReturnType<typeof listDepartments>>;
+  schedules: Awaited<ReturnType<typeof listSchedules>>;
+  companyId: string;
+  onCreated: () => void;
+}
+
+function openAddUserModal(opts: AddUserModalOptions): Promise<void> {
+  return new Promise((resolve) => {
+    const backdrop = document.createElement('div');
+    backdrop.className =
+      'fixed inset-0 z-50 bg-navy-deep/60 backdrop-blur-sm flex items-center justify-center p-4 transition-opacity duration-200';
+
+    const panel = document.createElement('div');
+    panel.className =
+      'bg-surface-container-lowest rounded-2xl shadow-2xl w-full max-w-lg border border-border-subtle overflow-hidden transition-transform duration-200 scale-95';
+
+    const roleOptions = (['employee', 'manager', 'rh', 'admin'] as UserRole[])
+      .map((r) => {
+        const label: Record<UserRole, string> = { employee: 'Colaborador', manager: 'Gestor', rh: 'RH', admin: 'Admin' };
+        return `<option value="${r}">${label[r]}</option>`;
+      })
+      .join('');
+
+    panel.innerHTML = `
+      <div class="p-5 border-b border-border-subtle flex items-center justify-between gap-3">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-lg bg-blue-vibrant/10 text-blue-vibrant flex items-center justify-center">
+            <span class="material-symbols-outlined text-[20px]">person_add</span>
+          </div>
+          <h3 class="text-headline-sm font-bold text-on-surface">Novo Colaborador</h3>
+        </div>
+        <button class="w-8 h-8 rounded-lg text-outline hover:bg-surface-container hover:text-on-surface transition-colors flex items-center justify-center btn-close-user" aria-label="Fechar">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+      <form class="p-5 space-y-4 max-h-[70vh] overflow-y-auto">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="sm:col-span-2">
+            <label class="block text-body-sm font-medium text-on-surface mb-1.5">Nome completo *</label>
+            <input name="name" required placeholder="Maria da Silva"
+              class="w-full px-3 py-2 text-body-md bg-neutral-canvas border border-border-subtle rounded-lg focus:outline-none focus:border-blue-vibrant focus:ring-1 focus:ring-blue-vibrant" />
+          </div>
+          <div>
+            <label class="block text-body-sm font-medium text-on-surface mb-1.5">CPF *</label>
+            <input name="cpf" required inputmode="numeric" maxlength="14" placeholder="000.000.000-00"
+              class="w-full px-3 py-2 text-body-md bg-neutral-canvas border border-border-subtle rounded-lg focus:outline-none focus:border-blue-vibrant focus:ring-1 focus:ring-blue-vibrant font-mono" />
+          </div>
+          <div>
+            <label class="block text-body-sm font-medium text-on-surface mb-1.5">E-mail *</label>
+            <input name="email" type="email" required placeholder="maria@empresa.com"
+              class="w-full px-3 py-2 text-body-md bg-neutral-canvas border border-border-subtle rounded-lg focus:outline-none focus:border-blue-vibrant focus:ring-1 focus:ring-blue-vibrant" />
+          </div>
+          <div>
+            <label class="block text-body-sm font-medium text-on-surface mb-1.5">Função *</label>
+            <select name="role" class="w-full px-3 py-2 text-body-md bg-neutral-canvas border border-border-subtle rounded-lg focus:outline-none focus:border-blue-vibrant focus:ring-1 focus:ring-blue-vibrant">
+              ${roleOptions}
+            </select>
+          </div>
+          <div>
+            <label class="block text-body-sm font-medium text-on-surface mb-1.5">Departamento *</label>
+            <select name="department" required class="w-full px-3 py-2 text-body-md bg-neutral-canvas border border-border-subtle rounded-lg focus:outline-none focus:border-blue-vibrant focus:ring-1 focus:ring-blue-vibrant">
+              <option value="">Selecione...</option>
+              ${opts.departments.map((d) => `<option value="${esc(d.id)}">${esc(d.name)}</option>`).join('')}
+            </select>
+          </div>
+          <div>
+            <label class="block text-body-sm font-medium text-on-surface mb-1.5">Jornada</label>
+            <select name="schedule" class="w-full px-3 py-2 text-body-md bg-neutral-canvas border border-border-subtle rounded-lg focus:outline-none focus:border-blue-vibrant focus:ring-1 focus:ring-blue-vibrant">
+              <option value="">Sem jornada definida</option>
+              ${opts.schedules.map((s) => `<option value="${esc(s.id)}">${esc(s.name)}</option>`).join('')}
+            </select>
+          </div>
+          <div class="sm:col-span-2">
+            <label class="block text-body-sm font-medium text-on-surface mb-1.5">PIN de acesso (4–6 dígitos) *</label>
+            <input name="pin" required inputmode="numeric" maxlength="6" minlength="4" pattern="[0-9]{4,6}" placeholder="••••••"
+              class="w-full px-3 py-2 text-body-md bg-neutral-canvas border border-border-subtle rounded-lg focus:outline-none focus:border-blue-vibrant focus:ring-1 focus:ring-blue-vibrant text-center tracking-[0.4em] font-mono" />
+          </div>
+        </div>
+        <p id="add-user-error" class="hidden text-body-sm text-ruby-danger text-center"></p>
+      </form>
+      <div class="p-4 border-t border-border-subtle flex justify-end space-x-2 bg-neutral-canvas">
+        <button class="px-4 py-2 rounded-lg border border-border-subtle text-on-surface text-body-sm font-medium hover:bg-surface-container-low transition-colors btn-cancel-user">Cancelar</button>
+        <button class="px-4 py-2 rounded-lg bg-blue-vibrant hover:bg-secondary text-white text-body-sm font-semibold transition-colors shadow-sm flex items-center gap-1.5 btn-submit-user">
+          <span class="material-symbols-outlined text-[18px]">person_add</span>Criar Colaborador
+        </button>
+      </div>`;
+
+    backdrop.appendChild(panel);
+    document.body.appendChild(backdrop);
+    requestAnimationFrame(() => {
+      backdrop.style.opacity = '1';
+      panel.style.transform = 'scale(1)';
+    });
+
+    const close = (): void => {
+      backdrop.style.transition = 'opacity .15s';
+      backdrop.style.opacity = '0';
+      panel.style.transform = 'scale(.95)';
+      window.setTimeout(() => backdrop.remove(), 150);
+      resolve();
+    };
+
+    const errorEl = (): HTMLParagraphElement | null => panel.querySelector<HTMLParagraphElement>('#add-user-error');
+
+    backdrop.addEventListener('click', (e) => {
+      if (e.target === backdrop) close();
+    });
+    panel.querySelector('.btn-close-user')?.addEventListener('click', close);
+    panel.querySelector('.btn-cancel-user')?.addEventListener('click', close);
+
+    const submitBtn = panel.querySelector<HTMLButtonElement>('.btn-submit-user');
+    const form = panel.querySelector<HTMLFormElement>('form');
+
+    const doSubmit = async (): Promise<void> => {
+      if (!form) return;
+      const data = new FormData(form);
+      const name = String(data.get('name') ?? '').trim();
+      const cpf = String(data.get('cpf') ?? '').replace(/[^\d]/g, '');
+      const email = String(data.get('email') ?? '').trim();
+      const role = String(data.get('role') ?? 'employee') as UserRole;
+      const departmentId = String(data.get('department') ?? '');
+      const scheduleId = String(data.get('schedule') ?? '') || null;
+      const pin = String(data.get('pin') ?? '');
+
+      if (!name || cpf.length !== 11 || !email || !pin) {
+        const err = errorEl();
+        if (err) {
+          err.textContent = 'Preencha nome, CPF válido (11 dígitos), e-mail e PIN.';
+          err.classList.remove('hidden');
+        }
+        return;
+      }
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Criando...';
+      }
+
+      try {
+        await createUser({ companyId: opts.companyId, departmentId, cpf, name, email, role, pin, scheduleId });
+        close();
+        opts.onCreated();
+      } catch (err) {
+        const msg = err instanceof Error ? err.message : 'Erro ao criar colaborador.';
+        const errEl = errorEl();
+        if (errEl) {
+          errEl.textContent = msg;
+          errEl.classList.remove('hidden');
+        }
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<span class="material-symbols-outlined text-[18px]">person_add</span>Criar Colaborador';
+        }
+      }
+    };
+
+    submitBtn?.addEventListener('click', (e) => {
+      e.preventDefault();
+      void doSubmit();
+    });
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      void doSubmit();
+    });
+  });
 }

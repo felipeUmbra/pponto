@@ -6,8 +6,8 @@
     <title>pPonto</title>
     <meta name="description" content="Registro de ponto dos funcionários — pPonto" />
     <meta name="theme-color" content="#0f172a" />
-    <link rel="icon" type="image/svg+xml" href="/clock.svg" />
-    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" type="image/svg+xml" href="./clock.svg" />
+    <link rel="manifest" href="./manifest.webmanifest" />
     <!-- Material Symbols Outlined (Google Fonts) — enables all .material-symbols-outlined icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -15,7 +15,8 @@
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js').catch(() => {});
+          // Relative path so the SW is found on GitHub Pages subpaths too.
+          navigator.serviceWorker.register('./sw.js').catch(() => {});
         });
       }
     </script>

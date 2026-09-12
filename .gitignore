@@ -3,8 +3,11 @@ dist/
 coverage/
 playwright-report/
 test-results/
+.playwright-mcp/
 .env
 .env.local
+%ProgramData%\
+%SystemDrive%\
 
 # Turso credentials — NEVER commit real tokens
 .env.production

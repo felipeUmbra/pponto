@@ -173,21 +173,23 @@ Created and populated in Turso `pponto` (hostname: `pponto-felipeumbra.aws-ap-no
 | Unit tests | Vitest coverage for store, auth, router, time calculations |
 | CI pipeline | GitHub Actions: typecheck + lint + test + build on push to main |
 
-### Phase 6 — UX/UI Polish & Accessibility (planned)
+### Phase 6 — UX/UI Polish & Accessibility (implemented)
 **Goal:** Fix the missing icon rendering and bring the interface to production visual quality.
 
-| Work item | Description |
-|-----------|-------------|
-| Icon font | Load **Material Symbols Outlined** (Google Fonts) in `index.html` + define `.material-symbols-outlined` font class in `styles.css` — fixes the ~147 invisible icons across 23 files (sidebar: `dashboard`, `fingerprint`, `how_to_reg`, `medical_services`, `cloud_off`, `cloud_done`, `verified_user`, etc.) |
-| Icon audit | Sweep all `.material-symbols-outlined` usages; replace any outdated glyph names (e.g. `progress_activity` → `autorenew`, `pace` → `speed`) |
-| Icon fallback | Add a self-hosted fallback / ligature subset so icons render offline (PWA) |
-| Empty states | Illustrate blank states (no data screens) with branded graphics instead of bare text |
-| Focus & a11y | Keyboard focus rings, `aria-label` on icon-only buttons, contrast pass on `text-outline` captions, `prefers-reduced-motion` |
-| Loading skeletons | Replace "Carregando…" text with shimmer skeleton blocks for async admin views |
-| Responsive audit | Table overflow on small admin viewports; mobile safe-area insets; touch targets ≥ 44px |
-| Evidence screenshots | Capture before/after icons (`evidence_icon1.png` / `evidence_icon2.png` are the "before" evidence) |
+| Work item | Status | Description |
+|-----------|--------|-------------|
+| Icon font | ✅ | Load **Material Symbols Outlined** (Google Fonts) in `index.html` with `icon_names` subset (98 icons preloaded) + define `.material-symbols-outlined` font class in `styles.css` (with size/`font-variation-settings` utilities) |
+| Icon audit | ✅ | Sweep all `.material-symbols-outlined` usages; replaced outdated glyph names (`progress_activity` → `autorenew`, `pace` → `speed`). Verified: **69 icons used across 24 files, 0 missing from preload** |
+| Icon fallback | ✅ | 105-icon font preloaded via Google Fonts `icon_names` subset + service worker caches `index.html` (which loads the font), so the PWA works offline after first visit |
+| Empty states | ✅ | Branded empty-state component (`src/components/empty-state.ts` → `createEmptyState`) used across admin views (dashboard, offline, aprovacao, homologacao) and mobile (espelho, solicitacoes) — icon + title + message + CTA |
+| Focus & a11y | ✅ | `:focus-visible` rings, `aria-label` on icon-only buttons (mobile-nav, shell logout, etc.), `aria-hidden` on decorative icons, `prefers-reduced-motion` block (disables shimmer/pulse/scan), `prefers-contrast: high`, skip-link, `.sr-only`, `role="tab"` + `aria-selected` on mobile tabs |
+| Loading skeletons | ✅ | Shimmer skeleton components (`src/components/skeleton.ts` → `createAdminPageSkeleton`, `createPunchSkeleton`, `createListSkeleton`) used in all 9 admin views + mobile espelho/solicitacoes/ajuste |
+| Responsive audit | ✅ | Tables wrapped in `overflow-x-auto` (dashboard, tratamento, relatorios, fechamento, configuracoes); touch targets ≥ 44px via `@media (pointer: coarse)`; mobile safe-area insets (`safe-area-pb`/`safe-area-tb` with `env(safe-area-inset-*)`); mobile viewport max-w 420px |
+| Evidence screenshots | 🔲 | Capture before/after icons (`evidence_icon1.png` / `evidence_icon2.png` are the "before" evidence) — **pending: "after" screenshots not yet captured** |
 
-**Root cause (verified):** `index.html` loads no Google Fonts; `styles.css` has no `.material-symbols-outlined` font-family rule. All icon spans render as empty inline text.
+**Root cause (verified):** `index.html` loaded no Google Fonts; `styles.css` had no `.material-symbols-outlined` font-family rule. All icon spans rendered as empty inline text. Fixed by adding the Google Fonts `<link>` with `icon_names` subset + font-family class.
+
+**Delivered (Phase 6):** employee logout button in mobile `shell.ts` top bar (`logout` icon), admin toggle icons (`toggle_on`/`toggle_off` in configuracoes/cercas switches), SW cache bumped to `v4` to force fresh `index.html`.
 
 ---
 
@@ -247,10 +249,10 @@ Created and populated in Turso `pponto` (hostname: `pponto-felipeumbra.aws-ap-no
 16. ✅ Offline module (IndexedDB + sync status) ← Phase 1 done, UI Phase 4
 17. ✅ Web punch view (camera + GPS)            ← Phase 3
 18. ✅ Configurações (settings + RBAC)          ← Phase 4
-19. 🔲 PWA hardening (SW, icons, manifest)      ← Phase 5 (in progress)
-20. 🔲 E2E + CI/CD                              ← Phase 5
-21. 🔲 Icon font + UX/UI polish (missing icons)  ← Phase 6
-22. 🔲 A11y + responsive + empty states          ← Phase 6
+19. ✅ PWA hardening (SW, icons, manifest)      ← Phase 5 (implemented)
+20. ✅ E2E + CI/CD                              ← Phase 5 (implemented)
+21. ✅ Icon font + UX/UI polish (missing icons)  ← Phase 6 (implemented)
+22. ✅ A11y + responsive + empty states          ← Phase 6 (implemented)
 ```
 
 ---

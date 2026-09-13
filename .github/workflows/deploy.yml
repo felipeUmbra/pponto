@@ -62,6 +62,9 @@ jobs:
 
       - name: Build
         run: npm run build
+        env:
+          VITE_TURSO_URL: ${{ secrets.VITE_TURSO_URL }}
+          VITE_TURSO_TOKEN: ${{ secrets.VITE_TURSO_TOKEN }}
 
       - uses: actions/configure-pages@v5
         if: steps.pages.outputs.enabled == 'true'

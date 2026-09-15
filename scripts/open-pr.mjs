@@ -16,16 +16,14 @@ const headers = {
 };
 
 const body = {
-  title: 'fix(core): correct Turso HTTP wire format (params + top-level array)',
+  title: 'fix(pwa): bump SW cache to v6 for corrected Turso bundle',
   head: 'dev',
   base: 'main',
   body: [
     '## Changes',
-    '- Turso HTTP wire format: use `params` instead of `args`, top-level `statements` array, root batch.',
-    '- scripts/gh-update-secret.mjs: mints DB-scoped token and pushes as VITE_TURSO_TOKEN on github-pages env (CRLF-safe, libsodium sealed box).',
-    '- turso-live-check.mjs: verifies real-DB connectivity (passed).',
+    '- Bump service worker cache from pponto-v5 to pponto-v6.',
     '',
-    'Tests: 66 unit tests green, live Turso SELECT check passed.',
+    'Existing clients cached the old app shell (which referenced the pre-fix Turso bundle). Bumping the cache version forces the new SW to install, drop the old cache, and precache the corrected shell referencing `index-Bvk_KZUl.js` (has the `params` wire format + DB-scoped token).',
   ].join('\n'),
 };
 

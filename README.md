@@ -195,10 +195,36 @@ npm run test:e2e      # Executa testes críticos (login → punch → espelho; a
 npm run test:e2e:ui   # Abre UI do Playwright
 ```
 
+### E2E com Page Object Model
+
+Os testes E2E usam **Page Object Model (POM)**: cada tela da aplicação é encapsulada em uma classe em `e2e/pages/` que esconde os seletores e expõe intenções legíveis (`open()`, `registerPunch()`, `expectKpiCards()`). Os specs ficam legíveis como uma história — sem seletores soltos nem `page.click`/`page.locator` cru.
+
+```
+e2e/
+├── pages/                    # POM — único lugar onde seletores vivem
+│   ├── index.ts              # Barrel export
+│   ├── base.page.ts          # BasePage: gotoHash, waitForHeading, waitForText
+│   ├── home.page.ts          # HomePage
+│   ├── login.page.ts         # LoginPage: loginAs(label, redirectPattern)
+│   ├── mobile/               # Punch, espelho, solicitações
+│   └── admin/                # Dashboard, tratamento, homologação, aprovação,
+│                             # relatórios, fechamento, cercas, offline, configurações
+├── critical-flows.spec.ts    # Fluxos mobile (employee) + admin
+└── example.spec.ts           # Smoke test (homepage title)
+```
+
+**Regras do POM** (detalhadas em `.github/.agents/qa.agent.md`):
+
+1. Seletores ficam **somente** dentro das classes em `e2e/pages/` — nunca inline nos specs
+2. Cada classe encapsula a tela: navegação, esperas e asserções (`expect*`) como métodos
+3. Os specs instanciam as páginas e compõem intenções — leitura humana em primeiro lugar
+4. Login centralizado: `LoginPage.loginAs(...)` no `beforeEach`
+5. Esperas determinísticas com auto-wait do Playwright (nada de `waitForTimeout`)
+
 ### Cobertura Atual
 
 - **Unit tests**: 59 testes passando (store, auth, router, time, data, punch)
-- **E2E tests**: 2 fluxos críticos (mobile + admin)
+- **E2E tests**: 2 fluxos críticos (mobile + admin) via POM
 
 ---
 

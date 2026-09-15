@@ -1,6 +1,8 @@
-import { test, expect } from '@playwright/test';
+import { test } from '@playwright/test';
+import { HomePage } from './pages';
 
 test('homepage has title', async ({ page }) => {
-  await page.goto('/');
-  await expect(page).toHaveTitle(/pPonto/);
+  const home = new HomePage(page);
+  await home.open();
+  await home.expectTitle(/pPonto/);
 });

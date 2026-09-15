@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pponto-v5';
+const CACHE_NAME = 'pponto-v6';
 const APP_SHELL = [
   './',
   './index.html',
